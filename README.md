@@ -38,9 +38,9 @@ What we will **not** be covering:
 
 # What you should already know
 
-We are trying to make this tutorial accessible to a broad audience, so while some familiarity with statistics and data-analysis for sensory science (i.e., sensometrics) will be helpful, it isn't strictly required.  Similarly, while you will get more out of this workshop if you have a basic understanding of R, this is not strictly required.  In order to cover our planned material, we will be moving relatively quickly through basic R usage and data wrangling to some quick notes on data analysis and visualization within about 90 minutes.  That's a lot to get through, so if you find that idea intimidating you might benefit from taking a look at some of the [sources below](#learn-more).  These range from self-paced tutorials to full how-to books.
+We are trying to make this tutorial accessible to a broad audience, so while some familiarity with statistics and data-analysis for sensory science (i.e., sensometrics) will be helpful, it isn't strictly required.  Similarly, while you will get more out of this workshop if you have a basic understanding of R, this is not strictly required.  In order to cover our planned material, we will be moving relatively quickly through basic R usage and data wrangling to some quick notes on data analysis and visualization within about 90 minutes.  That's a lot to get through, so if you find that idea intimidating you might benefit from taking a look at some of the [sources below](#how-can-you-get-ahead-or-learn-more).  These range from self-paced tutorials to full how-to books.
 
-# How can you get ahead or learn more? {#learn-more}
+# How can you get ahead or learn more?
 
 Much of the material we have used to develop this workshop came from the fantasetic, open-science and open-coding community that has developed around R.  If you find yourself wanting to learn more, I highly recommend starting with the following sources:
 
