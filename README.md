@@ -7,18 +7,18 @@ This repository contains code and markdown files for the tutorial presented at E
 In order to be prepared to participate for this tutorial, you should do the following steps prior to the tutorial, which will be held [10 AM--2 PM, 13 September, at the Eurosense Conference in Turku, Finland](https://www.eurosense.elsevier.com/Sensometrics.asp):
 
 1.  Install R/update R:
-  1.  Download [R from the CRAN website](https://cran.r-project.org/).
-  1.  Run the installer and make sure you can open R.
-  2.  (If you already have R, make sure you have version > 4.1.0, otherwise we can't guarantee that problems won't arise from incompatibilities.  You can check your version by opening either R or RStudio and typing `sessionInfo()` followed by hitting **return** on your keyboard at the command prompt.)
+    1.  Download [R from the CRAN website](https://cran.r-project.org/).
+    1.  Run the installer and make sure you can open R.
+    2.  (If you already have R, make sure you have version > 4.1.0, otherwise we can't guarantee that problems won't arise from incompatibilities.  You can check your version by opening either R or RStudio and typing `sessionInfo()` followed by hitting **return** on your keyboard at the command prompt.)
 2. Install RStudio/update RStudio.
-  1.  Download the free version of [RStudio Desktop from their website](https://www.rstudio.com/products/rstudio/download/#download).
-  2.  Run the installer and make sure you can open RStudio.
-  3.  (If you already have RStudio, check your version by opening RStudio and navigating to the menu **Help > About RStudio**.  You should be using a version later than the 2022-05-xx release.  If you are not, or if you cannot find this information, please just update your version by following steps 1-2 above.)
+    1.  Download the free version of [RStudio Desktop from their website](https://www.rstudio.com/products/rstudio/download/#download).
+    2.  Run the installer and make sure you can open RStudio.
+    3.  (If you already have RStudio, check your version by opening RStudio and navigating to the menu **Help > About RStudio**.  You should be using a version later than the 2022-05-xx release.  If you are not, or if you cannot find this information, please just update your version by following steps 1-2 above.)
 3.  Download the tutorial materials by going to ***LINK TO BE INSERTED HERE***.
-  1.  We suggest that you create a new folder on your Desktop to work in.  By downloading the files, you'll get copies of everything you need for the class:
-    1.  R Scripts
-    2.  Data
-    3.  A bunch of other kinds of files (`.Rmd`, `.md`, `.html`, etc) that are used for building this repository, and which you might find useful if you become an R enthusiast.
+    1.  We suggest that you create a new folder on your Desktop to work in.  By downloading the files, you'll get copies of everything you need for the class:
+        1.  R Scripts
+        2.  Data
+        3.  A bunch of other kinds of files (`.Rmd`, `.md`, `.html`, etc) that are used for building this repository, and which you might find useful if you become an R enthusiast.
     
 At this point, you should be all set for the workshop!  Thanks so much for getting set up in advance to make sure we can make the most of our time.
 
@@ -42,7 +42,7 @@ We are trying to make this tutorial accessible to a broad audience, so while som
 
 # How can you get ahead or learn more?
 
-Much of the material we have used to develop this workshop came from the fantasetic, open-science and open-coding community that has developed around R.  If you find yourself wanting to learn more, I highly recommend starting with the following sources:
+Much of the material we have used to develop this workshop came from the fantastic, open-science and open-coding community that has developed around R.  If you find yourself wanting to learn more, I highly recommend starting with the following sources:
 
 *  [Software Carpentry's R for Social Scientists](https://datacarpentry.org/r-socialsci/)
 *  [R for Data Science](https://r4ds.had.co.nz/)
