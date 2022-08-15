@@ -19,6 +19,12 @@ In order to be prepared to participate for this tutorial, you should do the foll
         1.  R Scripts
         2.  Data
         3.  A bunch of other kinds of files (`.Rmd`, `.md`, `.html`, etc) that are used for building this repository, and which you might find useful if you become an R enthusiast.
+4.  Test that your install of R/Rstudio is working by installing a "package" (code that extends R's functionality).  We recommend that you install the `tidyverse` package, which will be used in this tutorial.  To do so:
+    1.  Open RStudio (if you've already closed it).
+    2.  In the **Console** section of RStudio, type (or copy and paste) the following line of code: `install.packages("tidyverse")`.
+    3.  Hit "enter/return" on your keyboard to run the command.  You should see a series of informational messages print out in the console.
+    4.  Once the process completes, test that your package is installed.  Type (or copy and paste) the following line of code: `library(tidyverse)`.
+    5.  Hit "enter/return" on your keyboard to run the command.  You should see a message telling you that a bunch of packages have been loaded, as well as some other information.
     
 At this point, you should be all set for the workshop!  Thanks so much for getting set up in advance to make sure we can make the most of our time.
 
