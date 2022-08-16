@@ -14,7 +14,7 @@ In order to be prepared to participate for this tutorial, you should do the foll
     1.  Download the free version of [RStudio Desktop from their website](https://www.rstudio.com/products/rstudio/download/#download).
     2.  Run the installer and make sure you can open RStudio.
     3.  (If you already have RStudio, check your version by opening RStudio and navigating to the menu **Help > About RStudio**.  You should be using a version later than the 2022-05-xx release.  If you are not, or if you cannot find this information, please just update your version by following steps 1-2 above.)
-3.  Download the tutorial materials by going to ***LINK TO BE INSERTED HERE***.
+3.  Download the tutorial materials by going to <mark>***LINK TO BE INSERTED HERE***</mark>.
     1.  We suggest that you create a new folder on your Desktop to work in.  By downloading the files, you'll get copies of everything you need for the class:
         1.  R Scripts
         2.  Data
