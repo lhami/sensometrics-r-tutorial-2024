@@ -1,0 +1,181 @@
+# Text Analysis I: Fundamentals
+
+At this point we've gone over the fundamentals of data wrangling and analysis in R.  We really haven't touched on statistics and modeling, as that is outside the scope of this workshop, but I will be glad to chat about those with anyone outside of the main workshop if you have questions.
+
+Now we're going to turn to our key focus: text analysis in R.  We are going to focus on 3 broad areas:
+
+1.  Importing, cleaning, and wrangling text data and dealing with `character` type data.
+2.  Basic text modeling using the TF-IDF framework
+3.  Application: Sentiment Analysis
+
+It's not a bad idea to restart your R session here.  Make sure to save your work, but a clean `Environment` is great when we're shifting topics.
+
+You can accomplish this by going to `Session > Restart R` in the menu.
+
+Then, we want to make sure to re-load our packages and import our data.
+
+```{r making sure that we have loaded all packages and data}
+# The packages we're using
+library(tidyverse)
+library(tidytext)
+
+# The dataset
+beer_data <- read_csv("data/ba_2002.csv")
+```
+
+## Getting your text data
+
+There are many sources of text data, which is one of the strengths of this approach.  Some quick and obvious examples include:
+
+1.  Open-comment responses on a survey (sensory study in lab, remote survey, etc)
+2.  Comment cards or customer responses
+3.  Qualitative data (transcripts from interviews and focus groups)
+4.  Compiled/database from previous studies
+5.  Scraped data from websites and/or social media
+
+The last (#5) is often the most interesting data source, and there are a number of papers in recent years that have discussed the use of this sort of data.  I am not going to discuss how to obtain text data in this presentation, because it is its own, rich topic.  However, you can [review my presentation and tutorial from Eurosense 2020](https://github.com/jlahne/text-mining-eurosense-2020) if you want a quick crash course on web scraping for sensory evaluation.
+
+## Basic import and cleaning with text data
+
+So far we've focused our attention on the `beer_data` data set on the various (`numeric`) rating variables.  But the data in the `reviews` column is clearly more rich.
+
+```{r getting a viewable example}
+
+set.seed(2)
+
+reviews_example <- 
+  beer_data %>%
+  slice_sample(n = 5)
+
+reviews_example %>%
+  select(beer_name, reviews) %>%
+  gt::gt()
+```
+
+<p>
+
+However, this has some classic features of scraped text data--notice the "\&quot", for example--this is `HTML` placeholder for a quotation mark.  Other common problems that you will see with text data include "parsing errors" between different forms of character data--the most common is between `ASCII` and `UTF-8` standards.  You will of course also encounter errors with typos, and perhaps idiosyncratic formatting characteristic of different text sources: for example, the use of `@usernames` and `#hashtags` in Twitter data.
+
+We will use the `textclean` package to do some basic clean up, but this kind of deep data cleaning may take more steps and will change from project to project.
+
+```{r cleaning our example data}
+library(textclean)
+
+cleaned_reviews_example <- 
+  reviews_example %>%
+  mutate(cleaned_review = reviews %>%
+           # Fix some of the HTML placeholders
+           replace_html(symbol = FALSE) %>%
+           # Replace sequences of "..." 
+           replace_incomplete(replacement = " ") %>%
+           # Replace less-common or misformatted HTML
+           str_replace_all("#.{1,4};", " ") %>%
+           # Replace some common non-A-Z, 1-9 symbols
+           replace_symbol() %>% 
+           # Remove non-word text like ":)"
+           replace_emoticon() %>%
+           # Remove numbers from the reviews, as they are not useful
+           str_remove_all("[0-9]"))
+
+cleaned_reviews_example %>%
+  select(beer_name, cleaned_review) %>%
+  gt::gt()
+```
+
+<p>
+
+This will take slightly longer to run on the full data set, but should improve our overall data quality.
+
+```{r cleaning the full data set}
+beer_data <- 
+  beer_data %>%
+  mutate(cleaned_review = reviews %>%
+           replace_html(symbol = FALSE) %>%
+           replace_incomplete(replacement = " ") %>%
+           str_replace_all("#.{1,4};", " ") %>%
+           replace_symbol() %>%
+           replace_emoticon() %>%
+           str_remove_all("[0-9]"))
+```
+
+Again, this is not an exhaustive cleaning step--rather, these are some basic steps that I took based on common parsing errors I observed.  Each particular text dataset will come with its own challenges and require a bit of time to develop the cleaning step.
+
+## Where is the data in `character`?  A *tidy* approach.
+
+As humans who understand English, we can see that meaning is easily found from these reviews.  For example, we can guess that the rating of `r cleaned_reviews_example$beer_name[2]` will be a low number (negative), while the rating of `r cleaned_reviews_example$beer_name[3]` will be much more positive.  And, indeed, this is the case:
+
+```{r the numeric part of our data}
+cleaned_reviews_example %>% 
+  select(beer_name, appearance:rating)
+```
+
+But what part of the structure of the `reviews` text actually tells us this?  This is a complicated topic that is well beyond the scope of this workshop--we are going to propose a single approach based on **tokenization** that is effective, but is certainly not exhaustive.  
+
+If you are interested in a broader view of approaches to text analysis, I recommend the seminal textbook from [Jurafsky and Martin, *Speech and Language Processing*](https://web.stanford.edu/~jurafsky/slp3/), especially chapters 2-6.  The draft version is freely available on the web as of the date of this workshop.  
+
+In the first half of this workshop we reviewed the `tidyverse` approach to data, in which we emphasized an approach to data in which:
+
+> *  Each variable is a column
+> *  Each observation is a row
+> *  Each type of observational unit is a table
+
+This type of approach can be applied to text data **if we can specify a way to standardize the "observations" within the text**.  We will be applying and demonstrating the approach defined and promoted by [Silge and Robinson in *Text Mining with R*](https://www.tidytextmining.com/index.html), in which we will focus on the following syllogism to create tidy text data:
+
+<center>
+`observation == token`
+</center>
+
+A **token** is a *meaningful* unit of text, usually but not always a single word, which will be the observation for us.  In our example data, let's identify some possible tokens:
+
+```{r what does text data look like?}
+cleaned_reviews_example$cleaned_review[1]
+```
+
+We will start with only examining single words, also called "**unigrams**" in the linguistics jargon.  Thus, `Medium`, `straw`, and `cloudy` are the first tokens in this dataset.  We will mostly ignore punctuation and spacing, which means we are giving up some meaning for convenience.
+
+We could figure out how to manually break this up into tokens with enough work, using functions like `str_separate()`, but happily there are a large set of competing `R` tools for tokenization, for example:
+
+```{r a viewable tokenization example}
+cleaned_reviews_example$cleaned_review[1] %>%
+  tokenizers::tokenize_words(simplify = TRUE)
+```
+
+Note that this function also (by default) turns every word into its lowercase version (e.g., `Medium` becomes `medium`) and strips out punctuation.  This is because, to a program like `R`, upper- and lowercase versions of the same string are *not* equivalent.  If we have reason to believe preserving this difference is important, we might want to rethink allowing this behavior.
+
+Now, we have 46 observed tokens for our first review in our example dataset.  But of course this is not super interesting--we need to apply this kind of transformation to every single one of our ~20,000 reviews.  With some fiddling around with `mutate()` we might be able to come up with a solution, but happily this is where we start using the `tidytext` package.  The `unnest_tokens()` function built into that package will allow us to transform our text directly into the format we want, with very little effort.
+
+```{r tokenizing our entire data set into words}
+beer_data_tokenized <-
+  beer_data %>%
+  # We may want to keep track of a unique ID for each review
+  mutate(review_id = row_number()) %>%
+  unnest_tokens(output = token,
+                input = cleaned_review,
+                token = "words") %>%
+  # Here we do a bit of extra cleaning
+  mutate(token = str_remove_all(token, "\\.|_"))
+
+beer_data_tokenized %>%
+  # We show just a few of the columns for printing's sake
+  select(beer_name, rating, token)
+```
+
+The `unnest_tokens()` function actually applies the `tokenizers::tokenize_words()` function in an efficient, easy way: it takes a column of raw `character` data and then tokenizes it as specified, outputting a tidy format of 1-token-per-row.  Now we have our observations (tokens) each on its own line, ready for further analysis.
+
+In order to make what we're doing easier to follow, let's also take a look at our example data.
+
+```{r what does tidy tokenized data look like?}
+cleaned_reviews_tokenized <- 
+  cleaned_reviews_example %>%
+  unnest_tokens(input = cleaned_review, output = token) %>%
+  # Here we do a bit of extra cleaning
+  mutate(token = str_remove_all(token, "\\.|_"))
+
+cleaned_reviews_tokenized %>%
+  filter(beer_name == "Kozel") %>%
+  # Let's select a few variables for printing
+  select(beer_name, rating, token)
+```
+
+When we use `unnest_tokens()`, all of the non-text data gets treated as information about each token--so `beer_name`, `rating`, etc are duplicated for each token that now has its own row.  This will allow us to perform a number of types of text analysis.
+

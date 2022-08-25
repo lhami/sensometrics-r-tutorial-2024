@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Data visualization basics with ggplot2 | An introduction to text analysis with R for sensory and consumer scientists</title>
+  <meta name="description" content="4 Data visualization basics with ggplot2 | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Data visualization basics with ggplot2 | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Data visualization basics with ggplot2 | An introduction to text analysis with R for sensory and consumer scientists" />
+  
+  
+  
+
+<meta name="author" content="Jacob Lahne" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="wrangling-data-with-tidyverse.html"/>
+<link rel="next" href="text-analysis-i-fundamentals.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction and welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introductions"><i class="fa fa-check"></i>Introductions</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#martha-calvert-ms"><i class="fa fa-check"></i>Martha Calvert, MS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recommended-approach-for-livecoding"><i class="fa fa-check"></i>Recommended approach for livecoding</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dealing-with-errors"><i class="fa fa-check"></i>Dealing with errors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html"><i class="fa fa-check"></i><b>1</b> A crash course in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#r-vs-rstudio"><i class="fa fa-check"></i><b>1.1</b> <code>R</code> vs RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#what-is-r"><i class="fa fa-check"></i><b>1.1.1</b> What is <code>R</code>?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#great-why-are-we-using-rstudio-then"><i class="fa fa-check"></i><b>1.1.2</b> Great, why are we using RStudio then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#the-parts-of-rstudio"><i class="fa fa-check"></i><b>1.2</b> The parts of RStudio</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#the-working-directory-and-why-you-should-care"><i class="fa fa-check"></i><b>1.2.1</b> The “working directory” and why you should care</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#extending-r-with-packages"><i class="fa fa-check"></i><b>1.3</b> Extending <code>R</code> with packages</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#installing-packages"><i class="fa fa-check"></i><b>1.3.1</b> Installing packages</a></li>
+<li class="chapter" data-level="1.3.2" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#loading-packages"><i class="fa fa-check"></i><b>1.3.2</b> Loading packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#getting-help"><i class="fa fa-check"></i><b>1.4</b> Getting help</a></li>
+<li class="chapter" data-level="1.5" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#livecoding-along"><i class="fa fa-check"></i><b>1.5</b> Livecoding along</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html"><i class="fa fa-check"></i><b>2</b> How to work with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#doing-math-and-creating-objects-in-r"><i class="fa fa-check"></i><b>2.1</b> Doing math and creating objects in <code>R</code></a></li>
+<li class="chapter" data-level="2.2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#functions-and-their-arguments-in-r"><i class="fa fa-check"></i><b>2.2</b> Functions and their arguments in <code>R</code></a></li>
+<li class="chapter" data-level="2.3" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#reading-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Reading data into <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#where-the-data-lives"><i class="fa fa-check"></i><b>2.3.1</b> Where the data lives</a></li>
+<li class="chapter" data-level="2.3.2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#what-kind-of-file-are-we-importing"><i class="fa fa-check"></i><b>2.3.2</b> What kind of file are we importing?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#data-in-r"><i class="fa fa-check"></i><b>2.4</b> Data in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#subsetting-data"><i class="fa fa-check"></i><b>2.4.1</b> Subsetting data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#complex-vectorslists-data.frame-and-tibble"><i class="fa fa-check"></i><b>2.4.2</b> Complex vectors/lists: <code>data.frame</code> and <code>tibble</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#subsetting-and-wrangling-data-tables"><i class="fa fa-check"></i><b>2.5</b> Subsetting and wrangling data tables</a></li>
+<li class="chapter" data-level="2.6" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#psa-not-knowing-is-normal"><i class="fa fa-check"></i><b>2.6</b> PSA: not-knowing is normal!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Wrangling data with <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#subsetting-data-1"><i class="fa fa-check"></i><b>3.1</b> Subsetting data</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#select-for-columns"><i class="fa fa-check"></i><b>3.1.1</b> <code>select()</code> for columns</a></li>
+<li class="chapter" data-level="3.1.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#filter-for-rows"><i class="fa fa-check"></i><b>3.1.2</b> <code>filter()</code> for rows</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#combining-steps-with-the-pipe"><i class="fa fa-check"></i><b>3.2</b> Combining steps with the pipe: <code>%&gt;%</code></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-require-that-the-lefthand-side-be-a-single-functional-command"><i class="fa fa-check"></i><b>3.2.1</b> Pipes require that the lefthand side be a single functional command</a></li>
+<li class="chapter" data-level="3.2.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side"><i class="fa fa-check"></i><b>3.2.2</b> Pipes always pass the result of the lefthand side to the <em>first</em> argument of the righthand side</a></li>
+<li class="chapter" data-level="3.2.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-are-a-pain-to-type"><i class="fa fa-check"></i><b>3.2.3</b> Pipes are a pain to type</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>3.3</b> Make new columns: <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses-with-group_by-and-summarize"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses with <code>group_by()</code> and <code>summarize()</code></a></li>
+<li class="chapter" data-level="3.5" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#utilities-for-data-management"><i class="fa fa-check"></i><b>3.5</b> Utilities for data management</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#rename-your-columns"><i class="fa fa-check"></i><b>3.5.1</b> Rename your columns</a></li>
+<li class="chapter" data-level="3.5.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#relocate-your-columns"><i class="fa fa-check"></i><b>3.5.2</b> Relocate your columns</a></li>
+<li class="chapter" data-level="3.5.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#sort-your-data"><i class="fa fa-check"></i><b>3.5.3</b> Sort your data</a></li>
+<li class="chapter" data-level="3.5.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pivot-tables"><i class="fa fa-check"></i><b>3.5.4</b> Pivot tables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>4</b> Data visualization basics with <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#your-first-ggplot"><i class="fa fa-check"></i><b>4.1</b> Your first <code>ggplot()</code></a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>4.2</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>4.3</b> Adding layers with <code>geom_*()</code> functions</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>4.4</b> Arguments inside and outside of <code>aes()</code></a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>4.4.1</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
+<li class="chapter" data-level="4.4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>4.4.2</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>4.4.3</b> Finally, <code>facet_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#some-further-reading"><i class="fa fa-check"></i><b>4.5</b> Some further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="text-analysis-i-fundamentals.html"><a href="text-analysis-i-fundamentals.html"><i class="fa fa-check"></i><b>5</b> Text Analysis I: Fundamentals</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="text-analysis-i-fundamentals.html"><a href="text-analysis-i-fundamentals.html#getting-your-text-data"><i class="fa fa-check"></i><b>5.1</b> Getting your text data</a></li>
+<li class="chapter" data-level="5.2" data-path="text-analysis-i-fundamentals.html"><a href="text-analysis-i-fundamentals.html#basic-import-and-cleaning-with-text-data"><i class="fa fa-check"></i><b>5.2</b> Basic import and cleaning with text data</a></li>
+<li class="chapter" data-level="5.3" data-path="text-analysis-i-fundamentals.html"><a href="text-analysis-i-fundamentals.html#where-is-the-data-in-character-a-tidy-approach."><i class="fa fa-check"></i><b>5.3</b> Where is the data in <code>character</code>? A <em>tidy</em> approach.</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html"><i class="fa fa-check"></i><b>6</b> Text Analysis II: Term Frequency Approaches</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#basic-text-analysis-approaches-using-tokens"><i class="fa fa-check"></i><b>6.1</b> Basic text analysis approaches using tokens</a></li>
+<li class="chapter" data-level="6.2" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#word-counts"><i class="fa fa-check"></i><b>6.2</b> Word counts</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#stop-words"><i class="fa fa-check"></i><b>6.2.1</b> “stop words”</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#term-frequency-inverse-document-frequency-tf-idf"><i class="fa fa-check"></i><b>6.3</b> Term Frequency-Inverse Document Frequency (TF-IDF)</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#term-frequency"><i class="fa fa-check"></i><b>6.3.1</b> Term Frequency</a></li>
+<li class="chapter" data-level="6.3.2" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#inverse-document-frequency"><i class="fa fa-check"></i><b>6.3.2</b> Inverse Document Frequency</a></li>
+<li class="chapter" data-level="6.3.3" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#applying-tf-idf-in-tidytext"><i class="fa fa-check"></i><b>6.3.3</b> Applying tf-idf in <code>tidytext</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="text-analysis-iii-sentiment-analysis.html"><a href="text-analysis-iii-sentiment-analysis.html"><i class="fa fa-check"></i><b>7</b> Text Analysis III: Sentiment Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="text-analysis-iii-sentiment-analysis.html"><a href="text-analysis-iii-sentiment-analysis.html#sentiment-analysis"><i class="fa fa-check"></i><b>7.1</b> Sentiment analysis</a></li>
+<li class="chapter" data-level="7.2" data-path="text-analysis-iii-sentiment-analysis.html"><a href="text-analysis-iii-sentiment-analysis.html#n-gram-models"><i class="fa fa-check"></i><b>7.2</b> <em>n</em>-gram models</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>8</b> Wrap-up and further resources</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>8.1</b> Getting help</a></li>
+<li class="chapter" data-level="8.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>8.2</b> Further reading/resources</a></li>
+<li class="chapter" data-level="8.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>8.3</b> Questions/Comments</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to text analysis with R for sensory and consumer scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-visualization-basics-with-ggplot2" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Data visualization basics with <code>ggplot2</code><a href="data-visualization-basics-with-ggplot2.html#data-visualization-basics-with-ggplot2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><code>R</code> includes extremely powerful utilities for data visualization, but most modern applications make use of the <code>tidyverse</code> package <code>ggplot2</code>.</p>
+<p>A quick word about base <code>R</code> plotting–I don’t mean to declare that you can’t use base <code>R</code> plotting for your projects at all, and I have published several papers using base <code>R</code> plots. Particularly as you are using <code>R</code> for your own data exploration (not meant for sharing outside your team, say), base utilities like <code>plot()</code> will be very useful for quick insight.</p>
+<p><code>ggplot2</code> provides a standardized, programmatic interface for data visualization, in contrast to the piecemeal approach common to base <code>R</code> graphics plotting. This means that, while the syntax itself can be challenging to learn, syntax for different tasks differs in logical and predictable ways and, together with other <code>tidyverse</code> principles (like <code>select()</code> and <code>filter()</code> approaches), <code>ggplot2</code> makes it easy to make publication-quality visualizations with relative ease.</p>
+<p>In general, <code>ggplot2</code> works best with data in “long” or “tidy” format, such as that resulting from the output of <code>pivot_longer()</code>. The</p>
+<p>The schematic elements of a ggplot are as follows:</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="data-visualization-basics-with-ggplot2.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The ggplot() function creates your plotting environment.  We usually save it to a variable in R so that we can use the plug-n-play functionality of ggplot without retyping a bunch of nonsense</span></span>
+<span id="cb160-2"><a href="data-visualization-basics-with-ggplot2.html#cb160-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">&lt;</span>a variable<span class="sc">&gt;</span>, <span class="at">y =</span> <span class="sc">&lt;</span>another variable<span class="sc">&gt;</span>, ...),</span>
+<span id="cb160-3"><a href="data-visualization-basics-with-ggplot2.html#cb160-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> <span class="sc">&lt;</span>your data<span class="sc">&gt;</span>)</span>
+<span id="cb160-4"><a href="data-visualization-basics-with-ggplot2.html#cb160-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-5"><a href="data-visualization-basics-with-ggplot2.html#cb160-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, you can add various ways of plotting data to make different visualizations.</span></span>
+<span id="cb160-6"><a href="data-visualization-basics-with-ggplot2.html#cb160-6" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> </span>
+<span id="cb160-7"><a href="data-visualization-basics-with-ggplot2.html#cb160-7" aria-hidden="true" tabindex="-1"></a>  geom_<span class="sc">&lt;</span>your chosen way of plotting<span class="sc">&gt;</span>(...) <span class="sc">+</span></span>
+<span id="cb160-8"><a href="data-visualization-basics-with-ggplot2.html#cb160-8" aria-hidden="true" tabindex="-1"></a>  theme_<span class="sc">&lt;</span>your chosen theme<span class="sc">&gt;</span> <span class="sc">+</span></span>
+<span id="cb160-9"><a href="data-visualization-basics-with-ggplot2.html#cb160-9" aria-hidden="true" tabindex="-1"></a>  ...</span></code></pre></div>
+<p>In graphical form, the following diagram (<a href="https://vt-hydroinformatics.github.io/Plotting.html#our-first-ggplot">from VT Professor JP Gannon</a>) gives an intuition of what is happening:</p>
+<div class="figure">
+<img src="img/GGplot%20syntax.png" alt="" />
+<p class="caption">Basic ggplot mappings. Color boxes indicate where the elements go in the function and in the plot.</p>
+</div>
+<div id="your-first-ggplot" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Your first <code>ggplot()</code><a href="data-visualization-basics-with-ggplot2.html#your-first-ggplot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Our beer data is already relatively tidy, so we will begin by making an example <code>ggplot()</code> to demonstrate how it works.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="data-visualization-basics-with-ggplot2.html#cb161-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb161-2"><a href="data-visualization-basics-with-ggplot2.html#cb161-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> rating, <span class="at">y =</span> overall)) <span class="sc">+</span> <span class="co"># Here we set up the base plot</span></span>
+<span id="cb161-3"><a href="data-visualization-basics-with-ggplot2.html#cb161-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()                           <span class="co"># Here we tell our base plot to add points</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/a%20first%20ggplot-1.png" width="672" /></p>
+<p>This doesn’t look all that impressive–partly because the data being plotted itself isn’t that sensible, and partly because we haven’t made many changes. But before we start looking into that, let’s break down the parts of this command.</p>
+</div>
+<div id="the-aes-function-and-mapping-argument" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> The <code>aes()</code> function and <code>mapping =</code> argument<a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>ggplot()</code> function takes two arguments that are essential, as well as some others you’ll rarely use. The first, <code>data =</code>, is straightforward, and you’ll usually be passing data to the function at the end of some pipeline using <code>%&gt;%</code></p>
+<p>The second, <code>mapping =</code>, is less clear. This argument requires the <code>aes()</code> function, which can be read as the “aesthetic” function. The way that this function works is quite complex, and really not worth digging into here, but I understand it in my head as <strong>telling <code>ggplot()</code> what part of my data is going to connect to what part of the plot</strong>. So, if we write <code>aes(x = rating)</code>, we can read this in our heads as “the values of x will be mapped from the ‘rating’ column”.</p>
+<p>This sentence tells us the other important thing about <code>ggplot()</code> and the <code>aes()</code> mappings: <strong>mapped variables each have to be in their own column</strong>. This is another reason that <code>ggplot()</code> requires tidy data.</p>
+</div>
+<div id="adding-layers-with-geom_-functions" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Adding layers with <code>geom_*()</code> functions<a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the above example, we added (literally, using <code>+</code>) a function called <code>geom_point()</code> to the base <code>ggplot()</code> call. This is functionally a “layer” of our plot, that tells <code>ggplot2</code> how to actually visualize the elements specified in the <code>aes()</code> function–in the case of <code>geom_point()</code>, we create a point for each row’s combination of <code>x = rating</code> and <code>y = overall</code>.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="data-visualization-basics-with-ggplot2.html#cb162-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb162-2"><a href="data-visualization-basics-with-ggplot2.html#cb162-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(rating, overall)</span></code></pre></div>
+<pre><code>## # A tibble: 20,359 × 2
+##    rating overall
+##     &lt;dbl&gt;   &lt;dbl&gt;
+##  1   4.46     5  
+##  2   3.74     4  
+##  3   3.26     3  
+##  4   3.5      3.5
+##  5   3.86     3.5
+##  6   3.11     3.5
+##  7   3.55     3.5
+##  8   3.06     3  
+##  9   4        4  
+## 10   3.21     3.5
+## # … with 20,349 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<p>There are many <code>geom_*()</code> functions in <code>ggplot2</code>, and many others defined in other accessory packages. These are the heart of visualizations. We can swap them out to get different results:</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="data-visualization-basics-with-ggplot2.html#cb164-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb164-2"><a href="data-visualization-basics-with-ggplot2.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> rating, <span class="at">y =</span> overall)) <span class="sc">+</span> </span>
+<span id="cb164-3"><a href="data-visualization-basics-with-ggplot2.html#cb164-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="_main_files/figure-html/switching%20geom_()%20switches%20the%20way%20the%20data%20map-1.png" width="672" />
+Here we fit a smoothed line to our data using the default methods in <code>geom_smooth()</code> (which in this case heuristically defaults to a General Additive Model).</p>
+<p>We can also combine layers, as the term implies:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="data-visualization-basics-with-ggplot2.html#cb166-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb166-2"><a href="data-visualization-basics-with-ggplot2.html#cb166-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> rating, <span class="at">y =</span> overall)) <span class="sc">+</span> </span>
+<span id="cb166-3"><a href="data-visualization-basics-with-ggplot2.html#cb166-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span> <span class="co"># add some random noise to show overlapping points</span></span>
+<span id="cb166-4"><a href="data-visualization-basics-with-ggplot2.html#cb166-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="_main_files/figure-html/geom_()s%20are%20layers%20in%20a%20plot-1.png" width="672" /></p>
+<p>Note that we don’t need to tell <em>either</em> <code>geom_smooth()</code> or <code>geom_jitter()</code> what <code>x</code> and <code>y</code> are–they “inherit” them from the <code>ggplot()</code> function to which they are added (<code>+</code>), which defines the plot itself.</p>
+<p>What other arguments can be set to aesthetics? Well, we can set other visual properties like <strong>color</strong>, <strong>size</strong>, <strong>transparency</strong> (called “alpha”), and so on. For example, let’s try to look at whether there is a relationship between ABV and perceived quality.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="data-visualization-basics-with-ggplot2.html#cb168-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb168-2"><a href="data-visualization-basics-with-ggplot2.html#cb168-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate a new variable for plotting</span></span>
+<span id="cb168-3"><a href="data-visualization-basics-with-ggplot2.html#cb168-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">high_abv =</span> <span class="fu">ifelse</span>(abv <span class="sc">&gt;</span> <span class="dv">9</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb168-4"><a href="data-visualization-basics-with-ggplot2.html#cb168-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(high_abv) <span class="sc">%&gt;%</span></span>
+<span id="cb168-5"><a href="data-visualization-basics-with-ggplot2.html#cb168-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> rating, <span class="at">y =</span> overall, <span class="at">color =</span> high_abv)) <span class="sc">+</span></span>
+<span id="cb168-6"><a href="data-visualization-basics-with-ggplot2.html#cb168-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb168-7"><a href="data-visualization-basics-with-ggplot2.html#cb168-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb168-8"><a href="data-visualization-basics-with-ggplot2.html#cb168-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/here%20are%20some%20other%20parts%20of%20the%20plot%20we%20can%20control%20with%20data-1.png" width="672" /></p>
+<p>We can see that most of the yellow “yes” dots are in the top right of the figure–people rate more alcoholic beer as higher quality for both <code>overall</code> and <code>rating</code>.</p>
+</div>
+<div id="arguments-inside-and-outside-of-aes" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Arguments inside and outside of <code>aes()</code><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the last plot, we saw an example in the <code>geom_jitter(alpha = 1/4)</code> function of setting the <code>alpha</code> (transparency) aesthetic element directly, without using <code>aes()</code> to <strong>map</strong> a variable to this aesthetic. That is why this is not wrapped in the <code>aes()</code> function. In <code>ggplot2</code>, this is how we set aesthetics to fixed values. Alternatively, we could have mapped this to a variable, just like color:</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="data-visualization-basics-with-ggplot2.html#cb169-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb169-2"><a href="data-visualization-basics-with-ggplot2.html#cb169-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(abv) <span class="sc">%&gt;%</span></span>
+<span id="cb169-3"><a href="data-visualization-basics-with-ggplot2.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rating, <span class="at">y =</span> overall)) <span class="sc">+</span> </span>
+<span id="cb169-4"><a href="data-visualization-basics-with-ggplot2.html#cb169-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We can set new aes() mappings in individual layers, as well as the plot itself</span></span>
+<span id="cb169-5"><a href="data-visualization-basics-with-ggplot2.html#cb169-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> abv)) <span class="sc">+</span> </span>
+<span id="cb169-6"><a href="data-visualization-basics-with-ggplot2.html#cb169-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/using%20the%20aes()%20function-1.png" width="672" /></p>
+<p>As an aside, we can see the same relationship noted above: higher ABV is associated with higher ratings.</p>
+<div id="using-theme_-to-change-visual-options-quickly" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Using <code>theme_*()</code> to change visual options quickly<a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the last several plots, notice that we have changed from the default (and to my mind unattractive) grey background of <code>ggplot2</code> to a black and white theme. This is by adding a <code>theme_bw()</code> call to the list of commands. <code>ggplot2</code> includes a number of default <code>theme_*()</code> functions, and you can get many more through other <code>R</code> packages. They can have subtle to dramatic effects:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="data-visualization-basics-with-ggplot2.html#cb170-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb170-2"><a href="data-visualization-basics-with-ggplot2.html#cb170-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb170-3"><a href="data-visualization-basics-with-ggplot2.html#cb170-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rating, <span class="at">y =</span> overall)) <span class="sc">+</span> </span>
+<span id="cb170-4"><a href="data-visualization-basics-with-ggplot2.html#cb170-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span> </span>
+<span id="cb170-5"><a href="data-visualization-basics-with-ggplot2.html#cb170-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/using%20the%20theme_*()%20functions-1.png" width="672" /></p>
+<p>You can also edit every last element of the plot’s theme using the base <code>theme()</code> function, which is powerful but a little bit tricky to use.</p>
+</div>
+<div id="changing-aesthetic-elements-with-scale_-functions" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Changing aesthetic elements with <code>scale_*()</code> functions<a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Finally, say we didn’t like the default color set for the points.</p>
+<p>How can we manipulate the colors that are plotted? The <strong>way in which</strong> mapped, aesthetic variables are assigned to visual elements is controlled by the <code>scale_*()</code> functions. In my experience, the most frequently encountered scales are those for color: either <code>scale_fill_*()</code> for solid objects (like the bars in a histogram) or <code>scale_color_*()</code> for lines and points (like the outlines of the histogram bars).</p>
+<p>Scale functions work by telling <code>ggplot()</code> <em>how</em> to map aesthetic variables to visual elements. You may have noticed that I added a <code>scale_color_viridis_d()</code> function to the end of the ABV plot. This function uses the <code>viridis</code> package, which has color-blind and (theoretically) print-safe color scales.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="data-visualization-basics-with-ggplot2.html#cb171-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> </span>
+<span id="cb171-2"><a href="data-visualization-basics-with-ggplot2.html#cb171-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb171-3"><a href="data-visualization-basics-with-ggplot2.html#cb171-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This block gets us a subset of beer styles for clear visualization</span></span>
+<span id="cb171-4"><a href="data-visualization-basics-with-ggplot2.html#cb171-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(style) <span class="sc">%&gt;%</span></span>
+<span id="cb171-5"><a href="data-visualization-basics-with-ggplot2.html#cb171-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>style) <span class="sc">%&gt;%</span></span>
+<span id="cb171-6"><a href="data-visualization-basics-with-ggplot2.html#cb171-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb171-7"><a href="data-visualization-basics-with-ggplot2.html#cb171-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb171-8"><a href="data-visualization-basics-with-ggplot2.html#cb171-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb171-9"><a href="data-visualization-basics-with-ggplot2.html#cb171-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And now we can go back to plotting</span></span>
+<span id="cb171-10"><a href="data-visualization-basics-with-ggplot2.html#cb171-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rating, <span class="at">group =</span> style)) <span class="sc">+</span> </span>
+<span id="cb171-11"><a href="data-visualization-basics-with-ggplot2.html#cb171-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Density plots are smoothed histograms</span></span>
+<span id="cb171-12"><a href="data-visualization-basics-with-ggplot2.html#cb171-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">fill =</span> style), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb171-13"><a href="data-visualization-basics-with-ggplot2.html#cb171-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb171-14"><a href="data-visualization-basics-with-ggplot2.html#cb171-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-15"><a href="data-visualization-basics-with-ggplot2.html#cb171-15" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="_main_files/figure-html/ggplots%20are%20R%20objects-1.png" width="672" /></p>
+<p>We can take a saved plot (like <code>p</code>) and use scales to change how it is visualized.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="data-visualization-basics-with-ggplot2.html#cb172-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_fill_viridis_d</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/we%20can%20modify%20stored%20plots%20after%20the%20fact-1.png" width="672" /></p>
+<p><code>ggplot2</code> has a broad range of built-in options for scales, but there are many others available in add-on packages that build on top of it. You can also build your own scales using the <code>scale_*_manual()</code> functions, in which you give a vector of the same length as your mapped aesthetic variable in order to set up the visual assignment. That sounds jargon-y, so here is an example:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="data-visualization-basics-with-ggplot2.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We&#39;ll pick 14 random colors from the colors R knows about</span></span>
+<span id="cb173-2"><a href="data-visualization-basics-with-ggplot2.html#cb173-2" aria-hidden="true" tabindex="-1"></a>random_colors <span class="ot">&lt;-</span> <span class="fu">print</span>(<span class="fu">colors</span>()[<span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">colors</span>()), <span class="at">size =</span> <span class="dv">10</span>)])</span></code></pre></div>
+<pre><code>##  [1] &quot;gray&quot;           &quot;pink2&quot;          &quot;lightblue2&quot;     &quot;darkslategray1&quot;
+##  [5] &quot;slateblue1&quot;     &quot;lightsalmon1&quot;   &quot;firebrick&quot;      &quot;lawngreen&quot;     
+##  [9] &quot;gray48&quot;         &quot;lightcyan4&quot;</code></pre>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="data-visualization-basics-with-ggplot2.html#cb175-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> </span>
+<span id="cb175-2"><a href="data-visualization-basics-with-ggplot2.html#cb175-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> random_colors)</span></code></pre></div>
+<p><img src="_main_files/figure-html/another%20example%20of%20posthoc%20plot%20modification-1.png" width="672" /></p>
+</div>
+<div id="finally-facet_" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> Finally, <code>facet_*()</code><a href="data-visualization-basics-with-ggplot2.html#finally-facet_" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The last powerful tool I want to show off is the ability of <code>ggplot2</code> to make what<a href="https://socviz.co/groupfacettx.html#facet-to-make-small-multiples">Edward Tufte called “small multiples”</a>: breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.</p>
+<p>So far we’ve seen how to visualize ratings in our beer data by ABV and by style. We could combine these in one plot by assigning ABV to one aesthetic, style to another, and so on. But our plots might get messy. Instead, let’s see how we can break out, for example, different ABVs into different, “small multiple” facet plots to get a look at trends in liking.</p>
+<p>A plausible sensory hypothesis is that the <code>palate</code> variable in particular will change by ABV. So we are going to take a couple steps here:</p>
+<ol style="list-style-type: decimal">
+<li>We will use <code>mutate()</code> to split <code>abv</code> into low, medium, and high (using tertile splits)</li>
+<li>We will plot the relationship of <code>palate</code> to ABV as a density plot</li>
+<li>We will then look at this as a single plot vs a facetted plot</li>
+</ol>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="data-visualization-basics-with-ggplot2.html#cb176-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> </span>
+<span id="cb176-2"><a href="data-visualization-basics-with-ggplot2.html#cb176-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb176-3"><a href="data-visualization-basics-with-ggplot2.html#cb176-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 1: make abv tertiles</span></span>
+<span id="cb176-4"><a href="data-visualization-basics-with-ggplot2.html#cb176-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">abv_tertile =</span> <span class="fu">as.factor</span>(<span class="fu">ntile</span>(abv, <span class="dv">3</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb176-5"><a href="data-visualization-basics-with-ggplot2.html#cb176-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 2: plot</span></span>
+<span id="cb176-6"><a href="data-visualization-basics-with-ggplot2.html#cb176-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> palate, <span class="at">group =</span> abv_tertile)) <span class="sc">+</span> </span>
+<span id="cb176-7"><a href="data-visualization-basics-with-ggplot2.html#cb176-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">fill =</span> abv_tertile), </span>
+<span id="cb176-8"><a href="data-visualization-basics-with-ggplot2.html#cb176-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">color =</span> <span class="cn">NA</span>, <span class="at">adjust =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb176-9"><a href="data-visualization-basics-with-ggplot2.html#cb176-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb176-10"><a href="data-visualization-basics-with-ggplot2.html#cb176-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-11"><a href="data-visualization-basics-with-ggplot2.html#cb176-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Unfacetted plot</span></span>
+<span id="cb176-12"><a href="data-visualization-basics-with-ggplot2.html#cb176-12" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<p><img src="_main_files/figure-html/starting%20with%20a%20base%20plot%20showing%20palate%20tertiles-1.png" width="672" /></p>
+<p>It looks like the expected trend is present, but it’s a bit hard to see. Let’s see what happens if we break this out into “facets”:</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="data-visualization-basics-with-ggplot2.html#cb177-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> </span>
+<span id="cb177-2"><a href="data-visualization-basics-with-ggplot2.html#cb177-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>abv_tertile, <span class="at">nrow =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb177-3"><a href="data-visualization-basics-with-ggplot2.html#cb177-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p>&lt;img src=“_main_files/figure-html/now we split the plot into 3 “small multiples” with facet_wrap()-1.png” width=“672” /&gt;</p>
+<p>By splitting into facets we can see that there is much more density towards the higher <code>palate</code> ratings for the higher <code>abv</code> tertiles. This may help explain the positive relationship between <code>abv</code> and <code>rating</code> in the overall dataset: the consumers in this sample clearly appreciate the mouthfeel associated with higher alcohol contents.</p>
+</div>
+</div>
+<div id="some-further-reading" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Some further reading<a href="data-visualization-basics-with-ggplot2.html#some-further-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This has been a lightning tour of <code>ggplot2</code> as preparatory material for our core material on text analysis; it barely scratches the surface. If you’re interested in learning more, I recommend taking a look at the following sources:</p>
+<ol style="list-style-type: decimal">
+<li>Kieran Healy’s “<a href="https://socviz.co/index.html#preface">Data Visualization: a Practical Introduction</a>”.</li>
+<li>The plotting section of <a href="https://r4ds.had.co.nz/data-visualisation.html">R for Data Science</a>.</li>
+<li>Hadley Wickham’s core reference textbook on <a href="https://ggplot2-book.org/">ggplot2</a>.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="wrangling-data-with-tidyverse.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="text-analysis-i-fundamentals.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

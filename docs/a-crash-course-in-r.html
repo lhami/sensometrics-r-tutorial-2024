@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 A crash course in R | An introduction to text analysis with R for sensory and consumer scientists</title>
+  <meta name="description" content="1 A crash course in R | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 A crash course in R | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 A crash course in R | An introduction to text analysis with R for sensory and consumer scientists" />
+  
+  
+  
+
+<meta name="author" content="Jacob Lahne" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="how-to-work-with-r.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction and welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introductions"><i class="fa fa-check"></i>Introductions</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#martha-calvert-ms"><i class="fa fa-check"></i>Martha Calvert, MS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recommended-approach-for-livecoding"><i class="fa fa-check"></i>Recommended approach for livecoding</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dealing-with-errors"><i class="fa fa-check"></i>Dealing with errors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html"><i class="fa fa-check"></i><b>1</b> A crash course in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#r-vs-rstudio"><i class="fa fa-check"></i><b>1.1</b> <code>R</code> vs RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#what-is-r"><i class="fa fa-check"></i><b>1.1.1</b> What is <code>R</code>?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#great-why-are-we-using-rstudio-then"><i class="fa fa-check"></i><b>1.1.2</b> Great, why are we using RStudio then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#the-parts-of-rstudio"><i class="fa fa-check"></i><b>1.2</b> The parts of RStudio</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#the-working-directory-and-why-you-should-care"><i class="fa fa-check"></i><b>1.2.1</b> The “working directory” and why you should care</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#extending-r-with-packages"><i class="fa fa-check"></i><b>1.3</b> Extending <code>R</code> with packages</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#installing-packages"><i class="fa fa-check"></i><b>1.3.1</b> Installing packages</a></li>
+<li class="chapter" data-level="1.3.2" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#loading-packages"><i class="fa fa-check"></i><b>1.3.2</b> Loading packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#getting-help"><i class="fa fa-check"></i><b>1.4</b> Getting help</a></li>
+<li class="chapter" data-level="1.5" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#livecoding-along"><i class="fa fa-check"></i><b>1.5</b> Livecoding along</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html"><i class="fa fa-check"></i><b>2</b> How to work with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#doing-math-and-creating-objects-in-r"><i class="fa fa-check"></i><b>2.1</b> Doing math and creating objects in <code>R</code></a></li>
+<li class="chapter" data-level="2.2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#functions-and-their-arguments-in-r"><i class="fa fa-check"></i><b>2.2</b> Functions and their arguments in <code>R</code></a></li>
+<li class="chapter" data-level="2.3" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#reading-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Reading data into <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#where-the-data-lives"><i class="fa fa-check"></i><b>2.3.1</b> Where the data lives</a></li>
+<li class="chapter" data-level="2.3.2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#what-kind-of-file-are-we-importing"><i class="fa fa-check"></i><b>2.3.2</b> What kind of file are we importing?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#data-in-r"><i class="fa fa-check"></i><b>2.4</b> Data in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#subsetting-data"><i class="fa fa-check"></i><b>2.4.1</b> Subsetting data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#complex-vectorslists-data.frame-and-tibble"><i class="fa fa-check"></i><b>2.4.2</b> Complex vectors/lists: <code>data.frame</code> and <code>tibble</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#subsetting-and-wrangling-data-tables"><i class="fa fa-check"></i><b>2.5</b> Subsetting and wrangling data tables</a></li>
+<li class="chapter" data-level="2.6" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#psa-not-knowing-is-normal"><i class="fa fa-check"></i><b>2.6</b> PSA: not-knowing is normal!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Wrangling data with <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#subsetting-data-1"><i class="fa fa-check"></i><b>3.1</b> Subsetting data</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#select-for-columns"><i class="fa fa-check"></i><b>3.1.1</b> <code>select()</code> for columns</a></li>
+<li class="chapter" data-level="3.1.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#filter-for-rows"><i class="fa fa-check"></i><b>3.1.2</b> <code>filter()</code> for rows</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#combining-steps-with-the-pipe"><i class="fa fa-check"></i><b>3.2</b> Combining steps with the pipe: <code>%&gt;%</code></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-require-that-the-lefthand-side-be-a-single-functional-command"><i class="fa fa-check"></i><b>3.2.1</b> Pipes require that the lefthand side be a single functional command</a></li>
+<li class="chapter" data-level="3.2.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side"><i class="fa fa-check"></i><b>3.2.2</b> Pipes always pass the result of the lefthand side to the <em>first</em> argument of the righthand side</a></li>
+<li class="chapter" data-level="3.2.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-are-a-pain-to-type"><i class="fa fa-check"></i><b>3.2.3</b> Pipes are a pain to type</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>3.3</b> Make new columns: <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses-with-group_by-and-summarize"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses with <code>group_by()</code> and <code>summarize()</code></a></li>
+<li class="chapter" data-level="3.5" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#utilities-for-data-management"><i class="fa fa-check"></i><b>3.5</b> Utilities for data management</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#rename-your-columns"><i class="fa fa-check"></i><b>3.5.1</b> Rename your columns</a></li>
+<li class="chapter" data-level="3.5.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#relocate-your-columns"><i class="fa fa-check"></i><b>3.5.2</b> Relocate your columns</a></li>
+<li class="chapter" data-level="3.5.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#sort-your-data"><i class="fa fa-check"></i><b>3.5.3</b> Sort your data</a></li>
+<li class="chapter" data-level="3.5.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pivot-tables"><i class="fa fa-check"></i><b>3.5.4</b> Pivot tables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>4</b> Data visualization basics with <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#your-first-ggplot"><i class="fa fa-check"></i><b>4.1</b> Your first <code>ggplot()</code></a></li>
+<li class="chapter" data-level="4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>4.2</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
+<li class="chapter" data-level="4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>4.3</b> Adding layers with <code>geom_*()</code> functions</a></li>
+<li class="chapter" data-level="4.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>4.4</b> Arguments inside and outside of <code>aes()</code></a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>4.4.1</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
+<li class="chapter" data-level="4.4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>4.4.2</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
+<li class="chapter" data-level="4.4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>4.4.3</b> Finally, <code>facet_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#some-further-reading"><i class="fa fa-check"></i><b>4.5</b> Some further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="text-analysis-i-fundamentals.html"><a href="text-analysis-i-fundamentals.html"><i class="fa fa-check"></i><b>5</b> Text Analysis I: Fundamentals</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="text-analysis-i-fundamentals.html"><a href="text-analysis-i-fundamentals.html#getting-your-text-data"><i class="fa fa-check"></i><b>5.1</b> Getting your text data</a></li>
+<li class="chapter" data-level="5.2" data-path="text-analysis-i-fundamentals.html"><a href="text-analysis-i-fundamentals.html#basic-import-and-cleaning-with-text-data"><i class="fa fa-check"></i><b>5.2</b> Basic import and cleaning with text data</a></li>
+<li class="chapter" data-level="5.3" data-path="text-analysis-i-fundamentals.html"><a href="text-analysis-i-fundamentals.html#where-is-the-data-in-character-a-tidy-approach."><i class="fa fa-check"></i><b>5.3</b> Where is the data in <code>character</code>? A <em>tidy</em> approach.</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html"><i class="fa fa-check"></i><b>6</b> Text Analysis II: Term Frequency Approaches</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#basic-text-analysis-approaches-using-tokens"><i class="fa fa-check"></i><b>6.1</b> Basic text analysis approaches using tokens</a></li>
+<li class="chapter" data-level="6.2" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#word-counts"><i class="fa fa-check"></i><b>6.2</b> Word counts</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#stop-words"><i class="fa fa-check"></i><b>6.2.1</b> “stop words”</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#term-frequency-inverse-document-frequency-tf-idf"><i class="fa fa-check"></i><b>6.3</b> Term Frequency-Inverse Document Frequency (TF-IDF)</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#term-frequency"><i class="fa fa-check"></i><b>6.3.1</b> Term Frequency</a></li>
+<li class="chapter" data-level="6.3.2" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#inverse-document-frequency"><i class="fa fa-check"></i><b>6.3.2</b> Inverse Document Frequency</a></li>
+<li class="chapter" data-level="6.3.3" data-path="text-analysis-ii-term-frequency-approaches.html"><a href="text-analysis-ii-term-frequency-approaches.html#applying-tf-idf-in-tidytext"><i class="fa fa-check"></i><b>6.3.3</b> Applying tf-idf in <code>tidytext</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="text-analysis-iii-sentiment-analysis.html"><a href="text-analysis-iii-sentiment-analysis.html"><i class="fa fa-check"></i><b>7</b> Text Analysis III: Sentiment Analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="text-analysis-iii-sentiment-analysis.html"><a href="text-analysis-iii-sentiment-analysis.html#sentiment-analysis"><i class="fa fa-check"></i><b>7.1</b> Sentiment analysis</a></li>
+<li class="chapter" data-level="7.2" data-path="text-analysis-iii-sentiment-analysis.html"><a href="text-analysis-iii-sentiment-analysis.html#n-gram-models"><i class="fa fa-check"></i><b>7.2</b> <em>n</em>-gram models</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>8</b> Wrap-up and further resources</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>8.1</b> Getting help</a></li>
+<li class="chapter" data-level="8.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>8.2</b> Further reading/resources</a></li>
+<li class="chapter" data-level="8.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>8.3</b> Questions/Comments</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to text analysis with R for sensory and consumer scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="a-crash-course-in-r" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> A crash course in <code>R</code><a href="a-crash-course-in-r.html#a-crash-course-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this section, we’re going to go over the basics of <code>R</code>: what the heck you’re looking at, how the RStudio IDE works, how to extend <code>R</code> with packages, and some key concepts that will help you work well in <code>R</code>.</p>
+<div id="r-vs-rstudio" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> <code>R</code> vs RStudio<a href="a-crash-course-in-r.html#r-vs-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this workshop we are going to be learning the basics of coding for text analysis in <code>R</code>, but we will be using the RStudio interface/IDE! Why am I using <code>R</code> for this workshop? And why do we need this extra layer of program to deal with it?</p>
+<div id="what-is-r" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> What is <code>R</code>?<a href="a-crash-course-in-r.html#what-is-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>R</code> is a programming language that was built for statistical and numerical analysis. It is not unique in these spaces–most of you are probably familiar with a program like SAS, SPSS, Unscrambler, XLSTAT, JMP, etc. Unlike these, <code>R</code> is <strong>free</strong> and <strong>open-source</strong>. This has two main consequences:</p>
+<ol style="list-style-type: decimal">
+<li><code>R</code> is constantly being extended to do new, useful things because there is a vibrant community of analysts developing tools for it, and the barrier to entry is very low.<br />
+</li>
+<li><code>R</code> doesn’t have a fixed set of tasks that it can accomplish, and, in fact, I generally haven’t found a data-analysis task I needed to do that I <em>couldn’t</em> in <code>R</code>.</li>
+</ol>
+<p>Because it’s a programming <strong>language</strong>, <code>R</code> isn’t point-and-click–today we’re going to be typing commands into the console, hitting, enter, making errors, and repeating. But this is a good thing! The power and flexibility of <code>R</code> (and it’s ability to do most of the things we want) come from the fact that it is a programming language. While learning to use <code>R</code> can <em>seem</em> intimidating, the effort to do so will give you a much more powerful suite of tools than the more limited point-and-click alternatives. <code>R</code> is built for research programming (data analysis), rather than for production programming. The only other alternative that is as widely supported in the research community is Python, but–honesty time here–I have never learned Python very well, and so we are learning <code>R</code>. And, in addition, Python doesn’t have as good an IDE as RStudio!</p>
+<p>If you open your <code>R.exe</code>/<code>R</code> application, you’ll see something like this:</p>
+<center>
+<div class="figure">
+<img src="img/R-app-interface.png" alt="" />
+<p class="caption">The <code>R</code> graphical console</p>
+</div>
+</center>
+<p>You can also work with <code>R</code> from a shell interface, but I will not be discussing this approach in this workshop.</p>
+</div>
+<div id="great-why-are-we-using-rstudio-then" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Great, why are we using RStudio then?<a href="a-crash-course-in-r.html#great-why-are-we-using-rstudio-then" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>RStudio is an “<strong>I</strong>nteractive <strong>D</strong>evelopment <strong>E</strong>nvironment” (IDE) for working with <code>R</code>. Without going into a lot of detail, that means that <code>R</code> lives on its own on your computer in a separate directory, and RStudio provides a bunch of better functionality for things like writing multiple files at once, making editing easier, autofilling code, and displaying plots. You can learn more about <a href="https://www.rstudio.com/products/rstudio/">RStudio here</a>.</p>
+<p>With that out of the way, I am going to be sloppy in terminology and say/type “<code>R</code>” a lot of the times I mean “RStudio”. I will be very clear if the distinction actually matters. RStudio is going to make your life way easier, and when you try to learn Python you are going to be sad :(</p>
+</div>
+</div>
+<div id="the-parts-of-rstudio" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> The parts of RStudio<a href="a-crash-course-in-r.html#the-parts-of-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The default layout of RStudio looks something like this (font sizes may vary):</p>
+<center>
+<div class="figure">
+<img src="img/R_00_Rstudio_01.png" alt="" />
+<p class="caption">RStudio default layout, courtesy of <a href="https://datacarpentry.org/r-socialsci/00-intro/index.html">Data Carpentry</a></p>
+</div>
+</center>
+<p>RStudio always has 4 “panes” with various functions, which are in tabs (just like a web browser). The key ones for right now to pay attention are:</p>
+<ol style="list-style-type: decimal">
+<li>The <code>Console</code> tab is the portal to interact directly with <code>R</code>. The <code>&gt;</code> “prompt” is where you can type and execute commands (by hitting return). You can try this out right now by using it like a calculator - try <code>1 + 1</code> if you like!</li>
+<li>The <code>Files</code> tab shows the files in your <strong>working directory</strong>: like in the Windows Explorer or macOS Finder, files are displayed within folders. You can click on files to open them.</li>
+<li>The <code>Help</code> tab shows documentation for <code>R</code> functions and packages–it is useful for learning how to use specific functions.</li>
+<li>The <code>Plots</code> tab shows graphical output, and this is where the data visualizations we’ll learn to make will (generally) appear.</li>
+<li>The <code>Environment</code> tab shows the objects that exist in memory in your current <code>R</code> session. Without going into details, this is “what you’ve done” so far: data tables and variables you’ve created, etc.</li>
+<li>Finally, the <code>Scripts</code> <strong>pane</strong> shows <em>individual</em> tabs for each script and other RStudio file. Scripts (and other, more exotic file types like RMarkdown/.Rmd files) are documents that contain multiple <code>R</code> commands, like you’d type into the <code>Console</code>. However, unlike commands in the <code>Console</code>, these commands don’t disappear as soon as they’re run, and we can string them together to make workflows or even programs. This is where the real power of <code>R</code> will come from.</li>
+</ol>
+<p>You can change the layout of your Panes (and many other options) by going to the RStudio menu: <code>Tools &gt; Global Options</code> and select <code>Pane Layout</code>.</p>
+<p>You’ll notice that my layout for RStudio looks quite different from the default, but you can always orient yourself by seeing what tab or pane I am in–these are always the same. I prefer giving myself more space for writing <code>R</code> scripts and markdown files, so I have given that specific Pane more space while minimizing the <code>History</code> pane.</p>
+<p>While we’re in Global Options, please make the following selections:</p>
+<ol style="list-style-type: decimal">
+<li>Under <code>General</code>, uncheck all the boxes to do with restoring projects and workspaces. We want to make sure our code runs cleanly, and letting RStudio load these will make this impossible:</li>
+</ol>
+<center>
+<div class="figure">
+<img src="img/global-options-settings.png" width="400" alt="" />
+<p class="caption">Uncheck the options to restore various data and projects at startup.</p>
+</div>
+</center>
+<ol start="2" style="list-style-type: decimal">
+<li>Make your life easier by setting up <strong>autocompletion</strong> for your code. Under the <code>Code &gt; Completion</code> options, select the checkboxes to allow using <code>tab</code> for autocompletions, and also allowing multiline autocompletions. This means that RStudio will suggest functions and data for you if you hit <code>tab</code>, which will make you have to do way less typing:</li>
+</ol>
+<center>
+<div class="figure">
+<img src="img/code-autocompletion.png" width="400" alt="" />
+<p class="caption">Check the boxes for tab and multiline autocompletions.</p>
+</div>
+</center>
+<div id="the-working-directory-and-why-you-should-care" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> The “working directory” and why you should care<a href="a-crash-course-in-r.html#the-working-directory-and-why-you-should-care" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before we move on to using <code>R</code> for real, we have one key general computing concept to tackle: the “working directory”. The working directory is the folder on your computer in which <code>R</code> will look for files and save files. When you need to tell <code>R</code> to read in data from a file or output a file, you will have to do so <strong>in relation to your working directory</strong>. Therefore, it is important that you know how to find your working directory and change it.</p>
+<p>The easiest (but not best) way to do this is to use the <code>Files</code> pane. If you hit the “gear” icon in the <code>Files</code> pane menu, you’ll see two commands to do with the working directory. You can <code>Go To Working Directory</code> to show you whatever <code>R</code> currently has set as the working directory. You can then navigate to any directory you want on your hard drive, and use the <code>Set As Working Directory</code> command to make that the working directory.</p>
+<p>A better way to do this is to use the R commands <code>getwd()</code> and <code>setwd()</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="a-crash-course-in-r.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() <span class="co"># will print the current working directory</span></span></code></pre></div>
+<pre><code>## [1] &quot;/Users/jake/Dropbox/Work/Documents/Conferences/Eurosense 2022/Sensometrics Tutorial/eurosense-tutorial-2022&quot;</code></pre>
+<p>And we can manually change the working directory by using</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="a-crash-course-in-r.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;Enter/Your/Desired/Directory/Here&quot;</span>)</span></code></pre></div>
+<p>Notice that I am not running the second command, because it would cause an error!</p>
+</div>
+</div>
+<div id="extending-r-with-packages" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Extending <code>R</code> with packages<a href="a-crash-course-in-r.html#extending-r-with-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One of the key advantages of <code>R</code> is that its open-source nature means that you can extend it to do all sorts of things. For example, for much of this workshop we are going to be going about basic text analysis using the <code>tidytext</code> package. There are various ways to install new packages, but the easiest way is to use the <code>Packages</code> tab. This will show you all the packages you currently have installed as an alphabetical list.</p>
+<div id="installing-packages" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Installing packages<a href="a-crash-course-in-r.html#installing-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To install a new package, you can select the <code>Install</code> button from the <code>Packages</code> tab, which will give you a prompt to type the package name in. You can get to the same prompt by going to the <code>Tools &gt; Install Packages...</code> menu. On this prompt, you can list packages separated by a comma (<code>,</code>), which is convenient. RStudio will also try to help you by autocompleting package names.</p>
+<p>You should have already installed the <code>tidyverse</code> package as part of your pre-work for this workshop. Now, let’s go ahead and install the <code>tidytext</code> package, which we’ll use later in this workshop. If you didn’t install the <code>tidyverse</code> package, you can list it along with the <code>tidytext</code> package.</p>
+<p>You’ll note that hitting <code>Install</code> made a line of code appear in your console, something like:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="a-crash-course-in-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidytext&quot;</span>)</span></code></pre></div>
+<p>This is the “true” <code>R</code> way to install packages–the function <code>install.packages()</code> can be run on the <code>Console</code> to install whatever package is quoted inside the parentheses.</p>
+<p>You can get <code>R</code> packages from a variety of sources. The most common are repositories, like <a href="https://cran.r-project.org/web/packages/index.html">CRAN</a>, which is where you first downloaded <code>R</code>. There are others, like <a href="https://www.bioconductor.org/">Bioconductor</a>, which is used more by the bioinformatics community. You might also sometime download an install a package that isn’t on a repository, such one from github (for example <a href="https://github.com/gadenbuie/ggpomological">this one</a>), but I am not going to cover that in detail here.</p>
+</div>
+<div id="loading-packages" class="section level3 hasAnchor" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Loading packages<a href="a-crash-course-in-r.html#loading-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To actually use a package, you need to load it using the <code>library(&lt;name of package&gt;)</code> command. So, for example, to load the <code>tidyverse</code> package we will use the command</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="a-crash-course-in-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p>You need to use multiple <code>library()</code> commands to load multiple packages, e.g.,</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="a-crash-course-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-2"><a href="a-crash-course-in-r.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span></code></pre></div>
+<p>If you want to know what packages you have loaded, you can run the <code>sessionInfo()</code> function, which will tell you a bunch of stuff, including the “attached” packages:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="a-crash-course-in-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.2.1 (2022-06-23)
+## Platform: x86_64-apple-darwin17.0 (64-bit)
+## Running under: macOS Catalina 10.15.7
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] tidytext_0.3.3  forcats_0.5.1   stringr_1.4.0   dplyr_1.0.9    
+##  [5] purrr_0.3.4     readr_2.1.2     tidyr_1.2.0     tibble_3.1.7   
+##  [9] ggplot2_3.3.6   tidyverse_1.3.2
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.9          lattice_0.20-45     lubridate_1.8.0    
+##  [4] assertthat_0.2.1    digest_0.6.29       utf8_1.2.2         
+##  [7] R6_2.5.1            cellranger_1.1.0    backports_1.4.1    
+## [10] reprex_2.0.1        evaluate_0.15       httr_1.4.3         
+## [13] pillar_1.8.0        rlang_1.0.4         googlesheets4_1.0.0
+## [16] readxl_1.4.0        rstudioapi_0.13     jquerylib_0.1.4    
+## [19] Matrix_1.4-1        rmarkdown_2.14      googledrive_2.0.0  
+## [22] munsell_0.5.0       broom_1.0.0         janeaustenr_0.1.5  
+## [25] compiler_4.2.1      modelr_0.1.8        xfun_0.31          
+## [28] pkgconfig_2.0.3     htmltools_0.5.3     tidyselect_1.1.2   
+## [31] bookdown_0.27       fansi_1.0.3         crayon_1.5.1       
+## [34] tzdb_0.3.0          dbplyr_2.2.1        withr_2.5.0        
+## [37] SnowballC_0.7.0     grid_4.2.1          jsonlite_1.8.0     
+## [40] gtable_0.3.0        lifecycle_1.0.1     DBI_1.1.3          
+## [43] magrittr_2.0.3      tokenizers_0.2.1    scales_1.2.0       
+## [46] cli_3.3.0           stringi_1.7.8       cachem_1.0.6       
+## [49] fs_1.5.2            xml2_1.3.3          bslib_0.4.0        
+## [52] ellipsis_0.3.2      generics_0.1.3      vctrs_0.4.1        
+## [55] tools_4.2.1         glue_1.6.2          hms_1.1.1          
+## [58] fastmap_1.1.0       yaml_2.3.5          colorspace_2.0-3   
+## [61] gargle_1.2.0        rvest_1.0.2         knitr_1.39         
+## [64] haven_2.5.0         sass_0.4.2</code></pre>
+<p>Finally, you can also load (and unload) packages using the <code>Packages</code> tab, by clciking the checkbox next to the name of the package you want to load (or unload).</p>
+</div>
+</div>
+<div id="getting-help" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Getting help<a href="a-crash-course-in-r.html#getting-help" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>With more packages you’re going to more frequently run into the need to look up how to do things, which means dealing with help files. You can always get help on a particular function by typing <code>?&lt;search term&gt;</code>, which will make the help documentation for whatever you’ve searched for appear.</p>
+<p>For example, try typing the following to get help for the <code>sessionInfo()</code> command:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="a-crash-course-in-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a>?sessionInfo</span></code></pre></div>
+<p>But what if you don’t know what to search for?</p>
+<p>By typing <code>??&lt;search term&gt;</code> you will search <strong>all</strong> help files for the search term. R will return a list of matching articles to you in the help pane. This is considerably slower, since it’s searching hundreds or thousands of text files. Try typing <code>??install</code> into your console to see how this works.</p>
+<p>You will notice that there are two types of results in the help list for install. The help pages should be familiar. But what are “vignettes”? Try clicking on one to find out.</p>
+<p>Vignettes are formatted, conversational walkthroughs that are increasingly common (and helpful!) for R packages. Rather than explaining a single function they usually explain some aspect of a package, and how to use it. And, even better for our purposes, they are written in R Markdown. Click the “source” link next to the vignette name in order to see how the author wrote it in R Markdown. This is a great way to learn new tricks.</p>
+<p>While you can find vignettes as we just did, a better way is to use the function <code>browseVignettes()</code>. This opens a web browser window that lists <strong>all</strong> vignettes installed on your computer. You can then use cmd/ctrl + F to search using terms in the web browser and quickly find package names, function names, or topics you are looking for.</p>
+</div>
+<div id="livecoding-along" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Livecoding along<a href="a-crash-course-in-r.html#livecoding-along" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We’ve now covered the <code>Console</code> tab and the <code>Scripts</code> pane. These are both areas in which you can write and execute code, but they work a little differently. The <code>Console</code> is the place to run code that is short and easy to type, or that you’re experimenting with. It will allow you to write a single line of code, and after you hit <code>return</code>, <code>R</code> will execute the command. This is great for “interactive programming”, but it isn’t so great for building up a complex workflow, or for following along with this workshop!</p>
+<p>This is why I have recommended that you create a new script to follow along with this workshop. Again, you get a new script by going to <code>File &gt; New File &gt; R Script</code>. You can write multiple lines of code and then execute each one in any order (although keeping a logical sequence from top to bottom will help you keep track of what you’re doing). In an <code>R</code> script, everything is expected to be valid R code.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="a-crash-course-in-r.html#cb10-1" aria-hidden="true" tabindex="-1"></a>You can<span class="st">&#39;t write this in an R script because it is plain text.  This will</span></span>
+<span id="cb10-2"><a href="a-crash-course-in-r.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">cause an error.</span></span>
+<span id="cb10-3"><a href="a-crash-course-in-r.html#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="a-crash-course-in-r.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="st"># If you want to write text or notes to yourself, use the &quot;#&quot; symbol at the start of </span></span>
+<span id="cb10-5"><a href="a-crash-course-in-r.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="st"># every line to &quot;comment&quot; out that line.  You can also put &quot;#&quot; in the middle of</span></span>
+<span id="cb10-6"><a href="a-crash-course-in-r.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="st"># a line in order to add a comment - everything after will be ignored.</span></span>
+<span id="cb10-7"><a href="a-crash-course-in-r.html#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="a-crash-course-in-r.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="st">1 + 1 # this is valid R syntax</span></span>
+<span id="cb10-9"><a href="a-crash-course-in-r.html#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="a-crash-course-in-r.html#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="st">print(&quot;hello world&quot;) # this is also valid R syntax</span></span></code></pre></div>
+<p>To run code from your <code>R</code> script, put your cursor on the line you want to run and either hit the run button with the green arrow at the top left or (my preferred method) type <code>cmd + return</code> (on Mac) or <code>ctrl + return</code> (on PC).</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="how-to-work-with-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

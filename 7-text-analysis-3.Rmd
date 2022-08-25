@@ -1,0 +1,203 @@
+# Text Analysis III: Sentiment Analysis
+
+We've now practiced some basic tools for first wrangling text data into a form with which we can work, and then applying some simple, empirical statistics to start to extract meaning.  We'll discuss **sentiment analysis**, a broad suite of tools that attempts to impute some sort of emotional or affective weight to words, and then produce scores for texts based on these weights.
+
+## Sentiment analysis
+
+In recent years, sentiment analysis has gotten a lot of attention in consumer sciences, and it's one of the topics that has penetrated the furthest into sensory science, because its goals are easily understood in terms of our typical goals: quantifying consumer affective responses to a set of products based on consumption experiences.
+
+In **sentiment analysis**, we attempt to replicate the human inferential process, in which we, as readers, are able to infer--without necessarily being able to explicitly describe *how* we can tell--the emotional tone of a piece of writing.  We understand implicitly whether the author is trying to convey various emotional states, like disgust, appreciation, joy, etc.
+
+In recent years, there have been a number of approaches to sentiment analysis.  The current state of the art is to use some kind of machine learning, such as random forests ("shallow learning") or pre-trained neural networks ("deep learning"; usually convolutional, but sometimes recursive) to learn about a large batch of similar texts and then to process texts of interest.  Not to plug myself too much, but we have a poster on such an approach at this conference, which may be of interest to some of you.  
+
+<center>
+
+![Machine learning: just throw algebra at the problem! (via [XKCD](https://xkcd.com/1838))](https://imgs.xkcd.com/comics/machine_learning.png)
+
+</center>
+
+While these state-of-the-art approaches are outside of the scope of this workshop, older techniques that use pre-defined dictionaries of sentiment words are easy to implement with a tidy text format, and can be very useful for the basic exploration of text data.  These have been used in recent publications to great effect, such as in the recent paper from [Luc et al. (2020)](https://doi.org/10.1016/j.foodqual.2019.103751).
+
+The `tidytext` package includes the `sentiments` tibble by default, which is a version of that published by [Hu & Liu (2004)](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html).  
+
+```{r the included lexicons for sentiment in tidytext}
+sentiments
+
+count(sentiments, sentiment)
+```
+
+This is a very commonly used lexicon, which has shown to perform reasonably well on online-review based texts.  The `tidytext` package also gives easy access to a few other lexicons through the `get_sentiment()` function, which may prompt for downloading some of the lexicons in order to avoid copyright issues.  For the purpose of this workshop, we'll just work with the `sentiments` tibble, which can also be accessed using `get_sentiment("bing")`.  
+
+The structure of tidy data with tokens makes it very easy to use these dictionary-based sentiment analysis approaches.  To do so, all we need to do is use a `left_join()` function, which is similar to the `anti_join()` function we used for stop words.  In this case, for data tables `X` and `Y`, `left_join(X, Y)` finds rows in `Y` that match `X`, and imports all the columns from Y for those matches.
+
+```{r using simple data wrangling to add sentiments to our beer data}
+beer_sentiments <- 
+  beer_data_tokenized %>%
+  left_join(sentiments, by = c("token" = "word"))
+
+beer_sentiments %>%
+  select(review_id, beer_name, style, rating, token, sentiment)
+```
+
+It is immediately apparent how sparse the sentiment lexicons are compared to our actual data.  This is one key problem with dictionary-based approaches--we often don't have application- or domain-specific lexicons, and the lexicons that exist are often not well calibrated to our data.
+
+We can perform a simple `count()` and `group_by()` operation to get a rough sentiment score.  
+
+```{r our split-apply-combine approach for sentiment analysis}
+sentiment_ratings <- 
+  beer_sentiments %>%
+  count(review_id, sentiment) %>%
+  drop_na() %>%
+  group_by(review_id) %>%
+  pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) %>%
+  mutate(sentiment = positive - negative)
+
+sentiment_ratings
+```
+
+In this case, we're being *very* rough: we're not taking into account any of the non-sentiment words, for example.  Nevertheless, let's take a look at what we've gotten:
+
+```{r visualizing basic sentiment against rating, warning = FALSE, message = FALSE}
+beer_data %>%
+  mutate(review_id = row_number()) %>%
+  left_join(sentiment_ratings) %>%
+  ggplot(aes(x = sentiment, y = rating)) + 
+  geom_jitter(alpha = 0.2, size = 1) + 
+  geom_smooth(method = "lm") +
+  coord_cartesian(xlim = c(-11, 30), ylim = c(1, 5)) +
+  theme_bw()
+```
+
+It does appear that there is a positive, probably non-linear relationship between sentiment and rating.  We could do some reshaping (normalizing, possibly exponentiating or otherwise transforming the subsequent score) of the sentiment scores to get a better relationship.
+
+```{r we can improve by doing some normalization}
+beer_data <- 
+  beer_data %>%
+  mutate(review_id = row_number()) %>%
+  left_join(sentiment_ratings)
+
+beer_data %>%
+  select(beer_name, style, rating, sentiment) %>%
+  pivot_longer(cols = c(rating, sentiment), names_to = "scale", values_to = "value") %>%
+  group_by(style, scale) %>%
+  summarize(mean_value = mean(value, na.rm = TRUE),
+            se_value = sd(value, na.rm = TRUE) / sqrt(n())) %>%
+  group_by(scale) %>%
+  slice_max(order_by = mean_value, n = 10) %>%
+  ungroup() %>%
+  mutate(style = factor(style) %>% reorder_within(by = mean_value, within = scale)) %>%
+  ggplot(aes(x = style, y = mean_value, fill = scale)) + 
+  geom_col(position = "dodge", show.legend = FALSE) + 
+  scale_x_reordered() +
+  coord_flip() +
+  facet_wrap(~scale, scales = "free")
+```
+
+We can see that we get quite different rankings from sentiment scores and from ratings.  It might behoove us to examine some of those mismatches in order to identify where they originate from.
+
+```{r where are the disagreements between rating and sentiment?}
+# Here are the reviews where the ratings most disagree with the sentiment
+beer_data %>%
+  # normalize sentiment and ratings so we can find the largest mismatch
+  mutate(rating_norm = rating / max(rating, na.rm = TRUE),
+         sentiment_norm = sentiment / max(sentiment, na.rm = TRUE),
+         diff = rating_norm - sentiment_norm) %>%
+  select(review_id, beer_name, sentiment_norm, rating_norm, diff, cleaned_review) %>%
+  slice_max(order_by = diff, n = 2) %>%
+  gt::gt()
+
+# And here are the reviews where the sentiment most disagreed with the rating
+beer_data %>%
+  # normalize sentiment and ratings so we can find the largest mismatch
+  mutate(rating_norm = rating / max(rating, na.rm = TRUE),
+         sentiment_norm = sentiment / max(sentiment, na.rm = TRUE),
+         diff = sentiment_norm - rating_norm) %>%
+  select(review_id, beer_name, sentiment_norm, rating_norm, diff, cleaned_review) %>%
+  slice_max(order_by = diff, n = 2) %>%
+  gt::gt()
+```
+
+Interestingly, we see here some evidence that some kind of normalization for review length might be necessary.  Let's take one more look into this area:
+
+```{r review length seems to affect rating and sentiment to different degrees, message = FALSE, warning = FALSE}
+beer_data %>%
+  mutate(word_count = tokenizers::count_words(cleaned_review)) %>%
+  select(review_id, rating, sentiment, word_count) %>%
+  pivot_longer(cols = c(rating, sentiment)) %>%
+  ggplot(aes(x = word_count, y = value, color = name)) + 
+  geom_jitter() + 
+  geom_smooth(method = "lm", color = "black") + 
+  facet_wrap(~name, scales = "free") +
+  theme_bw() + 
+  theme(legend.position = "none")
+```
+
+It appears that both rating and sentiment are positively correlated with word count, but that (unsurprisingly) sentiment is more strongly correlated.  Going forward, we might want to consider some way to normalize for word count in our sentiment scores.
+
+## *n*-gram models
+
+An obvious and valid critique of sentiment analysis as implemented above is the focus on single words, or **unigrams**.  It is very clear that English (and most languages) have levels of meaning that go beyond the single word, so focusing our analysis on single words as are tokens/observations will lose some (or a lot!) of meaning.  It is common in modern text analysis to look at units beyond the single word: bi-, tri-, or *n*-grams, for example, or so-called "skipgrams" for the popular and powerful `word2vec` family of algorithms.  Tools like convolutional and recursive neural networks will look at larger chunks of texts, combined in different ways.
+
+Let's take a look at *bigrams* in our data-set: tokens that are made up of 2 adjacent words.  We can get them using the same `unnest_tokens()` function, but with the request to get `token = "ngrams"` and the number of tokens set to `n = 2`.
+
+```{r tokenizing for bigrams}
+beer_bigrams <- 
+  beer_data %>%
+  unnest_tokens(output = bigram, input = cleaned_review, token = "ngrams", n = 2)
+
+beer_bigrams %>%
+  filter(review_id == 1) %>%
+  select(beer_name, bigram)
+```
+
+We can see that, in this first review, we already have a bigram with strong semantic content: `not sure` should tell us that looking only at the unigram `sure` will give us misleading results.
+
+We can use some more `tidyverse` helpers to get a better idea of the scale of the problem.  The `separate()` function breaks one character vector into multiple columns, according to whatever separating characters you specify.
+
+```{r what are the most common bigrams with "not"?}
+beer_bigrams %>%
+  separate(col = bigram, into = c("word1", "word2"), sep = " ") %>%
+  # Now we will first filter for bigrams starting with "not"
+  filter(word1 == "not") %>%
+  # And then we'll count up the most frequent pairs of negated biterms
+  count(word1, word2) %>%
+  arrange(-n)
+```
+
+We can see that the 4th most frequent pair is "not bad", which means that `bad`, classified as a `negative` token in the `sentiments` tibble, is actually being *overcounted* as negative in our simple unigram analysis.
+
+We can actually look more closely at this with just a little bit more wrangling:
+
+```{r what are our most important SENTIMENT bigrams with "not"?}
+beer_bigrams %>%
+  separate(col = bigram, into = c("word1", "word2"), sep = " ") %>%
+  filter(word1 == "not") %>%
+  inner_join(sentiments, by = c("word2" = "word")) %>%
+  count(word1, word2, sort = TRUE)
+```
+
+We could use such an approach to try to get a handle on the problem of context in our sentiment analysis, by inverting the sentiment score of any word that is part of a "not bigram".  Of course, such negations can be expressed over entire sentences, or even flavor the entire text (as in the use of sarcasm).  There are entire analysis workflows built on this kind of context flow. 
+
+For example, the [`sentiment` package](https://github.com/trinker/sentimentr), which was used in the recent [Luc et al. (2020) paper on free JAR analysis](https://doi.org/10.1016/j.foodqual.2019.103751), takes just such an approach.  We can quickly experiment with this package as a demonstration.
+
+```{r more sophisticated lexicon-based sentiment analysis with sentimentr}
+library(sentimentr)
+
+polarity_sentiment <- 
+  cleaned_reviews_example %>% 
+  select(beer_name, rating, cleaned_review) %>%
+  get_sentences() %>%
+  sentiment_by(by = "beer_name")
+
+polarity_sentiment
+```
+
+We can visualize how the `sentimentr` algorithm "*sees*" the sentences by using the `highlight(polarity_sentiment)` call, but since this outputs `HTML` I will embed it as an image here.
+
+<center>
+![`sentimentr` sentence-based sentiment analysis, using the dictionary-based, polarity-shifting algorithm.](img/sentimentr-highlight.png)
+
+</center>
+
+As a note, this is only one example of such an algorithm, and it may or may not be the best one.  While Luc et al. (2020) found good results, we (again plugging our poster) found that `sentimentr` didn't outperform simpler algorithms.  However, this may have to do with the set up of lexicons, stop-word lists, etc.
+
