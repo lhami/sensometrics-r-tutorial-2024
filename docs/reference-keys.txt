@@ -61,5 +61,6 @@ sentiment-analysis
 n-gram-models
 wrap-up-and-further-resources
 getting-help-1
+learning-more-with-sensometrics-society
 further-readingresources
 questionscomments
