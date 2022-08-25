@@ -14,7 +14,7 @@ In order to be prepared to participate for this tutorial, you should do the foll
     1.  Download the free version of [RStudio Desktop from their website](https://www.rstudio.com/products/rstudio/download/#download).
     2.  Run the installer and make sure you can open RStudio.
     3.  (If you already have RStudio, check your version by opening RStudio and navigating to the menu **Help > About RStudio**.  You should be using a version later than the 2022-05-xx release.  If you are not, or if you cannot find this information, please just update your version by following steps 1-2 above.)
-3.  Download the tutorial materials by going to <mark>***LINK TO BE INSERTED HERE***</mark>.
+3.  Download the tutorial materials by [going to the `code/eurosense-code-download.zip` file](https://github.com/jlahne/eurosense-tutorial-2022/blob/main/code/eurosense-code-download.zip) in this repo and clicking `Download`.
     1.  We suggest that you create a new folder on your Desktop to work in.  By downloading the files, you'll get copies of everything you need for the class:
         1.  R Scripts
         2.  Data
@@ -34,7 +34,7 @@ At this point, you should be all set for the workshop!  Thanks so much for getti
 >
 > The tutorial will have 2 sections. In the first section of the tutorial, we will introduce R and RStudio, we will cover the basic commands of R, and we will cover key, user-friendly conventions of ”tidy” R programming for importing, manipulating, and plotting data using the “tidyverse” packages. In the second section we will use the “tidytext” package to conduct basic text analysis, including text tokenization, text modeling using TF-IDF, and basic lexicon-based sentiment analysis.
 
-What we will **not** be covering:
+# What we will **not** be covering:
 
 * Statistical theory (including for text data)
 * How to write these kinds of web-friendly documents and bookdowns
