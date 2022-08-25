@@ -27,6 +27,22 @@ By developing your ability to code (in `R` or Python, or whatever works for you-
 
 I want to emphasize that **looking up help is normal**. I do it all the time. Learning to ask questions in helpful ways, how to quickly parse the information you find, and how to slightly alter the answers to suit your particular situation are key skills.
 
+## Learning more with Sensometrics Society
+
+This workshop was organized and sponsored by the Sensometrics Society.  Want to learn more?  We are hosting our biennial conference **online 15-17 November, 2022**:
+
+<center>
+
+![Sensometrics Society biannual conference banner](img/sensometrics-logo-2022.png)
+
+</center>
+
+In general, Sensometrics has a focus on methods and skills for the analysis of sensory data.  If you're interested in contributing to this focus (or just participating), please see our call for papers:
+
+> Please submit an abstract for either an oral or poster presentation on the conference website at [www.sensometrics2022.com](http://sensometric.org/2022). All submissions need to be received by **October 17, 2022**. Notification about acceptance will be made by October 24, 2022. All accepted contributions are invited to submit a full paper for inclusion in a virtual special issue of Food Quality and Preference (FQAP). 
+
+You can contact us for more information or with questions at [sensometrics2022@gmail.com](mailto:sensometrics2022@gmail.com).
+
 ## Further reading/resources
 
 1.  General `R` programming
