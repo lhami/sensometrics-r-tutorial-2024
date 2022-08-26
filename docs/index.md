@@ -12,11 +12,7 @@ github-repo: jlahne/eurosense-tutorial-2022
 
 # Introduction and welcome {-}
 
-```{r setup, include = FALSE}
-library(tidyverse)
-library(tidytext)
-beer_data <- read_csv("data/ba_2002.csv")
-```
+
 
 
 Welcome to the Eurosense Sensometrics Workshop "**An introduction to text analysis with R for sensory and consumer scientists**"!

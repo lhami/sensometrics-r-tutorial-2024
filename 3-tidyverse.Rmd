@@ -1,5 +1,11 @@
 # Wrangling data with `tidyverse`
 
+```{r setup, include = FALSE}
+library(tidyverse)
+library(tidytext)
+beer_data <- read_csv("data/ba_2002.csv")
+```
+
 A common saying in data science is that about 90% of the effort in an analysis workflow is in getting data wrangled into the right format and shape, and 10% is actual analysis.  In a point and click program like SPSS or XLSTAT we don't think about this as much because the activity of reshaping the data--making it longer or wider as required, finding and cleaning missing values, selecting columns or rows, etc--is often temporally and programmatically separated from the "actual" analysis. 
 
 In `R`, this can feel a bit different because we are using the same interface to manipulate our data and to analyze it.  Sometimes we'll want to jump back out to a spreadsheet program like Excel or even the command line (the "shell" like `bash` or `zsh`) to make some changes.  But in general the tools for manipulating data in `R` are both more powerful and more easily used than doing these activities by hand, and you will make yourself a much more effective analyst by mastering these basic tools.

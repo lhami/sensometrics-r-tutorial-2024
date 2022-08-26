@@ -1,10 +1,6 @@
 # Data visualization basics with `ggplot2`
 
-```{r setup, include = FALSE}
-library(tidyverse)
-library(tidytext)
-beer_data <- read_csv("data/ba_2002.csv")
-```
+
 
 `R` includes extremely powerful utilities for data visualization, but most modern applications make use of the `tidyverse` package `ggplot2`.
 
@@ -16,7 +12,8 @@ In general, `ggplot2` works best with data in "long" or "tidy" format, such as t
 
 The schematic elements of a ggplot are as follows:
 
-```{r non-working schematic of a ggplot, eval = FALSE}
+
+```r
 # The ggplot() function creates your plotting environment.  We usually save it to a variable in R so that we can use the plug-n-play functionality of ggplot without retyping a bunch of nonsense
 p <- ggplot(mapping = aes(x = <a variable>, y = <another variable>, ...),
             data = <your data>)
@@ -36,11 +33,14 @@ In graphical form, the following diagram ([from VT Professor JP Gannon](https://
 
 Our beer data is already relatively tidy, so we will begin by making an example `ggplot()` to demonstrate how it works.
 
-```{r a first ggplot}
+
+```r
 beer_data %>%
   ggplot(mapping = aes(x = rating, y = overall)) + # Here we set up the base plot
   geom_point()                           # Here we tell our base plot to add points
 ```
+
+<img src="4-dataviz_files/figure-html/a first ggplot-1.png" width="672" />
 
 This doesn't look all that impressive--partly because the data being plotted itself isn't that sensible, and partly because we haven't made many changes.  But before we start looking into that, let's break down the parts of this command.
 
@@ -56,34 +56,68 @@ This sentence tells us the other important thing about `ggplot()` and the `aes()
 
 In the above example, we added (literally, using `+`) a function called `geom_point()` to the base `ggplot()` call.  This is functionally a "layer" of our plot, that tells `ggplot2` how to actually visualize the elements specified in the `aes()` function--in the case of `geom_point()`, we create a point for each row's combination of `x = rating` and `y = overall`.
 
-```{r what we are plotting in this example}
+
+```r
 beer_data %>%
   select(rating, overall)
 ```
 
+```
+## # A tibble: 20,359 × 2
+##    rating overall
+##     <dbl>   <dbl>
+##  1   4.46     5  
+##  2   3.74     4  
+##  3   3.26     3  
+##  4   3.5      3.5
+##  5   3.86     3.5
+##  6   3.11     3.5
+##  7   3.55     3.5
+##  8   3.06     3  
+##  9   4        4  
+## 10   3.21     3.5
+## # … with 20,349 more rows
+## # ℹ Use `print(n = ...)` to see more rows
+```
+
 There are many `geom_*()` functions in `ggplot2`, and many others defined in other accessory packages.  These are the heart of visualizations.  We can swap them out to get different results:
 
-```{r switching geom_() switches the way the data map}
+
+```r
 beer_data %>%
   ggplot(mapping = aes(x = rating, y = overall)) + 
   geom_smooth()
 ```
+
+```
+## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+```
+
+<img src="4-dataviz_files/figure-html/switching geom_() switches the way the data map-1.png" width="672" />
 Here we fit a smoothed line to our data using the default methods in `geom_smooth()` (which in this case heuristically defaults to a General Additive Model).
 
 We can also combine layers, as the term implies:
 
-```{r geom_()s are layers in a plot}
+
+```r
 beer_data %>%
   ggplot(mapping = aes(x = rating, y = overall)) + 
   geom_jitter() + # add some random noise to show overlapping points
   geom_smooth()
 ```
 
+```
+## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+```
+
+<img src="4-dataviz_files/figure-html/geom_()s are layers in a plot-1.png" width="672" />
+
 Note that we don't need to tell *either* `geom_smooth()` or `geom_jitter()` what `x` and `y` are--they "inherit" them from the `ggplot()` function to which they are added (`+`), which defines the plot itself.
 
 What other arguments can be set to aesthetics?  Well, we can set other visual properties like **color**, **size**, **transparency** (called "alpha"), and so on.  For example, let's try to look at whether there is a relationship between ABV and perceived quality.
 
-```{r here are some other parts of the plot we can control with data}
+
+```r
 beer_data %>%
   # mutate a new variable for plotting
   mutate(high_abv = ifelse(abv > 9, "yes", "no")) %>%
@@ -94,13 +128,16 @@ beer_data %>%
   theme_bw()
 ```
 
+<img src="4-dataviz_files/figure-html/here are some other parts of the plot we can control with data-1.png" width="672" />
+
 We can see that most of the yellow "yes" dots are in the top right of the figure--people rate more alcoholic beer as higher quality for both `overall` and `rating`.
 
 ## Arguments inside and outside of `aes()`
 
 In the last plot, we saw an example in the `geom_jitter(alpha = 1/4)` function of setting the `alpha` (transparency) aesthetic element directly, without using `aes()` to **map** a variable to this aesthetic.  That is why this is not wrapped in the `aes()` function.  In `ggplot2`, this is how we set aesthetics to fixed values.  Alternatively, we could have mapped this to a variable, just like color:
 
-```{r using the aes() function}
+
+```r
 beer_data %>%
   drop_na(abv) %>%
   ggplot(aes(x = rating, y = overall)) + 
@@ -109,19 +146,24 @@ beer_data %>%
   theme_bw()
 ```
 
+<img src="4-dataviz_files/figure-html/using the aes() function-1.png" width="672" />
+
 As an aside, we can see the same relationship noted above: higher ABV is associated with higher ratings.
 
 ### Using `theme_*()` to change visual options quickly
 
 In the last several plots, notice that we have changed from the default (and to my mind unattractive) grey background of `ggplot2` to a black and white theme.  This is by adding a `theme_bw()` call to the list of commands.  `ggplot2` includes a number of default `theme_*()` functions, and you can get many more through other `R` packages.  They can have subtle to dramatic effects:
 
-```{r using the theme_*() functions}
+
+```r
 beer_data %>%
   drop_na() %>%
   ggplot(aes(x = rating, y = overall)) + 
   geom_jitter() + 
   theme_void()
 ```
+
+<img src="4-dataviz_files/figure-html/using the theme_*() functions-1.png" width="672" />
 
 You can also edit every last element of the plot's theme using the base `theme()` function, which is powerful but a little bit tricky to use.
 
@@ -134,7 +176,8 @@ How can we manipulate the colors that are plotted?  The **way in which** mapped,
 Scale functions work by telling `ggplot()` *how* to map aesthetic variables to visual elements.  You may have noticed that I added a `scale_color_viridis_d()` function to the end of the ABV plot.  This function uses the `viridis` package, which has color-blind and (theoretically) print-safe color scales.
 
 
-```{r ggplots are R objects}
+
+```r
 p <- 
   beer_data %>%
   # This block gets us a subset of beer styles for clear visualization
@@ -152,21 +195,36 @@ p <-
 p
 ```
 
+<img src="4-dataviz_files/figure-html/ggplots are R objects-1.png" width="672" />
+
 We can take a saved plot (like `p`) and use scales to change how it is visualized.
 
-```{r we can modify stored plots after the fact}
+
+```r
 p + scale_fill_viridis_d()
 ```
 
+<img src="4-dataviz_files/figure-html/we can modify stored plots after the fact-1.png" width="672" />
+
 `ggplot2` has a broad range of built-in options for scales, but there are many others available in add-on packages that build on top of it.  You can also build your own scales using the `scale_*_manual()` functions, in which you give a vector of the same length as your mapped aesthetic variable in order to set up the visual assignment.  That sounds jargon-y, so here is an example:
 
-```{r another example of posthoc plot modification}
+
+```r
 # We'll pick 14 random colors from the colors R knows about
 random_colors <- print(colors()[sample(x = 1:length(colors()), size = 10)])
+```
 
+```
+##  [1] "indianred1" "orangered1" "cornsilk"   "slategray3" "gray1"     
+##  [6] "orange4"    "grey21"     "grey93"     "grey34"     "plum4"
+```
+
+```r
 p + 
   scale_fill_manual(values = random_colors)
 ```
+
+<img src="4-dataviz_files/figure-html/another example of posthoc plot modification-1.png" width="672" />
 
 ### Finally, `facet_*()`
 
@@ -180,7 +238,8 @@ A plausible sensory hypothesis is that the `palate` variable in particular will 
 3.  We will plot the relationship of `palate` to ABV as a density plot
 3.  We will then look at this as a single plot vs a facetted plot
 
-```{r starting with a base plot showing palate tertiles}
+
+```r
 p <- 
   beer_data %>%
   # Step 1: make abv tertiles
@@ -195,13 +254,18 @@ p <-
 p
 ```
 
+<img src="4-dataviz_files/figure-html/starting with a base plot showing palate tertiles-1.png" width="672" />
+
 It looks like the expected trend is present, but it's a bit hard to see.  Let's see what happens if we break this out into "facets":
 
-```{r now we split the plot into 3 "small multiples" with facet_wrap()}
+
+```r
 p + 
   facet_wrap(~abv_tertile, nrow = 4) +
   theme(legend.position = "none")
 ```
+
+<img src="4-dataviz_files/figure-html/now we split the plot into 3 "small multiples" with facet_wrap()-1.png" width="672" />
 
 By splitting into facets we can see that there is much more density towards the higher `palate` ratings for the higher `abv` tertiles.  This may help explain the positive relationship between `abv` and `rating` in the overall dataset: the consumers in this sample clearly appreciate the mouthfeel associated with higher alcohol contents.
 

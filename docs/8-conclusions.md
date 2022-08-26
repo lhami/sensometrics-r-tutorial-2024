@@ -1,10 +1,6 @@
 # Wrap-up and further resources
 
-```{r setup, include = FALSE}
-library(tidyverse)
-library(tidytext)
-beer_data <- read_csv("data/ba_2002.csv")
-```
+
 
 Let's look back at what we were aiming to do today:
 

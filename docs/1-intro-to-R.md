@@ -1,10 +1,6 @@
 # A crash course in `R`
 
-```{r setup, include = FALSE}
-library(tidyverse)
-library(tidytext)
-beer_data <- read_csv("data/ba_2002.csv")
-```
+
 
 In this section, we're going to go over the basics of `R`: what the heck you're looking at, how the RStudio IDE works, how to extend `R` with packages, and some key concepts that will help you work well in `R`.
 
@@ -86,13 +82,19 @@ The easiest (but not best) way to do this is to use the `Files` pane.  If you hi
 
 A better way to do this is to use the R commands `getwd()` and `setwd()`.
 
-```{r}
+
+```r
 getwd() # will print the current working directory
+```
+
+```
+## [1] "/Users/jake/Dropbox/Work/Documents/Conferences/Eurosense 2022/Sensometrics Tutorial/eurosense-tutorial-2022"
 ```
 
 And we can manually change the working directory by using 
 
-```{r, eval=FALSE}
+
+```r
 setwd("Enter/Your/Desired/Directory/Here")
 ```
 
@@ -112,7 +114,8 @@ You should have already installed the `tidyverse` package as part of your pre-wo
 
 You'll note that hitting `Install` made a line of code appear in your console, something like:
 
-```{r, eval = FALSE}
+
+```r
 install.packages("tidytext")
 ```
 
@@ -124,21 +127,70 @@ You can get `R` packages from a variety of sources.  The most common are reposit
 
 To actually use a package, you need to load it using the `library(<name of package>)` command.  So, for example, to load the `tidyverse` package we will use the command
 
-```{r}
+
+```r
 library(tidyverse)
 ```
 
 You need to use multiple `library()` commands to load multiple packages, e.g.,
 
-```{r}
+
+```r
 library(tidyverse)
 library(tidytext)
 ```
 
 If you want to know what packages you have loaded, you can run the `sessionInfo()` function, which will tell you a bunch of stuff, including the "attached" packages:
 
-```{r}
+
+```r
 sessionInfo()
+```
+
+```
+## R version 4.2.1 (2022-06-23)
+## Platform: x86_64-apple-darwin17.0 (64-bit)
+## Running under: macOS Catalina 10.15.7
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] tidytext_0.3.3  forcats_0.5.1   stringr_1.4.0   dplyr_1.0.9    
+##  [5] purrr_0.3.4     readr_2.1.2     tidyr_1.2.0     tibble_3.1.7   
+##  [9] ggplot2_3.3.6   tidyverse_1.3.2
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.9          lattice_0.20-45     lubridate_1.8.0    
+##  [4] assertthat_0.2.1    digest_0.6.29       utf8_1.2.2         
+##  [7] R6_2.5.1            cellranger_1.1.0    backports_1.4.1    
+## [10] reprex_2.0.1        evaluate_0.15       httr_1.4.3         
+## [13] pillar_1.8.0        rlang_1.0.4         googlesheets4_1.0.0
+## [16] readxl_1.4.0        rstudioapi_0.13     jquerylib_0.1.4    
+## [19] Matrix_1.4-1        rmarkdown_2.14      googledrive_2.0.0  
+## [22] bit_4.0.4           munsell_0.5.0       broom_1.0.0        
+## [25] janeaustenr_0.1.5   compiler_4.2.1      modelr_0.1.8       
+## [28] xfun_0.31           pkgconfig_2.0.3     htmltools_0.5.3    
+## [31] tidyselect_1.1.2    bookdown_0.27       fansi_1.0.3        
+## [34] crayon_1.5.1        tzdb_0.3.0          dbplyr_2.2.1       
+## [37] withr_2.5.0         SnowballC_0.7.0     grid_4.2.1         
+## [40] jsonlite_1.8.0      gtable_0.3.0        lifecycle_1.0.1    
+## [43] DBI_1.1.3           magrittr_2.0.3      tokenizers_0.2.1   
+## [46] scales_1.2.0        vroom_1.5.7         cli_3.3.0          
+## [49] stringi_1.7.8       cachem_1.0.6        fs_1.5.2           
+## [52] xml2_1.3.3          bslib_0.4.0         ellipsis_0.3.2     
+## [55] generics_0.1.3      vctrs_0.4.1         tools_4.2.1        
+## [58] bit64_4.0.5         glue_1.6.2          hms_1.1.1          
+## [61] parallel_4.2.1      fastmap_1.1.0       yaml_2.3.5         
+## [64] colorspace_2.0-3    gargle_1.2.0        rvest_1.0.2        
+## [67] knitr_1.39          haven_2.5.0         sass_0.4.2
 ```
 
 Finally, you can also load (and unload) packages using the `Packages` tab, by clciking the checkbox next to the name of the package you want to load (or unload).
@@ -149,7 +201,8 @@ With more packages you're going to more frequently run into the need to look up 
 
 For example, try typing the following to get help for the `sessionInfo()` command:
 
-```{r, eval = FALSE}
+
+```r
 ?sessionInfo
 ```
 
@@ -169,7 +222,8 @@ We've now covered the `Console` tab and the `Scripts` pane.  These are both area
 
 This is why I have recommended that you create a new script to follow along with this workshop.  Again, you get a new script by going to `File > New File > R Script`.  You can write multiple lines of code and then execute each one in any order (although keeping a logical sequence from top to bottom will help you keep track of what you're doing).  In an `R` script, everything is expected to be valid R code.
 
-```{r example of a code block, eval = FALSE}
+
+```r
 You can't write this in an R script because it is plain text.  This will
 cause an error.
 
