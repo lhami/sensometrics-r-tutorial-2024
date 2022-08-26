@@ -19,11 +19,11 @@ This workshop is going to be conducted not using slides, but through **livecodin
 
 ### Jacob Lahne, PhD {-}
 
-Jacob Lahne is an Assistant Professor of Food Science & Technology at Virginia Tech, in the United States.  
+Jacob Lahne is an Assistant Professor of Food Science & Technology at Virginia Tech, in the United States.  He runs the Virginia Tech Sensory Evaluation Laboratory, as well as teaching courses in data analytics and coding for food-science research.  His main research focuses are sensory data-analysis methodologies and investigating the sensory properties of fermented and distilled foods and beverages.
 
 ### Leah Hamilton, PhD {-}
 
-Leah Hamilton is...
+Leah Hamilton is a postdoctoral researcher at the UC Davis Department of Food Science & Technology, in the US. Her primary research interest is flavor language, including the ways that people talk about flavors using their own words in different contexts.
 
 ### Martha Calvert, MS {-}
 
