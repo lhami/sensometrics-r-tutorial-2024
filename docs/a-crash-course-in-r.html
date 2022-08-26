@@ -281,7 +281,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 <li><code>R</code> doesn’t have a fixed set of tasks that it can accomplish, and, in fact, I generally haven’t found a data-analysis task I needed to do that I <em>couldn’t</em> in <code>R</code>.</li>
 </ol>
-<p>Because it’s a programming <strong>language</strong>, <code>R</code> isn’t point-and-click–today we’re going to be typing commands into the console, hitting, enter, making errors, and repeating. But this is a good thing! The power and flexibility of <code>R</code> (and it’s ability to do most of the things we want) come from the fact that it is a programming language. While learning to use <code>R</code> can <em>seem</em> intimidating, the effort to do so will give you a much more powerful suite of tools than the more limited point-and-click alternatives. <code>R</code> is built for research programming (data analysis), rather than for production programming. The only other alternative that is as widely supported in the research community is Python, but–honesty time here–I have never learned Python very well, and so we are learning <code>R</code>. And, in addition, Python doesn’t have as good an IDE as RStudio!</p>
+<p>Because it’s a programming <strong>language</strong>, <code>R</code> isn’t point-and-click–today we’re going to be typing commands into the console, hitting, enter, making errors, and repeating. But this is a good thing! The power and flexibility of <code>R</code> (and it’s ability to do most of the things we want) come from the fact that it is a programming language. While learning to use <code>R</code> can <em>seem</em> intimidating, the effort to do so will give you a much more powerful suite of tools than the more limited point-and-click alternatives. <code>R</code> is built for research programming (data analysis), rather than for production programming. The only other alternative that is as widely supported in the research community is Python, but–honesty time here–I have never learned Python very well, and so we are learning <code>R</code>. And, in addition, Python doesn’t have as good an Interactive Development Environment (IDE, explained further below) as RStudio!</p>
 <p>If you open your <code>R.exe</code>/<code>R</code> application, you’ll see something like this:</p>
 <center>
 <div class="figure">
@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You’ll notice that my layout for RStudio looks quite different from the default, but you can always orient yourself by seeing what tab or pane I am in–these are always the same. I prefer giving myself more space for writing <code>R</code> scripts and markdown files, so I have given that specific Pane more space while minimizing the <code>History</code> pane.</p>
 <p>While we’re in Global Options, please make the following selections:</p>
 <ol style="list-style-type: decimal">
-<li>Under <code>General</code>, uncheck all the boxes to do with restoring projects and workspaces. We want to make sure our code runs cleanly, and letting RStudio load these will make this impossible:</li>
+<li>Under <code>General</code>, uncheck all the boxes to do with restoring projects and workspaces. We want to make sure our code runs the same time every time (i.e., that our methods are reproducible), and letting RStudio load these will make this impossible:</li>
 </ol>
 <center>
 <div class="figure">
@@ -346,6 +346,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>And we can manually change the working directory by using</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="a-crash-course-in-r.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;Enter/Your/Desired/Directory/Here&quot;</span>)</span></code></pre></div>
 <p>Notice that I am not running the second command, because it would cause an error!</p>
+<p>When we use <code>R</code> to navigate directories, I recommend <strong>always</strong> using the forward slash: <code>/</code>, even thouhg on Windows systems the typical slash is the backslash: <code>\</code>. <code>R</code> will properly interpret the <code>/</code> for you in the context of your operating system, and this is more consistent with most modern code environments.</p>
 </div>
 </div>
 <div id="extending-r-with-packages" class="section level2 hasAnchor" number="1.3">

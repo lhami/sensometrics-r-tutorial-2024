@@ -46,10 +46,11 @@ You can contact us for more information or with questions at [sensometrics2022@g
 ## Further reading/resources
 
 1.  General `R` programming
+    1.  [Data Carpentry's *R for Social Scientists*](https://datacarpentry.org/r-socialsci/) (and, really the courses from [The Carpentries](https://carpentries.org/) in general)
     1.  [Wickham & Grolemund's *R for Data Science*](https://r4ds.had.co.nz/)
     2.  [The stat545 course website](https://stat545.com/)
     2.  [Healy's *Data Visualization*](https://socviz.co/)
-    3.  My own (very inferior) course from VT: [FST 5984](https://jlahne.github.io/food-data-science-2022/)
+    3.  My own (somewhat opinionated and eccentric) course from VT: [FST 5984](https://jlahne.github.io/food-data-science-2022/)
 2.  Text analysis
     1.  [Jurafsky & Martin's seminal textbook, *Speech & Language Processing*](https://web.stanford.edu/~jurafsky/slp3/)
     2.  [Silge & Robinson's *Text Mining with R*](https://www.tidytextmining.com/)

@@ -279,12 +279,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It’s not a bad idea to restart your R session here. Make sure to save your work, but a clean <code>Environment</code> is great when we’re shifting topics.</p>
 <p>You can accomplish this by going to <code>Session &gt; Restart R</code> in the menu.</p>
 <p>Then, we want to make sure to re-load our packages and import our data.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="text-analysis-i-fundamentals.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The packages we&#39;re using</span></span>
-<span id="cb178-2"><a href="text-analysis-i-fundamentals.html#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb178-3"><a href="text-analysis-i-fundamentals.html#cb178-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb178-4"><a href="text-analysis-i-fundamentals.html#cb178-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-5"><a href="text-analysis-i-fundamentals.html#cb178-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The dataset</span></span>
-<span id="cb178-6"><a href="text-analysis-i-fundamentals.html#cb178-6" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ba_2002.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="text-analysis-i-fundamentals.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The packages we&#39;re using</span></span>
+<span id="cb182-2"><a href="text-analysis-i-fundamentals.html#cb182-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb182-3"><a href="text-analysis-i-fundamentals.html#cb182-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb182-4"><a href="text-analysis-i-fundamentals.html#cb182-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-5"><a href="text-analysis-i-fundamentals.html#cb182-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The dataset</span></span>
+<span id="cb182-6"><a href="text-analysis-i-fundamentals.html#cb182-6" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ba_2002.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 20359 Columns: 14
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -308,15 +308,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="basic-import-and-cleaning-with-text-data" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Basic import and cleaning with text data<a href="text-analysis-i-fundamentals.html#basic-import-and-cleaning-with-text-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>So far we’ve focused our attention on the <code>beer_data</code> data set on the various (<code>numeric</code>) rating variables. But the data in the <code>reviews</code> column is clearly more rich.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="text-analysis-i-fundamentals.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb180-2"><a href="text-analysis-i-fundamentals.html#cb180-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb180-3"><a href="text-analysis-i-fundamentals.html#cb180-3" aria-hidden="true" tabindex="-1"></a>reviews_example <span class="ot">&lt;-</span> </span>
-<span id="cb180-4"><a href="text-analysis-i-fundamentals.html#cb180-4" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb180-5"><a href="text-analysis-i-fundamentals.html#cb180-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb180-6"><a href="text-analysis-i-fundamentals.html#cb180-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb180-7"><a href="text-analysis-i-fundamentals.html#cb180-7" aria-hidden="true" tabindex="-1"></a>reviews_example <span class="sc">%&gt;%</span></span>
-<span id="cb180-8"><a href="text-analysis-i-fundamentals.html#cb180-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, reviews) <span class="sc">%&gt;%</span></span>
-<span id="cb180-9"><a href="text-analysis-i-fundamentals.html#cb180-9" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="text-analysis-i-fundamentals.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb184-2"><a href="text-analysis-i-fundamentals.html#cb184-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-3"><a href="text-analysis-i-fundamentals.html#cb184-3" aria-hidden="true" tabindex="-1"></a>reviews_example <span class="ot">&lt;-</span> </span>
+<span id="cb184-4"><a href="text-analysis-i-fundamentals.html#cb184-4" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb184-5"><a href="text-analysis-i-fundamentals.html#cb184-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb184-6"><a href="text-analysis-i-fundamentals.html#cb184-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-7"><a href="text-analysis-i-fundamentals.html#cb184-7" aria-hidden="true" tabindex="-1"></a>reviews_example <span class="sc">%&gt;%</span></span>
+<span id="cb184-8"><a href="text-analysis-i-fundamentals.html#cb184-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, reviews) <span class="sc">%&gt;%</span></span>
+<span id="cb184-9"><a href="text-analysis-i-fundamentals.html#cb184-9" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
 <div id="qlirkacvpr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
@@ -756,27 +756,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>
 <p>However, this has some classic features of scraped text data–notice the “&amp;quot”, for example–this is <code>HTML</code> placeholder for a quotation mark. Other common problems that you will see with text data include “parsing errors” between different forms of character data–the most common is between <code>ASCII</code> and <code>UTF-8</code> standards. You will of course also encounter errors with typos, and perhaps idiosyncratic formatting characteristic of different text sources: for example, the use of <code>@usernames</code> and <code>#hashtags</code> in Twitter data.</p>
 <p>We will use the <code>textclean</code> package to do some basic clean up, but this kind of deep data cleaning may take more steps and will change from project to project.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="text-analysis-i-fundamentals.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textclean)</span>
-<span id="cb181-2"><a href="text-analysis-i-fundamentals.html#cb181-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb181-3"><a href="text-analysis-i-fundamentals.html#cb181-3" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example <span class="ot">&lt;-</span> </span>
-<span id="cb181-4"><a href="text-analysis-i-fundamentals.html#cb181-4" aria-hidden="true" tabindex="-1"></a>  reviews_example <span class="sc">%&gt;%</span></span>
-<span id="cb181-5"><a href="text-analysis-i-fundamentals.html#cb181-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cleaned_review =</span> reviews <span class="sc">%&gt;%</span></span>
-<span id="cb181-6"><a href="text-analysis-i-fundamentals.html#cb181-6" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Fix some of the HTML placeholders</span></span>
-<span id="cb181-7"><a href="text-analysis-i-fundamentals.html#cb181-7" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_html</span>(<span class="at">symbol =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb181-8"><a href="text-analysis-i-fundamentals.html#cb181-8" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Replace sequences of &quot;...&quot; </span></span>
-<span id="cb181-9"><a href="text-analysis-i-fundamentals.html#cb181-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_incomplete</span>(<span class="at">replacement =</span> <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb181-10"><a href="text-analysis-i-fundamentals.html#cb181-10" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Replace less-common or misformatted HTML</span></span>
-<span id="cb181-11"><a href="text-analysis-i-fundamentals.html#cb181-11" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_replace_all</span>(<span class="st">&quot;#.{1,4};&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb181-12"><a href="text-analysis-i-fundamentals.html#cb181-12" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Replace some common non-A-Z, 1-9 symbols</span></span>
-<span id="cb181-13"><a href="text-analysis-i-fundamentals.html#cb181-13" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_symbol</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb181-14"><a href="text-analysis-i-fundamentals.html#cb181-14" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Remove non-word text like &quot;:)&quot;</span></span>
-<span id="cb181-15"><a href="text-analysis-i-fundamentals.html#cb181-15" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_emoticon</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb181-16"><a href="text-analysis-i-fundamentals.html#cb181-16" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Remove numbers from the reviews, as they are not useful</span></span>
-<span id="cb181-17"><a href="text-analysis-i-fundamentals.html#cb181-17" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_remove_all</span>(<span class="st">&quot;[0-9]&quot;</span>))</span>
-<span id="cb181-18"><a href="text-analysis-i-fundamentals.html#cb181-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb181-19"><a href="text-analysis-i-fundamentals.html#cb181-19" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example <span class="sc">%&gt;%</span></span>
-<span id="cb181-20"><a href="text-analysis-i-fundamentals.html#cb181-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, cleaned_review) <span class="sc">%&gt;%</span></span>
-<span id="cb181-21"><a href="text-analysis-i-fundamentals.html#cb181-21" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="text-analysis-i-fundamentals.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textclean)</span>
+<span id="cb185-2"><a href="text-analysis-i-fundamentals.html#cb185-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb185-3"><a href="text-analysis-i-fundamentals.html#cb185-3" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example <span class="ot">&lt;-</span> </span>
+<span id="cb185-4"><a href="text-analysis-i-fundamentals.html#cb185-4" aria-hidden="true" tabindex="-1"></a>  reviews_example <span class="sc">%&gt;%</span></span>
+<span id="cb185-5"><a href="text-analysis-i-fundamentals.html#cb185-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cleaned_review =</span> reviews <span class="sc">%&gt;%</span></span>
+<span id="cb185-6"><a href="text-analysis-i-fundamentals.html#cb185-6" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Fix some of the HTML placeholders</span></span>
+<span id="cb185-7"><a href="text-analysis-i-fundamentals.html#cb185-7" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_html</span>(<span class="at">symbol =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb185-8"><a href="text-analysis-i-fundamentals.html#cb185-8" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Replace sequences of &quot;...&quot; </span></span>
+<span id="cb185-9"><a href="text-analysis-i-fundamentals.html#cb185-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_incomplete</span>(<span class="at">replacement =</span> <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb185-10"><a href="text-analysis-i-fundamentals.html#cb185-10" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Replace less-common or misformatted HTML</span></span>
+<span id="cb185-11"><a href="text-analysis-i-fundamentals.html#cb185-11" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_replace_all</span>(<span class="st">&quot;#.{1,4};&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb185-12"><a href="text-analysis-i-fundamentals.html#cb185-12" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Replace some common non-A-Z, 1-9 symbols</span></span>
+<span id="cb185-13"><a href="text-analysis-i-fundamentals.html#cb185-13" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_symbol</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb185-14"><a href="text-analysis-i-fundamentals.html#cb185-14" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Remove non-word text like &quot;:)&quot;</span></span>
+<span id="cb185-15"><a href="text-analysis-i-fundamentals.html#cb185-15" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_emoticon</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb185-16"><a href="text-analysis-i-fundamentals.html#cb185-16" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Remove numbers from the reviews, as they are not useful</span></span>
+<span id="cb185-17"><a href="text-analysis-i-fundamentals.html#cb185-17" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_remove_all</span>(<span class="st">&quot;[0-9]&quot;</span>))</span>
+<span id="cb185-18"><a href="text-analysis-i-fundamentals.html#cb185-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb185-19"><a href="text-analysis-i-fundamentals.html#cb185-19" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example <span class="sc">%&gt;%</span></span>
+<span id="cb185-20"><a href="text-analysis-i-fundamentals.html#cb185-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, cleaned_review) <span class="sc">%&gt;%</span></span>
+<span id="cb185-21"><a href="text-analysis-i-fundamentals.html#cb185-21" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
 <div id="swhgavipdk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
@@ -1215,22 +1215,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>
 <p>This will take slightly longer to run on the full data set, but should improve our overall data quality.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="text-analysis-i-fundamentals.html#cb182-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> </span>
-<span id="cb182-2"><a href="text-analysis-i-fundamentals.html#cb182-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb182-3"><a href="text-analysis-i-fundamentals.html#cb182-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cleaned_review =</span> reviews <span class="sc">%&gt;%</span></span>
-<span id="cb182-4"><a href="text-analysis-i-fundamentals.html#cb182-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_html</span>(<span class="at">symbol =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb182-5"><a href="text-analysis-i-fundamentals.html#cb182-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_incomplete</span>(<span class="at">replacement =</span> <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb182-6"><a href="text-analysis-i-fundamentals.html#cb182-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_replace_all</span>(<span class="st">&quot;#.{1,4};&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb182-7"><a href="text-analysis-i-fundamentals.html#cb182-7" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_symbol</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb182-8"><a href="text-analysis-i-fundamentals.html#cb182-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_emoticon</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb182-9"><a href="text-analysis-i-fundamentals.html#cb182-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_remove_all</span>(<span class="st">&quot;[0-9]&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="text-analysis-i-fundamentals.html#cb186-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> </span>
+<span id="cb186-2"><a href="text-analysis-i-fundamentals.html#cb186-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb186-3"><a href="text-analysis-i-fundamentals.html#cb186-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cleaned_review =</span> reviews <span class="sc">%&gt;%</span></span>
+<span id="cb186-4"><a href="text-analysis-i-fundamentals.html#cb186-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_html</span>(<span class="at">symbol =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb186-5"><a href="text-analysis-i-fundamentals.html#cb186-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_incomplete</span>(<span class="at">replacement =</span> <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb186-6"><a href="text-analysis-i-fundamentals.html#cb186-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_replace_all</span>(<span class="st">&quot;#.{1,4};&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb186-7"><a href="text-analysis-i-fundamentals.html#cb186-7" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_symbol</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb186-8"><a href="text-analysis-i-fundamentals.html#cb186-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">replace_emoticon</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb186-9"><a href="text-analysis-i-fundamentals.html#cb186-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_remove_all</span>(<span class="st">&quot;[0-9]&quot;</span>))</span></code></pre></div>
 <p>Again, this is not an exhaustive cleaning step–rather, these are some basic steps that I took based on common parsing errors I observed. Each particular text dataset will come with its own challenges and require a bit of time to develop the cleaning step.</p>
 </div>
 <div id="where-is-the-data-in-character-a-tidy-approach." class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Where is the data in <code>character</code>? A <em>tidy</em> approach.<a href="text-analysis-i-fundamentals.html#where-is-the-data-in-character-a-tidy-approach." class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As humans who understand English, we can see that meaning is easily found from these reviews. For example, we can guess that the rating of Black Bear Ale will be a low number (negative), while the rating of Kozel will be much more positive. And, indeed, this is the case:</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="text-analysis-i-fundamentals.html#cb183-1" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example <span class="sc">%&gt;%</span> </span>
-<span id="cb183-2"><a href="text-analysis-i-fundamentals.html#cb183-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, appearance<span class="sc">:</span>rating)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="text-analysis-i-fundamentals.html#cb187-1" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example <span class="sc">%&gt;%</span> </span>
+<span id="cb187-2"><a href="text-analysis-i-fundamentals.html#cb187-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, appearance<span class="sc">:</span>rating)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 7
 ##   beer_name                appearance aroma palate taste overall rating
 ##   &lt;chr&gt;                         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -1254,12 +1254,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <code>observation == token</code>
 </center>
 <p>A <strong>token</strong> is a <em>meaningful</em> unit of text, usually but not always a single word, which will be the observation for us. In our example data, let’s identify some possible tokens:</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="text-analysis-i-fundamentals.html#cb185-1" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example<span class="sc">$</span>cleaned_review[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="text-analysis-i-fundamentals.html#cb189-1" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example<span class="sc">$</span>cleaned_review[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;Medium straw and cloudy with thick head and lace. Fresh smelling with slight lemon zest aroma. Taste is rich and fulfilling with strong lemon flavor. Also notable is the strong, almost overwhealming clove flavor. Fresh and thirst quenching. Goes great with brats at a German festival.&quot;</code></pre>
 <p>We will start with only examining single words, also called “<strong>unigrams</strong>” in the linguistics jargon. Thus, <code>Medium</code>, <code>straw</code>, and <code>cloudy</code> are the first tokens in this dataset. We will mostly ignore punctuation and spacing, which means we are giving up some meaning for convenience.</p>
 <p>We could figure out how to manually break this up into tokens with enough work, using functions like <code>str_separate()</code>, but happily there are a large set of competing <code>R</code> tools for tokenization, for example:</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="text-analysis-i-fundamentals.html#cb187-1" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example<span class="sc">$</span>cleaned_review[<span class="dv">1</span>] <span class="sc">%&gt;%</span></span>
-<span id="cb187-2"><a href="text-analysis-i-fundamentals.html#cb187-2" aria-hidden="true" tabindex="-1"></a>  tokenizers<span class="sc">::</span><span class="fu">tokenize_words</span>(<span class="at">simplify =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="text-analysis-i-fundamentals.html#cb191-1" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example<span class="sc">$</span>cleaned_review[<span class="dv">1</span>] <span class="sc">%&gt;%</span></span>
+<span id="cb191-2"><a href="text-analysis-i-fundamentals.html#cb191-2" aria-hidden="true" tabindex="-1"></a>  tokenizers<span class="sc">::</span><span class="fu">tokenize_words</span>(<span class="at">simplify =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##  [1] &quot;medium&quot;        &quot;straw&quot;         &quot;and&quot;           &quot;cloudy&quot;       
 ##  [5] &quot;with&quot;          &quot;thick&quot;         &quot;head&quot;          &quot;and&quot;          
 ##  [9] &quot;lace&quot;          &quot;fresh&quot;         &quot;smelling&quot;      &quot;with&quot;         
@@ -1274,19 +1274,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [45] &quot;german&quot;        &quot;festival&quot;</code></pre>
 <p>Note that this function also (by default) turns every word into its lowercase version (e.g., <code>Medium</code> becomes <code>medium</code>) and strips out punctuation. This is because, to a program like <code>R</code>, upper- and lowercase versions of the same string are <em>not</em> equivalent. If we have reason to believe preserving this difference is important, we might want to rethink allowing this behavior.</p>
 <p>Now, we have 46 observed tokens for our first review in our example dataset. But of course this is not super interesting–we need to apply this kind of transformation to every single one of our ~20,000 reviews. With some fiddling around with <code>mutate()</code> we might be able to come up with a solution, but happily this is where we start using the <code>tidytext</code> package. The <code>unnest_tokens()</code> function built into that package will allow us to transform our text directly into the format we want, with very little effort.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="text-analysis-i-fundamentals.html#cb189-1" aria-hidden="true" tabindex="-1"></a>beer_data_tokenized <span class="ot">&lt;-</span></span>
-<span id="cb189-2"><a href="text-analysis-i-fundamentals.html#cb189-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb189-3"><a href="text-analysis-i-fundamentals.html#cb189-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We may want to keep track of a unique ID for each review</span></span>
-<span id="cb189-4"><a href="text-analysis-i-fundamentals.html#cb189-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">review_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb189-5"><a href="text-analysis-i-fundamentals.html#cb189-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> token,</span>
-<span id="cb189-6"><a href="text-analysis-i-fundamentals.html#cb189-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">input =</span> cleaned_review,</span>
-<span id="cb189-7"><a href="text-analysis-i-fundamentals.html#cb189-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">token =</span> <span class="st">&quot;words&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb189-8"><a href="text-analysis-i-fundamentals.html#cb189-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Here we do a bit of extra cleaning</span></span>
-<span id="cb189-9"><a href="text-analysis-i-fundamentals.html#cb189-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">token =</span> <span class="fu">str_remove_all</span>(token, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.|_&quot;</span>))</span>
-<span id="cb189-10"><a href="text-analysis-i-fundamentals.html#cb189-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb189-11"><a href="text-analysis-i-fundamentals.html#cb189-11" aria-hidden="true" tabindex="-1"></a>beer_data_tokenized <span class="sc">%&gt;%</span></span>
-<span id="cb189-12"><a href="text-analysis-i-fundamentals.html#cb189-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We show just a few of the columns for printing&#39;s sake</span></span>
-<span id="cb189-13"><a href="text-analysis-i-fundamentals.html#cb189-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, token)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="text-analysis-i-fundamentals.html#cb193-1" aria-hidden="true" tabindex="-1"></a>beer_data_tokenized <span class="ot">&lt;-</span></span>
+<span id="cb193-2"><a href="text-analysis-i-fundamentals.html#cb193-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb193-3"><a href="text-analysis-i-fundamentals.html#cb193-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We may want to keep track of a unique ID for each review</span></span>
+<span id="cb193-4"><a href="text-analysis-i-fundamentals.html#cb193-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">review_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb193-5"><a href="text-analysis-i-fundamentals.html#cb193-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> token,</span>
+<span id="cb193-6"><a href="text-analysis-i-fundamentals.html#cb193-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">input =</span> cleaned_review,</span>
+<span id="cb193-7"><a href="text-analysis-i-fundamentals.html#cb193-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">token =</span> <span class="st">&quot;words&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb193-8"><a href="text-analysis-i-fundamentals.html#cb193-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Here we do a bit of extra cleaning</span></span>
+<span id="cb193-9"><a href="text-analysis-i-fundamentals.html#cb193-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">token =</span> <span class="fu">str_remove_all</span>(token, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.|_&quot;</span>))</span>
+<span id="cb193-10"><a href="text-analysis-i-fundamentals.html#cb193-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-11"><a href="text-analysis-i-fundamentals.html#cb193-11" aria-hidden="true" tabindex="-1"></a>beer_data_tokenized <span class="sc">%&gt;%</span></span>
+<span id="cb193-12"><a href="text-analysis-i-fundamentals.html#cb193-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We show just a few of the columns for printing&#39;s sake</span></span>
+<span id="cb193-13"><a href="text-analysis-i-fundamentals.html#cb193-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, token)</span></code></pre></div>
 <pre><code>## # A tibble: 1,770,136 × 3
 ##    beer_name           rating token
 ##    &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;
@@ -1304,16 +1304,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>The <code>unnest_tokens()</code> function actually applies the <code>tokenizers::tokenize_words()</code> function in an efficient, easy way: it takes a column of raw <code>character</code> data and then tokenizes it as specified, outputting a tidy format of 1-token-per-row. Now we have our observations (tokens) each on its own line, ready for further analysis.</p>
 <p>In order to make what we’re doing easier to follow, let’s also take a look at our example data.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="text-analysis-i-fundamentals.html#cb191-1" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_tokenized <span class="ot">&lt;-</span> </span>
-<span id="cb191-2"><a href="text-analysis-i-fundamentals.html#cb191-2" aria-hidden="true" tabindex="-1"></a>  cleaned_reviews_example <span class="sc">%&gt;%</span></span>
-<span id="cb191-3"><a href="text-analysis-i-fundamentals.html#cb191-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">input =</span> cleaned_review, <span class="at">output =</span> token) <span class="sc">%&gt;%</span></span>
-<span id="cb191-4"><a href="text-analysis-i-fundamentals.html#cb191-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Here we do a bit of extra cleaning</span></span>
-<span id="cb191-5"><a href="text-analysis-i-fundamentals.html#cb191-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">token =</span> <span class="fu">str_remove_all</span>(token, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.|_&quot;</span>))</span>
-<span id="cb191-6"><a href="text-analysis-i-fundamentals.html#cb191-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb191-7"><a href="text-analysis-i-fundamentals.html#cb191-7" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_tokenized <span class="sc">%&gt;%</span></span>
-<span id="cb191-8"><a href="text-analysis-i-fundamentals.html#cb191-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(beer_name <span class="sc">==</span> <span class="st">&quot;Kozel&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb191-9"><a href="text-analysis-i-fundamentals.html#cb191-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Let&#39;s select a few variables for printing</span></span>
-<span id="cb191-10"><a href="text-analysis-i-fundamentals.html#cb191-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, token)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="text-analysis-i-fundamentals.html#cb195-1" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_tokenized <span class="ot">&lt;-</span> </span>
+<span id="cb195-2"><a href="text-analysis-i-fundamentals.html#cb195-2" aria-hidden="true" tabindex="-1"></a>  cleaned_reviews_example <span class="sc">%&gt;%</span></span>
+<span id="cb195-3"><a href="text-analysis-i-fundamentals.html#cb195-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">input =</span> cleaned_review, <span class="at">output =</span> token) <span class="sc">%&gt;%</span></span>
+<span id="cb195-4"><a href="text-analysis-i-fundamentals.html#cb195-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Here we do a bit of extra cleaning</span></span>
+<span id="cb195-5"><a href="text-analysis-i-fundamentals.html#cb195-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">token =</span> <span class="fu">str_remove_all</span>(token, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.|_&quot;</span>))</span>
+<span id="cb195-6"><a href="text-analysis-i-fundamentals.html#cb195-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-7"><a href="text-analysis-i-fundamentals.html#cb195-7" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_tokenized <span class="sc">%&gt;%</span></span>
+<span id="cb195-8"><a href="text-analysis-i-fundamentals.html#cb195-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(beer_name <span class="sc">==</span> <span class="st">&quot;Kozel&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb195-9"><a href="text-analysis-i-fundamentals.html#cb195-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Let&#39;s select a few variables for printing</span></span>
+<span id="cb195-10"><a href="text-analysis-i-fundamentals.html#cb195-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, token)</span></code></pre></div>
 <pre><code>## # A tibble: 187 × 3
 ##    beer_name rating token    
 ##    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;    

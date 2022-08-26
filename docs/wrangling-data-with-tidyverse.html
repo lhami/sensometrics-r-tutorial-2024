@@ -279,8 +279,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </center>
 <p>Before we move on to actually learning the tools, let’s make sure we’ve got our data loaded up.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="wrangling-data-with-tidyverse.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb89-2"><a href="wrangling-data-with-tidyverse.html#cb89-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ba_2002.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="wrangling-data-with-tidyverse.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb93-2"><a href="wrangling-data-with-tidyverse.html#cb93-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ba_2002.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 20359 Columns: 14
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -296,7 +296,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="select-for-columns" class="section level3 hasAnchor" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> <code>select()</code> for columns<a href="wrangling-data-with-tidyverse.html#select-for-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The first thing we often want to do in a data analysis is to pick a subset of columns, which usually represent variables. If we take a look at our beer data, we see that, for example, we have some columns that are data about our beers, and some columns that are user-generated responses:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="wrangling-data-with-tidyverse.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(beer_data)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="wrangling-data-with-tidyverse.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(beer_data)</span></code></pre></div>
 <pre><code>## Rows: 20,359
 ## Columns: 14
 ## $ reviews      &lt;chr&gt; &quot;This is a very good Irish ale. I&#39;m not sure if it would …
@@ -314,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ overall      &lt;dbl&gt; 5.0, 4.0, 3.0, 3.5, 3.5, 3.5, 3.5, 3.0, 4.0, 3.5, 3.5, 2.…
 ## $ rating       &lt;dbl&gt; 4.46, 3.74, 3.26, 3.50, 3.86, 3.11, 3.55, 3.06, 4.00, 3.2…</code></pre>
 <p>So, for example, we might want to try to reverse engineer the way that the <code>rating</code> is generated from the sub-modalities, in which case perhaps we only want the last 6 columns. We learned previously that we can do this with numeric indexing:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="wrangling-data-with-tidyverse.html#cb93-1" aria-hidden="true" tabindex="-1"></a>beer_data[, <span class="dv">9</span><span class="sc">:</span><span class="dv">14</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="wrangling-data-with-tidyverse.html#cb97-1" aria-hidden="true" tabindex="-1"></a>beer_data[, <span class="dv">9</span><span class="sc">:</span><span class="dv">14</span>]</span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 6
 ##    appearance aroma palate taste overall rating
 ##         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -334,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>select()</code> function in <code>tidyverse</code> (actually from the <code>dplyr</code> package) is the smarter, easier way to do this. It works on data frames, and it can be read as “from &lt;data frame&gt;, select the columns that meet the criteria we’ve set.”</p>
 <p><code>select(&lt;data frame&gt;, &lt;column 1&gt;, &lt;column 2&gt;, ...)</code></p>
 <p>The simplest way to use <code>select()</code> is just to name the columns you want!</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="wrangling-data-with-tidyverse.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, appearance, aroma, palate, taste, overall, rating) <span class="co"># note the lack of quoting on the column names</span></span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="wrangling-data-with-tidyverse.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, appearance, aroma, palate, taste, overall, rating) <span class="co"># note the lack of quoting on the column names</span></span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 6
 ##    appearance aroma palate taste overall rating
 ##         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -352,7 +352,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>This is much clearer to the reader.</p>
 <p>You can also use <code>select()</code> with a number of helper functions, which use logic to select columns that meet whatever conditions you set. For example, the <code>starts_with()</code> helper function lets us give a set of characters we want columns to start with:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="wrangling-data-with-tidyverse.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, <span class="fu">starts_with</span>(<span class="st">&quot;beer&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="wrangling-data-with-tidyverse.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, <span class="fu">starts_with</span>(<span class="st">&quot;beer&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 2
 ##    beer_name           beer_id
 ##    &lt;chr&gt;                 &lt;dbl&gt;
@@ -370,7 +370,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>There are equivalents for the end of column names (<code>ends_with()</code>) and text found anywhere in the name (<code>contains()</code>).</p>
 <p>You can combine these statements together to get subsets of columns however you want:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="wrangling-data-with-tidyverse.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, <span class="fu">starts_with</span>(<span class="st">&quot;beer&quot;</span>), rating, abv)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="wrangling-data-with-tidyverse.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, <span class="fu">starts_with</span>(<span class="st">&quot;beer&quot;</span>), rating, abv)</span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 4
 ##    beer_name           beer_id rating   abv
 ##    &lt;chr&gt;                 &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -387,7 +387,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 20,349 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>You can also use programmatic logic in <code>select()</code> by using the <code>where()</code> helper function, which gives you the ability to specify columns by any arbitrary function.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="wrangling-data-with-tidyverse.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, <span class="fu">where</span>(<span class="sc">~</span><span class="fu">is.numeric</span>(.)))</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="wrangling-data-with-tidyverse.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, <span class="fu">where</span>(<span class="sc">~</span><span class="fu">is.numeric</span>(.)))</span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 9
 ##    beer_id brewery_id   abv appearance aroma palate taste overall rating
 ##      &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -409,7 +409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.1.2</span> <code>filter()</code> for rows<a href="wrangling-data-with-tidyverse.html#filter-for-rows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>So <code>select()</code> lets us pick which columns we want. Can we also use it to pick particular observations? No. But for that, there’s <code>filter()</code>.</p>
 <p>We learned that, using <code>[]</code> indexing, we’d specify a set of rows we want. If we want the first 10 rows of <code>beer_data</code>, we’d write</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="wrangling-data-with-tidyverse.html#cb103-1" aria-hidden="true" tabindex="-1"></a>beer_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="wrangling-data-with-tidyverse.html#cb107-1" aria-hidden="true" tabindex="-1"></a>beer_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 14
 ##    reviews     beer_…¹ beer_id brewe…² brewe…³ style   abv user_id appea…⁴ aroma
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -428,7 +428,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   ³​brewery_id, ⁴​appearance
 ## # ℹ Use `colnames()` to see all variable names</code></pre>
 <p>Again, this is not very human readable, and if we reorganize our rows this won’t be useful anymore. The <code>tidyverse</code> answer to this approach is the <code>filter()</code> function, which lets you filter your dataset into specific rows according to <em>data stored in the table itself</em>.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="wrangling-data-with-tidyverse.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="co"># let&#39;s get some heavy beers</span></span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="wrangling-data-with-tidyverse.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="co"># let&#39;s get some heavy beers</span></span></code></pre></div>
 <pre><code>## # A tibble: 571 × 14
 ##    reviews     beer_…¹ beer_id brewe…² brewe…³ style   abv user_id appea…⁴ aroma
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -447,7 +447,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   ²​brewery_name, ³​brewery_id, ⁴​appearance
 ## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
 <p>When using <code>filter()</code>, we can specify multiple logical conditions. For example, let’s get only Barleywines that are more than 10% ABV. If we wanted only exact matches, we could use the direct <code>==</code> operator:</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="wrangling-data-with-tidyverse.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>, style <span class="sc">==</span> <span class="st">&quot;American Barleywine&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="wrangling-data-with-tidyverse.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>, style <span class="sc">==</span> <span class="st">&quot;American Barleywine&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 99 × 14
 ##    reviews     beer_…¹ beer_id brewe…² brewe…³ style   abv user_id appea…⁴ aroma
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -466,7 +466,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   ²​brewery_name, ³​brewery_id, ⁴​appearance
 ## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
 <p>But this won’t return, for example, any beer labeled as an “English Barleywine”.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="wrangling-data-with-tidyverse.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>, style <span class="sc">==</span> <span class="st">&quot;American Barleywine&quot;</span> <span class="sc">|</span> style <span class="sc">==</span> <span class="st">&quot;English Barleywine&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="wrangling-data-with-tidyverse.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>, style <span class="sc">==</span> <span class="st">&quot;American Barleywine&quot;</span> <span class="sc">|</span> style <span class="sc">==</span> <span class="st">&quot;English Barleywine&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 169 × 14
 ##    reviews     beer_…¹ beer_id brewe…² brewe…³ style   abv user_id appea…⁴ aroma
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -485,7 +485,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   ²​brewery_name, ³​brewery_id, ⁴​appearance
 ## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
 <p>In <code>R</code>, the <code>|</code> means Boolean <code>OR</code>, and the <code>&amp;</code> means Boolean <code>AND</code>. We can use these to combine conditions for searching our data table. But this can be a bit tedious. The <code>stringr</code> package, part of <code>tidyverse</code>, gives a lot of utility functions that we can use instead of this effortful searching.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="wrangling-data-with-tidyverse.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="fu">str_detect</span>(style, <span class="st">&quot;Barleywine&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="wrangling-data-with-tidyverse.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="fu">str_detect</span>(style, <span class="st">&quot;Barleywine&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 169 × 14
 ##    reviews     beer_…¹ beer_id brewe…² brewe…³ style   abv user_id appea…⁴ aroma
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -511,7 +511,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It isn’t hard to imagine a situation in which we want to <strong>both</strong> select some columns and filter some rows. There are 3 ways we can do this, one of which is going to be the best for most situations.</p>
 <p>Let’s imagine we want to get only information about the beers, abv, and rating for stouts</p>
 <p>First, we can nest functions:</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="wrangling-data-with-tidyverse.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="fu">filter</span>(beer_data, <span class="fu">str_detect</span>(style, <span class="st">&quot;Stout&quot;</span>)), <span class="fu">contains</span>(<span class="st">&quot;beer&quot;</span>), abv, rating)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="wrangling-data-with-tidyverse.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="fu">filter</span>(beer_data, <span class="fu">str_detect</span>(style, <span class="st">&quot;Stout&quot;</span>)), <span class="fu">contains</span>(<span class="st">&quot;beer&quot;</span>), abv, rating)</span></code></pre></div>
 <pre><code>## # A tibble: 1,666 × 4
 ##    beer_name                          beer_id   abv rating
 ##    &lt;chr&gt;                                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -529,8 +529,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>The problem with this approach is that we have to read it “inside out”. First, <code>filter()</code> will happen and get us only beers that match “Stout” in their <code>style</code>. Then <code>select()</code> will get columns that match “beer” in their names, <code>abv</code>, and <code>rating</code>. Especially as your code gets complicated, this can be very hard to read.</p>
 <p>So we might take the second approach: creating intermediates. We might first <code>filter()</code>, store that step somewhere, then <code>select()</code>:</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="wrangling-data-with-tidyverse.html#cb115-1" aria-hidden="true" tabindex="-1"></a>beer_stouts <span class="ot">&lt;-</span> <span class="fu">filter</span>(beer_data, <span class="fu">str_detect</span>(style, <span class="st">&quot;Stout&quot;</span>))</span>
-<span id="cb115-2"><a href="wrangling-data-with-tidyverse.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_stouts, <span class="fu">contains</span>(<span class="st">&quot;beer&quot;</span>), abv, rating)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="wrangling-data-with-tidyverse.html#cb119-1" aria-hidden="true" tabindex="-1"></a>beer_stouts <span class="ot">&lt;-</span> <span class="fu">filter</span>(beer_data, <span class="fu">str_detect</span>(style, <span class="st">&quot;Stout&quot;</span>))</span>
+<span id="cb119-2"><a href="wrangling-data-with-tidyverse.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_stouts, <span class="fu">contains</span>(<span class="st">&quot;beer&quot;</span>), abv, rating)</span></code></pre></div>
 <pre><code>## # A tibble: 1,666 × 4
 ##    beer_name                          beer_id   abv rating
 ##    &lt;chr&gt;                                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -547,12 +547,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 1,656 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>But now we have this intermediate we don’t really need cluttering up our <code>Environment</code> tab. This is fine for a single step, but if you have a lot of steps in your analysis this is going to get old (and confusing) fast. You’ll have to remove a lot of these using the <code>rm()</code> command to keep your code clean.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="wrangling-data-with-tidyverse.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(beer_stouts)</span></code></pre></div>
+<p><font color="red"><strong>warning</strong>:</font> <code>rm()</code> will <em>permanently</em> delete whatever objects you run it on from your <code>Environment</code>, and you will only be able to restore them by rerunning the code that generated them in the first place.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="wrangling-data-with-tidyverse.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(beer_stouts)</span></code></pre></div>
 <p>The final method, and what is becoming standard in modern <code>R</code> coding, is the <strong>pipe</strong>, which is written in <code>tidyverse</code> as <code>%&gt;%</code>. This garbage-looking set of symbols is actually your best friend, you just don’t know it yet. I use this tool constantly in my R programming, but I’ve been avoiding it up to this point because it’s not part of base R (in fact that’s no longer strictly true, but it is kind of complicated at the moment).</p>
 <p>OK, enough background, what the heck <em>is</em> a pipe? The term “pipe” comes from what it does: like a pipe, <code>%&gt;%</code> let’s whatever is on it’s left side flow through to the right hand side. It is easiest to read <code>%&gt;%</code> as “<strong>AND THEN</strong>”.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="wrangling-data-with-tidyverse.html#cb118-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span>                              <span class="co"># Start with the beer_data</span></span>
-<span id="cb118-2"><a href="wrangling-data-with-tidyverse.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(style, <span class="st">&quot;Stout&quot;</span>)) <span class="sc">%&gt;%</span>   <span class="co"># AND THEN filter to stouts</span></span>
-<span id="cb118-3"><a href="wrangling-data-with-tidyverse.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;beer&quot;</span>), abv, rating)    <span class="co"># AND THEN select the beer columns, etc</span></span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="wrangling-data-with-tidyverse.html#cb122-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span>                              <span class="co"># Start with the beer_data</span></span>
+<span id="cb122-2"><a href="wrangling-data-with-tidyverse.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(style, <span class="st">&quot;Stout&quot;</span>)) <span class="sc">%&gt;%</span>   <span class="co"># AND THEN filter to stouts</span></span>
+<span id="cb122-3"><a href="wrangling-data-with-tidyverse.html#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;beer&quot;</span>), abv, rating)    <span class="co"># AND THEN select the beer columns, etc</span></span></code></pre></div>
 <pre><code>## # A tibble: 1,666 × 4
 ##    beer_name                          beer_id   abv rating
 ##    &lt;chr&gt;                                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -572,27 +573,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="pipes-require-that-the-lefthand-side-be-a-single-functional-command" class="section level3 hasAnchor" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> Pipes require that the lefthand side be a single functional command<a href="wrangling-data-with-tidyverse.html#pipes-require-that-the-lefthand-side-be-a-single-functional-command" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This means that we can’t directly do something like rewrite <code>sqrt(1 + 2)</code> with <code>%&gt;%</code>:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="wrangling-data-with-tidyverse.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">%&gt;%</span> sqrt <span class="co"># this is instead computing 1 + sqrt(2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="wrangling-data-with-tidyverse.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">%&gt;%</span> sqrt <span class="co"># this is instead computing 1 + sqrt(2)</span></span></code></pre></div>
 <pre><code>## [1] 2.414214</code></pre>
 <p>Instead, if we want to pass binary operationse in a pipe, we need to enclose them in <code>()</code> on the line they are in:</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="wrangling-data-with-tidyverse.html#cb122-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>() <span class="co"># Now this computes sqrt(1 + 2) = sqrt(3)</span></span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="wrangling-data-with-tidyverse.html#cb126-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>() <span class="co"># Now this computes sqrt(1 + 2) = sqrt(3)</span></span></code></pre></div>
 <pre><code>## [1] 1.732051</code></pre>
 <p>More complex piping is possible using the curly braces (<code>{}</code>), which create new R environments, but this is more advanced than you will generally need to be.</p>
 </div>
 <div id="pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side" class="section level3 hasAnchor" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Pipes always pass the result of the lefthand side to the <em>first</em> argument of the righthand side<a href="wrangling-data-with-tidyverse.html#pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This sounds like a weird logic puzzle, but it’s not, as we can see if we look at some simple math. Let’s define a function for use in a pipe that computes the difference between two numbers:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="wrangling-data-with-tidyverse.html#cb124-1" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) a <span class="sc">-</span> b</span>
-<span id="cb124-2"><a href="wrangling-data-with-tidyverse.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subtract</span>(<span class="dv">5</span>, <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="wrangling-data-with-tidyverse.html#cb128-1" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) a <span class="sc">-</span> b</span>
+<span id="cb128-2"><a href="wrangling-data-with-tidyverse.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subtract</span>(<span class="dv">5</span>, <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>If we want to rewrite that as a pipe, we can write:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="wrangling-data-with-tidyverse.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="wrangling-data-with-tidyverse.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>But we can’t write</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="wrangling-data-with-tidyverse.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>) <span class="co"># this is actually making subtract(4, 5)</span></span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="wrangling-data-with-tidyverse.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>) <span class="co"># this is actually making subtract(4, 5)</span></span></code></pre></div>
 <pre><code>## [1] -1</code></pre>
 <p>We can explicitly force the pipe to work the way we want it to by using <code>.</code> <strong>as the placeholder for the result of the lefthand side</strong>:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="wrangling-data-with-tidyverse.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>, .) <span class="co"># now this properly computes subtract(5, 4)</span></span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="wrangling-data-with-tidyverse.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>, .) <span class="co"># now this properly computes subtract(5, 4)</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>So, when you’re using pipes, make sure that the output of the lefthand side <em>should</em> be going into the first argument of the righthand side–this is often but not always the case, especially with non-<code>tidyverse</code> functions.</p>
 </div>
@@ -607,8 +608,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can do this easily in base R by setting a new name for a column and using the assign (<code>&lt;-</code>) operator, but this is clumsy. Often, we want to create a new column temporarily, or to combine several existing columns. We can do this using the <code>mutate()</code> function.</p>
 <p>Let’s say that we want to create a quick categorical variable that tells us whether a beer was rated as more than the central value (2.5) in the 5-pt rating scale. This is kind of like doing a median split, which we’ll get to in a moment.</p>
 <p>We know that we can use <code>filter()</code> to get just the beers with <code>rating &gt; 2.5</code>:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="wrangling-data-with-tidyverse.html#cb132-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb132-2"><a href="wrangling-data-with-tidyverse.html#cb132-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rating <span class="sc">&gt;</span> <span class="fl">2.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="wrangling-data-with-tidyverse.html#cb136-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb136-2"><a href="wrangling-data-with-tidyverse.html#cb136-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rating <span class="sc">&gt;</span> <span class="fl">2.5</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 18,782 × 14
 ##    reviews     beer_…¹ beer_id brewe…² brewe…³ style   abv user_id appea…⁴ aroma
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -627,10 +628,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   ²​brewery_name, ³​brewery_id, ⁴​appearance
 ## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
 <p>But what if we want to be able to just see this?</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="wrangling-data-with-tidyverse.html#cb134-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb134-2"><a href="wrangling-data-with-tidyverse.html#cb134-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">better_than_2.5 =</span> rating <span class="sc">&gt;</span> <span class="fl">2.5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb134-3"><a href="wrangling-data-with-tidyverse.html#cb134-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We&#39;ll select just a few columns to help us see the result</span></span>
-<span id="cb134-4"><a href="wrangling-data-with-tidyverse.html#cb134-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, better_than_2<span class="fl">.5</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="wrangling-data-with-tidyverse.html#cb138-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb138-2"><a href="wrangling-data-with-tidyverse.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">better_than_2.5 =</span> rating <span class="sc">&gt;</span> <span class="fl">2.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb138-3"><a href="wrangling-data-with-tidyverse.html#cb138-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We&#39;ll select just a few columns to help us see the result</span></span>
+<span id="cb138-4"><a href="wrangling-data-with-tidyverse.html#cb138-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, better_than_2<span class="fl">.5</span>) </span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 3
 ##    beer_name           rating better_than_2.5
 ##    &lt;chr&gt;                &lt;dbl&gt; &lt;lgl&gt;          
@@ -649,15 +650,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>What does the above function do?</p>
 <p><code>mutate()</code> is a very easy way to edit your data mid-pipe. So we might want to do some calculations, create a temporary variable using <code>mutate()</code>, and then continue our pipe. <strong>Unless we use <code>&lt;-</code> to store our <code>mutate()</code>d data, the results will be only temporary.</strong></p>
 <p>We can use the same kind of functional logic we’ve been using in other <code>tidyverse</code> commands in <code>mutate()</code> to get real, powerful results. For example, we might want to know if a beer is rated better than the <code>mean()</code> of the ratings. We can do this easily using <code>mutate()</code>:</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="wrangling-data-with-tidyverse.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s find out the average (mean) rating for these beers</span></span>
-<span id="cb136-2"><a href="wrangling-data-with-tidyverse.html#cb136-2" aria-hidden="true" tabindex="-1"></a>beer_data<span class="sc">$</span>rating <span class="sc">%&gt;%</span> </span>
-<span id="cb136-3"><a href="wrangling-data-with-tidyverse.html#cb136-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="wrangling-data-with-tidyverse.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s find out the average (mean) rating for these beers</span></span>
+<span id="cb140-2"><a href="wrangling-data-with-tidyverse.html#cb140-2" aria-hidden="true" tabindex="-1"></a>beer_data<span class="sc">$</span>rating <span class="sc">%&gt;%</span> </span>
+<span id="cb140-3"><a href="wrangling-data-with-tidyverse.html#cb140-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>() </span></code></pre></div>
 <pre><code>## [1] 3.719406</code></pre>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="wrangling-data-with-tidyverse.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, let&#39;s create a column that tells us if a beer is rated &gt; average</span></span>
-<span id="cb138-2"><a href="wrangling-data-with-tidyverse.html#cb138-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb138-3"><a href="wrangling-data-with-tidyverse.html#cb138-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">better_than_average =</span> rating <span class="sc">&gt;</span> <span class="fu">mean</span>(rating)) <span class="sc">%&gt;%</span></span>
-<span id="cb138-4"><a href="wrangling-data-with-tidyverse.html#cb138-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Again, let&#39;s select just a few columns</span></span>
-<span id="cb138-5"><a href="wrangling-data-with-tidyverse.html#cb138-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, better_than_average)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="wrangling-data-with-tidyverse.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, let&#39;s create a column that tells us if a beer is rated &gt; average</span></span>
+<span id="cb142-2"><a href="wrangling-data-with-tidyverse.html#cb142-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb142-3"><a href="wrangling-data-with-tidyverse.html#cb142-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">better_than_average =</span> rating <span class="sc">&gt;</span> <span class="fu">mean</span>(rating)) <span class="sc">%&gt;%</span></span>
+<span id="cb142-4"><a href="wrangling-data-with-tidyverse.html#cb142-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Again, let&#39;s select just a few columns</span></span>
+<span id="cb142-5"><a href="wrangling-data-with-tidyverse.html#cb142-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, better_than_average)</span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 3
 ##    beer_name           rating better_than_average
 ##    &lt;chr&gt;                &lt;dbl&gt; &lt;lgl&gt;              
@@ -686,15 +687,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Second, the function produces 1 value for each group for each new column</li>
 </ol>
 <p>To accomplish the example above, we’d do the following:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="wrangling-data-with-tidyverse.html#cb140-1" aria-hidden="true" tabindex="-1"></a>beer_summary <span class="ot">&lt;-</span> </span>
-<span id="cb140-2"><a href="wrangling-data-with-tidyverse.html#cb140-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb140-3"><a href="wrangling-data-with-tidyverse.html#cb140-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(style) <span class="sc">%&gt;%</span>                           <span class="co"># we will create a group for each unique style</span></span>
-<span id="cb140-4"><a href="wrangling-data-with-tidyverse.html#cb140-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_beers =</span> <span class="fu">n</span>(),                      <span class="co"># n() counts rows in each style</span></span>
-<span id="cb140-5"><a href="wrangling-data-with-tidyverse.html#cb140-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_rating =</span> <span class="fu">mean</span>(rating),         <span class="co"># the mean rating for each style</span></span>
-<span id="cb140-6"><a href="wrangling-data-with-tidyverse.html#cb140-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_rating =</span> <span class="fu">sd</span>(rating),             <span class="co"># the standard deviation in rating</span></span>
-<span id="cb140-7"><a href="wrangling-data-with-tidyverse.html#cb140-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">se_rating =</span> <span class="fu">sd</span>(rating) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="co"># multiple functions in 1 row</span></span>
-<span id="cb140-8"><a href="wrangling-data-with-tidyverse.html#cb140-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-9"><a href="wrangling-data-with-tidyverse.html#cb140-9" aria-hidden="true" tabindex="-1"></a>beer_summary</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="wrangling-data-with-tidyverse.html#cb144-1" aria-hidden="true" tabindex="-1"></a>beer_summary <span class="ot">&lt;-</span> </span>
+<span id="cb144-2"><a href="wrangling-data-with-tidyverse.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb144-3"><a href="wrangling-data-with-tidyverse.html#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(style) <span class="sc">%&gt;%</span>                           <span class="co"># we will create a group for each unique style</span></span>
+<span id="cb144-4"><a href="wrangling-data-with-tidyverse.html#cb144-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_beers =</span> <span class="fu">n</span>(),                      <span class="co"># n() counts rows in each style</span></span>
+<span id="cb144-5"><a href="wrangling-data-with-tidyverse.html#cb144-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_rating =</span> <span class="fu">mean</span>(rating),         <span class="co"># the mean rating for each style</span></span>
+<span id="cb144-6"><a href="wrangling-data-with-tidyverse.html#cb144-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_rating =</span> <span class="fu">sd</span>(rating),             <span class="co"># the standard deviation in rating</span></span>
+<span id="cb144-7"><a href="wrangling-data-with-tidyverse.html#cb144-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">se_rating =</span> <span class="fu">sd</span>(rating) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="co"># multiple functions in 1 row</span></span>
+<span id="cb144-8"><a href="wrangling-data-with-tidyverse.html#cb144-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-9"><a href="wrangling-data-with-tidyverse.html#cb144-9" aria-hidden="true" tabindex="-1"></a>beer_summary</span></code></pre></div>
 <pre><code>## # A tibble: 99 × 5
 ##    style                          n_beers mean_rating sd_rating se_rating
 ##    &lt;chr&gt;                            &lt;int&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
@@ -711,9 +712,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 89 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>We can use this approach to even get a summary stats table - for example, confidence limits according to the normal distribution:</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="wrangling-data-with-tidyverse.html#cb142-1" aria-hidden="true" tabindex="-1"></a>beer_summary <span class="sc">%&gt;%</span></span>
-<span id="cb142-2"><a href="wrangling-data-with-tidyverse.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower_limit =</span> mean_rating <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rating,</span>
-<span id="cb142-3"><a href="wrangling-data-with-tidyverse.html#cb142-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">upper_limit =</span> mean_rating <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rating)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="wrangling-data-with-tidyverse.html#cb146-1" aria-hidden="true" tabindex="-1"></a>beer_summary <span class="sc">%&gt;%</span></span>
+<span id="cb146-2"><a href="wrangling-data-with-tidyverse.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower_limit =</span> mean_rating <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rating,</span>
+<span id="cb146-3"><a href="wrangling-data-with-tidyverse.html#cb146-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">upper_limit =</span> mean_rating <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rating)</span></code></pre></div>
 <pre><code>## # A tibble: 99 × 7
 ##    style                         n_beers mean_…¹ sd_ra…² se_ra…³ lower…⁴ upper…⁵
 ##    &lt;chr&gt;                           &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -738,12 +739,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="rename-your-columns" class="section level3 hasAnchor" number="3.5.1">
 <h3><span class="header-section-number">3.5.1</span> Rename your columns<a href="wrangling-data-with-tidyverse.html#rename-your-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Often you will import data with bad column names or you’ll realize you need to rename variables during your workflow. For this, you can use the <code>rename()</code> function:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="wrangling-data-with-tidyverse.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(beer_data)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="wrangling-data-with-tidyverse.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(beer_data)</span></code></pre></div>
 <pre><code>##  [1] &quot;reviews&quot;      &quot;beer_name&quot;    &quot;beer_id&quot;      &quot;brewery_name&quot; &quot;brewery_id&quot;  
 ##  [6] &quot;style&quot;        &quot;abv&quot;          &quot;user_id&quot;      &quot;appearance&quot;   &quot;aroma&quot;       
 ## [11] &quot;palate&quot;       &quot;taste&quot;        &quot;overall&quot;      &quot;rating&quot;</code></pre>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="wrangling-data-with-tidyverse.html#cb146-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb146-2"><a href="wrangling-data-with-tidyverse.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">review_text =</span> reviews)</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="wrangling-data-with-tidyverse.html#cb150-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb150-2"><a href="wrangling-data-with-tidyverse.html#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">review_text =</span> reviews)</span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 14
 ##    review_text beer_…¹ beer_id brewe…² brewe…³ style   abv user_id appea…⁴ aroma
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -762,8 +763,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   ²​brewery_name, ³​brewery_id, ⁴​appearance
 ## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
 <p>You can also rename by position, which is helpful for quick changes:</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="wrangling-data-with-tidyverse.html#cb148-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb148-2"><a href="wrangling-data-with-tidyverse.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">review_text =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="wrangling-data-with-tidyverse.html#cb152-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb152-2"><a href="wrangling-data-with-tidyverse.html#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">review_text =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 14
 ##    review_text beer_…¹ beer_id brewe…² brewe…³ style   abv user_id appea…⁴ aroma
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -785,8 +786,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="relocate-your-columns" class="section level3 hasAnchor" number="3.5.2">
 <h3><span class="header-section-number">3.5.2</span> Relocate your columns<a href="wrangling-data-with-tidyverse.html#relocate-your-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you <code>mutate()</code> columns or just have a big data set with a lot of variables, often you want to move columns around. This is a pain to do with <code>[]</code>, but again <code>tidyverse</code> has a utility to move things around easily: <code>relocate()</code>.</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="wrangling-data-with-tidyverse.html#cb150-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb150-2"><a href="wrangling-data-with-tidyverse.html#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(beer_name) <span class="co"># giving no other arguments will move to front</span></span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="wrangling-data-with-tidyverse.html#cb154-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb154-2"><a href="wrangling-data-with-tidyverse.html#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(beer_name) <span class="co"># giving no other arguments will move to front</span></span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 14
 ##    beer_name   reviews beer_id brewe…¹ brewe…² style   abv user_id appea…³ aroma
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -805,8 +806,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   ²​brewery_id, ³​appearance
 ## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
 <p>You can also use <code>relocate()</code> to specify positions</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="wrangling-data-with-tidyverse.html#cb152-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb152-2"><a href="wrangling-data-with-tidyverse.html#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(reviews, <span class="at">.after =</span> rating) <span class="co"># move the long text to the end</span></span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="wrangling-data-with-tidyverse.html#cb156-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb156-2"><a href="wrangling-data-with-tidyverse.html#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(reviews, <span class="at">.after =</span> rating) <span class="co"># move the long text to the end</span></span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 14
 ##    beer_name    beer_id brewe…¹ brewe…² style   abv user_id appea…³ aroma palate
 ##    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -828,9 +829,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sort-your-data" class="section level3 hasAnchor" number="3.5.3">
 <h3><span class="header-section-number">3.5.3</span> Sort your data<a href="wrangling-data-with-tidyverse.html#sort-your-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>More frequently, we will want to rearrange our rows, which can be done with <code>arrange()</code>. All you have to do is give <code>arrange()</code> one or more columns to sort the data by. You can use either the <code>desc()</code> or the <code>-</code> shortcut to sort in reverse order.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="wrangling-data-with-tidyverse.html#cb154-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb154-2"><a href="wrangling-data-with-tidyverse.html#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(rating)) <span class="sc">%&gt;%</span> <span class="co"># what are the highest rated beers?</span></span>
-<span id="cb154-3"><a href="wrangling-data-with-tidyverse.html#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating)</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="wrangling-data-with-tidyverse.html#cb158-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb158-2"><a href="wrangling-data-with-tidyverse.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(rating)) <span class="sc">%&gt;%</span> <span class="co"># what are the highest rated beers?</span></span>
+<span id="cb158-3"><a href="wrangling-data-with-tidyverse.html#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating)</span></code></pre></div>
 <pre><code>## # A tibble: 20,359 × 2
 ##    beer_name                     rating
 ##    &lt;chr&gt;                          &lt;dbl&gt;
@@ -847,10 +848,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 20,349 more rows
 ## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <p>You can sort alphabetically as well:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="wrangling-data-with-tidyverse.html#cb156-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb156-2"><a href="wrangling-data-with-tidyverse.html#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(brewery_name, beer_name) <span class="sc">%&gt;%</span> <span class="co"># get beers sorted within breweries</span></span>
-<span id="cb156-3"><a href="wrangling-data-with-tidyverse.html#cb156-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(brewery_name, beer_name) <span class="sc">%&gt;%</span>  <span class="co"># show only relevant columns</span></span>
-<span id="cb156-4"><a href="wrangling-data-with-tidyverse.html#cb156-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()                           <span class="co"># discard duplicate rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="wrangling-data-with-tidyverse.html#cb160-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb160-2"><a href="wrangling-data-with-tidyverse.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(brewery_name, beer_name) <span class="sc">%&gt;%</span> <span class="co"># get beers sorted within breweries</span></span>
+<span id="cb160-3"><a href="wrangling-data-with-tidyverse.html#cb160-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(brewery_name, beer_name) <span class="sc">%&gt;%</span>  <span class="co"># show only relevant columns</span></span>
+<span id="cb160-4"><a href="wrangling-data-with-tidyverse.html#cb160-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()                           <span class="co"># discard duplicate rows</span></span></code></pre></div>
 <pre><code>## # A tibble: 4,734 × 2
 ##    brewery_name           beer_name                          
 ##    &lt;chr&gt;                  &lt;chr&gt;                              
@@ -880,11 +881,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p>While these authors present “tidiness” of data as an objective property, I’d argue that data is always tidy <strong>for a specific purpose</strong>. For example, our data is relatively tidy here, except our numerical ratings: we have 6 different ratings for each beer, which means we have encoded an <strong>implicit variable</strong> in the column names: <code>rating type</code>. If we want to use our data for summarization, the form we have is fine. But if we want to make plots and do some other modeling, this form may be no good to us.</p>
 <p>We can use the <code>pivot_longer()</code> function to change our data to make the implicit variable explicit and to make our data tidier.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="wrangling-data-with-tidyverse.html#cb158-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb158-2"><a href="wrangling-data-with-tidyverse.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, user_id, appearance<span class="sc">:</span>rating) <span class="sc">%&gt;%</span> <span class="co"># for clarity</span></span>
-<span id="cb158-3"><a href="wrangling-data-with-tidyverse.html#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> appearance<span class="sc">:</span>rating,</span>
-<span id="cb158-4"><a href="wrangling-data-with-tidyverse.html#cb158-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;rating_type&quot;</span>,</span>
-<span id="cb158-5"><a href="wrangling-data-with-tidyverse.html#cb158-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;rating&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="wrangling-data-with-tidyverse.html#cb162-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb162-2"><a href="wrangling-data-with-tidyverse.html#cb162-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, user_id, appearance<span class="sc">:</span>rating) <span class="sc">%&gt;%</span> <span class="co"># for clarity</span></span>
+<span id="cb162-3"><a href="wrangling-data-with-tidyverse.html#cb162-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> appearance<span class="sc">:</span>rating,</span>
+<span id="cb162-4"><a href="wrangling-data-with-tidyverse.html#cb162-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;rating_type&quot;</span>,</span>
+<span id="cb162-5"><a href="wrangling-data-with-tidyverse.html#cb162-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;rating&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 122,154 × 4
 ##    beer_name           user_id           rating_type rating
 ##    &lt;chr&gt;               &lt;chr&gt;             &lt;chr&gt;        &lt;dbl&gt;

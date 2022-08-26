@@ -13,7 +13,7 @@ In this workshop we are going to be learning the basics of coding for text analy
 1.  `R` is constantly being extended to do new, useful things because there is a vibrant community of analysts developing tools for it, and the barrier to entry is very low.  
 2.  `R` doesn't have a fixed set of tasks that it can accomplish, and, in fact, I generally haven't found a data-analysis task I needed to do that I *couldn't* in `R`.
 
-Because it's a programming **language**, `R` isn't point-and-click--today we're going to be typing commands into the console, hitting, enter, making errors, and repeating.  But this is a good thing!  The power and flexibility of `R` (and it's ability to do most of the things we want) come from the fact that it is a programming language.  While learning to use `R` can *seem* intimidating, the effort to do so will give you a much more powerful suite of tools than the more limited point-and-click alternatives. `R` is built for research programming (data analysis), rather than for production programming. The only other alternative that is as widely supported in the research community is Python, but--honesty time here--I have never learned Python very well, and so we are learning `R`. And, in addition, Python doesn't have as good an IDE as RStudio!
+Because it's a programming **language**, `R` isn't point-and-click--today we're going to be typing commands into the console, hitting, enter, making errors, and repeating.  But this is a good thing!  The power and flexibility of `R` (and it's ability to do most of the things we want) come from the fact that it is a programming language.  While learning to use `R` can *seem* intimidating, the effort to do so will give you a much more powerful suite of tools than the more limited point-and-click alternatives. `R` is built for research programming (data analysis), rather than for production programming. The only other alternative that is as widely supported in the research community is Python, but--honesty time here--I have never learned Python very well, and so we are learning `R`. And, in addition, Python doesn't have as good an Interactive Development Environment (IDE, explained further below) as RStudio!
 
 If you open your `R.exe`/`R` application, you'll see something like this:
 
@@ -56,7 +56,7 @@ You'll notice that my layout for RStudio looks quite different from the default,
 
 While we're in Global Options, please make the following selections:
 
-1.  Under `General`, uncheck all the boxes to do with restoring projects and workspaces.  We want to make sure our code runs cleanly, and letting RStudio load these will make this impossible:
+1.  Under `General`, uncheck all the boxes to do with restoring projects and workspaces.  We want to make sure our code runs the same time every time (i.e., that our methods are reproducible), and letting RStudio load these will make this impossible:
 
 <center>
 
@@ -91,6 +91,8 @@ setwd("Enter/Your/Desired/Directory/Here")
 ```
 
 Notice that I am not running the second command, because it would cause an error!
+
+When we use `R` to navigate directories, I recommend **always** using the forward slash: `/`, even thouhg on Windows systems the typical slash is the backslash: `\`.  `R` will properly interpret the `/` for you in the context of your operating system, and this is more consistent with most modern code environments.
 
 ## Extending `R` with packages
 
