@@ -189,7 +189,7 @@ When we use `unnest_tokens()`, all of the non-text data gets treated as informat
 
 We've talked about wanting to clear our workspace from `R` in between sessions to make sure our work and code are reproducible.  But at this point we've done a lot of work, and we might want to save this work for later.  Or, we might want to share our work with others.  The `tidyverse` has a good utility for this when we're working with data frames and tibbles: the `write_csv()` function is the opposite of the `read_csv()` function we've gotten comfortable with: it takes a data frame and writes it into a `.csv` file that is easily shared with others or reloaded in a later session.
 
-```{r}
+```{r example of writing csv files, eval=FALSE}
 # Let's store our cleaned and tokenized reviews
 write_csv(x = beer_data_tokenized, file = "data/tokenized_beer_reviews.csv")
 ```
