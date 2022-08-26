@@ -136,6 +136,8 @@ select(beer_stouts, contains("beer"), abv, rating)
 
 But now we have this intermediate we don't really need cluttering up our `Environment` tab.  This is fine for a single step, but if you have a lot of steps in your analysis this is going to get old (and confusing) fast.  You'll have to remove a lot of these using the `rm()` command to keep your code clean.
 
+<font color="red">**warning**:</font> `rm()` will *permanently* delete whatever objects you run it on from your `Environment`, and you will only be able to restore them by rerunning the code that generated them in the first place.
+
 ```{r the rm() function deletes objects from the Environment}
 rm(beer_stouts)
 ```

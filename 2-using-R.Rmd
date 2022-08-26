@@ -83,6 +83,9 @@ Notice that in the `rnorm()` example we *named* the arguments--we told `R` which
 ```{r argument order matters in functions}
 # This will give us 1 value from the normal distribution with mean = 0 and sd = 100
 rnorm(1, 0, 100)
+
+# But we can also use named arguments to provide them in any order we wish!
+rnorm(sd = 1, n = 100, mean = 0)
 ```
 
 Programming languages like `R` are very literal, and we need to be as literal as we can to make them work the way we want them to.
@@ -132,13 +135,13 @@ Each line represents a row of data, and each field is separated by a comma (`,`)
 read_csv(file = "data/ba_2002.csv")
 ```
 
-Suddenly, we have tabular data, like we'd have in Excel!  Now we're getting somewhere.  However, before we go forward we'll have to store this data somewhere--right now we're just reading it and throwing it away.
+Suddenly, we have tabular data (i.e., data in rows and columns), like we'd have in Excel!  Now we're getting somewhere.  However, before we go forward we'll have to store this data somewhere--right now we're just reading it and throwing it away.
 
 ```{r storing data when loaded}
 beer_data <- read_csv(file = "data/ba_2002.csv")
 ```
 
-As a note, in many countries the separator (delimiter) will be the semi-colon (`;`), since the comma is used as the decimal marker.  To read files formatted this way, you can use the `read_csv2()` function.  If you encounter tab-separated values files (`.tsv`) you can use the `read_tsv()` function.  If you have more non-standard delimiters, you can use the `read_delim()` function, which will allow you to specify your own delimiter characters.  You can also read many other formats of tabular data using the `rio` package ("read I/O"), which can be installed from CRAN.
+As a note, in many countries the separator (delimiter) will be the semi-colon (`;`), since the comma is used as the decimal marker.  To read files formatted this way, you can use the `read_csv2()` function.  If you encounter tab-separated values files (`.tsv`) you can use the `read_tsv()` function.  If you have more non-standard delimiters, you can use the `read_delim()` function, which will allow you to specify your own delimiter characters.  You can also read many other formats of tabular data using the `rio` package ("read input/output"), which can be installed from CRAN.
 
 ## Data in `R`
 
@@ -152,7 +155,7 @@ class(x)
 typeof(x)
 ```
 
-`R` has a bunch of basic data types, including the above "numeric" data type, which is a floating-point double.  It can also store logical values (`TRUE` and `FALSE`), integers, characters/strings (which are what we're really here to deal with) and some more exotic data types you won't encounter very much.  What `R` does that makes it good for data analysis is that it stores these all as **vectors**: 1-dimensional arrays of the same type of data.  So, in fact, `x` is a length-1 vector of numeric data:
+`R` has a bunch of basic data types, including the above "numeric" data type, which is a "real number" (in computer terms, a floating-point double as opposed to an integer).  It can also store logical values (`TRUE` and `FALSE`), integers, characters/strings (which are what we're really here to deal with) and some more exotic data types you won't encounter very much.  What `R` does that makes it good for data analysis is that it stores these all as **vectors**: 1-dimensional arrays of the same type of data.  So, in fact, `x` is a length-1 vector of numeric data:
 
 ```{r object properties 2}
 length(x)
@@ -183,6 +186,13 @@ If we try to combine vectors of 2 types of data, `R` will "coerce" the data type
 ```{r type coercion}
 c(y, animals)
 ```
+
+For example, we can divide all the numbers in `y` by `2`, but if we try to divide `c(y, animals)` by `2` we will get an error:
+
+```{r math with characters, error = TRUE}
+c(y, animals) / 2
+```
+
 
 For vectors (and more complex objects), we can use the `str()` ("structure") function to get some details about their nature and what they contain:
 
@@ -237,7 +247,7 @@ This is useful if we have a long vector (frequently) and do not want to list or 
 
 Now that we have the basics of vectors, we can move on to the complex data object we're really interested in: `beer_data`.  This is a type of object called a `tibble`, which is a cute/fancy version of the more basic `R` object called a `data.frame`.  These are `R`'s version of the `.csv` file or your typical Excel file: a rectangular matrix of data, with (usually) columns representing some variable and rows representing some kind of observation.  Each row will have a value in each column or will be `NA`, which is `R`'s specific value to represent **missing data**.
 
-In a `data.frame`, every column has to have the same data type: a column might be `logical` or `integer` or `character`, but it cannot be a mix.  However, each column can be a different type.  For example, the first column in our `beer_data`, called `reviews`, is a `character` vector, but the third column, `beer_id`, is a `numeric` column.  
+In a `data.frame`, every column has to have only a single data type: a column might be `logical` or `integer` or `character`, but it cannot be a mix.  However, each column can be a different type.  For example, the first column in our `beer_data`, called `reviews`, is a `character` vector, but the third column, `beer_id`, is a `numeric` column.  
 
 We have now moved from 1-dimensional vectors to 2-dimensional data tables, which means we're going to have some new properties to investigate.  First off, we might want to know how many rows and columns our data table has:
 
@@ -256,6 +266,8 @@ tail(beer_data) # show the last few rows
 glimpse(beer_data) # a more compact version of str()
 names(beer_data) # get the variable/column names
 ```
+
+Note that some of these functions (for example, `glimpse()`) come from the `tidyverse` package, so if you are having trouble running a command, first make sure you have run `library(tidyverse)`.
 
 ## Subsetting and wrangling data tables
 
