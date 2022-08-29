@@ -462,7 +462,7 @@ beer_data_tokenized %>%
 
 We've now practiced some basic tools for first wrangling text data into a form with which we can work, and then applying some simple, empirical statistics to start to extract meaning.  We'll discuss **sentiment analysis**, a broad suite of tools that attempts to impute some sort of emotional or affective weight to words, and then produce scores for texts based on these weights.
 
-## Text Analysis Pt. III: entiment analysis
+## Text Analysis Pt. III: Sentiment analysis
 
 In recent years, sentiment analysis has gotten a lot of attention in consumer sciences, and it's one of the topics that has penetrated the furthest into sensory science, because its goals are easily understood in terms of our typical goals: quantifying consumer affective responses to a set of products based on consumption experiences.
 

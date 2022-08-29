@@ -231,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="text-analysis.html"><a href="text-analysis.html#word-counts"><i class="fa fa-check"></i><b>5.2.1</b> Word counts</a></li>
 <li class="chapter" data-level="5.2.2" data-path="text-analysis.html"><a href="text-analysis.html#term-frequency-inverse-document-frequency-tf-idf"><i class="fa fa-check"></i><b>5.2.2</b> Term Frequency-Inverse Document Frequency (TF-IDF)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iii-entiment-analysis"><i class="fa fa-check"></i><b>5.3</b> Text Analysis Pt. III: entiment analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iii-sentiment-analysis"><i class="fa fa-check"></i><b>5.3</b> Text Analysis Pt. III: Sentiment analysis</a></li>
 <li class="chapter" data-level="5.4" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iv-n-gram-models"><i class="fa fa-check"></i><b>5.4</b> Text Analysis Pt. IV: <em>n</em>-gram models</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>6</b> Wrap-up and further resources</a>
@@ -304,51 +304,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 10.04988</code></pre>
 <p>In fact, we can ask R to do lots of neat stuff, like generate random numbers for us. For example, here are 100 random numbers from a normal distribution with mean of 0 and standard deviation of 1.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="how-to-work-with-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>##   [1] -0.385150356 -0.098817295  0.961241236  0.748252498 -0.878165709
-##   [6] -0.214170088  0.089546562 -0.336134463  1.923391992  0.336899736
-##  [11]  0.266617339  0.496481318 -0.526431562  1.008725689  0.763082109
-##  [16]  1.320292218 -0.985936168 -1.830764132  0.533481519  0.555492707
-##  [21] -0.055926261 -1.218233110  0.003868032 -0.171976401  0.088900698
-##  [26] -0.721072975  0.233104770 -0.014738523  0.119351747  0.592394098
-##  [31]  0.987654672  1.447299958  0.441685511 -0.584505817 -0.745105348
-##  [36]  0.074283880  0.484051767  0.774105465 -0.969382112 -0.084503057
-##  [41]  0.108288756 -1.625604438  0.670858059  2.702497158 -1.261750815
-##  [46]  0.082666675  1.966734078 -0.541660746  0.423602872  0.982318232
-##  [51]  0.637494135  1.369610925 -1.701211661  0.620540766  2.768883567
-##  [56] -0.202071685  1.363667644 -2.292802968  0.583267703 -0.327544247
-##  [61] -0.528925916 -0.114942166  0.751754407  0.107697812 -0.935507685
-##  [66]  0.923554119 -0.652238271  1.151781894 -0.538380182  0.430483189
-##  [71]  0.917802706  0.611326695 -1.414157208 -0.139006347 -1.201788070
-##  [76] -2.365143024  0.473057299  0.625640157 -0.821436282 -0.438813917
-##  [81] -0.713301612 -1.575185632 -1.449369162  0.415317505  0.704297479
-##  [86]  0.462618675 -0.670108354 -0.274807377 -0.751414534 -0.414580833
-##  [91] -0.640868711  0.013497493  0.010498326  0.152865207 -0.496464493
-##  [96]  0.994050983 -1.381632055  0.198846852  0.398798561 -0.209987224</code></pre>
+<pre><code>##   [1] -0.72613569  1.27430945 -0.34635046 -1.73377883  0.30835525  0.58911034
+##   [7]  0.10709191 -1.34944301 -0.25981288 -0.24591317  0.56690959  0.12941576
+##  [13]  0.12241860  1.04801172 -0.66474604  0.27995716  0.33122821 -0.30520609
+##  [19]  0.38538116 -0.73278298 -0.17088288  0.80341733 -0.24320511 -1.57285018
+##  [25] -0.02933556 -0.22877996 -0.97318984  0.07544724 -0.97105584 -3.33541307
+##  [31]  0.30620689 -1.13372994  0.24552615  0.57899721  0.51016995  0.34352616
+##  [37] -1.34958647  0.07862867  0.68976484  0.52258649  0.26624661 -0.09198705
+##  [43]  0.02823817  2.01215684  0.75734897  0.39729514 -0.57134485 -1.21469427
+##  [49]  2.35360472  0.64925312  0.83657232 -0.72614997  0.93105597  0.07459034
+##  [55]  1.04935387  0.12399990 -0.05904002 -0.74896542 -0.07831163  0.40962130
+##  [61]  2.01406251  1.95678248 -0.60990291  2.30080066 -0.40583665  1.71692949
+##  [67]  1.06370728 -0.21009281 -0.95838285 -0.23853614 -0.74907605 -0.80493158
+##  [73] -1.52620284 -0.63684940  0.96566395 -0.09654685  1.03477173 -0.96658465
+##  [79] -0.75773800 -0.75059138  0.80026789  1.11910548 -2.30079629 -1.11948376
+##  [85]  0.82780324  0.23475836 -0.18441441 -1.07014036  0.04254056 -0.72847529
+##  [91] -0.20479991 -1.43995380  0.31623807 -2.73132167 -0.08370944 -1.57350766
+##  [97]  1.10936110  0.51094777  0.67609840 -0.33418078</code></pre>
 <p>These forms are called a <strong>function</strong> in R. Functions lie at the heart of <code>R</code>’s power: they are pre-written scripts that are included with base <code>R</code> or added in packages, like the ones we installed. In general, an <code>R</code> function will have a form like <code>&lt;name&gt;(&lt;argument&gt;, &lt;argument&gt;, ...)</code>. In other words, the function will have a name (that lets <code>R</code> know what you’re trying to do) followed by an open parenthesis, and inside that a list of arguments, which are variables, objects, values, etc that you “pass” to the function, finally followed by a close parenthesis. In the case of our <code>sqrt()</code> function, there is only a single argument: a variable to which the square-root operation will be applied. In the case of the <code>rnorm()</code> function there are 3 arguments: the number of values we want, <code>n</code>, and the <code>mean</code> and standard deviation <code>sd</code> of the normal distribution we wish to sample from.</p>
 <p>Functions are the <code>R</code> tools for which you can make the most use of the help operator: <code>?</code>. Try typing <code>?rnorm</code> into your console, and when you hit <code>return</code> you’ll see the help page for the function.</p>
 <p>Notice that in the <code>rnorm()</code> example we <em>named</em> the arguments–we told <code>R</code> which was the <code>n</code>, <code>mean</code>, and <code>sd</code>. This is because if we name arguments, we can give them in any order. Otherwise, <code>R</code> will try to match the provided values to the arguments <strong>in the order in which they are given in the help file</strong>. This is a major source of errors for newer <code>R</code> users!</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="how-to-work-with-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This will give us 1 value from the normal distribution with mean = 0 and sd = 100</span></span>
 <span id="cb28-2"><a href="how-to-work-with-r.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div>
-<pre><code>## [1] -109.2112</code></pre>
+<pre><code>## [1] -207.6824</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="how-to-work-with-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># But we can also use named arguments to provide them in any order we wish!</span></span>
 <span id="cb30-2"><a href="how-to-work-with-r.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">sd =</span> <span class="dv">1</span>, <span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>)</span></code></pre></div>
-<pre><code>##   [1]  1.13474408  0.43895699 -1.11247418 -0.40187506  0.85559287  0.36631577
-##   [7] -1.90309160  0.59705456  0.33951041 -0.83346607 -1.59109777 -0.69508021
-##  [13]  0.32233264 -1.16754633  0.76342024 -0.42728523  0.45244637  0.34699801
-##  [19] -1.01445344  0.73277032 -0.31293250  1.35865151  0.95526948  1.13567376
-##  [25]  0.05805484 -0.89673926  0.50171455  0.92379131  1.04936317  1.11602552
-##  [31]  0.45371919 -0.47923766 -0.79755094 -1.23247657 -0.58552169  0.04782682
-##  [37]  1.21126850  0.64455489 -0.15128019 -0.56752217 -0.40504698  0.35197054
-##  [43]  1.88802903 -0.63536421 -0.85753233  0.54951914 -0.86343219 -0.34860218
-##  [49]  1.60633252 -0.74806331 -0.21926852 -1.40378363 -0.45324166  0.06855129
-##  [55] -0.40239432  2.10835693  1.28747671  0.19300991  0.04332793 -0.89223598
-##  [61]  0.29349002 -0.39470219  2.09885056  1.04954726  0.10851886  1.73774942
-##  [67] -0.41578114 -1.52813707 -0.29363980 -1.10015227 -1.39808682  0.36108861
-##  [73]  1.64794336  0.19853359 -0.03004321 -0.58979265 -1.57932157  1.68815921
-##  [79]  0.78680961  0.69166076  1.03801195 -0.37806352  1.92420398  0.58104360
-##  [85] -0.57695910  1.80008226 -1.26320424  0.69829878  0.11120311 -0.35012393
-##  [91]  0.23192088 -1.50955103 -0.36486771  1.09600387  0.34512163  0.72556574
-##  [97]  1.10498883  1.40169837  1.24754816 -0.76233781</code></pre>
+<pre><code>##   [1]  1.192537486 -0.834508418  1.626391793  0.060092983  0.678427281
+##   [6] -0.111685953  0.513263395  0.391226375  0.964768358  0.363921159
+##  [11] -1.174326064 -0.100043918  1.423457181  0.632392775 -0.740300157
+##  [16] -1.249523179  1.379990015 -1.879072768  0.783306970 -0.652247739
+##  [21] -0.524749749 -0.581078443 -1.023457897 -2.239366695  0.009652904
+##  [26]  0.899910632  0.802071894 -0.632793199 -1.339914500  0.154695515
+##  [31] -0.489254074 -0.270044274 -0.136323181 -0.385341594 -1.035432984
+##  [36] -0.174573460 -0.859665004  0.269557742 -1.287545910 -1.063932045
+##  [41]  0.441032161  0.163998021 -3.294238475  0.543312688  0.528053548
+##  [46] -0.514210977  0.213351651  0.648834605 -0.840465728 -1.852974661
+##  [51] -1.028098873 -1.408548143 -0.934911586  1.892560876  1.193796494
+##  [56] -0.530688140  1.081063304 -0.357504393  0.525640498  0.072323793
+##  [61]  0.422705812 -1.237781846  0.485386205 -0.732963968 -1.297240370
+##  [66]  1.053506609 -0.439681391 -0.084559818 -1.590476898  1.284217925
+##  [71]  0.641341680 -2.199888589  0.440140562  0.708909285 -0.673045070
+##  [76] -0.827364436 -0.506575727 -0.411011489  2.420804165 -0.340103047
+##  [81] -2.234960481 -1.451572498  0.960521446  0.477505758 -0.768804623
+##  [86]  0.178159449  1.358738085 -1.601033031 -0.759943088 -0.085725372
+##  [91] -0.944319560 -0.060356411 -2.103617975  0.463604874  1.128563196
+##  [96]  0.186610755  2.659831417 -1.310609767 -0.575790717  1.625231400</code></pre>
 <p>Programming languages like <code>R</code> are very literal, and we need to be as literal as we can to make them work the way we want them to.</p>
 </div>
 <div id="reading-data-into-r" class="section level2 hasAnchor" number="2.3">

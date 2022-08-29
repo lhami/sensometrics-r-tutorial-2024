@@ -56,7 +56,7 @@ term-frequency-inverse-document-frequency-tf-idf
 term-frequency
 inverse-document-frequency
 applying-tf-idf-in-tidytext
-text-analysis-pt.-iii-entiment-analysis
+text-analysis-pt.-iii-sentiment-analysis
 text-analysis-pt.-iv-n-gram-models
 wrap-up-and-further-resources
 getting-help-1
