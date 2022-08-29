@@ -6,7 +6,6 @@ documentclass: book
 output:
   bookdown::gitbook: default
   #bookdown::pdf_book: default
-output_dir: "docs"
 github-repo: jlahne/eurosense-tutorial-2022
 ---
 
