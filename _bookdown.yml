@@ -1,3 +1,12 @@
-output_dir: "docs"
+#output_dir: "docs"
 delete_merged_file: true
 new_session: yes
+rmd_files: ["index.Rmd",
+            "1-intro-to-R.Rmd",
+            "2-using-R.Rmd",
+            "3-tidyverse.Rmd",
+            "4-dataviz.Rmd",
+            "5-text-analysis.Rmd",
+            "6-conclusions.Rmd"]
+keep_md: false
+output_dir: "docs"

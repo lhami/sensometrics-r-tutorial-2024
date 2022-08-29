@@ -170,7 +170,7 @@ The `unnest_tokens()` function actually applies the `tokenizers::tokenize_words(
 
 In order to make what we're doing easier to follow, let's also take a look at our example data.
 
-```{r what does tidy tokenized data look like?}
+```{r what does tidy tokenized data look like}
 cleaned_reviews_tokenized <- 
   cleaned_reviews_example %>%
   unnest_tokens(input = cleaned_review, output = token) %>%
@@ -212,7 +212,7 @@ I will not be exploring each of these in this section of the workshop because of
 
 Let's start by combining our tidy data wrangling skills from `tidyverse` with our newly tidied text data from `unnest_tokens()` to try to test the first answer.
 
-```{r what are the most frequent words in our beer data?}
+```{r what are the most frequent words in our beer data}
 beer_data_tokenized %>%
   # The count() function gives the number of rows that contain unique values
   count(token) %>%
@@ -246,7 +246,7 @@ The most basic approach to dealing with stop words is just to outright remove th
 
 We could use some version of `filter()` to remove stop words from our `beer_data_tokenized` tibble, but this is exactly what the `anti_join()` function (familiar to those of you who have used SQL) will do: with two tibbles, `X` and `Y`, `anti_join(X, Y)` will remove all rows in `X` that match rows in `Y`.
 
-```{r what are the most frequent NON stop words in beer data?}
+```{r what are the most frequent NON stop words in beer data}
 beer_data_tokenized %>%
   # "by = " tells what column to look for in X and Y
   anti_join(y = stop_words, by = c("token" = "word")) %>%
@@ -267,14 +267,14 @@ Now we are able to address our very first hypothesis: while the most common term
 
 We can extend this approach just a bit to provide the start of one answer to our second question: are there different most-used flavor terms for different beer styles?  We can start to tackle this by first defining a couple of categories (since there are a lot of different styles in this dataset):
 
-```{r what beer styles are in our beer data?}
+```{r what beer styles are in our beer data}
 beer_data %>%
   count(style)
 ```
 
 Let's just look at the categories I suggested, plus "lager".  We will do this by using mutate to create a `simple_style` column:
 
-```{r what words are associated with some basic beer styles?}
+```{r what words are associated with some basic beer styles}
 # First, we'll make sure our approach works
 beer_data %>%
   # First we will set our style to lower case to make matching easier
@@ -379,7 +379,7 @@ We can see that, despite very high raw counts for all of these terms, the tf-idf
 
 Let's take a look at the same visualization we made before with raw counts, but now with tf-idf.
 
-```{r what words are most important for our simple styles by tf-idf?}
+```{r what words are most important for our simple styles by tf-idf}
 beer_styles_tf_idf %>%
   # We still group by simple_style
   group_by(simple_style) %>%
@@ -403,7 +403,7 @@ beer_styles_tf_idf %>%
 
 Thus, tf-idf gives us a flexible, empirical (data-based) model that will surface unique terms for us directly from the data.  We can apply the same approach, for example, with a bit of extra wrangling, to see what terms are most associated with beers from the bottom and top deciles by rating (starting to address hypothesis #3):
 
-```{r what words are associated with very good or bad beers by tf-idf?}
+```{r what words are associated with very good or bad beers by tf-idf}
 beer_data_tokenized %>%
   # First we get deciles of rating
   mutate(rating_decile = ntile(rating, n = 10)) %>%
@@ -555,7 +555,7 @@ beer_data %>%
 
 We can see that we get quite different rankings from sentiment scores and from ratings.  It might behoove us to examine some of those mismatches in order to identify where they originate from.
 
-```{r where are the disagreements between rating and sentiment?}
+```{r where are the disagreements between rating and sentiment}
 # Here are the reviews where the ratings most disagree with the sentiment
 beer_data %>%
   # normalize sentiment and ratings so we can find the largest mismatch
@@ -628,7 +628,7 @@ We can see that the 4th most frequent pair is "not bad", which means that `bad`,
 
 We can actually look more closely at this with just a little bit more wrangling:
 
-```{r what are our most important SENTIMENT bigrams with "not"?}
+```{r what are our most important SENTIMENT bigrams with "not"}
 beer_bigrams %>%
   separate(col = bigram, into = c("word1", "word2"), sep = " ") %>%
   filter(word1 == "not") %>%
