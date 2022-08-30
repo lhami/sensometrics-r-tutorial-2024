@@ -16,9 +16,10 @@ In order to be prepared to participate for this tutorial, you should do the foll
     3.  (If you already have RStudio, check your version by opening RStudio and navigating to the menu **Help > About RStudio**.  You should be using a version later than the 2022-05-xx release.  If you are not, or if you cannot find this information, please just update your version by following steps 1-2 above.)
 3.  Download the tutorial materials by [going to the `code/eurosense-code-download.zip` file](https://github.com/jlahne/eurosense-tutorial-2022/blob/main/code/eurosense-code-download.zip) in this repo and clicking `Download`.
     1.  We suggest that you create a new folder on your Desktop to work in.  By downloading the files, you'll get copies of everything you need for the class:
-        1.  R Scripts
+        1.  `.R` Script
         2.  Data
-        3.  A bunch of other kinds of files (`.Rmd`, `.md`, `.html`, etc) that are used for building this repository, and which you might find useful if you become an R enthusiast.
+        3.  An `.Rproj` file that will help setup default options in RStudio
+        4. (If you want to duplicate the exact files in this tutorial, you can also **clone** the github repo here, but this is more advanced than we will cover in this tutorial.)
 4.  Test that your install of R/Rstudio is working by installing a "package" (code that extends R's functionality).  We recommend that you install the `tidyverse` package, which will be used in this tutorial.  To do so:
     1.  Open RStudio (if you've already closed it).
     2.  In the **Console** section of RStudio, type (or copy and paste) the following line of code: `install.packages("tidyverse")`.
