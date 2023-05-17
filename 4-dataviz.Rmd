@@ -63,7 +63,7 @@ beer_data %>%
 
 There are many `geom_*()` functions in `ggplot2`, and many others defined in other accessory packages.  These are the heart of visualizations.  We can swap them out to get different results:
 
-```{r switching geom_() switches the way the data map}
+```{r changing the geom changes the way the data map, fig.cap = 'switching geom_() switches the way the data map'}
 beer_data %>%
   ggplot(mapping = aes(x = rating, y = overall)) + 
   geom_smooth()
@@ -72,7 +72,7 @@ Here we fit a smoothed line to our data using the default methods in `geom_smoot
 
 We can also combine layers, as the term implies:
 
-```{r geom_()s are layers in a plot}
+```{r geoms are layers in a plot, fig.cap = 'geom_()s are layers in a plot'}
 beer_data %>%
   ggplot(mapping = aes(x = rating, y = overall)) + 
   geom_jitter() + # add some random noise to show overlapping points
@@ -100,7 +100,7 @@ We can see that most of the yellow "yes" dots are in the top right of the figure
 
 In the last plot, we saw an example in the `geom_jitter(alpha = 1/4)` function of setting the `alpha` (transparency) aesthetic element directly, without using `aes()` to **map** a variable to this aesthetic.  That is why this is not wrapped in the `aes()` function.  In `ggplot2`, this is how we set aesthetics to fixed values.  Alternatively, we could have mapped this to a variable, just like color:
 
-```{r using the aes() function}
+```{r using the aes function, fig.cap = 'using the aes() function'}
 beer_data %>%
   drop_na(abv) %>%
   ggplot(aes(x = rating, y = overall)) + 
@@ -115,7 +115,7 @@ As an aside, we can see the same relationship noted above: higher ABV is associa
 
 In the last several plots, notice that we have changed from the default (and to my mind unattractive) grey background of `ggplot2` to a black and white theme.  This is by adding a `theme_bw()` call to the list of commands.  `ggplot2` includes a number of default `theme_*()` functions, and you can get many more through other `R` packages.  They can have subtle to dramatic effects:
 
-```{r using the theme_*() functions}
+```{r using the theme functions, fig.cap = 'using the theme_*() functions'}
 beer_data %>%
   drop_na() %>%
   ggplot(aes(x = rating, y = overall)) + 
@@ -197,7 +197,7 @@ p
 
 It looks like the expected trend is present, but it's a bit hard to see.  Let's see what happens if we break this out into "facets":
 
-```{r now we split the plot into 3 "small multiples" with facet_wrap()}
+```{r splitting the plot into 3 small multiples, fig.cap = 'now we split the plot into 3 "small multiples" with facet_wrap()'}
 p + 
   facet_wrap(~abv_tertile, nrow = 4) +
   theme(legend.position = "none")
