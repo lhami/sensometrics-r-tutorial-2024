@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 How to work with R | An introduction to text analysis with R for sensory and consumer scientists</title>
   <meta name="description" content="2 How to work with R | An introduction to text analysis with R for sensory and consumer scientists" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 How to work with R | An introduction to text analysis with R for sensory and consumer scientists" />
   <meta property="og:type" content="book" />
@@ -91,7 +91,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -104,7 +104,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +118,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -304,51 +308,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 10.04988</code></pre>
 <p>In fact, we can ask R to do lots of neat stuff, like generate random numbers for us. For example, here are 100 random numbers from a normal distribution with mean of 0 and standard deviation of 1.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="how-to-work-with-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>##   [1]  0.1968166446 -1.1023058769 -1.4000421657  0.2451408510 -0.4981834608
-##   [6]  2.2356068726 -1.4452170857  2.8632864606 -0.7376400024  0.0411143784
-##  [11]  0.4498433132  0.3841506984  0.3435802584  0.1913251066 -1.1633562506
-##  [16]  0.6003027953 -0.6789445510 -1.1200356720 -1.1014723417  1.5042156220
-##  [21]  0.0338295295 -1.3535274332  0.4033901245  1.6979659789 -0.5601146887
-##  [26] -0.6109766830  1.1248327864 -0.8225682118  0.2901751902  1.2271911487
-##  [31]  1.2309890190  0.6787100651  1.6224910440  0.0889938820  1.1620241434
-##  [36] -0.0008397359 -0.6543079513  2.0107247097  2.0120961611  0.4863284653
-##  [41]  0.1229393288 -0.0205716602  0.3696446638  0.7574571357  1.6416430783
-##  [46]  0.2116215985 -1.4664016618  1.1685331374  1.4583140198 -0.1401185640
-##  [51] -0.9378505884 -1.3730110337 -1.1831815804 -2.5918481637 -0.4673992266
-##  [56]  1.1131800368  1.1354254293  0.9647662399 -0.8333748118 -0.1472427529
-##  [61] -1.1046850005  1.3326259037  0.1865303301  0.3387960651  2.4465618593
-##  [66]  0.0840472042 -0.6112225617 -0.2117330769  0.7602572631  2.0843917358
-##  [71] -0.8988097622  1.1137224632 -1.0208223306 -0.9562592275 -1.0916045307
-##  [76] -1.5671569133 -1.9846908322 -0.2120666376  1.9066386261 -0.8214022445
-##  [81] -0.7810966262  0.3732049514 -0.9764532424 -0.1163213376  0.0049964470
-##  [86] -0.8016299101  0.5093395543  0.5157431775 -0.2595922036 -0.3241963397
-##  [91] -0.3359821369  2.0025450818 -1.6183489361  0.8215901250  0.5363881294
-##  [96] -0.1878065814  1.0289768021  1.1600240836  0.1599813267  0.7148196757</code></pre>
+<pre><code>##   [1]  0.493314849  0.037875052 -0.211972307 -0.875487006  0.814358638
+##   [6] -0.868587814 -0.020584111  0.389302201  0.045168552 -1.153879935
+##  [11]  0.872436440 -1.854804848  0.752453147 -1.386239257 -1.495545322
+##  [16]  0.142909754 -1.449700289 -1.445263805  1.806849572 -0.234379139
+##  [21] -0.215623795  0.344922672 -1.559864288  1.864363246  1.146328013
+##  [26]  0.705156965  0.182219071 -0.909343999  0.462941302 -1.739210947
+##  [31]  2.128012614  0.976619954 -1.908483671 -1.285247803 -0.325279320
+##  [36]  1.235528183  0.725011919 -0.631203797  0.019585759 -0.698657145
+##  [41]  1.594744703 -1.336593507  0.421908848 -0.371551728 -1.418393033
+##  [46]  0.359238602  0.070269750 -0.440425309  1.808341281 -0.422607262
+##  [51] -1.076978311  2.090414396  1.644807946  0.826807026 -0.460110527
+##  [56]  0.528209201  0.162983875  1.893506167 -0.349446812 -1.199174318
+##  [61]  0.747865836  1.003744338  1.144803866 -0.004604193  0.889891940
+##  [66] -1.064555795  0.560428654 -0.077482382  0.129229629 -1.529513215
+##  [71]  2.066494468  1.418752470  0.998379563 -0.090186051 -2.226059548
+##  [76]  0.654523496  1.423097012 -0.167062902 -0.137992001  1.654034282
+##  [81] -0.388873449 -1.439625065  0.315172074  1.100587344  0.589404324
+##  [86]  1.740988679 -2.812221802  0.516105557 -0.854028120 -0.059160053
+##  [91]  1.378400882 -2.642380043 -1.204771792  1.244427027 -2.012964182
+##  [96]  0.114693495  0.090963804  0.510090308 -0.311709831 -0.331538613</code></pre>
 <p>These forms are called a <strong>function</strong> in R. Functions lie at the heart of <code>R</code>’s power: they are pre-written scripts that are included with base <code>R</code> or added in packages, like the ones we installed. In general, an <code>R</code> function will have a form like <code>&lt;name&gt;(&lt;argument&gt;, &lt;argument&gt;, ...)</code>. In other words, the function will have a name (that lets <code>R</code> know what you’re trying to do) followed by an open parenthesis, and inside that a list of arguments, which are variables, objects, values, etc that you “pass” to the function, finally followed by a close parenthesis. In the case of our <code>sqrt()</code> function, there is only a single argument: a variable to which the square-root operation will be applied. In the case of the <code>rnorm()</code> function there are 3 arguments: the number of values we want, <code>n</code>, and the <code>mean</code> and standard deviation <code>sd</code> of the normal distribution we wish to sample from.</p>
 <p>Functions are the <code>R</code> tools for which you can make the most use of the help operator: <code>?</code>. Try typing <code>?rnorm</code> into your console, and when you hit <code>return</code> you’ll see the help page for the function.</p>
 <p>Notice that in the <code>rnorm()</code> example we <em>named</em> the arguments–we told <code>R</code> which was the <code>n</code>, <code>mean</code>, and <code>sd</code>. This is because if we name arguments, we can give them in any order. Otherwise, <code>R</code> will try to match the provided values to the arguments <strong>in the order in which they are given in the help file</strong>. This is a major source of errors for newer <code>R</code> users!</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="how-to-work-with-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This will give us 1 value from the normal distribution with mean = 0 and sd = 100</span></span>
 <span id="cb28-2"><a href="how-to-work-with-r.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div>
-<pre><code>## [1] 124.192</code></pre>
+<pre><code>## [1] 47.18328</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="how-to-work-with-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># But we can also use named arguments to provide them in any order we wish!</span></span>
 <span id="cb30-2"><a href="how-to-work-with-r.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">sd =</span> <span class="dv">1</span>, <span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>)</span></code></pre></div>
-<pre><code>##   [1]  0.86392255 -0.20544976 -1.41099267 -0.30239634 -1.34796402  0.48874009
-##   [7] -0.43828583  0.56974580  0.64895231  0.37405952  0.99820933 -1.14466702
-##  [13]  1.38186924 -0.11590554 -0.86262645 -0.28612705 -0.39609545  0.93810850
-##  [19] -0.64202981 -1.17695634  0.53992083 -1.15740909 -0.27016074  0.68132236
-##  [25] -1.18228475 -0.16581034 -0.49897789 -0.09398083 -0.33468732  0.40128537
-##  [31] -1.26495858 -1.27663422 -0.09973697 -0.99156072 -1.20591217  0.01821298
-##  [37] -2.12831729  0.84565764  0.58172043 -1.74540072  1.82721956 -0.23098677
-##  [43] -0.45483151 -0.92501439  0.74598338  1.02489709  1.17352445 -0.11617066
-##  [49]  1.50290950  1.92345549  0.82288859  1.02700919 -0.90285520  0.56813073
-##  [55]  0.53079013  0.88553276 -0.24921665 -1.22934215  0.25212311  2.42411702
-##  [61]  0.20537586  0.12259883 -0.80761048  1.17753007  0.33779138  0.15355387
-##  [67]  0.46697723  0.76769429 -1.13031106 -0.92917076  0.62880498  0.82816247
-##  [73] -0.84595587  0.49138283 -0.52981586  1.08792027 -1.25436013 -0.81501110
-##  [79]  0.05861525  0.77884626  0.81710556 -0.24053121 -0.30803053  0.01410530
-##  [85]  0.31468042  0.64013030 -0.36876457 -0.35817874 -0.74682620  1.13873471
-##  [91]  0.17317730 -0.33589980  0.27537135  0.41921862 -1.42684003  0.19154991
-##  [97] -1.66189973  2.18077279  0.68223991  1.86722829</code></pre>
+<pre><code>##   [1]  0.057848995 -0.495057447  0.844496326 -0.153930514  0.743224961
+##   [6]  0.669449721  1.106530676  0.721502710  0.298407278 -0.134521056
+##  [11]  0.239202533  0.328215416  1.641046413  0.747961113  0.950868788
+##  [16]  0.570694764  0.264835549 -1.389866238 -1.693586364 -0.712183326
+##  [21] -0.151952622 -2.844356664  0.776679992 -0.496039287  0.256124599
+##  [26]  1.008850441  2.201486250  0.080494920  1.339432324  0.234445699
+##  [31] -0.911168498  0.083887666 -0.977560174 -1.167568364 -0.335448973
+##  [36] -0.538334347 -0.433266880  1.843038176  0.620781663 -2.293211221
+##  [41] -0.412376413  0.062321220 -0.889774392  2.326536173 -1.242482651
+##  [46]  1.184015926 -1.643253063  0.094257223  1.678081274 -0.817034022
+##  [51]  1.598765257  1.168040054  1.275514591  0.352142311  0.028311079
+##  [56]  0.160118173 -1.314070883  0.815794134  0.847673124  0.782306176
+##  [61] -1.246646743 -1.474180122 -0.297977942 -0.825252688 -0.898017230
+##  [66]  0.754474976  0.336108217 -1.324008783 -0.583290890  0.252256470
+##  [71]  1.167557005  0.909657307  0.340683562 -0.454838368  0.414714117
+##  [76] -1.798439986 -1.487966336  1.041104430  2.039158453  0.735159865
+##  [81]  0.549553336 -1.242439183 -0.929697566 -0.741427413  1.119578891
+##  [86]  0.433362464  0.291564825 -0.761713502  1.058681234 -0.742053370
+##  [91]  0.158985468  0.469426204  0.913799161  0.002775476 -1.868987754
+##  [96] -1.255792369 -0.484834511  0.245653161  1.197361313 -0.015974368</code></pre>
 <p>Programming languages like <code>R</code> are very literal, and we need to be as literal as we can to make them work the way we want them to.</p>
 </div>
 <div id="reading-data-into-r" class="section level2 hasAnchor" number="2.3">
@@ -363,7 +370,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.3.1</span> Where the data lives<a href="how-to-work-with-r.html#where-the-data-lives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We touched on <strong>working directories</strong> because this is how <code>R</code> “sees” your computer. It will look first in the working directory, and then you will have to tell it where the file is <em>relative</em> to that directory. If you have been following along and opened up the <code>.Rproj</code> file in the downloaded archive, your working directory should be the archive’s top level, which will mean that we only need to point <code>R</code> towards the <code>data/</code> folder and then the <code>ba_2002.csv</code> file. We can check the working directory with the <code>getwd()</code> function.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="how-to-work-with-r.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;/Users/jake/Dropbox/Work/Documents/Conferences/Eurosense 2022/Sensometrics Tutorial/eurosense-tutorial-2022&quot;</code></pre>
+<pre><code>## [1] &quot;C:/Users/Leah/Documents/R/pangborn-r-tutorial-2023&quot;</code></pre>
 <p>Therefore, <strong>relative to the working directory</strong>, the file path to this data is <code>data/ba_2002.csv</code>. Please note that this is the UNIX convention for file paths: in Windows, the backslash <code>\</code> is used to separate directories. Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention in this workshop.</p>
 </div>
 <div id="what-kind-of-file-are-we-importing" class="section level3 hasAnchor" number="2.3.2">
@@ -386,22 +393,21 @@ cat_acquisition_order,name,weight\n
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>## # A tibble: 20,359 × 14
-##    reviews     beer_…¹ beer_id brewe…² brewe…³ style   abv user_id appea…⁴ aroma
-##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-##  1 This is a … Caffre…     825 Thomas…     297 Iris…   3.8 jisurf…     5     4  
-##  2 Great head… Caffre…     825 Thomas…     297 Iris…   3.8 allbou…     5     3.5
-##  3 Wow what a… Caffre…     825 Thomas…     297 Iris…   3.8 frank4…     4     3  
-##  4 Tried this… Caffre…     825 Thomas…     297 Iris…   3.8 beergl…     3.5   3.5
-##  5 Caffrey&#39;s … Caffre…     825 Thomas…     297 Iris…   3.8 proc.1…     4     3  
-##  6 The nitro … Caffre…     825 Thomas…     297 Iris…   3.8 zerk.4…     4     3  
-##  7 Nitro can.… Caffre…     825 Thomas…     297 Iris…   3.8 adr.263     3.5   3.5
-##  8 Excellent … Caffre…     825 Thomas…     297 Iris…   3.8 dogbri…     4     3  
-##  9 A very goo… Caffre…     825 Thomas…     297 Iris…   3.8 goindo…     4     4  
-## 10 Looks very… Caffre…     825 Thomas…     297 Iris…   3.8 irishr…     4     3  
-## # … with 20,349 more rows, 4 more variables: palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;, and abbreviated variable names ¹​beer_name,
-## #   ²​brewery_name, ³​brewery_id, ⁴​appearance
-## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+##    reviews         beer_name beer_id brewery_name brewery_id style   abv user_id
+##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
+##  1 This is a very… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 jisurf…
+##  2 Great head cre… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 allbou…
+##  3 Wow what a dif… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 frank4…
+##  4 Tried this one… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 beergl…
+##  5 Caffrey&#39;s on-t… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 proc.1…
+##  6 The nitro can … Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 zerk.4…
+##  7 Nitro can...Ty… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 adr.263
+##  8 Excellent pour… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 dogbri…
+##  9 A very good Ir… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 goindo…
+## 10 Looks very nic… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 irishr…
+## # ℹ 20,349 more rows
+## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
+## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
 <p>Suddenly, we have tabular data (i.e., data in rows and columns), like we’d have in Excel! Now we’re getting somewhere. However, before we go forward we’ll have to store this data somewhere–right now we’re just reading it and throwing it away.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="how-to-work-with-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/ba_2002.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 20359 Columns: 14
@@ -451,7 +457,7 @@ cat_acquisition_order,name,weight\n
 <pre><code>##  chr [1:4] &quot;fox&quot; &quot;bat&quot; &quot;rat&quot; &quot;cat&quot;</code></pre>
 <p>This <code>str()</code> function is especially useful when we have big, complicated datasets, like <code>beer_data</code>:</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="how-to-work-with-r.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(beer_data)</span></code></pre></div>
-<pre><code>## spec_tbl_df [20,359 × 14] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+<pre><code>## spc_tbl_ [20,359 × 14] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ reviews     : chr [1:20359] &quot;This is a very good Irish ale. I&#39;m not sure if it would be considered a cream ale, but it&#39;s very creamy in colo&quot;| __truncated__ &quot;Great head creation and retention from the Nitro can. A pinky finger width head stuck with the beer all the way&quot;| __truncated__ &quot;Wow what a different brew in England. I still am not a huge fan but the brew is improved on tap and fresh. It t&quot;| __truncated__ &quot;Tried this one in a steak house. Pours a light reddish colour topped by a thick white head that settles rather &quot;| __truncated__ ...
 ##  $ beer_name   : chr [1:20359] &quot;Caffrey&#39;s Irish Ale&quot; &quot;Caffrey&#39;s Irish Ale&quot; &quot;Caffrey&#39;s Irish Ale&quot; &quot;Caffrey&#39;s Irish Ale&quot; ...
 ##  $ beer_id     : num [1:20359] 825 825 825 825 825 825 825 825 825 825 ...
@@ -560,27 +566,25 @@ cat_acquisition_order,name,weight\n
 ##  8 Caffrey&#39;s Irish Ale
 ##  9 Caffrey&#39;s Irish Ale
 ## 10 Caffrey&#39;s Irish Ale
-## # … with 20,349 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 20,349 more rows</code></pre>
 <p>We can also use logical subsetting, just like in vectors. This is very powerful but a bit complicated, so we are going to introduce some <code>tidyverse</code> based operators to do this that will make it a lot easier. I will just give an example:</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="how-to-work-with-r.html#cb90-1" aria-hidden="true" tabindex="-1"></a>beer_data[beer_data<span class="sc">$</span>rating <span class="sc">&gt;</span> <span class="fl">4.5</span>, ] <span class="co"># get all rows for which rating &gt; 3</span></span></code></pre></div>
 <pre><code>## # A tibble: 1,952 × 14
-##    reviews     beer_…¹ beer_id brewe…² brewe…³ style   abv user_id appea…⁴ aroma
-##    &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-##  1 I must agr… Old En…     875 Harvie…     323 Engl…   6   viking…     4     4.5
-##  2 I had this… Schieh…    6438 Harvie…     323 Euro…   4.8 thelon…     4.5   4.5
-##  3 Haven&#39;t fo… Deucha…    2389 The Ca…     188 Engl…   4.4 freed.…     4.5   5  
-##  4 Once again… Deucha…    2389 The Ca…     188 Engl…   4.4 mark.65     3     4.5
-##  5 Hazy (bott… Edinbu…    6466 The Ca…     188 Scot…   6.4 nerofi…     4     4  
-##  6 The first … McEwan…     911 The Ca…     188 Engl…   4.7 jdhilt…     5     5  
-##  7 The brew p… McEwan…    1275 The Ca…     188 Scot…   8   murph.…     4     4.5
-##  8 Deep dark … McEwan…    1275 The Ca…     188 Scot…   8   zap.184     4     4.5
-##  9 Clear deep… Traqua…      36 Traqua…      24 Scot…   7.2 bighug…     4.5   4.5
-## 10 Reddish br… Traqua…      36 Traqua…      24 Scot…   7.2 mjohn2…     5     4.5
-## # … with 1,942 more rows, 4 more variables: palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;, and abbreviated variable names ¹​beer_name,
-## #   ²​brewery_name, ³​brewery_id, ⁴​appearance
-## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+##    reviews         beer_name beer_id brewery_name brewery_id style   abv user_id
+##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
+##  1 I must agree w… Old Engi…     875 Harviestoun…        323 Engl…   6   viking…
+##  2 I had this bee… Schiehal…    6438 Harviestoun…        323 Euro…   4.8 thelon…
+##  3 Haven&#39;t found … Deuchars…    2389 The Caledon…        188 Engl…   4.4 freed.…
+##  4 Once again had… Deuchars…    2389 The Caledon…        188 Engl…   4.4 mark.65
+##  5 Hazy (bottle c… Edinburg…    6466 The Caledon…        188 Scot…   6.4 nerofi…
+##  6 The first time… McEwan&#39;s…     911 The Caledon…        188 Engl…   4.7 jdhilt…
+##  7 The brew pours… McEwan&#39;s…    1275 The Caledon…        188 Scot…   8   murph.…
+##  8 Deep dark brow… McEwan&#39;s…    1275 The Caledon…        188 Scot…   8   zap.184
+##  9 Clear deep sca… Traquair…      36 Traquair Ho…         24 Scot…   7.2 bighug…
+## 10 Reddish brown … Traquair…      36 Traquair Ho…         24 Scot…   7.2 mjohn2…
+## # ℹ 1,942 more rows
+## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
+## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
 <p>In this last example I also introduced the final bit of <code>tibble</code> and <code>data.frame</code> wrangling we will cover here: the <code>$</code> operator. This is the operator to select a single column from a <code>data.frame</code> or <code>tibble</code>. It gives you back the vector that makes up that column:</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="how-to-work-with-r.html#cb92-1" aria-hidden="true" tabindex="-1"></a>beer_data<span class="sc">$</span>style <span class="co"># not printed because it is too long!</span></span></code></pre></div>
 <p>One of the nice things about RStudio is that it provides tab-completion for <code>$</code>. Go to the console, type “bee” and hit <code>tab</code>. You’ll see a list of possible matches, with <code>beer_data</code> at the top. Hit enter, and this will fill out the typing for you! Now, type “$” and hit <code>tab</code> again. You’ll see a list of the columns in <code>beer_data</code>! This can save a huge amount of typing and memorizing the names of variables and objects.</p>
@@ -669,7 +673,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

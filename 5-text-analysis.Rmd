@@ -434,7 +434,7 @@ beer_data_tokenized %>%
 
 And important point to keep in mind about tf-idf is that it is **data-based**: the numbers are only meaningful within the specific set of tokens and documents.  Thus, if I repeat the above pipeline but include all 10 deciles, we will not see the same words (and we will see that the model immediately struggles to find meaningful terms at all).  This is because I am no longer calculating with 4 documents, but 10.  These statistics are best thought of as descriptive, especially when we are repeatedly using them to explore a dataset.
 
-```{r tf-idf is data-based so it will change with "document" choice, echo = FALSE}
+```{r tf-idf is data-based so it will change with document choice, echo = FALSE, fig.cap = 'tf-idf is data-based so it will change with "document" choice'}
 beer_data_tokenized %>%
   # First we get deciles of rating
   mutate(rating_decile = ntile(rating, n = 10)) %>%

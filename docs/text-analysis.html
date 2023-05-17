@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 Text Analysis | An introduction to text analysis with R for sensory and consumer scientists</title>
   <meta name="description" content="5 Text Analysis | An introduction to text analysis with R for sensory and consumer scientists" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 Text Analysis | An introduction to text analysis with R for sensory and consumer scientists" />
   <meta property="og:type" content="book" />
@@ -91,7 +91,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -104,7 +104,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +118,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -307,14 +311,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb184-7"><a href="text-analysis.html#cb184-7" aria-hidden="true" tabindex="-1"></a>reviews_example <span class="sc">%&gt;%</span></span>
 <span id="cb184-8"><a href="text-analysis.html#cb184-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, reviews) <span class="sc">%&gt;%</span></span>
 <span id="cb184-9"><a href="text-analysis.html#cb184-9" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
-<div id="qlirkacvpr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="qlirkacvpr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qlirkacvpr table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#qlirkacvpr thead, #qlirkacvpr tbody, #qlirkacvpr tfoot, #qlirkacvpr tr, #qlirkacvpr td, #qlirkacvpr th {
+  border-style: none;
+}
+
+#qlirkacvpr p {
+  margin: 0;
+  padding: 0;
 }
 
 #qlirkacvpr .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -337,16 +353,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#qlirkacvpr .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
+#qlirkacvpr .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #qlirkacvpr .gt_title {
@@ -365,12 +374,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
+}
+
+#qlirkacvpr .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
 }
 
 #qlirkacvpr .gt_bottom_border {
@@ -446,6 +467,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
+#qlirkacvpr .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #qlirkacvpr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -469,6 +494,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #qlirkacvpr .gt_empty_group_heading {
@@ -544,6 +570,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 2px;
 }
 
+#qlirkacvpr .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
 #qlirkacvpr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
@@ -593,6 +623,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
+#qlirkacvpr .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
 #qlirkacvpr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
@@ -623,8 +663,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #qlirkacvpr .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -680,20 +720,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   font-size: 65%;
 }
 
-#qlirkacvpr .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
 #qlirkacvpr .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
 #qlirkacvpr .gt_asterisk {
@@ -701,43 +731,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: 0;
 }
 
-#qlirkacvpr .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#qlirkacvpr .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#qlirkacvpr .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#qlirkacvpr .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#qlirkacvpr .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#qlirkacvpr .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#qlirkacvpr .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#qlirkacvpr .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">beer_name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">reviews</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="beer_name">beer_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="reviews">reviews</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Stoudt's Weizen</td>
-<td class="gt_row gt_left">Medium straw and cloudy with thick head and lace. Fresh smelling with slight lemon zest aroma.  Taste is rich and fulfilling with strong lemon flavor. Also notable is the strong, almost overwhealming clove flavor.  Fresh and thirst quenching. Goes great with brats at a German festival.</td></tr>
-    <tr><td class="gt_row gt_left">Black Bear Ale</td>
-<td class="gt_row gt_left">(3-31-03): Got a new bottle thanks to johnrobe, and unfortunately it was just as bad. This brewery either has ongoing issues or the beer is really supposed to taste this way. I am guessing it is the former. (12-09-02): Acquired via trade. This may be a good beer and I may have gotten a bad bottle but the vinegar aroma ruined this beer. I was given pause before I even had a chance to take a sip because the vinegar aroma is so potent. Plugging my nose and drinking did not help much as the vinegar was prevalent in the flavor as well. I will give this one another shot down the road but I had to pour this one out.</td></tr>
-    <tr><td class="gt_row gt_left">Kozel</td>
-<td class="gt_row gt_left">A truly good, authentic Pilsner, bordering on great. This is the type of Pilsner Beck's or Labatts (and most North American brewers) wished they could produce. They can't, this brew took time. Brew time and cellar time. The quality of ingredients and process are there for the palate to enjoy on this Pilsner. Soft barley and malt tastes balanced with those heavenly saaz bitters. A great example of Czech pilsen style lagers. This one has a distinguishing quality though. It has everything required of a good Pilsner, flowery hopping evident to the nose and palate, sharp crisp start, tart/malty/grassy in the mouth  dry finish except, this one has no lingering &amp;quot;tinny&amp;quot; taste to the tongue from the saaz hops....probably not pasteurized. I liked this Pilsner very much and that takes something for this fanatical &amp;quot;Pils head&amp;quot;.  The only draw back is the price. $2.85 per 500mil bottle. I was surprised this beer was so fresh tasting, date code was near expired and it sat unrefrigerated on the LCBO (our state liquor monopoly) shelf.  A must try if you like Pilsners.</td></tr>
-    <tr><td class="gt_row gt_left">Odell Cutthroat Pale Ale</td>
-<td class="gt_row gt_left">This beer pours with a deep thick copper color and a thick foamy white head.   The huge spicy aroma has just a hint of malt.  The smooth medium body initiates an up-front caramel malt sweetness followed by a sharp spicy bitter bite. Very tasty.</td></tr>
-    <tr><td class="gt_row gt_left">Pike XXXXX Stout</td>
-<td class="gt_row gt_left">Nice pour, deep opaque black with an easy, thick creamy head that clings to the sides of the glass. It's not exactly long-lasting, but it never fully fades (ends up thin cream layer that's too thick for a film, but kind of like a like coat of moss or lichens). The aroma is a little weak, but roasty. The flavor is as strong as it should be but it dominated and unbalanced by too much burned bitterness. A bit of smokiness lingers underneath. The lack of balance makes this less than a joy to drink, but intriguing at the same time.</td></tr>
+    <tr><td headers="beer_name" class="gt_row gt_left">Stoudt's Weizen</td>
+<td headers="reviews" class="gt_row gt_left">Medium straw and cloudy with thick head and lace. Fresh smelling with slight lemon zest aroma.  Taste is rich and fulfilling with strong lemon flavor. Also notable is the strong, almost overwhealming clove flavor.  Fresh and thirst quenching. Goes great with brats at a German festival.</td></tr>
+    <tr><td headers="beer_name" class="gt_row gt_left">Black Bear Ale</td>
+<td headers="reviews" class="gt_row gt_left">(3-31-03): Got a new bottle thanks to johnrobe, and unfortunately it was just as bad. This brewery either has ongoing issues or the beer is really supposed to taste this way. I am guessing it is the former. (12-09-02): Acquired via trade. This may be a good beer and I may have gotten a bad bottle but the vinegar aroma ruined this beer. I was given pause before I even had a chance to take a sip because the vinegar aroma is so potent. Plugging my nose and drinking did not help much as the vinegar was prevalent in the flavor as well. I will give this one another shot down the road but I had to pour this one out.</td></tr>
+    <tr><td headers="beer_name" class="gt_row gt_left">Kozel</td>
+<td headers="reviews" class="gt_row gt_left">A truly good, authentic Pilsner, bordering on great. This is the type of Pilsner Beck's or Labatts (and most North American brewers) wished they could produce. They can't, this brew took time. Brew time and cellar time. The quality of ingredients and process are there for the palate to enjoy on this Pilsner. Soft barley and malt tastes balanced with those heavenly saaz bitters. A great example of Czech pilsen style lagers. This one has a distinguishing quality though. It has everything required of a good Pilsner, flowery hopping evident to the nose and palate, sharp crisp start, tart/malty/grassy in the mouth  dry finish except, this one has no lingering &amp;quot;tinny&amp;quot; taste to the tongue from the saaz hops....probably not pasteurized. I liked this Pilsner very much and that takes something for this fanatical &amp;quot;Pils head&amp;quot;.  The only draw back is the price. $2.85 per 500mil bottle. I was surprised this beer was so fresh tasting, date code was near expired and it sat unrefrigerated on the LCBO (our state liquor monopoly) shelf.  A must try if you like Pilsners.</td></tr>
+    <tr><td headers="beer_name" class="gt_row gt_left">Odell Cutthroat Pale Ale</td>
+<td headers="reviews" class="gt_row gt_left">This beer pours with a deep thick copper color and a thick foamy white head.   The huge spicy aroma has just a hint of malt.  The smooth medium body initiates an up-front caramel malt sweetness followed by a sharp spicy bitter bite. Very tasty.</td></tr>
+    <tr><td headers="beer_name" class="gt_row gt_left">Pike XXXXX Stout</td>
+<td headers="reviews" class="gt_row gt_left">Nice pour, deep opaque black with an easy, thick creamy head that clings to the sides of the glass. It's not exactly long-lasting, but it never fully fades (ends up thin cream layer that's too thick for a film, but kind of like a like coat of moss or lichens). The aroma is a little weak, but roasty. The flavor is as strong as it should be but it dominated and unbalanced by too much burned bitterness. A bit of smokiness lingers underneath. The lack of balance makes this less than a joy to drink, but intriguing at the same time.</td></tr>
   </tbody>
   
   
@@ -767,14 +799,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb185-19"><a href="text-analysis.html#cb185-19" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_example <span class="sc">%&gt;%</span></span>
 <span id="cb185-20"><a href="text-analysis.html#cb185-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, cleaned_review) <span class="sc">%&gt;%</span></span>
 <span id="cb185-21"><a href="text-analysis.html#cb185-21" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
-<div id="swhgavipdk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="swhgavipdk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#swhgavipdk table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#swhgavipdk thead, #swhgavipdk tbody, #swhgavipdk tfoot, #swhgavipdk tr, #swhgavipdk td, #swhgavipdk th {
+  border-style: none;
+}
+
+#swhgavipdk p {
+  margin: 0;
+  padding: 0;
 }
 
 #swhgavipdk .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -797,16 +841,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#swhgavipdk .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
+#swhgavipdk .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #swhgavipdk .gt_title {
@@ -825,12 +862,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
+}
+
+#swhgavipdk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
 }
 
 #swhgavipdk .gt_bottom_border {
@@ -906,6 +955,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
+#swhgavipdk .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #swhgavipdk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -929,6 +982,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #swhgavipdk .gt_empty_group_heading {
@@ -1004,6 +1058,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 2px;
 }
 
+#swhgavipdk .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
 #swhgavipdk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
@@ -1053,6 +1111,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
+#swhgavipdk .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
 #swhgavipdk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
@@ -1083,8 +1151,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #swhgavipdk .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -1140,20 +1208,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   font-size: 65%;
 }
 
-#swhgavipdk .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
 #swhgavipdk .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
 #swhgavipdk .gt_asterisk {
@@ -1161,43 +1219,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: 0;
 }
 
-#swhgavipdk .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#swhgavipdk .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#swhgavipdk .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#swhgavipdk .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#swhgavipdk .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#swhgavipdk .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#swhgavipdk .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#swhgavipdk .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">beer_name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">cleaned_review</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="beer_name">beer_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="cleaned_review">cleaned_review</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">Stoudt's Weizen</td>
-<td class="gt_row gt_left">Medium straw and cloudy with thick head and lace. Fresh smelling with slight lemon zest aroma. Taste is rich and fulfilling with strong lemon flavor. Also notable is the strong, almost overwhealming clove flavor. Fresh and thirst quenching. Goes great with brats at a German festival.</td></tr>
-    <tr><td class="gt_row gt_left">Black Bear Ale</td>
-<td class="gt_row gt_left">(--): Got a new bottle thanks to johnrobe, and unfortunately it was just as bad. This brewery either has ongoing issues or the beer is really supposed to taste this way. I am guessing it is the former. (--): Acquired via trade. This may be a good beer and I may have gotten a bad bottle but the vinegar aroma ruined this beer. I was given pause before I even had a chance to take a sip because the vinegar aroma is so potent. Plugging my nose and drinking did not help much as the vinegar was prevalent in the flavor as well. I will give this one another shot down the road but I had to pour this one out.</td></tr>
-    <tr><td class="gt_row gt_left">Kozel</td>
-<td class="gt_row gt_left">A truly good, authentic Pilsner, bordering on great. This is the type of Pilsner Beck's or Labatts (and most North American brewers) wished they could produce. They can't, this brew took time. Brew time and cellar time. The quality of ingredients and process are there for the palate to enjoy on this Pilsner. Soft barley and malt tastes balanced with those heavenly saaz bitters. A great example of Czech pilsen style lagers. This one has a distinguishing quality though. It has everything required of a good Pilsner, flowery hopping evident to the nose and palate, sharp crisp start, tart/malty/grassy in the mouth dry finish except, this one has no lingering tinny taste to the tongue from the saaz hops probably not pasteurized. I liked this Pilsner very much and that takes something for this fanatical Pils head . The only draw back is the price. dollar . per mil bottle. I was surprised this beer was so fresh tasting, date code was near e tongue sticking out ired and it sat unrefrigerated on the LCBO (our state liquor monopoly) shelf. A must try if you like Pilsners.</td></tr>
-    <tr><td class="gt_row gt_left">Odell Cutthroat Pale Ale</td>
-<td class="gt_row gt_left">This beer pours with a deep thick copper color and a thick foamy white head. The huge spicy aroma has just a hint of malt. The smooth medium body initiates an up-front caramel malt sweetness followed by a sharp spicy bitter bite. Very tasty.</td></tr>
-    <tr><td class="gt_row gt_left">Pike XXXXX Stout</td>
-<td class="gt_row gt_left">Nice pour, deep opaque black with an easy, thick creamy head that clings to the sides of the glass. It's not exactly long-lasting, but it never fully fades (ends up thin cream layer that's too thick for a film, but kind of like a like coat of moss or lichens). The aroma is a little weak, but roasty. The flavor is as strong as it should be but it dominated and unbalanced by too much burned bitterness. A bit of smokiness lingers underneath. The lack of balance makes this less than a joy to drink, but intriguing at the same time.</td></tr>
+    <tr><td headers="beer_name" class="gt_row gt_left">Stoudt's Weizen</td>
+<td headers="cleaned_review" class="gt_row gt_left">Medium straw and cloudy with thick head and lace. Fresh smelling with slight lemon zest aroma. Taste is rich and fulfilling with strong lemon flavor. Also notable is the strong, almost overwhealming clove flavor. Fresh and thirst quenching. Goes great with brats at a German festival.</td></tr>
+    <tr><td headers="beer_name" class="gt_row gt_left">Black Bear Ale</td>
+<td headers="cleaned_review" class="gt_row gt_left">(--): Got a new bottle thanks to johnrobe, and unfortunately it was just as bad. This brewery either has ongoing issues or the beer is really supposed to taste this way. I am guessing it is the former. (--): Acquired via trade. This may be a good beer and I may have gotten a bad bottle but the vinegar aroma ruined this beer. I was given pause before I even had a chance to take a sip because the vinegar aroma is so potent. Plugging my nose and drinking did not help much as the vinegar was prevalent in the flavor as well. I will give this one another shot down the road but I had to pour this one out.</td></tr>
+    <tr><td headers="beer_name" class="gt_row gt_left">Kozel</td>
+<td headers="cleaned_review" class="gt_row gt_left">A truly good, authentic Pilsner, bordering on great. This is the type of Pilsner Beck's or Labatts (and most North American brewers) wished they could produce. They can't, this brew took time. Brew time and cellar time. The quality of ingredients and process are there for the palate to enjoy on this Pilsner. Soft barley and malt tastes balanced with those heavenly saaz bitters. A great example of Czech pilsen style lagers. This one has a distinguishing quality though. It has everything required of a good Pilsner, flowery hopping evident to the nose and palate, sharp crisp start, tart/malty/grassy in the mouth dry finish except, this one has no lingering tinny taste to the tongue from the saaz hops probably not pasteurized. I liked this Pilsner very much and that takes something for this fanatical Pils head . The only draw back is the price. dollar . per mil bottle. I was surprised this beer was so fresh tasting, date code was near e tongue sticking out ired and it sat unrefrigerated on the LCBO (our state liquor monopoly) shelf. A must try if you like Pilsners.</td></tr>
+    <tr><td headers="beer_name" class="gt_row gt_left">Odell Cutthroat Pale Ale</td>
+<td headers="cleaned_review" class="gt_row gt_left">This beer pours with a deep thick copper color and a thick foamy white head. The huge spicy aroma has just a hint of malt. The smooth medium body initiates an up-front caramel malt sweetness followed by a sharp spicy bitter bite. Very tasty.</td></tr>
+    <tr><td headers="beer_name" class="gt_row gt_left">Pike XXXXX Stout</td>
+<td headers="cleaned_review" class="gt_row gt_left">Nice pour, deep opaque black with an easy, thick creamy head that clings to the sides of the glass. It's not exactly long-lasting, but it never fully fades (ends up thin cream layer that's too thick for a film, but kind of like a like coat of moss or lichens). The aroma is a little weak, but roasty. The flavor is as strong as it should be but it dominated and unbalanced by too much burned bitterness. A bit of smokiness lingers underneath. The lack of balance makes this less than a joy to drink, but intriguing at the same time.</td></tr>
   </tbody>
   
   
@@ -1290,8 +1350,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 Caffrey&#39;s Irish Ale   4.46 i&#39;m  
 ##  9 Caffrey&#39;s Irish Ale   4.46 not  
 ## 10 Caffrey&#39;s Irish Ale   4.46 sure 
-## # … with 1,770,126 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 1,770,126 more rows</code></pre>
 <p>The <code>unnest_tokens()</code> function actually applies the <code>tokenizers::tokenize_words()</code> function in an efficient, easy way: it takes a column of raw <code>character</code> data and then tokenizes it as specified, outputting a tidy format of 1-token-per-row. Now we have our observations (tokens) each on its own line, ready for further analysis.</p>
 <p>In order to make what we’re doing easier to follow, let’s also take a look at our example data.</p>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="text-analysis.html#cb195-1" aria-hidden="true" tabindex="-1"></a>cleaned_reviews_tokenized <span class="ot">&lt;-</span> </span>
@@ -1317,8 +1376,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 Kozel       4.25 great    
 ##  9 Kozel       4.25 this     
 ## 10 Kozel       4.25 is       
-## # … with 177 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 177 more rows</code></pre>
 <p>When we use <code>unnest_tokens()</code>, all of the non-text data gets treated as information about each token–so <code>beer_name</code>, <code>rating</code>, etc are duplicated for each token that now has its own row. This will allow us to perform a number of types of text analysis.</p>
 </div>
 <div id="a-quick-note-saving-data" class="section level3 hasAnchor" number="5.1.3">
@@ -1376,8 +1434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 across      SMART  
 ##  9 actually    SMART  
 ## 10 after       SMART  
-## # … with 1,139 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 1,139 more rows</code></pre>
 <p>The most basic approach to dealing with stop words is just to outright remove them from our data. This is easy when we’ve got a tidy, one-token-per-row structure.</p>
 <p>We could use some version of <code>filter()</code> to remove stop words from our <code>beer_data_tokenized</code> tibble, but this is exactly what the <code>anti_join()</code> function (familiar to those of you who have used SQL) will do: with two tibbles, <code>X</code> and <code>Y</code>, <code>anti_join(X, Y)</code> will remove all rows in <code>X</code> that match rows in <code>Y</code>.</p>
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="text-analysis.html#cb201-1" aria-hidden="true" tabindex="-1"></a>beer_data_tokenized <span class="sc">%&gt;%</span></span>
@@ -1412,8 +1469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 American Brown Ale               166
 ##  9 American Dark Wheat Ale           11
 ## 10 American Double / Imperial IPA   151
-## # … with 89 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 89 more rows</code></pre>
 <p>Let’s just look at the categories I suggested, plus “lager”. We will do this by using mutate to create a <code>simple_style</code> column:</p>
 <div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="text-analysis.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First, we&#39;ll make sure our approach works</span></span>
 <span id="cb204-2"><a href="text-analysis.html#cb204-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
@@ -1428,8 +1484,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 4 × 2
 ##   simple_style     n
 ##   &lt;chr&gt;        &lt;int&gt;
-## 1 dark          2562
-## 2 IPA           1274
+## 1 IPA           1274
+## 2 dark          2562
 ## 3 lager         3245
 ## 4 other        13278</code></pre>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="text-analysis.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Then we&#39;ll implement the approach for our tokenized data</span></span>
@@ -1508,14 +1564,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb207-9"><a href="text-analysis.html#cb207-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># let&#39;s look at some stop words</span></span>
 <span id="cb207-10"><a href="text-analysis.html#cb207-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(token <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;is&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;beer&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb207-11"><a href="text-analysis.html#cb207-11" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
-<div id="finhpmnpfs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div id="finhpmnpfs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#finhpmnpfs table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#finhpmnpfs thead, #finhpmnpfs tbody, #finhpmnpfs tfoot, #finhpmnpfs tr, #finhpmnpfs td, #finhpmnpfs th {
+  border-style: none;
+}
+
+#finhpmnpfs p {
+  margin: 0;
+  padding: 0;
 }
 
 #finhpmnpfs .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -1538,16 +1606,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#finhpmnpfs .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
+#finhpmnpfs .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #finhpmnpfs .gt_title {
@@ -1566,12 +1627,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
+}
+
+#finhpmnpfs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
 }
 
 #finhpmnpfs .gt_bottom_border {
@@ -1647,6 +1720,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
+#finhpmnpfs .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #finhpmnpfs .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -1670,6 +1747,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #finhpmnpfs .gt_empty_group_heading {
@@ -1745,6 +1823,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 2px;
 }
 
+#finhpmnpfs .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
 #finhpmnpfs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
@@ -1794,6 +1876,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
+#finhpmnpfs .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
 #finhpmnpfs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
@@ -1824,8 +1916,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #finhpmnpfs .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -1881,20 +1973,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   font-size: 65%;
 }
 
-#finhpmnpfs .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
 #finhpmnpfs .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
 #finhpmnpfs .gt_asterisk {
@@ -1902,133 +1984,135 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: 0;
 }
 
-#finhpmnpfs .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#finhpmnpfs .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#finhpmnpfs .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#finhpmnpfs .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#finhpmnpfs .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#finhpmnpfs .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#finhpmnpfs .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#finhpmnpfs .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">simple_style</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">token</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">n</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">tf</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">idf</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">tf_idf</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="simple_style">simple_style</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="token">token</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="n">n</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="tf">tf</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="idf">idf</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="tf_idf">tf_idf</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_left">dark</td>
-<td class="gt_row gt_left">a</td>
-<td class="gt_row gt_right">10322</td>
-<td class="gt_row gt_right">0.045447741</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">dark</td>
-<td class="gt_row gt_left">beer</td>
-<td class="gt_row gt_right">2041</td>
-<td class="gt_row gt_right">0.008986518</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">dark</td>
-<td class="gt_row gt_left">is</td>
-<td class="gt_row gt_right">4682</td>
-<td class="gt_row gt_right">0.020614835</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">dark</td>
-<td class="gt_row gt_left">the</td>
-<td class="gt_row gt_right">10610</td>
-<td class="gt_row gt_right">0.046715804</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">IPA</td>
-<td class="gt_row gt_left">a</td>
-<td class="gt_row gt_right">5285</td>
-<td class="gt_row gt_right">0.045000937</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">IPA</td>
-<td class="gt_row gt_left">beer</td>
-<td class="gt_row gt_right">1151</td>
-<td class="gt_row gt_right">0.009800582</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">IPA</td>
-<td class="gt_row gt_left">is</td>
-<td class="gt_row gt_right">2364</td>
-<td class="gt_row gt_right">0.020129085</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">IPA</td>
-<td class="gt_row gt_left">the</td>
-<td class="gt_row gt_right">5630</td>
-<td class="gt_row gt_right">0.047938557</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">lager</td>
-<td class="gt_row gt_left">a</td>
-<td class="gt_row gt_right">11868</td>
-<td class="gt_row gt_right">0.045791277</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">lager</td>
-<td class="gt_row gt_left">beer</td>
-<td class="gt_row gt_right">3773</td>
-<td class="gt_row gt_right">0.014557675</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">lager</td>
-<td class="gt_row gt_left">is</td>
-<td class="gt_row gt_right">5628</td>
-<td class="gt_row gt_right">0.021714974</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">lager</td>
-<td class="gt_row gt_left">the</td>
-<td class="gt_row gt_right">10734</td>
-<td class="gt_row gt_right">0.041415872</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">other</td>
-<td class="gt_row gt_left">a</td>
-<td class="gt_row gt_right">55217</td>
-<td class="gt_row gt_right">0.047339678</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">other</td>
-<td class="gt_row gt_left">beer</td>
-<td class="gt_row gt_right">12491</td>
-<td class="gt_row gt_right">0.010709019</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">other</td>
-<td class="gt_row gt_left">is</td>
-<td class="gt_row gt_right">23222</td>
-<td class="gt_row gt_right">0.019909122</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
-    <tr><td class="gt_row gt_left">other</td>
-<td class="gt_row gt_left">the</td>
-<td class="gt_row gt_right">53203</td>
-<td class="gt_row gt_right">0.045612997</td>
-<td class="gt_row gt_right">0</td>
-<td class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">IPA</td>
+<td headers="token" class="gt_row gt_left">a</td>
+<td headers="n" class="gt_row gt_right">5285</td>
+<td headers="tf" class="gt_row gt_right">0.045000937</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">IPA</td>
+<td headers="token" class="gt_row gt_left">beer</td>
+<td headers="n" class="gt_row gt_right">1151</td>
+<td headers="tf" class="gt_row gt_right">0.009800582</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">IPA</td>
+<td headers="token" class="gt_row gt_left">is</td>
+<td headers="n" class="gt_row gt_right">2364</td>
+<td headers="tf" class="gt_row gt_right">0.020129085</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">IPA</td>
+<td headers="token" class="gt_row gt_left">the</td>
+<td headers="n" class="gt_row gt_right">5630</td>
+<td headers="tf" class="gt_row gt_right">0.047938557</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">dark</td>
+<td headers="token" class="gt_row gt_left">a</td>
+<td headers="n" class="gt_row gt_right">10322</td>
+<td headers="tf" class="gt_row gt_right">0.045447741</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">dark</td>
+<td headers="token" class="gt_row gt_left">beer</td>
+<td headers="n" class="gt_row gt_right">2041</td>
+<td headers="tf" class="gt_row gt_right">0.008986518</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">dark</td>
+<td headers="token" class="gt_row gt_left">is</td>
+<td headers="n" class="gt_row gt_right">4682</td>
+<td headers="tf" class="gt_row gt_right">0.020614835</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">dark</td>
+<td headers="token" class="gt_row gt_left">the</td>
+<td headers="n" class="gt_row gt_right">10610</td>
+<td headers="tf" class="gt_row gt_right">0.046715804</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">lager</td>
+<td headers="token" class="gt_row gt_left">a</td>
+<td headers="n" class="gt_row gt_right">11868</td>
+<td headers="tf" class="gt_row gt_right">0.045791277</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">lager</td>
+<td headers="token" class="gt_row gt_left">beer</td>
+<td headers="n" class="gt_row gt_right">3773</td>
+<td headers="tf" class="gt_row gt_right">0.014557675</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">lager</td>
+<td headers="token" class="gt_row gt_left">is</td>
+<td headers="n" class="gt_row gt_right">5628</td>
+<td headers="tf" class="gt_row gt_right">0.021714974</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">lager</td>
+<td headers="token" class="gt_row gt_left">the</td>
+<td headers="n" class="gt_row gt_right">10734</td>
+<td headers="tf" class="gt_row gt_right">0.041415872</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">other</td>
+<td headers="token" class="gt_row gt_left">a</td>
+<td headers="n" class="gt_row gt_right">55217</td>
+<td headers="tf" class="gt_row gt_right">0.047339678</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">other</td>
+<td headers="token" class="gt_row gt_left">beer</td>
+<td headers="n" class="gt_row gt_right">12491</td>
+<td headers="tf" class="gt_row gt_right">0.010709019</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">other</td>
+<td headers="token" class="gt_row gt_left">is</td>
+<td headers="n" class="gt_row gt_right">23222</td>
+<td headers="tf" class="gt_row gt_right">0.019909122</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
+    <tr><td headers="simple_style" class="gt_row gt_left">other</td>
+<td headers="token" class="gt_row gt_left">the</td>
+<td headers="n" class="gt_row gt_right">53203</td>
+<td headers="tf" class="gt_row gt_right">0.045612997</td>
+<td headers="idf" class="gt_row gt_right">0</td>
+<td headers="tf_idf" class="gt_row gt_right">0</td></tr>
   </tbody>
   
   
@@ -2084,7 +2168,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb209-25"><a href="text-analysis.html#cb209-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="5-text-analysis_files/figure-html/what%20words%20are%20associated%20with%20very%20good%20or%20bad%20beers%20by%20tf-idf-1.png" width="672" /></p>
 <p>And important point to keep in mind about tf-idf is that it is <strong>data-based</strong>: the numbers are only meaningful within the specific set of tokens and documents. Thus, if I repeat the above pipeline but include all 10 deciles, we will not see the same words (and we will see that the model immediately struggles to find meaningful terms at all). This is because I am no longer calculating with 4 documents, but 10. These statistics are best thought of as descriptive, especially when we are repeatedly using them to explore a dataset.</p>
-<p>&lt;img src=“5-text-analysis_files/figure-html/tf-idf is data-based so it will change with”document” choice-1.png” width=“672” /&gt;</p>
+<div class="figure">
+<img src="5-text-analysis_files/figure-html/tf-idf%20is%20data-based%20so%20it%20will%20change%20with%20document%20choice-1.png" alt="tf-idf is data-based so it will change with &quot;document&quot; choice" width="672" />
+<p class="caption">
+(#fig:tf-idf is data-based so it will change with document choice)tf-idf is data-based so it will change with “document” choice
+</p>
+</div>
 <p>We’ve now practiced some basic tools for first wrangling text data into a form with which we can work, and then applying some simple, empirical statistics to start to extract meaning. We’ll discuss <strong>sentiment analysis</strong>, a broad suite of tools that attempts to impute some sort of emotional or affective weight to words, and then produce scores for texts based on these weights.</p>
 </div>
 </div>
@@ -2116,8 +2205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 abort       negative 
 ##  9 aborted     negative 
 ## 10 aborts      negative 
-## # … with 6,776 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 6,776 more rows</code></pre>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="text-analysis.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(sentiments, sentiment)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   sentiment     n
@@ -2128,10 +2216,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The structure of tidy data with tokens makes it very easy to use these dictionary-based sentiment analysis approaches. To do so, all we need to do is use a <code>left_join()</code> function, which is similar to the <code>anti_join()</code> function we used for stop words. In this case, for data tables <code>X</code> and <code>Y</code>, <code>left_join(X, Y)</code> finds rows in <code>Y</code> that match <code>X</code>, and imports all the columns from Y for those matches.</p>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="text-analysis.html#cb214-1" aria-hidden="true" tabindex="-1"></a>beer_sentiments <span class="ot">&lt;-</span> </span>
 <span id="cb214-2"><a href="text-analysis.html#cb214-2" aria-hidden="true" tabindex="-1"></a>  beer_data_tokenized <span class="sc">%&gt;%</span></span>
-<span id="cb214-3"><a href="text-analysis.html#cb214-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(sentiments, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;token&quot;</span> <span class="ot">=</span> <span class="st">&quot;word&quot;</span>))</span>
-<span id="cb214-4"><a href="text-analysis.html#cb214-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb214-5"><a href="text-analysis.html#cb214-5" aria-hidden="true" tabindex="-1"></a>beer_sentiments <span class="sc">%&gt;%</span></span>
-<span id="cb214-6"><a href="text-analysis.html#cb214-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(review_id, beer_name, style, rating, token, sentiment)</span></code></pre></div>
+<span id="cb214-3"><a href="text-analysis.html#cb214-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(sentiments, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;token&quot;</span> <span class="ot">=</span> <span class="st">&quot;word&quot;</span>))</span></code></pre></div>
+<pre><code>## Warning in left_join(., sentiments, by = c(token = &quot;word&quot;)): Detected an unexpected many-to-many relationship between `x` and `y`.
+## ℹ Row 1164310 of `x` matches multiple rows in `y`.
+## ℹ Row 4229 of `y` matches multiple rows in `x`.
+## ℹ If a many-to-many relationship is expected, set `relationship =
+##   &quot;many-to-many&quot;` to silence this warning.</code></pre>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="text-analysis.html#cb216-1" aria-hidden="true" tabindex="-1"></a>beer_sentiments <span class="sc">%&gt;%</span></span>
+<span id="cb216-2"><a href="text-analysis.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(review_id, beer_name, style, rating, token, sentiment)</span></code></pre></div>
 <pre><code>## # A tibble: 1,770,138 × 6
 ##    review_id beer_name           style         rating token sentiment
 ##        &lt;int&gt; &lt;chr&gt;               &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    
@@ -2145,19 +2237,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8         1 Caffrey&#39;s Irish Ale irish red ale   4.46 i&#39;m   &lt;NA&gt;     
 ##  9         1 Caffrey&#39;s Irish Ale irish red ale   4.46 not   &lt;NA&gt;     
 ## 10         1 Caffrey&#39;s Irish Ale irish red ale   4.46 sure  &lt;NA&gt;     
-## # … with 1,770,128 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 1,770,128 more rows</code></pre>
 <p>It is immediately apparent how sparse the sentiment lexicons are compared to our actual data. This is one key problem with dictionary-based approaches–we often don’t have application- or domain-specific lexicons, and the lexicons that exist are often not well calibrated to our data.</p>
 <p>We can perform a simple <code>count()</code> and <code>group_by()</code> operation to get a rough sentiment score.</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="text-analysis.html#cb216-1" aria-hidden="true" tabindex="-1"></a>sentiment_ratings <span class="ot">&lt;-</span> </span>
-<span id="cb216-2"><a href="text-analysis.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  beer_sentiments <span class="sc">%&gt;%</span></span>
-<span id="cb216-3"><a href="text-analysis.html#cb216-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(review_id, sentiment) <span class="sc">%&gt;%</span></span>
-<span id="cb216-4"><a href="text-analysis.html#cb216-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb216-5"><a href="text-analysis.html#cb216-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(review_id) <span class="sc">%&gt;%</span></span>
-<span id="cb216-6"><a href="text-analysis.html#cb216-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> sentiment, <span class="at">values_from =</span> n, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb216-7"><a href="text-analysis.html#cb216-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sentiment =</span> positive <span class="sc">-</span> negative)</span>
-<span id="cb216-8"><a href="text-analysis.html#cb216-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb216-9"><a href="text-analysis.html#cb216-9" aria-hidden="true" tabindex="-1"></a>sentiment_ratings</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="text-analysis.html#cb218-1" aria-hidden="true" tabindex="-1"></a>sentiment_ratings <span class="ot">&lt;-</span> </span>
+<span id="cb218-2"><a href="text-analysis.html#cb218-2" aria-hidden="true" tabindex="-1"></a>  beer_sentiments <span class="sc">%&gt;%</span></span>
+<span id="cb218-3"><a href="text-analysis.html#cb218-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(review_id, sentiment) <span class="sc">%&gt;%</span></span>
+<span id="cb218-4"><a href="text-analysis.html#cb218-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb218-5"><a href="text-analysis.html#cb218-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(review_id) <span class="sc">%&gt;%</span></span>
+<span id="cb218-6"><a href="text-analysis.html#cb218-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> sentiment, <span class="at">values_from =</span> n, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb218-7"><a href="text-analysis.html#cb218-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sentiment =</span> positive <span class="sc">-</span> negative)</span>
+<span id="cb218-8"><a href="text-analysis.html#cb218-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb218-9"><a href="text-analysis.html#cb218-9" aria-hidden="true" tabindex="-1"></a>sentiment_ratings</span></code></pre></div>
 <pre><code>## # A tibble: 20,328 × 4
 ## # Groups:   review_id [20,328]
 ##    review_id negative positive sentiment
@@ -2172,58 +2263,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8         8        1        1         0
 ##  9         9        0        5         5
 ## 10        10        3        3         0
-## # … with 20,318 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 20,318 more rows</code></pre>
 <p>In this case, we’re being <em>very</em> rough: we’re not taking into account any of the non-sentiment words, for example. Nevertheless, let’s take a look at what we’ve gotten:</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="text-analysis.html#cb218-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb218-2"><a href="text-analysis.html#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">review_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb218-3"><a href="text-analysis.html#cb218-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(sentiment_ratings) <span class="sc">%&gt;%</span></span>
-<span id="cb218-4"><a href="text-analysis.html#cb218-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sentiment, <span class="at">y =</span> rating)) <span class="sc">+</span> </span>
-<span id="cb218-5"><a href="text-analysis.html#cb218-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb218-6"><a href="text-analysis.html#cb218-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb218-7"><a href="text-analysis.html#cb218-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">11</span>, <span class="dv">30</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb218-8"><a href="text-analysis.html#cb218-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="text-analysis.html#cb220-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb220-2"><a href="text-analysis.html#cb220-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">review_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb220-3"><a href="text-analysis.html#cb220-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(sentiment_ratings) <span class="sc">%&gt;%</span></span>
+<span id="cb220-4"><a href="text-analysis.html#cb220-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sentiment, <span class="at">y =</span> rating)) <span class="sc">+</span> </span>
+<span id="cb220-5"><a href="text-analysis.html#cb220-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb220-6"><a href="text-analysis.html#cb220-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb220-7"><a href="text-analysis.html#cb220-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">11</span>, <span class="dv">30</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb220-8"><a href="text-analysis.html#cb220-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="5-text-analysis_files/figure-html/visualizing%20basic%20sentiment%20against%20rating-1.png" width="672" /></p>
 <p>It does appear that there is a positive, probably non-linear relationship between sentiment and rating. We could do some reshaping (normalizing, possibly exponentiating or otherwise transforming the subsequent score) of the sentiment scores to get a better relationship.</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="text-analysis.html#cb219-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> </span>
-<span id="cb219-2"><a href="text-analysis.html#cb219-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb219-3"><a href="text-analysis.html#cb219-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">review_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb219-4"><a href="text-analysis.html#cb219-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(sentiment_ratings)</span></code></pre></div>
-<pre><code>## Joining, by = &quot;review_id&quot;</code></pre>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="text-analysis.html#cb221-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb221-2"><a href="text-analysis.html#cb221-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, style, rating, sentiment) <span class="sc">%&gt;%</span></span>
-<span id="cb221-3"><a href="text-analysis.html#cb221-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(rating, sentiment), <span class="at">names_to =</span> <span class="st">&quot;scale&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb221-4"><a href="text-analysis.html#cb221-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(style, scale) <span class="sc">%&gt;%</span></span>
-<span id="cb221-5"><a href="text-analysis.html#cb221-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_value =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb221-6"><a href="text-analysis.html#cb221-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">se_value =</span> <span class="fu">sd</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span></span>
-<span id="cb221-7"><a href="text-analysis.html#cb221-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(scale) <span class="sc">%&gt;%</span></span>
-<span id="cb221-8"><a href="text-analysis.html#cb221-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> mean_value, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb221-9"><a href="text-analysis.html#cb221-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb221-10"><a href="text-analysis.html#cb221-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">style =</span> <span class="fu">factor</span>(style) <span class="sc">%&gt;%</span> <span class="fu">reorder_within</span>(<span class="at">by =</span> mean_value, <span class="at">within =</span> scale)) <span class="sc">%&gt;%</span></span>
-<span id="cb221-11"><a href="text-analysis.html#cb221-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> style, <span class="at">y =</span> mean_value, <span class="at">fill =</span> scale)) <span class="sc">+</span> </span>
-<span id="cb221-12"><a href="text-analysis.html#cb221-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb221-13"><a href="text-analysis.html#cb221-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
-<span id="cb221-14"><a href="text-analysis.html#cb221-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb221-15"><a href="text-analysis.html#cb221-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>scale, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="text-analysis.html#cb221-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> </span>
+<span id="cb221-2"><a href="text-analysis.html#cb221-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb221-3"><a href="text-analysis.html#cb221-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">review_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb221-4"><a href="text-analysis.html#cb221-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(sentiment_ratings)</span></code></pre></div>
+<pre><code>## Joining with `by = join_by(review_id)`</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="text-analysis.html#cb223-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb223-2"><a href="text-analysis.html#cb223-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, style, rating, sentiment) <span class="sc">%&gt;%</span></span>
+<span id="cb223-3"><a href="text-analysis.html#cb223-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(rating, sentiment), <span class="at">names_to =</span> <span class="st">&quot;scale&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb223-4"><a href="text-analysis.html#cb223-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(style, scale) <span class="sc">%&gt;%</span></span>
+<span id="cb223-5"><a href="text-analysis.html#cb223-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_value =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb223-6"><a href="text-analysis.html#cb223-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">se_value =</span> <span class="fu">sd</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb223-7"><a href="text-analysis.html#cb223-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(scale) <span class="sc">%&gt;%</span></span>
+<span id="cb223-8"><a href="text-analysis.html#cb223-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> mean_value, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb223-9"><a href="text-analysis.html#cb223-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb223-10"><a href="text-analysis.html#cb223-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">style =</span> <span class="fu">factor</span>(style) <span class="sc">%&gt;%</span> <span class="fu">reorder_within</span>(<span class="at">by =</span> mean_value, <span class="at">within =</span> scale)) <span class="sc">%&gt;%</span></span>
+<span id="cb223-11"><a href="text-analysis.html#cb223-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> style, <span class="at">y =</span> mean_value, <span class="at">fill =</span> scale)) <span class="sc">+</span> </span>
+<span id="cb223-12"><a href="text-analysis.html#cb223-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb223-13"><a href="text-analysis.html#cb223-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb223-14"><a href="text-analysis.html#cb223-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb223-15"><a href="text-analysis.html#cb223-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>scale, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;style&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <p><img src="5-text-analysis_files/figure-html/we%20can%20improve%20by%20doing%20some%20normalization-1.png" width="672" /></p>
 <p>We can see that we get quite different rankings from sentiment scores and from ratings. It might behoove us to examine some of those mismatches in order to identify where they originate from.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="text-analysis.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here are the reviews where the ratings most disagree with the sentiment</span></span>
-<span id="cb222-2"><a href="text-analysis.html#cb222-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb222-3"><a href="text-analysis.html#cb222-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># normalize sentiment and ratings so we can find the largest mismatch</span></span>
-<span id="cb222-4"><a href="text-analysis.html#cb222-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rating_norm =</span> rating <span class="sc">/</span> <span class="fu">max</span>(rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb222-5"><a href="text-analysis.html#cb222-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">sentiment_norm =</span> sentiment <span class="sc">/</span> <span class="fu">max</span>(sentiment, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb222-6"><a href="text-analysis.html#cb222-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff =</span> rating_norm <span class="sc">-</span> sentiment_norm) <span class="sc">%&gt;%</span></span>
-<span id="cb222-7"><a href="text-analysis.html#cb222-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(review_id, beer_name, sentiment_norm, rating_norm, diff, cleaned_review) <span class="sc">%&gt;%</span></span>
-<span id="cb222-8"><a href="text-analysis.html#cb222-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> diff, <span class="at">n =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb222-9"><a href="text-analysis.html#cb222-9" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
-<div id="hmfbwrctca" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="text-analysis.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here are the reviews where the ratings most disagree with the sentiment</span></span>
+<span id="cb225-2"><a href="text-analysis.html#cb225-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb225-3"><a href="text-analysis.html#cb225-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># normalize sentiment and ratings so we can find the largest mismatch</span></span>
+<span id="cb225-4"><a href="text-analysis.html#cb225-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rating_norm =</span> rating <span class="sc">/</span> <span class="fu">max</span>(rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb225-5"><a href="text-analysis.html#cb225-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">sentiment_norm =</span> sentiment <span class="sc">/</span> <span class="fu">max</span>(sentiment, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb225-6"><a href="text-analysis.html#cb225-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff =</span> rating_norm <span class="sc">-</span> sentiment_norm) <span class="sc">%&gt;%</span></span>
+<span id="cb225-7"><a href="text-analysis.html#cb225-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(review_id, beer_name, sentiment_norm, rating_norm, diff, cleaned_review) <span class="sc">%&gt;%</span></span>
+<span id="cb225-8"><a href="text-analysis.html#cb225-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> diff, <span class="at">n =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb225-9"><a href="text-analysis.html#cb225-9" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
+<div id="hmfbwrctca" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hmfbwrctca table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#hmfbwrctca thead, #hmfbwrctca tbody, #hmfbwrctca tfoot, #hmfbwrctca tr, #hmfbwrctca td, #hmfbwrctca th {
+  border-style: none;
+}
+
+#hmfbwrctca p {
+  margin: 0;
+  padding: 0;
 }
 
 #hmfbwrctca .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -2246,16 +2350,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#hmfbwrctca .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
+#hmfbwrctca .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #hmfbwrctca .gt_title {
@@ -2274,12 +2371,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
+}
+
+#hmfbwrctca .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
 }
 
 #hmfbwrctca .gt_bottom_border {
@@ -2355,6 +2464,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
+#hmfbwrctca .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #hmfbwrctca .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -2378,6 +2491,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #hmfbwrctca .gt_empty_group_heading {
@@ -2453,6 +2567,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 2px;
 }
 
+#hmfbwrctca .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
 #hmfbwrctca .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
@@ -2502,6 +2620,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
+#hmfbwrctca .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
 #hmfbwrctca .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
@@ -2532,8 +2660,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #hmfbwrctca .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -2589,20 +2717,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   font-size: 65%;
 }
 
-#hmfbwrctca .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
 #hmfbwrctca .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
 #hmfbwrctca .gt_asterisk {
@@ -2610,71 +2728,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: 0;
 }
 
-#hmfbwrctca .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#hmfbwrctca .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#hmfbwrctca .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#hmfbwrctca .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#hmfbwrctca .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#hmfbwrctca .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#hmfbwrctca .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#hmfbwrctca .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">review_id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">beer_name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">sentiment_norm</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rating_norm</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">diff</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">cleaned_review</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="review_id">review_id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="beer_name">beer_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="sentiment_norm">sentiment_norm</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rating_norm">rating_norm</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="diff">diff</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="cleaned_review">cleaned_review</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">16065</td>
-<td class="gt_row gt_left">Imperial Stout</td>
-<td class="gt_row gt_right">-0.3448276</td>
-<td class="gt_row gt_right">0.980</td>
-<td class="gt_row gt_right">1.324828</td>
-<td class="gt_row gt_left">: The color is of black paint. The charcoal-brown head disappears quickly. The smell is of bitterness. Deep, unabiding bitterness of tortured souls. Peets espresso Burning pine forests Sticky, toung-lashing bitterness with a monster grip forces flavors of dried fig, cigar, hazelnut and bitter chocolate (i.e. Valrhona  percent Guanaja ). This is a big, big beer. Not for the timid. Primordial, bowels-of-the-earth type energy is packed in to this now larger,  oz. bottle.</td></tr>
-    <tr><td class="gt_row gt_right">15808</td>
-<td class="gt_row gt_left">Adam</td>
-<td class="gt_row gt_right">-0.3448276</td>
-<td class="gt_row gt_right">0.974</td>
-<td class="gt_row gt_right">1.318828</td>
-<td class="gt_row gt_left">I sampled batch number , I'm gonna put one of these guys away and try it again in a year.Pours syrupy with no head, especially if one follows the directions on the bottle indicating to pour slowly, and I am a sucker for directions on the bottle. Color is incredibly dark brown, completely opaque. Leaves a slight lace as one slowly sips this beer down.Smell is quite complex and sorting it out completely is above the ability of my paltry nose. I would describe it as a sweet and slightly fruity (think figs, raisins). The enigmatic smell seems to call out drink me, and so I listen.Overtones of alcohol do not seem to affect the complex flavor, even though you do feel your BA levels rising as you sip this bad boy down. It seems the smell did not lie, as the taste of the beer is itself sweet and slightly fruity (again I'm thinking of figs and raisins), but there seems to be even more to sort out. There is a bitterness which comes initially and seems to be countered immediately by the sweet flavor described earlier. Finally, at the end of the sip one nutty and coffee flavors resonate and the mild bitterness is back.Overall:Easily the most drinkable double digit ABV beer I have had. Not for beginners, like Stone Arrogant Bastard, this beer just wants to kick your ass. My suggestion is to let it.</td></tr>
+    <tr><td headers="review_id" class="gt_row gt_right">16065</td>
+<td headers="beer_name" class="gt_row gt_left">Imperial Stout</td>
+<td headers="sentiment_norm" class="gt_row gt_right">-0.3448276</td>
+<td headers="rating_norm" class="gt_row gt_right">0.980</td>
+<td headers="diff" class="gt_row gt_right">1.324828</td>
+<td headers="cleaned_review" class="gt_row gt_left">: The color is of black paint. The charcoal-brown head disappears quickly. The smell is of bitterness. Deep, unabiding bitterness of tortured souls. Peets espresso Burning pine forests Sticky, toung-lashing bitterness with a monster grip forces flavors of dried fig, cigar, hazelnut and bitter chocolate (i.e. Valrhona  percent Guanaja ). This is a big, big beer. Not for the timid. Primordial, bowels-of-the-earth type energy is packed in to this now larger,  oz. bottle.</td></tr>
+    <tr><td headers="review_id" class="gt_row gt_right">15808</td>
+<td headers="beer_name" class="gt_row gt_left">Adam</td>
+<td headers="sentiment_norm" class="gt_row gt_right">-0.3448276</td>
+<td headers="rating_norm" class="gt_row gt_right">0.974</td>
+<td headers="diff" class="gt_row gt_right">1.318828</td>
+<td headers="cleaned_review" class="gt_row gt_left">I sampled batch number , I'm gonna put one of these guys away and try it again in a year.Pours syrupy with no head, especially if one follows the directions on the bottle indicating to pour slowly, and I am a sucker for directions on the bottle. Color is incredibly dark brown, completely opaque. Leaves a slight lace as one slowly sips this beer down.Smell is quite complex and sorting it out completely is above the ability of my paltry nose. I would describe it as a sweet and slightly fruity (think figs, raisins). The enigmatic smell seems to call out drink me, and so I listen.Overtones of alcohol do not seem to affect the complex flavor, even though you do feel your BA levels rising as you sip this bad boy down. It seems the smell did not lie, as the taste of the beer is itself sweet and slightly fruity (again I'm thinking of figs and raisins), but there seems to be even more to sort out. There is a bitterness which comes initially and seems to be countered immediately by the sweet flavor described earlier. Finally, at the end of the sip one nutty and coffee flavors resonate and the mild bitterness is back.Overall:Easily the most drinkable double digit ABV beer I have had. Not for beginners, like Stone Arrogant Bastard, this beer just wants to kick your ass. My suggestion is to let it.</td></tr>
   </tbody>
   
   
 </table>
 </div>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="text-analysis.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And here are the reviews where the sentiment most disagreed with the rating</span></span>
-<span id="cb223-2"><a href="text-analysis.html#cb223-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb223-3"><a href="text-analysis.html#cb223-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># normalize sentiment and ratings so we can find the largest mismatch</span></span>
-<span id="cb223-4"><a href="text-analysis.html#cb223-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rating_norm =</span> rating <span class="sc">/</span> <span class="fu">max</span>(rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb223-5"><a href="text-analysis.html#cb223-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">sentiment_norm =</span> sentiment <span class="sc">/</span> <span class="fu">max</span>(sentiment, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb223-6"><a href="text-analysis.html#cb223-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff =</span> sentiment_norm <span class="sc">-</span> rating_norm) <span class="sc">%&gt;%</span></span>
-<span id="cb223-7"><a href="text-analysis.html#cb223-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(review_id, beer_name, sentiment_norm, rating_norm, diff, cleaned_review) <span class="sc">%&gt;%</span></span>
-<span id="cb223-8"><a href="text-analysis.html#cb223-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> diff, <span class="at">n =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb223-9"><a href="text-analysis.html#cb223-9" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
-<div id="wpimoarhdm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="text-analysis.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And here are the reviews where the sentiment most disagreed with the rating</span></span>
+<span id="cb226-2"><a href="text-analysis.html#cb226-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb226-3"><a href="text-analysis.html#cb226-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># normalize sentiment and ratings so we can find the largest mismatch</span></span>
+<span id="cb226-4"><a href="text-analysis.html#cb226-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rating_norm =</span> rating <span class="sc">/</span> <span class="fu">max</span>(rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb226-5"><a href="text-analysis.html#cb226-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">sentiment_norm =</span> sentiment <span class="sc">/</span> <span class="fu">max</span>(sentiment, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb226-6"><a href="text-analysis.html#cb226-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff =</span> sentiment_norm <span class="sc">-</span> rating_norm) <span class="sc">%&gt;%</span></span>
+<span id="cb226-7"><a href="text-analysis.html#cb226-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(review_id, beer_name, sentiment_norm, rating_norm, diff, cleaned_review) <span class="sc">%&gt;%</span></span>
+<span id="cb226-8"><a href="text-analysis.html#cb226-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> diff, <span class="at">n =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb226-9"><a href="text-analysis.html#cb226-9" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span></code></pre></div>
+<div id="wpimoarhdm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wpimoarhdm table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#wpimoarhdm thead, #wpimoarhdm tbody, #wpimoarhdm tfoot, #wpimoarhdm tr, #wpimoarhdm td, #wpimoarhdm th {
+  border-style: none;
+}
+
+#wpimoarhdm p {
+  margin: 0;
+  padding: 0;
 }
 
 #wpimoarhdm .gt_table {
   display: table;
   border-collapse: collapse;
+  line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
@@ -2697,16 +2829,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#wpimoarhdm .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
+#wpimoarhdm .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #wpimoarhdm .gt_title {
@@ -2725,12 +2850,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   color: #333333;
   font-size: 85%;
   font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
+}
+
+#wpimoarhdm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
 }
 
 #wpimoarhdm .gt_bottom_border {
@@ -2806,6 +2943,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
+#wpimoarhdm .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
 #wpimoarhdm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
@@ -2829,6 +2970,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-width: 1px;
   border-right-color: #D3D3D3;
   vertical-align: middle;
+  text-align: left;
 }
 
 #wpimoarhdm .gt_empty_group_heading {
@@ -2904,6 +3046,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 2px;
 }
 
+#wpimoarhdm .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
 #wpimoarhdm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
@@ -2953,6 +3099,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
+#wpimoarhdm .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
 #wpimoarhdm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
@@ -2983,8 +3139,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #wpimoarhdm .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -3040,20 +3196,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   font-size: 65%;
 }
 
-#wpimoarhdm .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
 #wpimoarhdm .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
+  position: initial;
 }
 
 #wpimoarhdm .gt_asterisk {
@@ -3061,65 +3207,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: 0;
 }
 
-#wpimoarhdm .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
+#wpimoarhdm .gt_indent_1 {
+  text-indent: 5px;
 }
 
-#wpimoarhdm .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
+#wpimoarhdm .gt_indent_2 {
+  text-indent: 10px;
 }
 
-#wpimoarhdm .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
+#wpimoarhdm .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wpimoarhdm .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wpimoarhdm .gt_indent_5 {
+  text-indent: 25px;
 }
 </style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">review_id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">beer_name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">sentiment_norm</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">rating_norm</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">diff</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">cleaned_review</th>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="review_id">review_id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="beer_name">beer_name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="sentiment_norm">sentiment_norm</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="rating_norm">rating_norm</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="diff">diff</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="cleaned_review">cleaned_review</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_right">1477</td>
-<td class="gt_row gt_left">Harvest Ale (Limited Edition)</td>
-<td class="gt_row gt_right">1.0000000</td>
-<td class="gt_row gt_right">0.874</td>
-<td class="gt_row gt_right">0.1260000</td>
-<td class="gt_row gt_left">Bottle reviews (JAN) Another nice bier to warm up with on a cold, snowy night! Label states st December . Bottling date, or brew date? Anyhow, label also states best before Nov . Oooops, just a bit late. Oh well. Better nate than lever Into the snifter she goes, and it's a dark brown, opaque brew, with a very thin, wispy head congregating only around the rim of the glass. Upon closer inspection, with a little light turned on, I see that the Harvest has a deep ruby hue. Quite nice! Nose is a potent, sweet, rich combo of dark fruit and malty sweetness. Mmmm! Body is more than medium, almost chewy, and silky smooth. Oh yeah! And the flavor is replete with fruity notes, like plum and raisin. Not quite as sweet as the nose suggests, but bulging with dark fruit notes. The high abv is oh-so-well concealed! Don't feel any real warmth, though it's early yet! Along with the fruit is an undercurrent of caramel/toffee sweetness. Real nice! Gotta sip it though; take your time! Tasty bier!! overall: .appearance:  | smell: . | taste: . | mouthfeel: . | drinkability:  *** ***Bottle (FEB) This is a ml bottle of  vintage. Poured a very rich, dark brown color, with little transparency to it. Head is a finely bubbled, tan layer, with more head ringing the outer rim of the snifter. It leaves a fair amount of lace, yet nothing spectacular. Upon taking a whiff I am inundated by raisiny, dark fruit aromas, as well as the unmistakable nose of alcohol. Sweet and rich quite nice! The body is medium to medium-plus, and the biers' passage across the tongue ruffles nary a feather nice and smooth! The taste itself is loaded with creamy, rich, sweet flavors lots of dark fruit and some toffee notes as well. A verrry nice sipping bier, which has aged well since '. Cheers!! (././././. = .)*** ***Cask sample from MAY This beer was sampled at the Boston Beer Summit. The following, courtesy of Matthias Neidhart of B. Unite tongue sticking out It was  vintage , . percent alc./vol. The wooden cask was primed with E.Dupont'scalvados from Normandie,France, prior to its filled with JW Lees Harvest Ale. Lovely mahogany-like color; minimal head and lace, though. Assertive sweet nose, with alcohol quite present. Very nice body, and the smoothness caresses the tongue. Rich, sweet, malty, oaky, nutty flavors with the ever-present alcohol. A wonderful brew! (././././. = .)</td></tr>
-    <tr><td class="gt_row gt_right">16339</td>
-<td class="gt_row gt_left">XS Old Crustacean</td>
-<td class="gt_row gt_right">0.7931034</td>
-<td class="gt_row gt_right">0.686</td>
-<td class="gt_row gt_right">0.1071034</td>
-<td class="gt_row gt_left"> Vintage: This is likely a legend in the making, but it is only at AA ball right now. Like any prospect, it needs time to develop, but many of the skills are already in place.Muddy brown-orange. Frothy, creamy khaki head retains well for a brew of this size.Aroma is big on hops, with pine being the dominate persuasion. Some toffee and chocolate hues are noted as well. Taste is, in a word, raw. Ragged, piney hops seem to pierce through everything. Bitterness is huge. Toastedness and chocolate stuggle for survival. There is a solid carmel/toffee base, but this cannot weather the hop melee. Solvent-like alcohol pops up late, forming an oppresive alliance. Faint dark fruits, and perhaps even tropical fruits linger in the distance, too frightened to approached due to the menacing regime. In a year or two (or five), the malts will begin to win this war, and make this much more balanced. But the hops and alcohol are too aggressive at this point to make any headway. The body is in place, smooth and viscious. Chewable, if somewhat syrup-like.Presently, it is only drinkable to witness the carnage. I'd suggest giving this some time to achieve stability. Psychotic hopheads excluded.With some rounding, this will be in the majors someday. A rough diamond as it is, but capable of aspiring to it's  big brother. The bigger frame (oz vs oz) helps.Thanks, Bighuge. But I should have let this one develop. Hope to find another one to cellar.-- Vintage: I am truely stunned by this amazing beverage where to start? How about the f'king oz's I want oz bottles But at least I have heard the latest batch comes in them.This is my favorite Barleywine. Fantastic integration after  years but this could go strong for several more. Flavor upon flavor. Malt lays down some sweet carmel and (slightly) bready notes. The hops jump on top with some piney and splendedly bitter tones. I also detected some minty hues as well. Sweetness dominates, but in a lovely way. Balance is extraordinary. My lord, is this good.Only drawback (as previously mentioned) is the dollar . for a oz bottle. But still unquestionably worth it. One of the absolute best. Bargain at any price.I am amazed that I can still find this batch, but it is still available in stores in the Madison area. I won't say which ones out of selfishness so you better act fast!!(note to self: pick up more bottles of Ol Crust  tomorrow)</td></tr>
+    <tr><td headers="review_id" class="gt_row gt_right">1477</td>
+<td headers="beer_name" class="gt_row gt_left">Harvest Ale (Limited Edition)</td>
+<td headers="sentiment_norm" class="gt_row gt_right">1.0000000</td>
+<td headers="rating_norm" class="gt_row gt_right">0.874</td>
+<td headers="diff" class="gt_row gt_right">0.1260000</td>
+<td headers="cleaned_review" class="gt_row gt_left">Bottle reviews (JAN) Another nice bier to warm up with on a cold, snowy night! Label states st December . Bottling date, or brew date? Anyhow, label also states best before Nov . Oooops, just a bit late. Oh well. Better nate than lever Into the snifter she goes, and it's a dark brown, opaque brew, with a very thin, wispy head congregating only around the rim of the glass. Upon closer inspection, with a little light turned on, I see that the Harvest has a deep ruby hue. Quite nice! Nose is a potent, sweet, rich combo of dark fruit and malty sweetness. Mmmm! Body is more than medium, almost chewy, and silky smooth. Oh yeah! And the flavor is replete with fruity notes, like plum and raisin. Not quite as sweet as the nose suggests, but bulging with dark fruit notes. The high abv is oh-so-well concealed! Don't feel any real warmth, though it's early yet! Along with the fruit is an undercurrent of caramel/toffee sweetness. Real nice! Gotta sip it though; take your time! Tasty bier!! overall: .appearance:  | smell: . | taste: . | mouthfeel: . | drinkability:  *** ***Bottle (FEB) This is a ml bottle of  vintage. Poured a very rich, dark brown color, with little transparency to it. Head is a finely bubbled, tan layer, with more head ringing the outer rim of the snifter. It leaves a fair amount of lace, yet nothing spectacular. Upon taking a whiff I am inundated by raisiny, dark fruit aromas, as well as the unmistakable nose of alcohol. Sweet and rich quite nice! The body is medium to medium-plus, and the biers' passage across the tongue ruffles nary a feather nice and smooth! The taste itself is loaded with creamy, rich, sweet flavors lots of dark fruit and some toffee notes as well. A verrry nice sipping bier, which has aged well since '. Cheers!! (././././. = .)*** ***Cask sample from MAY This beer was sampled at the Boston Beer Summit. The following, courtesy of Matthias Neidhart of B. Unite tongue sticking out It was  vintage , . percent alc./vol. The wooden cask was primed with E.Dupont'scalvados from Normandie,France, prior to its filled with JW Lees Harvest Ale. Lovely mahogany-like color; minimal head and lace, though. Assertive sweet nose, with alcohol quite present. Very nice body, and the smoothness caresses the tongue. Rich, sweet, malty, oaky, nutty flavors with the ever-present alcohol. A wonderful brew! (././././. = .)</td></tr>
+    <tr><td headers="review_id" class="gt_row gt_right">16339</td>
+<td headers="beer_name" class="gt_row gt_left">XS Old Crustacean</td>
+<td headers="sentiment_norm" class="gt_row gt_right">0.7931034</td>
+<td headers="rating_norm" class="gt_row gt_right">0.686</td>
+<td headers="diff" class="gt_row gt_right">0.1071034</td>
+<td headers="cleaned_review" class="gt_row gt_left"> Vintage: This is likely a legend in the making, but it is only at AA ball right now. Like any prospect, it needs time to develop, but many of the skills are already in place.Muddy brown-orange. Frothy, creamy khaki head retains well for a brew of this size.Aroma is big on hops, with pine being the dominate persuasion. Some toffee and chocolate hues are noted as well. Taste is, in a word, raw. Ragged, piney hops seem to pierce through everything. Bitterness is huge. Toastedness and chocolate stuggle for survival. There is a solid carmel/toffee base, but this cannot weather the hop melee. Solvent-like alcohol pops up late, forming an oppresive alliance. Faint dark fruits, and perhaps even tropical fruits linger in the distance, too frightened to approached due to the menacing regime. In a year or two (or five), the malts will begin to win this war, and make this much more balanced. But the hops and alcohol are too aggressive at this point to make any headway. The body is in place, smooth and viscious. Chewable, if somewhat syrup-like.Presently, it is only drinkable to witness the carnage. I'd suggest giving this some time to achieve stability. Psychotic hopheads excluded.With some rounding, this will be in the majors someday. A rough diamond as it is, but capable of aspiring to it's  big brother. The bigger frame (oz vs oz) helps.Thanks, Bighuge. But I should have let this one develop. Hope to find another one to cellar.-- Vintage: I am truely stunned by this amazing beverage where to start? How about the f'king oz's I want oz bottles But at least I have heard the latest batch comes in them.This is my favorite Barleywine. Fantastic integration after  years but this could go strong for several more. Flavor upon flavor. Malt lays down some sweet carmel and (slightly) bready notes. The hops jump on top with some piney and splendedly bitter tones. I also detected some minty hues as well. Sweetness dominates, but in a lovely way. Balance is extraordinary. My lord, is this good.Only drawback (as previously mentioned) is the dollar . for a oz bottle. But still unquestionably worth it. One of the absolute best. Bargain at any price.I am amazed that I can still find this batch, but it is still available in stores in the Madison area. I won't say which ones out of selfishness so you better act fast!!(note to self: pick up more bottles of Ol Crust  tomorrow)</td></tr>
   </tbody>
   
   
 </table>
 </div>
 <p>Interestingly, we see here some evidence that some kind of normalization for review length might be necessary. Let’s take one more look into this area:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="text-analysis.html#cb224-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb224-2"><a href="text-analysis.html#cb224-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word_count =</span> tokenizers<span class="sc">::</span><span class="fu">count_words</span>(cleaned_review)) <span class="sc">%&gt;%</span></span>
-<span id="cb224-3"><a href="text-analysis.html#cb224-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(review_id, rating, sentiment, word_count) <span class="sc">%&gt;%</span></span>
-<span id="cb224-4"><a href="text-analysis.html#cb224-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(rating, sentiment)) <span class="sc">%&gt;%</span></span>
-<span id="cb224-5"><a href="text-analysis.html#cb224-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> word_count, <span class="at">y =</span> value, <span class="at">color =</span> name)) <span class="sc">+</span> </span>
-<span id="cb224-6"><a href="text-analysis.html#cb224-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span> </span>
-<span id="cb224-7"><a href="text-analysis.html#cb224-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb224-8"><a href="text-analysis.html#cb224-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>name, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
-<span id="cb224-9"><a href="text-analysis.html#cb224-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb224-10"><a href="text-analysis.html#cb224-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="text-analysis.html#cb227-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb227-2"><a href="text-analysis.html#cb227-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word_count =</span> tokenizers<span class="sc">::</span><span class="fu">count_words</span>(cleaned_review)) <span class="sc">%&gt;%</span></span>
+<span id="cb227-3"><a href="text-analysis.html#cb227-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(review_id, rating, sentiment, word_count) <span class="sc">%&gt;%</span></span>
+<span id="cb227-4"><a href="text-analysis.html#cb227-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(rating, sentiment)) <span class="sc">%&gt;%</span></span>
+<span id="cb227-5"><a href="text-analysis.html#cb227-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> word_count, <span class="at">y =</span> value, <span class="at">color =</span> name)) <span class="sc">+</span> </span>
+<span id="cb227-6"><a href="text-analysis.html#cb227-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span> </span>
+<span id="cb227-7"><a href="text-analysis.html#cb227-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb227-8"><a href="text-analysis.html#cb227-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>name, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb227-9"><a href="text-analysis.html#cb227-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb227-10"><a href="text-analysis.html#cb227-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="5-text-analysis_files/figure-html/review%20length%20seems%20to%20affect%20rating%20and%20sentiment%20to%20different%20degrees-1.png" width="672" /></p>
 <p>It appears that both rating and sentiment are positively correlated with word count, but that (unsurprisingly) sentiment is more strongly correlated. Going forward, we might want to consider some way to normalize for word count in our sentiment scores.</p>
 </div>
@@ -3127,13 +3275,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.4</span> Text Analysis Pt. IV: <em>n</em>-gram models<a href="text-analysis.html#text-analysis-pt.-iv-n-gram-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>An obvious and valid critique of sentiment analysis as implemented above is the focus on single words, or <strong>unigrams</strong>. It is very clear that English (and most languages) have levels of meaning that go beyond the single word, so focusing our analysis on single words as are tokens/observations will lose some (or a lot!) of meaning. It is common in modern text analysis to look at units beyond the single word: bi-, tri-, or <em>n</em>-grams, for example, or so-called “skipgrams” for the popular and powerful <code>word2vec</code> family of algorithms. Tools like convolutional and recursive neural networks will look at larger chunks of texts, combined in different ways.</p>
 <p>Let’s take a look at <em>bigrams</em> in our data-set: tokens that are made up of 2 adjacent words. We can get them using the same <code>unnest_tokens()</code> function, but with the request to get <code>token = "ngrams"</code> and the number of tokens set to <code>n = 2</code>.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="text-analysis.html#cb225-1" aria-hidden="true" tabindex="-1"></a>beer_bigrams <span class="ot">&lt;-</span> </span>
-<span id="cb225-2"><a href="text-analysis.html#cb225-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb225-3"><a href="text-analysis.html#cb225-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> bigram, <span class="at">input =</span> cleaned_review, <span class="at">token =</span> <span class="st">&quot;ngrams&quot;</span>, <span class="at">n =</span> <span class="dv">2</span>)</span>
-<span id="cb225-4"><a href="text-analysis.html#cb225-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb225-5"><a href="text-analysis.html#cb225-5" aria-hidden="true" tabindex="-1"></a>beer_bigrams <span class="sc">%&gt;%</span></span>
-<span id="cb225-6"><a href="text-analysis.html#cb225-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(review_id <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb225-7"><a href="text-analysis.html#cb225-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, bigram)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="text-analysis.html#cb228-1" aria-hidden="true" tabindex="-1"></a>beer_bigrams <span class="ot">&lt;-</span> </span>
+<span id="cb228-2"><a href="text-analysis.html#cb228-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
+<span id="cb228-3"><a href="text-analysis.html#cb228-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> bigram, <span class="at">input =</span> cleaned_review, <span class="at">token =</span> <span class="st">&quot;ngrams&quot;</span>, <span class="at">n =</span> <span class="dv">2</span>)</span>
+<span id="cb228-4"><a href="text-analysis.html#cb228-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-5"><a href="text-analysis.html#cb228-5" aria-hidden="true" tabindex="-1"></a>beer_bigrams <span class="sc">%&gt;%</span></span>
+<span id="cb228-6"><a href="text-analysis.html#cb228-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(review_id <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb228-7"><a href="text-analysis.html#cb228-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, bigram)</span></code></pre></div>
 <pre><code>## # A tibble: 115 × 2
 ##    beer_name           bigram    
 ##    &lt;chr&gt;               &lt;chr&gt;     
@@ -3147,17 +3295,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 Caffrey&#39;s Irish Ale i&#39;m not   
 ##  9 Caffrey&#39;s Irish Ale not sure  
 ## 10 Caffrey&#39;s Irish Ale sure if   
-## # … with 105 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 105 more rows</code></pre>
 <p>We can see that, in this first review, we already have a bigram with strong semantic content: <code>not sure</code> should tell us that looking only at the unigram <code>sure</code> will give us misleading results.</p>
 <p>We can use some more <code>tidyverse</code> helpers to get a better idea of the scale of the problem. The <code>separate()</code> function breaks one character vector into multiple columns, according to whatever separating characters you specify.</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="text-analysis.html#cb227-1" aria-hidden="true" tabindex="-1"></a>beer_bigrams <span class="sc">%&gt;%</span></span>
-<span id="cb227-2"><a href="text-analysis.html#cb227-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="at">col =</span> bigram, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;word1&quot;</span>, <span class="st">&quot;word2&quot;</span>), <span class="at">sep =</span> <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb227-3"><a href="text-analysis.html#cb227-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Now we will first filter for bigrams starting with &quot;not&quot;</span></span>
-<span id="cb227-4"><a href="text-analysis.html#cb227-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(word1 <span class="sc">==</span> <span class="st">&quot;not&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb227-5"><a href="text-analysis.html#cb227-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And then we&#39;ll count up the most frequent pairs of negated biterms</span></span>
-<span id="cb227-6"><a href="text-analysis.html#cb227-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word1, word2) <span class="sc">%&gt;%</span></span>
-<span id="cb227-7"><a href="text-analysis.html#cb227-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="text-analysis.html#cb230-1" aria-hidden="true" tabindex="-1"></a>beer_bigrams <span class="sc">%&gt;%</span></span>
+<span id="cb230-2"><a href="text-analysis.html#cb230-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="at">col =</span> bigram, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;word1&quot;</span>, <span class="st">&quot;word2&quot;</span>), <span class="at">sep =</span> <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb230-3"><a href="text-analysis.html#cb230-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Now we will first filter for bigrams starting with &quot;not&quot;</span></span>
+<span id="cb230-4"><a href="text-analysis.html#cb230-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(word1 <span class="sc">==</span> <span class="st">&quot;not&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb230-5"><a href="text-analysis.html#cb230-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And then we&#39;ll count up the most frequent pairs of negated biterms</span></span>
+<span id="cb230-6"><a href="text-analysis.html#cb230-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word1, word2) <span class="sc">%&gt;%</span></span>
+<span id="cb230-7"><a href="text-analysis.html#cb230-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span></code></pre></div>
 <pre><code>## # A tibble: 1,298 × 3
 ##    word1 word2     n
 ##    &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
@@ -3171,15 +3318,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 not   to      283
 ##  9 not   very    260
 ## 10 not   sure    251
-## # … with 1,288 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 1,288 more rows</code></pre>
 <p>We can see that the 4th most frequent pair is “not bad”, which means that <code>bad</code>, classified as a <code>negative</code> token in the <code>sentiments</code> tibble, is actually being <em>overcounted</em> as negative in our simple unigram analysis.</p>
 <p>We can actually look more closely at this with just a little bit more wrangling:</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="text-analysis.html#cb229-1" aria-hidden="true" tabindex="-1"></a>beer_bigrams <span class="sc">%&gt;%</span></span>
-<span id="cb229-2"><a href="text-analysis.html#cb229-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="at">col =</span> bigram, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;word1&quot;</span>, <span class="st">&quot;word2&quot;</span>), <span class="at">sep =</span> <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb229-3"><a href="text-analysis.html#cb229-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(word1 <span class="sc">==</span> <span class="st">&quot;not&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb229-4"><a href="text-analysis.html#cb229-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(sentiments, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;word2&quot;</span> <span class="ot">=</span> <span class="st">&quot;word&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb229-5"><a href="text-analysis.html#cb229-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word1, word2, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="text-analysis.html#cb232-1" aria-hidden="true" tabindex="-1"></a>beer_bigrams <span class="sc">%&gt;%</span></span>
+<span id="cb232-2"><a href="text-analysis.html#cb232-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="at">col =</span> bigram, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;word1&quot;</span>, <span class="st">&quot;word2&quot;</span>), <span class="at">sep =</span> <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb232-3"><a href="text-analysis.html#cb232-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(word1 <span class="sc">==</span> <span class="st">&quot;not&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb232-4"><a href="text-analysis.html#cb232-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(sentiments, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;word2&quot;</span> <span class="ot">=</span> <span class="st">&quot;word&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb232-5"><a href="text-analysis.html#cb232-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word1, word2, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 303 × 3
 ##    word1 word2            n
 ##    &lt;chr&gt; &lt;chr&gt;        &lt;int&gt;
@@ -3193,19 +3339,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 not   outstanding     46
 ##  9 not   bitter          44
 ## 10 not   overbearing     43
-## # … with 293 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # ℹ 293 more rows</code></pre>
 <p>We could use such an approach to try to get a handle on the problem of context in our sentiment analysis, by inverting the sentiment score of any word that is part of a “not bigram”. Of course, such negations can be expressed over entire sentences, or even flavor the entire text (as in the use of sarcasm). There are entire analysis workflows built on this kind of context flow.</p>
 <p>For example, the <a href="https://github.com/trinker/sentimentr"><code>sentiment</code> package</a>, which was used in the recent <a href="https://doi.org/10.1016/j.foodqual.2019.103751">Luc et al. (2020) paper on free JAR analysis</a>, takes just such an approach. We can quickly experiment with this package as a demonstration.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="text-analysis.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sentimentr)</span>
-<span id="cb231-2"><a href="text-analysis.html#cb231-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb231-3"><a href="text-analysis.html#cb231-3" aria-hidden="true" tabindex="-1"></a>polarity_sentiment <span class="ot">&lt;-</span> </span>
-<span id="cb231-4"><a href="text-analysis.html#cb231-4" aria-hidden="true" tabindex="-1"></a>  cleaned_reviews_example <span class="sc">%&gt;%</span> </span>
-<span id="cb231-5"><a href="text-analysis.html#cb231-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, cleaned_review) <span class="sc">%&gt;%</span></span>
-<span id="cb231-6"><a href="text-analysis.html#cb231-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_sentences</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb231-7"><a href="text-analysis.html#cb231-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sentiment_by</span>(<span class="at">by =</span> <span class="st">&quot;beer_name&quot;</span>)</span>
-<span id="cb231-8"><a href="text-analysis.html#cb231-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb231-9"><a href="text-analysis.html#cb231-9" aria-hidden="true" tabindex="-1"></a>polarity_sentiment</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="text-analysis.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sentimentr)</span>
+<span id="cb234-2"><a href="text-analysis.html#cb234-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb234-3"><a href="text-analysis.html#cb234-3" aria-hidden="true" tabindex="-1"></a>polarity_sentiment <span class="ot">&lt;-</span> </span>
+<span id="cb234-4"><a href="text-analysis.html#cb234-4" aria-hidden="true" tabindex="-1"></a>  cleaned_reviews_example <span class="sc">%&gt;%</span> </span>
+<span id="cb234-5"><a href="text-analysis.html#cb234-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, cleaned_review) <span class="sc">%&gt;%</span></span>
+<span id="cb234-6"><a href="text-analysis.html#cb234-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_sentences</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb234-7"><a href="text-analysis.html#cb234-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sentiment_by</span>(<span class="at">by =</span> <span class="st">&quot;beer_name&quot;</span>)</span>
+<span id="cb234-8"><a href="text-analysis.html#cb234-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb234-9"><a href="text-analysis.html#cb234-9" aria-hidden="true" tabindex="-1"></a>polarity_sentiment</span></code></pre></div>
 <pre><code>##                   beer_name word_count        sd ave_sentiment
 ## 1:           Black Bear Ale        119 0.2304159   0.007328644
 ## 2:                    Kozel        187 0.2651420   0.306529868
@@ -3289,7 +3434,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
