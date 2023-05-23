@@ -1,12 +1,14 @@
 ---
-title: "An introduction to text analysis with R for sensory and consumer scientists"
-author: "Jacob Lahne"
+title: "An introduction to R for sensory and consumer scientists"
+author: 
+  - Jacob Lahne^[Virginia Tech, jlahne@vt.edu]
+  - Leah Hamilton^[Virginia State University, lmhamilton@ucdavis.edu]
 site: "bookdown::bookdown_site"
 documentclass: book
 output:
   bookdown::gitbook: default
   #bookdown::pdf_book: default
-github-repo: jlahne/eurosense-tutorial-2022
+github-repo: lhami/pangborn-tutorial-2023
 ---
 
 # Introduction and welcome {-}
@@ -18,9 +20,9 @@ beer_data <- read_csv("data/ba_2002.csv")
 ```
 
 
-Welcome to the Eurosense Sensometrics Workshop "**An introduction to text analysis with R for sensory and consumer scientists**"!
+Welcome to the Pangborn Sensometrics Workshop "**An introduction to R for sensory and consumer scientists**"!
 
-This workshop is going to be conducted not using slides, but through **livecoding**.  That means I am going to run code lines in the console or highlight and run code in scripts and other files.  It is also an opportunity and encouragement for you to follow along.  Along with introducing myself and my helpers for today's workshop, we're going to discuss a bit about how that will work here.
+This workshop is going to be conducted not using slides, but through **livecoding**.  That means we are going to run code lines in the console or highlight and run code in scripts and other files.  It is also an opportunity and encouragement for you to follow along.  Along with introducing ourselves for today's workshop, we're going to discuss a bit about how that will work here.
 
 ## Introductions {-}
 
@@ -30,11 +32,7 @@ Jacob Lahne is an Assistant Professor of Food Science & Technology at Virginia T
 
 ### Leah Hamilton, PhD {-}
 
-Leah Hamilton is a postdoctoral researcher at the UC Davis Department of Food Science & Technology, in the US. Her primary research interest is flavor language, including the ways that people talk about flavors using their own words in different contexts.
-
-### Martha Calvert, MS {-}
-
-Martha Calvert is a PhD candidate in the Department of Food Science and Technology at Virginia Tech, in the United States.
+Leah Hamilton is an Assistant Professor of Sensory & Flavor Science at Virginia State University, in the US. Her primary research interest is flavor language, including the ways that people talk about flavors using their own words in different contexts.
 
 ## Today's agenda {-}
 
@@ -43,16 +41,17 @@ Today's workshop is going to take ~3 hours, with a break for lunch, and we'll be
 1.  Crash course in using R  
 2.  Creating, importing, and manipulating data in R
 3.  Principles of tidy data analysis using `tidyverse`
+  1. What is tidy data?
+  2. Data wrangling
+  3. Basics of character data and "tidy text"
+  4. Untidying & Retidying data
 4.  Basics of data visualization in `R`/`ggplot2`
-5.  Basic text analysis with `tidytext` 
-    1.  Dealing with character data
-    2.  Units of analysis: tokenization
-    3.  TF-IDF models
-    4.  Sentiment Analysis
+  1. Built-in plots using ca package
+  2. Customizing plots with ggplot2
   
 ## How we're going to run {-}
 
-This workshop is going to be run with **livecoding**, as noted above.  This means I won't be using slides or a prepared video, but running through code step by step to show how these tools are used in practice.  I encourage **you** to also follow along with livecoding, because the best way to learn coding is to actually do it.
+This workshop is going to be run with **livecoding**, as noted above.  This means we won't be using slides or a prepared video, but running through code step by step to show how these tools are used in practice.  We encourage **you** to also follow along with livecoding, because the best way to learn coding is to actually do it.
 
 ### Recommended approach for livecoding {-}
 
