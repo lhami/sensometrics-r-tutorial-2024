@@ -3,7 +3,7 @@
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(tidytext)
-beer_data <- read_csv("data/ba_2002.csv")
+berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
 Now that we've all got R up and running, we're going to quickly go over the basic functionality of `R` to make sure everyone is on the same page.  If you have ever used `R`, this might include some review, but my hope is that this will be helpful to everyone and get us all on the same page before we launch into some more advanced applications.
@@ -108,7 +108,9 @@ library(tidyverse)
 
 Now, we're going to read in the data we're going to use for this workshop using the function `read_csv()`.  If you want to learn about this function, use the `?read_csv` command to get some details.
 
-In the workshop archive you downloaded, the `data/` directory has a file called `ba_2002.csv`.  If you double-click this in your file browser, it will (most likely) open in Excel, and you can take a look at it.  It is 20,000 reviews of beer, posted in the year 2002.  This is an edited (not original) and very delimited version of the dataset (which had >1 million reviews), as the original one has been removed from the web at the original website owner's request.  It will be the training dataset we use for today.
+In the workshop archive you downloaded, the `data/` directory has a file called `clt-berry-data.csv`.  If you double-click this in your file browser, it will (most likely) open in Excel, and you can take a look at it.  The data describe the attributes and liking scores reported by consumers for a variety of berries across multiple CLTs. A total of 969 unique participants (`Subject Code`) and 23 berries (`Sample Name`) were involved in these tests, with only one species of berry (blackberry, blueberry, raspberry, or strawberry) presented during each CLT.
+
+As for the survey, panelists were asked JAR, CATA, and free response questions, as well as liking on the Unlabeled Line Scale (`us_*`), 9-point scale (`9pt_*`), or labeled magnitude scale (`lms_*`).
 
 To get this data into `R`, we have to tell `R` where it lives on your computer, and what kind of data it is.
 
@@ -120,7 +122,7 @@ We touched on **working directories** because this is how `R` "sees" your comput
 getwd()
 ```
 
-Therefore, **relative to the working directory**, the file path to this data is `data/ba_2002.csv`.  Please note that this is the UNIX convention for file paths: in Windows, the backslash `\` is used to separate directories.  Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention in this workshop.
+Therefore, **relative to the working directory**, the file path to this data is `data/clt-berry-data.csv`.  Please note that this is the UNIX convention for file paths: in Windows, the backslash `\` is used to separate directories.  Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention in this workshop.
 
 ### What kind of file are we importing?
 
@@ -138,20 +140,20 @@ cat_acquisition_order,name,weight\n
 Each line represents a row of data, and each field is separated by a comma (`,`).  We can read this kind of data into `R` by using the `read_csv()` function.
 
 ```{r reading in data}
-read_csv(file = "data/ba_2002.csv")
+read_csv(file = "data/clt-berry-data.csv")
 ```
 
 Suddenly, we have tabular data (i.e., data in rows and columns), like we'd have in Excel!  Now we're getting somewhere.  However, before we go forward we'll have to store this data somewhere--right now we're just reading it and throwing it away.
 
 ```{r storing data when loaded}
-beer_data <- read_csv(file = "data/ba_2002.csv")
+berry_data <- read_csv(file = "data/clt-berry-data.csv")
 ```
 
 As a note, in many countries the separator (delimiter) will be the semi-colon (`;`), since the comma is used as the decimal marker.  To read files formatted this way, you can use the `read_csv2()` function.  If you encounter tab-separated values files (`.tsv`) you can use the `read_tsv()` function.  If you have more non-standard delimiters, you can use the `read_delim()` function, which will allow you to specify your own delimiter characters.  You can also read many other formats of tabular data using the `rio` package ("read input/output"), which can be installed from CRAN.
 
 ## Data in `R`
 
-Let's take a look at the `Environment` tab.  Among some other objects you may have created (like `x`), you should see `beer_data` listed.  This is a type of data called a `data.frame` in `R`, and it is going to be, for the most part, the kind of data you interact with most.  Let's learn about how these types of objects work by doing a quick review of the basics.
+Let's take a look at the `Environment` tab.  Among some other objects you may have created (like `x`), you should see `berry_data` listed.  This is a type of data called a `data.frame` in `R`, and it is going to be, for the most part, the kind of data you interact with most.  Let's learn about how these types of objects work by doing a quick review of the basics.
 
 We started by creating an object called `x` and storing a number (`100`) into it.  What kind of thing is this?
 
@@ -207,10 +209,10 @@ str(y)
 str(animals)
 ```
 
-This `str()` function is especially useful when we have big, complicated datasets, like `beer_data`:
+This `str()` function is especially useful when we have big, complicated datasets, like `berry_data`:
 
 ```{r examining our beer data}
-str(beer_data)
+str(berry_data)
 ```
 
 ### Subsetting data
@@ -251,63 +253,64 @@ This is useful if we have a long vector (frequently) and do not want to list or 
 
 ### Complex vectors/lists: `data.frame` and `tibble`
 
-Now that we have the basics of vectors, we can move on to the complex data object we're really interested in: `beer_data`.  This is a type of object called a `tibble`, which is a cute/fancy version of the more basic `R` object called a `data.frame`.  These are `R`'s version of the `.csv` file or your typical Excel file: a rectangular matrix of data, with (usually) columns representing some variable and rows representing some kind of observation.  Each row will have a value in each column or will be `NA`, which is `R`'s specific value to represent **missing data**.
+Now that we have the basics of vectors, we can move on to the complex data object we're really interested in: `berry_data`.  This is a type of object called a `tibble`, which is a cute/fancy version of the more basic `R` object called a `data.frame`.  These are `R`'s version of the `.csv` file or your typical Excel file: a rectangular matrix of data, with (usually) columns representing some variable and rows representing some kind of observation.  Each row will have a value in each column or will be `NA`, which is `R`'s specific value to represent **missing data**.
 
 In a `data.frame`, every column has to have only a single data type: a column might be `logical` or `integer` or `character`, but it cannot be a mix.  However, each column can be a different type.  For example, the first column in our `beer_data`, called `reviews`, is a `character` vector, but the third column, `beer_id`, is a `numeric` column.  
 
 We have now moved from 1-dimensional vectors to 2-dimensional data tables, which means we're going to have some new properties to investigate.  First off, we might want to know how many rows and columns our data table has:
 
 ```{r data frame properties}
-nrow(beer_data)
-ncol(beer_data)
-length(beer_data) # Note that length() of a data.frame is the same as ncol()
+nrow(berry_data)
+ncol(berry_data)
+length(bery_data) # Note that length() of a data.frame is the same as ncol()
 ```
 
-We already tried running `str(beer_data)`, which gives us the data types of each column and an example.  Some other ways to examine the data include the following:
+We already tried running `str(berry_data)`, which gives us the data types of each column and an example.  Some other ways to examine the data include the following:
 
 ```{r examining what a data frame contains, eval = FALSE}
-beer_data # simply printing the object
-head(beer_data) # show the first few rows
-tail(beer_data) # show the last few rows
-glimpse(beer_data) # a more compact version of str()
-names(beer_data) # get the variable/column names
+berry_data # simply printing the object
+head(berry_data) # show the first few rows
+tail(berry_data) # show the last few rows
+glimpse(berry_data) # a more compact version of str()
+names(berry_data) # get the variable/column names
 ```
 
-Note that some of these functions (for example, `glimpse()`) come from the `tidyverse` package, so if you are having trouble running a command, first make sure you have run `library(tidyverse)`.
+Some of these functions (for example, `glimpse()`) come from the `tidyverse` package, so if you are having trouble running a command, first make sure you have run `library(tidyverse)`.
 
 ## Subsetting and wrangling data tables
 
 Since we now have 2 dimensions, our old strategy of using a single number to select a value from a vector won't work!  But the `[]` operator still works on data frames and tibbles.  We just have to specify coordinates, as `[<row>, <column>]`.  
 
 ```{r subsetting data tables 1}
-beer_data[5, 1] # get the 5th row, 1st column value
+berry_data[3, 9] # get the 3rd row, 9th column value
 ```
 
 We can continue to use ranges or vectors of indices to select larger parts of the table
 
 ```{r subsetting data tables 2}
-beer_data[1:5, 1] # get the first 5 rows of the 1st column value
+berry_data[1:6, 9] # get the first 5 rows of the 9th column value
 ```
 
 If we only want to subset on a specific dimension and get everything from the other dimension, we just leave it blank.
 
 ```{r subsetting data tables 3}
-beer_data[, 2] # get all rows of the 2nd column
+berry_data[, 1] # get all rows of the 1st column
 ```
 
 We can also use logical subsetting, just like in vectors.  This is very powerful but a bit complicated, so we are going to introduce some `tidyverse` based operators to do this that will make it a lot easier.  I will just give an example:
 
 ```{r logical subsetting for data tables}
-beer_data[beer_data$rating > 4.5, ] # get all rows for which rating > 3
+berry_data[berry_data$berry == "raspberry", ] # get all raspberry data
 ```
 
 In this last example I also introduced the final bit of `tibble` and `data.frame` wrangling we will cover here: the `$` operator.  This is the operator to select a single column from a `data.frame` or `tibble`.  It gives you back the vector that makes up that column:
 
 ```{r getting variables out of a data frame, eval = FALSE}
-beer_data$style # not printed because it is too long!
+berry_data$lms_overall # not printed because it is too long!
+berry_data$`9pt_overall` # column names starting with numbers or containing special characters like spaces need to be surrounded by backticks (`)
 ```
 
-One of the nice things about RStudio is that it provides tab-completion for `$`.  Go to the console, type "bee" and hit `tab`.  You'll see a list of possible matches, with `beer_data` at the top.  Hit enter, and this will fill out the typing for you!  Now, type "$" and hit `tab` again.  You'll see a list of the columns in `beer_data`!  This can save a huge amount of typing and memorizing the names of variables and objects.
+One of the nice things about RStudio is that it provides tab-completion for `$`.  Go to the console, type "ber" and hit `tab` (or just wait a second or two, if you use the default RStudio settings).  You'll see a list of possible matches, with `berry_data` at the top.  Hit enter, and this will fill out the typing for you!  Now, type "$" and hit `tab` again.  You'll see a list of the columns in `berry_data`!  This can save a huge amount of typing and memorizing the names of variables and objects.
 
 Now that we've gone over the basics of creating and manipulating objects in `R`, we're going to run through the basics of data manipulation and visualization with the `tidyverse`.  Before we move on to that topic, let's address **any questions**.
 

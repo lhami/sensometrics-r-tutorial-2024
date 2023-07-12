@@ -2,8 +2,8 @@
 
 ```{r setup, include = FALSE}
 library(tidyverse)
-library(tidytext)
-beer_data <- read_csv("data/ba_2002.csv")
+library(ca)
+berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
 In this section, we're going to go over the basics of `R`: what the heck you're looking at, how the RStudio IDE works, how to extend `R` with packages, and some key concepts that will help you work well in `R`.
@@ -19,7 +19,7 @@ In this workshop we are going to be learning the basics of coding for text analy
 1.  `R` is constantly being extended to do new, useful things because there is a vibrant community of analysts developing tools for it, and the barrier to entry is very low.  
 2.  `R` doesn't have a fixed set of tasks that it can accomplish, and, in fact, I generally haven't found a data-analysis task I needed to do that I *couldn't* in `R`.
 
-Because it's a programming **language**, `R` isn't point-and-click--today we're going to be typing commands into the console, hitting, enter, making errors, and repeating.  But this is a good thing!  The power and flexibility of `R` (and it's ability to do most of the things we want) come from the fact that it is a programming language.  While learning to use `R` can *seem* intimidating, the effort to do so will give you a much more powerful suite of tools than the more limited point-and-click alternatives. `R` is built for research programming (data analysis), rather than for production programming. The only other alternative that is as widely supported in the research community is Python, but--honesty time here--I have never learned Python very well, and so we are learning `R`. And, in addition, Python doesn't have as good an Interactive Development Environment (IDE, explained further below) as RStudio!
+Because it's a programming **language**, `R` isn't point-and-click--today we're going to be typing commands into the console, hitting, enter, making errors, and repeating.  But this is a good thing!  The power and flexibility of `R` (and its ability to do most of the things we want) come from the fact that it is a programming language.  While learning to use `R` can *seem* intimidating, the effort to do so will give you a much more powerful suite of tools than the more limited point-and-click alternatives. `R` is built for research programming (data analysis), rather than for production programming. The only other alternative that is as widely supported in the research community is Python, but--honesty time here--I have never learned Python very well, and so we are learning `R`. And, in addition, Python doesn't have as good an Interactive Development Environment (IDE, explained further below) as RStudio!
 
 If you open your `R.exe`/`R` application, you'll see something like this:
 
@@ -113,7 +113,7 @@ You should have already installed the `tidyverse` package as part of your pre-wo
 You'll note that hitting `Install` made a line of code appear in your console, something like:
 
 ```{r, eval = FALSE}
-install.packages("tidytext")
+install.packages("ca")
 ```
 
 This is the "true" `R` way to install packages--the function `install.packages()` can be run on the `Console` to install whatever package is quoted inside the parentheses.  
@@ -132,7 +132,7 @@ You need to use multiple `library()` commands to load multiple packages, e.g.,
 
 ```{r}
 library(tidyverse)
-library(tidytext)
+library(ca)
 ```
 
 If you want to know what packages you have loaded, you can run the `sessionInfo()` function, which will tell you a bunch of stuff, including the "attached" packages:

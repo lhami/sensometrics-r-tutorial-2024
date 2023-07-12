@@ -1,20 +1,21 @@
-# Tutorial for Eurosense 2022: "An introduction to text analysis with R for sensory and consumer scientists."
+# Tutorial for Pangborn 2023: "An introduction to R for sensory and consumer scientists"
 
-This repository contains code and markdown files for the tutorial presented at Eurosense 2022.  If you like, you can download the materials by using the "..." menu at the top right of the repository menu.  You can also see the rendered version of this material by going to the [workshop bookdown page](https://jlahne.github.io/eurosense-tutorial-2022/).
+This repository contains code and markdown files for the tutorial presented at Pangborn 2023.  If you like, you can download the materials by using the "..." menu at the top right of the repository menu.  You can also see the rendered version of this material by going to the [workshop bookdown page](https://jlahne.github.io/eurosense-tutorial-2022/).
 
-# Setup for this tutorial
+# Setup for this tutorial (Do this before you travel!)
 
-In order to be prepared to participate for this tutorial, you should do the following steps prior to the tutorial, which will be held [10 AM--2 PM, 13 September, at the Eurosense Conference in Turku, Finland](https://www.eurosense.elsevier.com/Sensometrics.asp):
+In order to be prepared to participate for this tutorial, you should do the following steps prior to the tutorial, which will be held [10 AM--2 PM, 20 August, at the Pangborn Symposium in Nantes, France](https://www.pangbornsymposium.com/Sensometics-tutorials.asp):
 
 1.  Install R/update R:
     1.  Download [R from the CRAN website](https://cran.r-project.org/).
     1.  Run the installer and make sure you can open R.
-    2.  (If you already have R, make sure you have version > 4.1.0, otherwise we can't guarantee that problems won't arise from incompatibilities.  You can check your version by opening either R or RStudio and typing `sessionInfo()` followed by hitting **return** on your keyboard at the command prompt.)
+    2.  (If you already have R, make sure you have version > 4.3.0, otherwise we can't guarantee that problems won't arise from incompatibilities.  You can check your version by opening either R or RStudio and typing `sessionInfo()` followed by hitting **return** on your keyboard at the command prompt.)
 2. Install RStudio/update RStudio.
     1.  Download the free version of [RStudio Desktop from their website](https://www.rstudio.com/products/rstudio/download/#download).
     2.  Run the installer and make sure you can open RStudio.
     3.  (If you already have RStudio, check your version by opening RStudio and navigating to the menu **Help > About RStudio**.  You should be using a version later than the 2022-05-xx release.  If you are not, or if you cannot find this information, please just update your version by following steps 1-2 above.)
-3.  Download the tutorial materials by [going to the `code/eurosense-code-download.zip` file](https://github.com/jlahne/eurosense-tutorial-2022/blob/main/code/eurosense-code-download.zip) in this repo and clicking `Download`.
+    4. **If you cannot download RStudio for any reason** (such as using a tablet or having an institutional lock on your laptop), please email Jacob Lahne (jlahne@vt.edu) and/or Leah Hamilton (lmhamilton@ucdavis.edu) as soon as possible. For the sake of this workshop, you can set up a free account with [Posit](https://posit.cloud/plans/free), the RStudio developer, to use Rstudio in your browser (Firefox, Edge, Chrome, Safari, Opera, etc), but the setup for your R Project will be different and you will only be able to run a limited amount of code each month.
+3.  Download the tutorial materials by [going to the `code/pangborn-code-download.zip` file](https://github.com/lhami/pangborn-tutorial-2023/blob/main/code/pangborn-code-download.zip) in this repo and clicking `Download`.
     1.  We suggest that you create a new folder on your Desktop to work in.  By downloading the files, you'll get copies of everything you need for the class:
         1.  `.R` Script
         2.  Data
@@ -37,11 +38,11 @@ At this point, you should be all set for the workshop!  Thanks so much for getti
 
 # What you should already know
 
-We are trying to make this tutorial accessible to a broad audience, so while some familiarity with statistics and data-analysis for sensory science (i.e., sensometrics) will be helpful, it isn't strictly required.  Similarly, while you will get more out of this workshop if you have a basic understanding of R, this is not strictly required.  In order to cover our planned material, we will be moving relatively quickly through basic R usage and data wrangling to some quick notes on data analysis and visualization within about 90 minutes.  That's a lot to get through, so if you find that idea intimidating you might benefit from taking a look at some of the [sources below](#how-can-you-get-ahead-or-learn-more).  These range from self-paced tutorials to full how-to books.
+We are trying to make this tutorial accessible to a broad audience, so while some familiarity with statistics and data-analysis for sensory science (i.e., sensometrics) will be helpful, it isn't strictly required.  You do not need any experience with R or RStudio, but you **do need to have RStudio pre-installed**. In order to cover our planned material, we will be moving relatively quickly through basic R usage and data wrangling within about 90 minutes, so we can spend the rest of the tutorial on data analysis and visualization workflows.  That's a lot to get through, so if you find that idea intimidating you might benefit from taking a look at some of the [sources below](#how-can-you-get-ahead-or-learn-more).  These range from self-paced tutorials to full how-to books.
 
 # What we will *not* be covering:
 
-* Statistical theory (including for text data)
+* Statistical theory (including for Correspondance Analysis)
 * How to write these kinds of web-friendly documents and bookdowns
 * Production programming for R
 * All possible data types

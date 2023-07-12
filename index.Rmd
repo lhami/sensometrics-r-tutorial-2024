@@ -16,7 +16,7 @@ github-repo: lhami/pangborn-tutorial-2023
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(tidytext)
-beer_data <- read_csv("data/ba_2002.csv")
+berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
 
@@ -43,7 +43,7 @@ Today's workshop is going to take ~3 hours, with a break for lunch, and we'll be
 3.  Principles of tidy data analysis using `tidyverse`
   1. What is tidy data?
   2. Data wrangling
-  3. Basics of character data and "tidy text"
+  3. Working with binary, count, and character data
   4. Untidying & Retidying data
 4.  Basics of data visualization in `R`/`ggplot2`
   1. Built-in plots using ca package
@@ -55,9 +55,9 @@ This workshop is going to be run with **livecoding**, as noted above.  This mean
 
 ### Recommended approach for livecoding {-}
 
-We recommend that you download the pre-made archive of code and data from the [workshop github repo](https://github.com/jlahne/eurosense-tutorial-2022).  This archive, when unzipped, will have a folder structure and a `.Rproj` file.  We recommend that you close out RStudio, unzip the archive, and double click the `.Rproj` file *in that folder*, which will open a new session of RStudio with proper setting (like the home directory) for the files for this workshop.
+We recommend that you download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/pangborn-tutorial-2023).  This archive, when unzipped, will have a folder structure and a `.Rproj` file.  We recommend that you close out RStudio, unzip the archive, and double click the `.Rproj` file *in that folder*, which will open a new session of RStudio with proper setting (like the home directory) for the files for this workshop.
 
-In that folder, you will find a `data/` folder with the necessary data for the workshop, and a script named `eurosense-workshop-all-code.R`.  This latter file contains all of the code demonstrated in this workshop for your future reference.  You can also follow along with the code at the [workshop's page hosted on github.io](https://jlahne.github.io/eurosense-tutorial-2022/) (which you're reading right now), and which will remain available after this workshop.
+In that folder, you will find a `data/` folder with the necessary data for the workshop, and a script named `eurosense-workshop-all-code.R`.  This latter file contains all of the code demonstrated in this workshop for your future reference.  You can also follow along with the code at the [workshop's page hosted on github.io](https://lhami.github.io/pangborn-tutorial-2023) (which you're reading right now), and which will remain available after this workshop.
 
 Once you're in RStudio, go to the `File > New File > R Script` menu to open a new script.  We'll talk about how these work in a minute, but this is basically a workbook for you to store sequential lines of code to be run in the `Console`.  It is where you can livecode along!  Even though we are giving you all of the code you need right now, you will learn a lot more if you actively follow along, rather than just run that code.
 
