@@ -4,18 +4,18 @@ This repository contains code and markdown files for the tutorial presented at P
 
 # Setup for this tutorial (Do this before you travel!)
 
-In order to be prepared to participate for this tutorial, you should do the following steps prior to the tutorial, which will be held [10 AM--2 PM, 20 August, at the Pangborn Symposium in Nantes, France](https://www.pangbornsymposium.com/Sensometics-tutorials.asp):
+In order to be prepared to participate for this tutorial, you should bring a laptop and **Install the tidyverse package to your travel laptop using RStudio before you arrive**. The tutorial will be held [10 AM--2 PM, 20 August, at the Pangborn Symposium in Nantes, France](https://www.pangbornsymposium.com/Sensometics-tutorials.asp). We recommend doing the following steps **before you travel**:
 
-1.  Install R/update R:
+1.  **Install/update R**:
     1.  Download [R from the CRAN website](https://cran.r-project.org/).
     1.  Run the installer and make sure you can open R.
-    2.  (If you already have R, make sure you have version > 4.3.0, otherwise we can't guarantee that problems won't arise from incompatibilities.  You can check your version by opening either R or RStudio and typing `sessionInfo()` followed by hitting **return** on your keyboard at the command prompt.)
-2. Install RStudio/update RStudio.
-    1.  Download the free version of [RStudio Desktop from their website](https://www.rstudio.com/products/rstudio/download/#download).
+    2.  (If you already have R, make sure you have version > 4.3.0, to limit compatibility errors.  You can check your version by opening either R or RStudio and typing `sessionInfo()` followed by hitting **return** on your keyboard at the command prompt.)
+2. **Install/update RStudio**.
+    1.  Download the free version of [RStudio Desktop from the Posit website](https://posit.co/download/rstudio-desktop/#download).
     2.  Run the installer and make sure you can open RStudio.
     3.  (If you already have RStudio, check your version by opening RStudio and navigating to the menu **Help > About RStudio**.  You should be using a version later than the 2022-05-xx release.  If you are not, or if you cannot find this information, please just update your version by following steps 1-2 above.)
-    4. **If you cannot download RStudio for any reason** (such as using a tablet or having an institutional lock on your laptop), please email Jacob Lahne (jlahne@vt.edu) and/or Leah Hamilton (lmhamilton@ucdavis.edu) as soon as possible. For the sake of this workshop, you can set up a free account with [Posit](https://posit.cloud/plans/free), the RStudio developer, to use Rstudio in your browser (Firefox, Edge, Chrome, Safari, Opera, etc), but the setup for your R Project will be different and you will only be able to run a limited amount of code each month.
-3.  Download the tutorial materials by [going to the `code/pangborn-code-download.zip` file](https://github.com/lhami/pangborn-tutorial-2023/blob/main/code/pangborn-code-download.zip) in this repo and clicking `Download`.
+    4. If you cannot download RStudio for any reason (such as using a tablet or having an institutional lock on your laptop), you can set up a free account with [Posit](https://posit.cloud/plans/free) to use Rstudio in your browser (Firefox, Edge, Chrome, Safari, Opera, etc) for the sake of the workshop. This method takes some extra work to set up your R Project will be different and you will only be able to run a limited amount of code each month.
+3.  **Download the tutorial materials** by [going to the `code/pangborn-code-download.zip` file](https://github.com/lhami/pangborn-tutorial-2023/blob/main/code/pangborn-code-download.zip) in this repo and clicking `Download`.
     1.  We suggest that you create a new folder on your Desktop to work in.  By downloading the files, you'll get copies of everything you need for the class:
         1.  `.R` Script
         2.  Data
@@ -32,9 +32,9 @@ At this point, you should be all set for the workshop!  Thanks so much for getti
 
 # What this tutorial will cover
 
-> In this tutorial, we will introduce the audience to the R statistical programming environment and the RStudio Interactive Development Environment (IDE) with the aim of developing sufficient basic skills to conduct a text analysis on sensory-relevant text data. We will provide a learning dataset of text data for the analysis—a set of food-product free-comment reviews that are associated with overall liking scores. This will allow us to demonstrate connections between text analysis methods and basic sensory and consumer science approaches. We will also provide an R script that walks through all steps of importing, manipulating, and analysing the test dataset.
->
-> The tutorial will have 2 sections. In the first section of the tutorial, we will introduce R and RStudio, we will cover the basic commands of R, and we will cover key, user-friendly conventions of ”tidy” R programming for importing, manipulating, and plotting data using the “tidyverse” packages. In the second section we will use the “tidytext” package to conduct basic text analysis, including text tokenization, text modeling using TF-IDF, and basic lexicon-based sentiment analysis.
+> In this tutorial, we will introduce the audience to the R statistical programming environment and the RStudio Interactive Development Environment (IDE) with the aim of developing sufficient basic skills to conduct multivariate analyses (like Correspondence Analysis) on sensory and consumer datasets. We will provide a learning dataset for the analysis—a set of free response comments and overall liking scores from a central location test on berries. We will teach participants how to import, manipulate, and plot data using user-friendly, “tidy” R programming. All resources used in the tutorial are open-source and will remain available to attendees, including an R script covering the full workflow.
+> 
+> At the end of the tutorial, attendees will be able to prepare raw sensory data for common multivariate analyses or visual representations in R.
 
 # What you should already know
 
