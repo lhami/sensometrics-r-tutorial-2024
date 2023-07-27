@@ -2,8 +2,7 @@
 
 ```{r setup, include = FALSE}
 library(tidyverse)
-library(tidytext)
-beer_data <- read_csv("data/ba_2002.csv")
+beer_data <- read_csv("data/clt-berry-data.csv")
 ```
 
 A common saying in data science is that about 90% of the effort in an analysis workflow is in getting data wrangled into the right format and shape, and 10% is actual analysis.  In a point and click program like SPSS or XLSTAT we don't think about this as much because the activity of reshaping the data--making it longer or wider as required, finding and cleaning missing values, selecting columns or rows, etc--is often temporally and programmatically separated from the "actual" analysis. 
@@ -20,9 +19,9 @@ Here, we are going to emphasize the set of tools from the [`tidyverse`](https://
 
 Before we move on to actually learning the tools, let's make sure we've got our data loaded up.
 
-```{r reload the beer data in case you started your session over}
+```{r reload the berry data in case you started your session over}
 library(tidyverse)
-beer_data <- read_csv("data/ba_2002.csv")
+beer_data <- read_csv("data/clt-berry-data.csv")
 ```
 
 
@@ -34,37 +33,65 @@ A common situation in R is wanting to select some rows and some columns of our d
 
 ### `select()` for columns
 
-The first thing we often want to do in a data analysis is to pick a subset of columns, which usually represent variables.  If we take a look at our beer data, we see that, for example, we have some columns that are data about our beers, and some columns that are user-generated responses:
+The first thing we often want to do in a data analysis is to pick a subset of columns, which usually represent variables.  If we take a look at our beer data, we see that, for example, we have some columns that contain the answers to survey questions, some columns that are about the test day or panelist, and some that identify the panelist or berry:
 
-```{r use glimpse() to examine the beer data}
-glimpse(beer_data)
+```{r use glimpse() to examine the berry data}
+glimpse(berry_data)
 ```
 
-So, for example, we might want to try to reverse engineer the way that the `rating` is generated from the sub-modalities, in which case perhaps we only want the last 6 columns.  We learned previously that we can do this with numeric indexing:
+So, for example, we might want to determine whether there are differences in liking between the berries, test days, or scales, in which case perhaps we only want the columns starting with `us_`, `lms_`, and `9pt_` along with `berry` and `test_day`.  We learned previously that we can do this with numeric indexing:
 
-```{r reminder of base R subsetting}
-beer_data[, 9:14]
+```{r reminder of base R subsetting with column numbers}
+berry_data[, c(10,25,28,45,56:64,81,89:91)]
 ```
 
-However, this is both difficult for novices to `R` and difficult to read if you are not intimately familiar with the data.  It is also rather fragile--what if someone else rearranged the data in your import file?  You're just selecting the last 6 columns, which are not guaranteed to contain the rating data you're interested in.
+However, this is both difficult for novices to `R` and difficult to read if you are not intimately familiar with the data.  It is also rather fragile--what if someone else rearranged the data in your import file?  You're just selecting the last 6 columns, which are not guaranteed to contain the rating data you're interested in. Not to mention all of the counting was annoying!
+
+Subsetting using names is a little more stable, but still not that readable and takes a lot of typing.
+
+```{r reminder of base R subsetting with column names}
+berry_data[, c("9pt_aroma","9pt_overall","9pt_taste","9pt_texture","9pt_appearance",
+               "lms_aroma","lms_overall","lms_taste","lms_texture","lms_appearance",
+               "us_aroma","us_overall","us_taste","us_texture","us_appearance",
+               "berry","test_day")]
+```
 
 
-The `select()` function in `tidyverse` (actually from the `dplyr` package) is the smarter, easier way to do this.  It works on data frames, and it can be read as "from \<data frame\>, select the columns that meet the criteria we've set." 
+The `select()` function in `tidyverse` (actually from the `dplyr` package) is the smarter, easier way to do this.  It works on data frames, and it can be read as "from \<data frame\>, select the columns that meet the criteria we've set."
 
 `select(<data frame>, <column 1>, <column 2>, ...)`
 
 The simplest way to use `select()` is just to name the columns you want!
 
 ```{r using select() with explicit column names}
-select(beer_data, appearance, aroma, palate, taste, overall, rating) # note the lack of quoting on the column names
+select(berry_data, berry, test_day,
+       lms_aroma, lms_overall, lms_taste, lms_texture, lms_appearance) # note the lack of quoting on the column names
 ```
 
 This is much clearer to the reader.
 
+Getting rid of the double quotes around `"column names"` we saw before can have some consequences, though. R variable names can *only* contain letters, numbers, and underscores (_), no spaces ( ) or dashes (-), and can't start with numbers, but the tidyverse *will* let you make column names that break these rules. So if you try to do the exact same thing as before to get the data from the 9-point hedonic scale instead of the labeled magnitude scale:
+
+```{r errors from select() with unusual column names}
+select(berry_data, berry, test_day,
+       9pt_aroma, 9pt_overall, 9pt_taste, 9pt_texture, 9pt_appearance) # this will cause an error
+```
+
+You'll run into an error. The solution to this is a different kind of quote called a backtick (`) which is usually next to the number 1 key in the very top left of QWERTY (US and UK) keyboards. On QWERTZ and AZERTY keyboards, it may be next to the backspace key or one of the alternate characters made by the 7 key. Look [at this page](https://superuser.com/questions/254076/how-do-i-type-the-tick-and-backtick-characters-on-windows) for help finding it in common international keyboard layouts.
+
+```{r using select() with escaped column names}
+select(berry_data, berry, test_day, #these ruly column names don't need escaping
+       `9pt_aroma`, #only ones starting with numbers...
+       `9pt_overall`, `9pt_taste`, `9pt_texture`, `9pt_appearance`,
+       `Sample Name`) #or containing spaces
+```
+
+The backticks are only necessary when a column name breaks one of the variable-naming rules, and RStudio will fill them in for you if you use tab autocompletion when writing your select() and other tidyverse functions.
+
 You can also use `select()` with a number of helper functions, which use logic to select columns that meet whatever conditions you set.  For example, the `starts_with()` helper function lets us give a set of characters we want columns to start with:
 
 ```{r using select() with a character search}
-select(beer_data, starts_with("beer"))
+select(berry_data, starts_with("lms_")) #the double-quotes are back because this isn't a full column name
 ```
 
 There are equivalents for the end of column names (`ends_with()`) and text found anywhere in the name (`contains()`). 
@@ -72,14 +99,29 @@ There are equivalents for the end of column names (`ends_with()`) and text found
 You can combine these statements together to get subsets of columns however you want:
 
 ```{r combining character search and explicit select()}
-select(beer_data, starts_with("beer"), rating, abv)
+select(berry_data, starts_with("lms_"), starts_with("9pt_"), starts_with("us_"),
+       berry, test_day)
+
+select(berry_data, starts_with("jar_"), ends_with("_overall"),
+       berry, test_day)
 ```
 
-You can also use programmatic logic in `select()` by using the `where()` helper function, which gives you the ability to specify columns by any arbitrary function.
+If you're annoyed at the order that your columns are printing in and how far to the right you have to scroll in your previews, `select()` can also be used to rearrange your columns with a helper function called `everything()`:
+
+```{r everything() is a select helper that selects everything (else)}
+select(berry_data, everything()) #This selects everything--it doesn't change at all.
+select(berry_data, berry, contains("_overall"),
+       everything()) #only type the columns you want to move to the front, and everything() will keep the rest
+```
+
+You may sometimes want to select columns where the data meets some criteria, rather than the column name or position. The `where()` helper function allows you to insert this kind of programmatic logic into `select()` statements, which gives you the ability to specify columns using any arbitrary function.
 
 ```{r using where() with select() is more advanced}
-select(beer_data, where(~is.numeric(.)))
+select(berry_data, where(is.numeric)) #a few functions return one logical value per vector
+select(berry_data, where(~!any(is.na(.)))) #otherwise we can use "lambda" functions
 ```
+
+The little squiggly symbol, called a tilde (~), is above the backtick on QWERTY keyboards, and it turns everything that comes after it into a "lambda function". We'll talk more about lambda functions later, when we talk about `across()`. You can read it the above as "`select()` the columns from `berry_data` `where()` there are not (`!`) `any()` NA values (`is.na(.)`)".
 
 Besides being easier to write conditions for than indexing with `[]`, `select()` is code that is much closer to how you or I think about what we're actually doing, making code that is more human readable.
 
@@ -87,57 +129,65 @@ Besides being easier to write conditions for than indexing with `[]`, `select()`
 
 So `select()` lets us pick which columns we want.  Can we also use it to pick particular observations?  No.  But for that, there's `filter()`.
 
-We learned that, using `[]` indexing, we'd specify a set of rows we want.  If we want the first 10 rows of `beer_data`, we'd write
+We learned that, using `[]` indexing, we'd specify a set of rows we want.  If we want the first 10 rows of `berry_data`, we'd write
 
 ```{r reminder of how to get rows from a data frame in base R}
-beer_data[1:10, ]
+berry_data[1:10, ]
 ```
 
 Again, this is not very human readable, and if we reorganize our rows this won't be useful anymore.  The `tidyverse` answer to this approach is the `filter()` function, which lets you filter your dataset into specific rows according to *data stored in the table itself*.
 
 ```{r first example of filter() with conditional logic}
-filter(beer_data, abv > 10) # let's get some heavy beers
+filter(berry_data, pre_expectation > 3) # let's get survey responses with had a higher-than-average expectation
 ```
 
-When using `filter()`, we can specify multiple logical conditions.  For example, let's get only Barleywines that are more than 10% ABV.  If we wanted only exact matches, we could use the direct `==` operator:
+When using `filter()`, we can specify multiple logical conditions.  For example, let's get only raspberries with initially high expectations.  If we want only exact matches, we can use the direct `==` operator:
 
 ```{r using the equality operator in filter()}
-filter(beer_data, abv > 10, style == "American Barleywine")
+filter(berry_data, pre_expectation > 3, berry == "raspberry")
 ```
 
-But this won't return, for example, any beer labeled as an "English Barleywine".  
+But this won't return, for example, any berries labeled as "Raspberry", with an uppercase R.
+
+```{r case-sensitivity in filter()}
+filter(berry_data, pre_expectation > 3, berry == "Raspberry")
+```
+
+Luckily, we don't have a mix of raspberries and Raspberries. Maybe we want both raspberries and strawberries that panelists had high expectations of:
 
 ```{r using the OR operator in filter()}
-filter(beer_data, abv > 10, style == "American Barleywine" | style == "English Barleywine")
+filter(berry_data, pre_expectation > 3, berry == "raspberry" | berry == "strawberry")
 ```
 
-In `R`, the `|` means Boolean `OR`, and the `&` means Boolean `AND`.  We can use these to combine conditions for searching our data table.  But this can be a bit tedious.  The `stringr` package, part of `tidyverse`, gives a lot of utility functions that we can use instead of this effortful searching.
+In `R`, the `|` means Boolean `OR`, and the `&` means Boolean `AND`. If you're trying to figure out which one to use, phrase what you want to do with your `filter()` statement by starting "keep only rows that have...". We may want to look at raspberries *and* strawberries, but we want to "keep only rows that have a `berry` type of raspberry *or* strawberry".
+
+We can combine any number of conditions with `&` and `|` to search within our data table.  But this can be a bit tedious.  The `stringr` package, part of `tidyverse`, gives a lot of utility functions that we can use to reduce the number of options we're individually writing out, similar to `starts_with()` or `contains()` for columns. Maybe we want the results from the first day of each berry type:
 
 ```{r using character searches in filter()}
-filter(beer_data, abv > 10, str_detect(style, "Barleywine"))
+filter(berry_data, str_detect(test_day, "Day 1"))
 ```
 
-Here, the `str_detect()` function searched for any text that **contains** "Barleywine" in the `style` column.
+Here, the `str_detect()` function searched for any text that **contains** "Day 1" in the `test_day` column.
 
 ## Combining steps with the pipe: `%>%`
 
-It isn't hard to imagine a situation in which we want to **both** select some columns and filter some rows.  There are 3 ways we can do this, one of which is going to be the best for most situations.
+It isn't hard to imagine a situation in which we want to **both** `select()` some columns and `filter()` some rows.  There are 3 ways we can do this, one of which is going to be the best for most situations.
 
-Let's imagine we want to get only information about the beers, abv, and rating for stouts
+Let's imagine we want to get only information about the berries, overall liking, and cata attributes for blackberries
 
 First, we can nest functions:
 
 ```{r nesting functions}
-select(filter(beer_data, str_detect(style, "Stout")), contains("beer"), abv, rating)
+select(filter(berry_data, berry == "blackberry"), `Sample Name`, contains("_overall"), contains("cata_"))
 ```
 
-The problem with this approach is that we have to read it "inside out".  First, `filter()` will happen and get us only beers that match "Stout" in their `style`.  Then `select()` will get columns that match "beer" in their names, `abv`, and `rating`.  Especially as your code gets complicated, this can be very hard to read.
+The problem with this approach is that we have to read it "inside out".  First, `filter()` will happen and get us only berries whose `berry` is exactly "blackberry".  Then `select()` will get `Sample Name` along with columns that match "_overall" or "cata_ in their names.  Especially as your code gets complicated, this can be very hard to read.
 
 So we might take the second approach: creating intermediates.  We might first `filter()`, store that step somewhere, then `select()`:
 
 ```{r storing results as intermediates}
-beer_stouts <- filter(beer_data, str_detect(style, "Stout"))
-select(beer_stouts, contains("beer"), abv, rating)
+blackberries <- filter(berry_data, berry == "blackberry")
+select(blackberries, `Sample Name`, contains("_overall"), contains("cata_"))
 ```
 
 But now we have this intermediate we don't really need cluttering up our `Environment` tab.  This is fine for a single step, but if you have a lot of steps in your analysis this is going to get old (and confusing) fast.  You'll have to remove a lot of these using the `rm()` command to keep your code clean.
@@ -145,18 +195,19 @@ But now we have this intermediate we don't really need cluttering up our `Enviro
 <font color="red">**warning**:</font> `rm()` will *permanently* delete whatever objects you run it on from your `Environment`, and you will only be able to restore them by rerunning the code that generated them in the first place.
 
 ```{r the rm() function deletes objects from the Environment}
-rm(beer_stouts)
+rm(blackberries)
 ```
 
-The final method, and what is becoming standard in modern `R` coding, is the **pipe**, which is written in `tidyverse` as `%>%`.  This garbage-looking set of symbols is actually your best friend, you just don't know it yet.  I use this tool constantly in my R programming, but I've been avoiding it up to this point because it's not part of base R (in fact that's no longer strictly true, but it is kind of complicated at the moment).  
+The final method, and what is becoming standard in modern `R` coding, is the **pipe**, which is written in `tidyverse` as `%>%`.  This garbage-looking set of symbols is actually your best friend, you just don't know it yet.  I use this tool constantly in my R programming, but I've been avoiding it up to this point because it wasn't a part of base R for the vast majority of its history.
 
 
-OK, enough background, what the heck _is_ a pipe?  The term "pipe" comes from what it does: like a pipe, `%>%` let's whatever is on it's left side flow through to the right hand side.  It is easiest to read `%>%` as "**AND THEN**".  
+OK, enough background, what the heck _is_ a pipe?  The term "pipe" comes from what it does: like a pipe, `%>%` let's whatever is on it's left side flow through to the right hand side.  It is easiest to read `%>%` as "**AND THEN**". 
 
 ```{r the mighty pipe!}
-beer_data %>%                              # Start with the beer_data
-  filter(str_detect(style, "Stout")) %>%   # AND THEN filter to stouts
-  select(contains("beer"), abv, rating)    # AND THEN select the beer columns, etc
+berry_data %>%                             # Start with the berry_data
+  filter(berry == "blackberry") %>%        # AND THEN filter to blackberries
+  select(`Sample Name`,                    # AND THEN select sample name, overall liking, etc
+         contains("_overall"), contains("cata_"))
 ```
 
 In this example, each place there is a `%>%` I've added a comment saying "AND THEN".  This is because that's exactly what the pipe does: it passes whatever happened in the previous step to the next function.  Specifically, `%>%` passes the **results** of the previous line to the **first argument** of the next line.
@@ -212,27 +263,27 @@ Typing `%>%` is no fun.  But, happily, RStudio builds in a shortcut for you: mac
 
 ## Make new columns: `mutate()`
 
-You hopefully are starting to be excited by the relative ease of doing some things in R with `tidyverse` that are otherwise a little bit abstruse.  Here's where I think things get really, really cool.  The `mutate()` function *creates a new column in the existing dataset*.  
+You hopefully are starting to be excited by the relative ease of doing some things in R with `tidyverse` that are otherwise a little bit abstruse.  Here's where I think things get really, really cool.  The `mutate()` function *creates a new column in the existing dataset*. 
 
 We can do this easily in base R by setting a new name for a column and using the assign (`<-`) operator, but this is clumsy. Often, we want to create a new column temporarily, or to combine several existing columns.  We can do this using the `mutate()` function.
 
-Let's say that we want to create a quick categorical variable that tells us whether a beer was rated as more than the central value (2.5) in the 5-pt rating scale.  This is kind of like doing a median split, which we'll get to in a moment.
+Let's say that we want to create a quick categorical variable that tells us whether a berry was rated higher after the actual tasting event than the pre-tasting expectation.
 
-We know that we can use `filter()` to get just the beers with `rating > 2.5`:
+We know that we can use `filter()` to get just the berries with `post_expectation > pre_expectation`:
 
 
 ```{r using pipes with filter()}
-beer_data %>%
-  filter(rating > 2.5)
+berry_data %>%
+  filter(post_expectation > pre_expectation)
 ```
 
 But what if we want to be able to just see this?
 
 ```{r first example of mutate()}
-beer_data %>%
-  mutate(better_than_2.5 = rating > 2.5) %>%
+berry_data %>%
+  mutate(improved = post_expectation > pre_expectation) %>%
   # We'll select just a few columns to help us see the result
-  select(beer_name, rating, better_than_2.5) 
+  select(`Participant Name`, `Sample Name`, pre_expectation, post_expectation, improved)
 ```
 
 What does the above function do?
@@ -242,22 +293,22 @@ What does the above function do?
 We can use the same kind of functional logic we've been using in other `tidyverse` commands in `mutate()` to get real, powerful results.  For example, we might want to know if a beer is rated better than the `mean()` of the ratings.  We can do this easily using `mutate()`:
 
 ```{r mutate() makes new columns}
-# Let's find out the average (mean) rating for these beers
-beer_data$rating %>% 
-  mean() 
+# Let's find out the average (mean) rating for the berries on the 9-point scale
+berry_data$`9pt_overall` %>% #we need the backticks for $ subsetting just like for tidy-selecting 
+  mean(na.rm = TRUE)
 
 # Now, let's create a column that tells us if a beer is rated > average
-beer_data %>%
-  mutate(better_than_average = rating > mean(rating)) %>%
+berry_data %>%
+  mutate(better_than_average = `9pt_overall` > mean(`9pt_overall`, na.rm = TRUE)) %>%
   # Again, let's select just a few columns
-  select(beer_name, rating, better_than_average)
+  select(`Sample Name`, `9pt_overall`, better_than_average)
 ```
 
 ## Split-apply-combine analyses with `group_by()` and `summarize()`
 
-Many basic data analyses can be described as *split-apply-combine*: *split* the data into groups, *apply* some analysis into groups, and then *combine* the results.  
+Many basic data analyses can be described as *split-apply-combine*: *split* the data into groups, *apply* some analysis into groups, and then *combine* the results.
 
-For example, in our `beer_data` we might want to split the data into beer styles, calculate the average overall rating and standard deviation of the rating for each beer style, and the generate a summary table telling us these results.  Using the `filter()` and `select()` commands we've learned so far, you could probably cobble together this analysis without further tools.
+For example, in our `berry_data` we might want to split the data by each berry sample, calculate the average overall rating and standard deviation of the rating for each, and the generate a summary table telling us these results.  Using the `filter()` and `select()` commands we've learned so far, you could probably cobble together this analysis without further tools.
 
 However, `tidyverse` provides two powerful tools to do this kind of analysis:
 
@@ -269,21 +320,31 @@ However, `tidyverse` provides two powerful tools to do this kind of analysis:
 To accomplish the example above, we'd do the following:
 
 ```{r split-apply-combine pipeline example}
-beer_summary <- 
-  beer_data %>%
-  group_by(style) %>%                           # we will create a group for each unique style
-  summarize(n_beers = n(),                      # n() counts rows in each style
-            mean_rating = mean(rating),         # the mean rating for each style
-            sd_rating = sd(rating),             # the standard deviation in rating
-            se_rating = sd(rating) / sqrt(n())) # multiple functions in 1 row
+berry_summary <- 
+  berry_data %>%
+  filter(!is.na(`9pt_overall`)) %>%
+  group_by(`Sample Name`) %>%                          # we will create a group for each berry sample
+  summarize(n_responses = n(),                         # n() counts number of ratings for each berry
+            mean_rating = mean(`9pt_overall`),         # the mean rating for each species
+            sd_rating = sd(`9pt_overall`),             # the standard deviation in rating
+            se_rating = sd(`9pt_overall`) / sqrt(n())) # multiple functions in 1 row
 
-beer_summary
+#Equivalent to:
+berry_data %>%
+  filter(!is.na(`9pt_overall`)) %>%
+  summarize(n_responses = n(),                         # n() counts number of ratings for each berry
+            mean_rating = mean(`9pt_overall`),         # the mean rating for each species
+            sd_rating = sd(`9pt_overall`),             # the standard deviation in rating
+            se_rating = sd(`9pt_overall`) / sqrt(n()),
+            .by = `Sample Name`)
+
+berry_summary
 ```
 
 We can use this approach to even get a summary stats table - for example, confidence limits according to the normal distribution:
 
 ```{r simple stat summaries with split-apply-combine}
-beer_summary %>%
+berry_summary %>%
   mutate(lower_limit = mean_rating - 1.96 * se_rating,
          upper_limit = mean_rating + 1.96 * se_rating)
 ```
@@ -296,20 +357,22 @@ Honestly, the amount of power in `tidyverse` is way more than we can cover today
 
 ### Rename your columns
 
-Often you will import data with bad column names or you'll realize you need to rename variables during your workflow.  For this, you can use the `rename()` function:
+Often you will import data with bad column names or you'll realize you need to rename variables during your workflow. This is one way to get around having to type a bunch of backticks forever. For this, you can use the `rename()` function:
 
 ```{r renaming columns}
-names(beer_data)
+names(berry_data)
 
-beer_data %>%
-  rename(review_text = reviews)
+berry_data %>%
+  rename(Sample = `Sample Name`,
+         Subject = `Participant Name`) %>%
+  select(Subject, Sample, everything()) #no more backticks!
 ```
 
-You can also rename by position, which is helpful for quick changes:
+You can also rename by position, but be sure you have the right order and don't change the input data later:
 
 ```{r rename() works with positions as well as explicit names}
-beer_data %>%
-  rename(review_text = 1)
+berry_data %>%
+  rename(Subject = 1)
 ```
 
 ### Relocate your columns
@@ -317,34 +380,77 @@ beer_data %>%
 If you `mutate()` columns or just have a big data set with a lot of variables, often you want to move columns around.  This is a pain to do with `[]`, but again `tidyverse` has a utility to move things around easily: `relocate()`.
 
 ```{r reordering columns in a tibble}
-beer_data %>%
-  relocate(beer_name) # giving no other arguments will move to front
+berry_data %>%
+  relocate(`Sample Name`) # giving no other arguments will move to front
 ```
 
 You can also use `relocate()` to specify positions
 
 ```{r using relative positions with relocate()}
-beer_data %>%
-  relocate(reviews, .after = rating) # move the long text to the end
+berry_data %>%
+  relocate(Gender, Age, `Subject Code`, `Start Time (UTC)`, `End Time (UTC)`, `Sample Identifier`, .after = berry) # move repetitive and empty columns to the end
+```
+
+### Remove missing values
+
+Missing values (the `NA`s you've been seeing so much) can be a huge pain, because they make more of themselves.
+
+```{r missing values make more of themselves}
+mean(berry_data$price) #This column had no NAs, so we can take the average
+mean(berry_data$`9pt_overall`) #This column has some NAs, so we get NA
+```
+Many base R functions that take a vector and return some mathematical function (e.g., `mean()`, `sum()`, `sd()`) have an argument called `na.rm` that can be set to just act as if the values aren't there at all.
+
+```{r na.rm in base R functions}
+mean(berry_data$`9pt_overall`, na.rm = TRUE) #We get the average of only the valid numbers
+sum(berry_data$`9pt_overall`, na.rm = TRUE) /
+  length(berry_data$`9pt_overall`) #The denominator is NOT the same as the total number of values anymore
+sum(berry_data$`9pt_overall`, na.rm = TRUE) /
+  sum(!is.na(berry_data$`9pt_overall`)) #The denominator is the number of non-NA values
+```
+However, this isn't always convenient. Sometimes it may be easier to simply get rid of all observations with any missing values, which tidyverse has a handy `drop_na()` function for:
+
+```{r removing rows with na values}
+berry_data %>%
+  drop_na() #All of our rows have *some* NA values, so this returns nothing
+
+berry_data %>%
+  select(`Participant Name`, `Sample Name`, contains("9pt_")) %>%
+  drop_na() #Now we get only respondants who answered all 9-point liking questions.
+```
+
+Or you may want to remove any columns/variables that have some missing data, which is one of the most common uses of `where()`:
+
+```{r removing columns with missing values}
+berry_data %>%
+  select(where(~!any(is.na(.)))) #Only 38 columns with absolutely no missing values.
+#This loses all of the liking data.
+```
+
+Both of the above methods guarantee that you will have an output with absolutely no missing data, but may be over-zealous if, say, everyone answered overall liking on one of the three scales and we want to do some work to combine those later. `filter()` and `select()` can be combined to do infinitely complex missing value removal.
+
+```{r removing rows that don't have at least one non-missing aroma liking rating}
+berry_data %>%
+  select(where(~!all(is.na(.)))) %>% #remove columns with no data
+  filter(!(is.na(`9pt_aroma`) & is.na(lms_aroma) & is.na(us_aroma)))
+#You'll notice that this is all strawberries, actually
 ```
 
 ### Sort your data
 
-More frequently, we will want to rearrange our rows, which can be done with `arrange()`.  All you have to do is give `arrange()` one or more columns to sort the data by.  You can use either the `desc()` or the `-` shortcut to sort in reverse order.
+More frequently, we will want to rearrange our rows, which can be done with `arrange()`.  All you have to do is give `arrange()` one or more columns to sort the data by.  You can use either the `desc()` or the `-` shortcut to sort in reverse order. Whether ascending or descending, `arrange()` places missing values at the bottom.
 
 ```{r arrange() lets you sort your data}
-beer_data %>%
-  arrange(desc(rating)) %>% # what are the highest rated beers?
-  select(beer_name, rating)
+berry_data %>%
+  arrange(desc(lms_overall)) %>% # which berries had the highest liking on the lms?
+  select(`Sample Name`, `Participant Name`, lms_overall)
 ```
 
 You can sort alphabetically as well:
 
 ```{r arrange() works on both numeric and character data}
-beer_data %>%
-  arrange(brewery_name, beer_name) %>% # get beers sorted within breweries
-  select(brewery_name, beer_name) %>%  # show only relevant columns
-  distinct()                           # discard duplicate rows
+tibble(state_name = state.name, area = state.area) %>% # using a dataset of US States for demonstration
+  arrange(desc(state_name))                            # sort states reverse-alphabetically
 ```
 
 ### Pivot tables
@@ -357,23 +463,56 @@ Users of Excel may be familiar with the idea of pivot tables.  These are functio
 > 2.  Each observation must have its own row.
 > 3.  Each value must have its own cell.
 
-While these authors present "tidiness" of data as an objective property, I'd argue that data is always tidy **for a specific purpose**.  For example, our data is relatively tidy here, except our numerical ratings: we have 6 different ratings for each beer, which means we have encoded an **implicit variable** in the column names: `rating type`.  If we want to use our data for summarization, the form we have is fine.  But if we want to make plots and do some other modeling, this form may be no good to us.
+While these authors present "tidiness" of data as an objective property, I'd argue that data is always tidy **for a specific purpose**.  For example, our data is relatively tidy with one row per tasting event (one person tasting one berry), but this data still has an unruly number of variables (92 columns!!). You've already learned some tricks for dealing with large numbers of columns at once like `across()` and other functions using select helpers, but we have to do this *every time* we use `mutate()`, `summarize()`, or a similar function.
+
+We could also treat the attribute or question as an independent variable affecting the response. If we take this view, then the tidiest dataset actually has one row for each person's response to a single `question`. If we want to make plots or do other modelling, this **longer** form is often more tractable and lets us do operations on the whole dataset with less code.
 
 We can use the `pivot_longer()` function to change our data to make the implicit variable explicit and to make our data tidier.
 
 ```{r pivoting data tables}
-beer_data %>%
-  select(beer_name, user_id, appearance:rating) %>% # for clarity
-  pivot_longer(cols = appearance:rating,
-               names_to = "rating_type",
-               values_to = "rating")
+berry_data %>%
+  select(`Subject Code`, `Sample Name`, berry, starts_with("cata_"), starts_with("9pt")) %>% # for clarity
+  pivot_longer(cols = starts_with("cata_"),
+               names_prefix = "cata_",
+               names_to = "attribute",
+               values_to = "presence") -> berry_data_cata_long
+
+berry_data_cata_long
 ```
 
-Now for each unique combination of `beer_name` and `user_id`, we have 6 rows, one for each type of rating they can generate.
+Remember that `tibble`s and `data.frame`s can only have one data type per column (`logical > integer > numeric > character`), however! If we have one row for each CATA, JAR, hedonic scale, AND free response question, the `value` column would have a mixture of different data types. This is why we have to tell `pivot_longer()` which `cols` to pull the `names` and `values` from.
+
+Now for each unique combination of `Sample Name` and `Subject Code`, we have 36 rows, one for each CATA question that was asked. The variables that weren't listed in the `cols` argument are just replicated on each of these rows. Each of the 36 rows that represent `Subject Code` 1001's CATA responses for `raspberry 6` has the same `Subject Code`, `Sample Name`, `berry`, and various `9pt_` ratings as the other 35.
 
 Sometimes we want to have "wider" or "untidy" data.  We can use `pivot_wider()` to reverse the effects of `pivot_longer()`.
 
-While the ideas of pivoting can seem simple, they are both powerful and subtly confusing.  We'll be using these tools throughout the rest of the tutorial, so I wanted to give exposure, but mastering them takes trial and error.  I recommend taking a look at the [relevant chapter in Wickham and Grolemund](https://r4ds.had.co.nz/tidy-data.html) for details.
+```{r reversing the effects of pivot_longer() with pivot_wider()}
+berry_data_cata_long %>%
+  pivot_wider(names_from = "attribute",
+              values_from = "presence",
+              names_prefix = "cata_")
+```
+
+Pivoting is an incredibly powerful and incredibly common data manipulation technique that will become even more powerful when we need to make complex graphs later. Different functions and analyses may require the data in different longer or wider formats, and you will often find yourself starting with even less tidy data than what we've provided.
+
+For an example of this power, let's imagine that we want to compare the 3 different liking scales by normalizing each by the `mean()` and `sd()` of that particular scale, then comparing average liking for each attribute of each berry across the three scales.
+
+```{r}
+berry_data %>%
+  pivot_longer(cols = starts_with(c("9pt_","lms_","us_")),
+               names_to = c("scale", "attribute"),
+               names_sep = "_",
+               values_to = "rating",
+               values_drop_na = TRUE) %>%
+  group_by(scale) %>%
+  mutate(normalized_rating = (rating - mean(rating)) / sd(rating)) %>%
+  group_by(scale, attribute, berry) %>%
+  summarize(avg_liking = mean(normalized_rating)) %>%
+  pivot_wider(names_from = scale,
+              values_from = avg_liking)
+```
+
+While pivoting may seem simple at first, it can also get pretty confusing! That example required two different pivots! We'll be using these tools throughout the rest of the tutorial, so I wanted to give exposure, but mastering them takes trial and error. I recommend taking a look at the [relevant chapter in Wickham and Grolemund](https://r4ds.had.co.nz/tidy-data.html) for details.
 
 It's not a bad idea to restart your R session here.  Make sure to save your work, but a clean `Environment` is great when we're shifting topics.
 
@@ -384,298 +523,8 @@ Then, we want to make sure to re-load our packages and import our data.
 ```{r making sure that we have loaded all packages and data}
 # The packages we're using
 library(tidyverse)
-library(tidytext)
+library(ca)
 
 # The dataset
-beer_data <- read_csv("data/ba_2002.csv")
-```
-
-## Text Analysis Pt. I: Getting your text data
-
-There are many sources of text data, which is one of the strengths of this approach.  Some quick and obvious examples include:
-
-1.  Open-comment responses on a survey (sensory study in lab, remote survey, etc)
-2.  Comment cards or customer responses
-3.  Qualitative data (transcripts from interviews and focus groups)
-4.  Compiled/database from previous studies
-5.  Scraped data from websites and/or social media
-
-The last (#5) is often the most interesting data source, and there are a number of papers in recent years that have discussed the use of this sort of data.  I am not going to discuss how to obtain text data in this presentation, because it is its own, rich topic.  However, you can [review my presentation and tutorial from Eurosense 2020](https://github.com/jlahne/text-mining-eurosense-2020) if you want a quick crash course on web scraping for sensory evaluation.
-
-### Basic import and cleaning with text data
-
-So far we've focused our attention on the `beer_data` data set on the various (`numeric`) rating variables.  But the data in the `reviews` column is clearly more rich.
-
-```{r getting a viewable example}
-
-set.seed(2)
-
-reviews_example <- 
-  beer_data %>%
-  slice_sample(n = 5)
-
-reviews_example %>%
-  select(beer_name, reviews) %>%
-  gt::gt()
-```
-
-<p>
-
-However, this has some classic features of scraped text data--notice the "\&quot", for example--this is `HTML` placeholder for a quotation mark.  Other common problems that you will see with text data include "parsing errors" between different forms of character data--the most common is between `ASCII` and `UTF-8` standards.  You will of course also encounter errors with typos, and perhaps idiosyncratic formatting characteristic of different text sources: for example, the use of `@usernames` and `#hashtags` in Twitter data.
-
-We will use the `textclean` package to do some basic clean up, but this kind of deep data cleaning may take more steps and will change from project to project.
-
-```{r cleaning our example data}
-library(textclean)
-
-cleaned_reviews_example <- 
-  reviews_example %>%
-  mutate(cleaned_review = reviews %>%
-           # Fix some of the HTML placeholders
-           replace_html(symbol = FALSE) %>%
-           # Replace sequences of "..." 
-           replace_incomplete(replacement = " ") %>%
-           # Replace less-common or misformatted HTML
-           str_replace_all("#.{1,4};", " ") %>%
-           # Replace some common non-A-Z, 1-9 symbols
-           replace_symbol() %>% 
-           # Remove non-word text like ":)"
-           replace_emoticon() %>%
-           # Remove numbers from the reviews, as they are not useful
-           str_remove_all("[0-9]"))
-
-cleaned_reviews_example %>%
-  select(beer_name, cleaned_review) %>%
-  gt::gt()
-```
-
-<p>
-
-This will take slightly longer to run on the full data set, but should improve our overall data quality.
-
-```{r cleaning the full data set}
-beer_data <- 
-  beer_data %>%
-  mutate(cleaned_review = reviews %>%
-           replace_html(symbol = FALSE) %>%
-           replace_incomplete(replacement = " ") %>%
-           str_replace_all("#.{1,4};", " ") %>%
-           replace_symbol() %>%
-           replace_emoticon() %>%
-           str_remove_all("[0-9]"))
-```
-
-Again, this is not an exhaustive cleaning step--rather, these are some basic steps that I took based on common parsing errors I observed.  Each particular text dataset will come with its own challenges and require a bit of time to develop the cleaning step.
-
-### Where is the data in `character`?  A *tidy* approach.
-
-As humans who understand English, we can see that meaning is easily found from these reviews.  For example, we can guess that the rating of `r cleaned_reviews_example$beer_name[2]` will be a low number (negative), while the rating of `r cleaned_reviews_example$beer_name[3]` will be much more positive.  And, indeed, this is the case:
-
-```{r the numeric part of our data}
-cleaned_reviews_example %>% 
-  select(beer_name, appearance:rating)
-```
-
-But what part of the structure of the `reviews` text actually tells us this?  This is a complicated topic that is well beyond the scope of this workshop--we are going to propose a single approach based on **tokenization** that is effective, but is certainly not exhaustive.  
-
-If you are interested in a broader view of approaches to text analysis, I recommend the seminal textbook from [Jurafsky and Martin, *Speech and Language Processing*](https://web.stanford.edu/~jurafsky/slp3/), especially chapters 2-6.  The draft version is freely available on the web as of the date of this workshop.  
-
-In the first half of this workshop we reviewed the `tidyverse` approach to data, in which we emphasized an approach to data in which:
-
-> *  Each variable is a column
-> *  Each observation is a row
-> *  Each type of observational unit is a table
-
-This type of approach can be applied to text data **if we can specify a way to standardize the "observations" within the text**.  We will be applying and demonstrating the approach defined and promoted by [Silge and Robinson in *Text Mining with R*](https://www.tidytextmining.com/index.html), in which we will focus on the following syllogism to create tidy text data:
-
-<center>
-`observation == token`
-</center>
-
-A **token** is a *meaningful* unit of text, usually but not always a single word, which will be the observation for us.  In our example data, let's identify some possible tokens:
-
-```{r what does text data look like?}
-cleaned_reviews_example$cleaned_review[1]
-```
-
-We will start with only examining single words, also called "**unigrams**" in the linguistics jargon.  Thus, `Medium`, `straw`, and `cloudy` are the first tokens in this dataset.  We will mostly ignore punctuation and spacing, which means we are giving up some meaning for convenience.
-
-We could figure out how to manually break this up into tokens with enough work, using functions like `str_separate()`, but happily there are a large set of competing `R` tools for tokenization, for example:
-
-```{r a viewable tokenization example}
-cleaned_reviews_example$cleaned_review[1] %>%
-  tokenizers::tokenize_words(simplify = TRUE)
-```
-
-Note that this function also (by default) turns every word into its lowercase version (e.g., `Medium` becomes `medium`) and strips out punctuation.  This is because, to a program like `R`, upper- and lowercase versions of the same string are *not* equivalent.  If we have reason to believe preserving this difference is important, we might want to rethink allowing this behavior.
-
-Now, we have 46 observed tokens for our first review in our example dataset.  But of course this is not super interesting--we need to apply this kind of transformation to every single one of our ~20,000 reviews.  With some fiddling around with `mutate()` we might be able to come up with a solution, but happily this is where we start using the `tidytext` package.  The `unnest_tokens()` function built into that package will allow us to transform our text directly into the format we want, with very little effort.
-
-```{r tokenizing our entire data set into words}
-beer_data_tokenized <-
-  beer_data %>%
-  # We may want to keep track of a unique ID for each review
-  mutate(review_id = row_number()) %>%
-  unnest_tokens(output = token,
-                input = cleaned_review,
-                token = "words") %>%
-  # Here we do a bit of extra cleaning
-  mutate(token = str_remove_all(token, "\\.|_"))
-
-beer_data_tokenized %>%
-  # We show just a few of the columns for printing's sake
-  select(beer_name, rating, token)
-```
-
-The `unnest_tokens()` function actually applies the `tokenizers::tokenize_words()` function in an efficient, easy way: it takes a column of raw `character` data and then tokenizes it as specified, outputting a tidy format of 1-token-per-row.  Now we have our observations (tokens) each on its own line, ready for further analysis.
-
-In order to make what we're doing easier to follow, let's also take a look at our example data.
-
-```{r what does tidy tokenized data look like}
-cleaned_reviews_tokenized <- 
-  cleaned_reviews_example %>%
-  unnest_tokens(input = cleaned_review, output = token) %>%
-  # Here we do a bit of extra cleaning
-  mutate(token = str_remove_all(token, "\\.|_"))
-
-cleaned_reviews_tokenized %>%
-  filter(beer_name == "Kozel") %>%
-  # Let's select a few variables for printing
-  select(beer_name, rating, token)
-```
-
-When we use `unnest_tokens()`, all of the non-text data gets treated as information about each token--so `beer_name`, `rating`, etc are duplicated for each token that now has its own row.  This will allow us to perform a number of types of text analysis.
-
-### A quick note: saving data
-
-We've talked about wanting to clear our workspace from `R` in between sessions to make sure our work and code are reproducible.  But at this point we've done a lot of work, and we might want to save this work for later.  Or, we might want to share our work with others.  The `tidyverse` has a good utility for this when we're working with data frames and tibbles: the `write_csv()` function is the opposite of the `read_csv()` function we've gotten comfortable with: it takes a data frame and writes it into a `.csv` file that is easily shared with others or reloaded in a later session.
-
-```{r example of writing csv files, eval=FALSE}
-# Let's store our cleaned and tokenized reviews
-write_csv(x = beer_data_tokenized, file = "data/tokenized_beer_reviews.csv")
-```
-
-## Text Analysis Pt. II: Basic text analysis approaches using tokens
-
-We've now seen how to import and clean text, and to transform text data into one useful format for analysis: a tidy table of tokens.  (There are certainly other useful formats, but we will not be covering them here.)
-
-Now we get to the actually interesting part.  We're going to tackle some basic but powerful approaches for parsing the meaning of large volumes of text.
-
-### Word counts
-
-A common approach for getting a quick, analytic summary of the nature of the tokens (observations) in our reviews might be to look at the frequency of word use across reviews: this is pretty closely equivalent to a Check-All-That-Apply (CATA) framework: we will look how often each term is used, and will then extend this to categories of interest to our analysis.  So, for example, we might have hypotheses like the following that we could hope to investigate using word frequencies:
-
-1.  Overall, flavor words are the most frequently used words in reviews of beer online.
-2.  The frequency of flavor-related words will be different for major categories of beer, like "hop"-related words for IPAs and "chocolate"/"coffee" terms for stouts.
-3.  The top flavor words will be qualitatively more positive for reviews associated with the top 10% of ratings, and negative for reviews associated with the bottom 10%.
-
-I will not be exploring each of these in this section of the workshop because of time constraints, but hopefully you'll be able to use the tools I will demonstrate to solve these problems on your own.
-
-Let's start by combining our tidy data wrangling skills from `tidyverse` with our newly tidied text data from `unnest_tokens()` to try to test the first answer.
-
-```{r what are the most frequent words in our beer data}
-beer_data_tokenized %>%
-  # The count() function gives the number of rows that contain unique values
-  count(token) %>%
-  # get the 20 most frequently occurring words
-  slice_max(order_by = n, n = 20) %>%
-  # Here we do some wrangling for visualization
-  mutate(token = as.factor(token) %>% fct_reorder(n)) %>%
-  # let's visualize this just for fun
-  ggplot(aes(x = token, y = n)) + 
-  geom_col() + 
-  coord_flip() + 
-  theme_bw() +
-  labs(x = NULL, y = NULL, title = "The 20 most frequent words are not that useful.")
-```
-
-Unfortunately for our first hypothesis, we have quickly encountered a common problem in token-based text analysis.  The most frequent words in most languages are "helper" words that are necessary for linguistic structure and communication, but are not unique to a particular topic or context.  For example, in English the articles `a`, and `the` tend to be the most frequent tokens in any text because they are so ubiquitous.
-
-It takes us until the 15th most frequent word, `head`, to find a word that might have sensory or product implications.
-
-So, in order to find meaning in our text, we need to find some way to look past these terms, whose frequency vastly outnumbers words we are actually interested in.
-
-#### "stop words"
-
-In computational linguistics, this kind of word is often called a **stop word**: a word that is functionally important but does not tell us much about the meaning of the text.  There are many common lists of such stop words, and in fact the `tidytext` package provides one such list in the `stop_words` tibble:
-
-```{r stop words look like:}
-stop_words
-```
-
-The most basic approach to dealing with stop words is just to outright remove them from our data.  This is easy when we've got a tidy, one-token-per-row structure.
-
-We could use some version of `filter()` to remove stop words from our `beer_data_tokenized` tibble, but this is exactly what the `anti_join()` function (familiar to those of you who have used SQL) will do: with two tibbles, `X` and `Y`, `anti_join(X, Y)` will remove all rows in `X` that match rows in `Y`.
-
-```{r what are the most frequent NON stop words in beer data}
-beer_data_tokenized %>%
-  # "by = " tells what column to look for in X and Y
-  anti_join(y = stop_words, by = c("token" = "word")) %>%
-  count(token) %>%
-  # get the 20 most frequently occurring words
-  slice_max(order_by = n, n = 20) %>%
-  # Here we do some wrangling for visualization
-  mutate(token = as.factor(token) %>% fct_reorder(n)) %>%
-  # let's visualize this just for fun
-  ggplot(aes(x = token, y = n)) + 
-  geom_col() + 
-  coord_flip() + 
-  theme_bw() +
-  labs(x = NULL, y = NULL, title = "These tokens are much more relevant.", subtitle = "We removed ~1200 stop words.")
-```
-
-Now we are able to address our very first hypothesis: while the most common term (beer) might be in fact a stop word for this data set, the next 11 top terms all seem to have quite a lot to do with flavor.
-
-We can extend this approach just a bit to provide the start of one answer to our second question: are there different most-used flavor terms for different beer styles?  We can start to tackle this by first defining a couple of categories (since there are a lot of different styles in this dataset):
-
-```{r what beer styles are in our beer data}
-beer_data %>%
-  count(style)
-```
-
-Let's just look at the categories I suggested, plus "lager".  We will do this by using mutate to create a `simple_style` column:
-
-```{r what words are associated with some basic beer styles}
-# First, we'll make sure our approach works
-beer_data %>%
-  # First we will set our style to lower case to make matching easier
-  mutate(style = tolower(style),
-         # Then we will use a conditional match to create our new style
-         simple_style = case_when(str_detect(style, "lager") ~ "lager",
-                                  str_detect(style, "ipa") ~ "IPA",
-                                  str_detect(style, "stout|porter") ~ "dark",
-                                  TRUE ~ "other")) %>%
-  count(simple_style)
-
-# Then we'll implement the approach for our tokenized data
-beer_data_tokenized <- 
-  beer_data_tokenized %>%
-  mutate(style = tolower(style),
-         # Then we will use a conditional match to create our new style
-         simple_style = case_when(str_detect(style, "lager") ~ "lager",
-                                  str_detect(style, "ipa") ~ "IPA",
-                                  str_detect(style, "stout|porter") ~ "dark",
-                                  TRUE ~ "other")) 
-
-# Finally, we'll plot the most frequent terms for each simple_style
-beer_data_tokenized %>%
-  # filter out stop words
-  anti_join(stop_words, by = c("token" = "word")) %>%
-  # This time we count tokens WITHIN simple_style
-  count(simple_style, token) %>%
-  # Then we will group_by the simple_style
-  group_by(simple_style) %>%
-  slice_max(order_by = n, n = 20) %>%
-  # Removing the group_by is necessary for some steps
-  ungroup() %>%
-  # A bit of wrangling for plotting
-  mutate(token = as.factor(token) %>% reorder_within(by = n, within = simple_style)) %>%
-  ggplot(aes(x = token, y = n, fill = simple_style)) +
-  geom_col(show.legend = FALSE) + 
-  facet_wrap(~simple_style, scales = "free", ncol = 4) + 
-  scale_x_reordered() + 
-  theme_bw() + 
-  coord_flip() +
-  labs(x = NULL, y = NULL, title = "Different (sensory) words tend to be used with different styles.") +
-  theme(axis.text.x = element_text(angle = 90))
+berry_data <- read_csv("data/clt-berry-data.csv")
 ```

@@ -42,7 +42,7 @@ We are trying to make this tutorial accessible to a broad audience, so while som
 
 # What we will *not* be covering:
 
-* Statistical theory (including for Correspondance Analysis)
+* Statistical theory (including for Correspondence Analysis)
 * How to write these kinds of web-friendly documents and bookdowns
 * Production programming for R
 * All possible data types

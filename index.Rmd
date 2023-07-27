@@ -42,10 +42,17 @@ Today's workshop is going to take ~3 hours, with a break for lunch, and we'll be
 2.  Creating, importing, and manipulating data in R
 3.  Principles of tidy data analysis using `tidyverse`
   1. What is tidy data?
-  2. Data wrangling
-  3. Working with binary, count, and character data
-  4. Untidying & Retidying data
-4.  Basics of data visualization in `R`/`ggplot2`
+  2. Subsetting data
+  3. Workflows
+  4. Combining and altering data
+  5. Split-apply-combine
+  6. Wider and longer data
+  7. Other data-wrangling utilities
+4.  Data analysis outside the `tidyverse`
+  1. Correspondence Analysis overview
+  2. Working with binary, count, and character data
+  3. Untidying & Retidying data
+5.  Basics of data visualization in `R`/`ggplot2`
   1. Built-in plots using ca package
   2. Customizing plots with ggplot2
   

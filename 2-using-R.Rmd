@@ -211,7 +211,7 @@ str(animals)
 
 This `str()` function is especially useful when we have big, complicated datasets, like `berry_data`:
 
-```{r examining our beer data}
+```{r examining our berry data}
 str(berry_data)
 ```
 
