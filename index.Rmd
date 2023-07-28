@@ -15,7 +15,6 @@ github-repo: lhami/pangborn-tutorial-2023
 
 ```{r setup, include = FALSE}
 library(tidyverse)
-library(tidytext)
 berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
