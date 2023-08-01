@@ -1,0 +1,234 @@
+# Wrangling data with `tidyverse`
+
+```{r setup, include = FALSE}
+library(tidyverse)
+berry_data <- read_csv("data/clt-berry-data.csv")
+```
+
+## Groups of columns and across()
+
+It's more common to have groups of **observations** in tidy data, reflected by categorical variables--each `Subject Code` is a group, each `berry` type is a group, each `testing_day` is a group, etc. But we can also have groups of **variables**, as we do in the `berry_data` we've been using!
+
+We have a group of `cata_` variables, a group of liking data with subtypes `9_pt`, `lms_`, `us_`, `_overall`, `_appearance`, etc...
+
+What if we want to count the total number of times each `cata_` attribute was 
+
+Well, we *can* do this with `summarize()` or its cousin `count()`, but we'd have to 
+
+## Pivot tables- wider and longer data
+
+Users of Excel may be familiar with the idea of pivot tables.  These are functions that let us make our data tidier.  To quote Wickham and Grolemund:
+
+> here are three interrelated rules which make a dataset tidy:
+>
+> 1.  Each variable must have its own column.
+> 2.  Each observation must have its own row.
+> 3.  Each value must have its own cell.
+
+While these authors present "tidiness" of data as an objective property, I'd argue that data is always tidy **for a specific purpose**.  For example, our data is relatively tidy with one row per tasting event (one person tasting one berry), but this data still has an unruly number of variables (92 columns!!). You've already learned some tricks for dealing with large numbers of columns at once like `across()` and other functions using select helpers, but we have to do this *every time* we use `mutate()`, `summarize()`, or a similar function.
+
+We could also treat the attribute or question as an independent variable affecting the response. If we take this view, then the tidiest dataset actually has one row for each person's response to a single `question`. If we want to make plots or do other modelling, this **longer** form is often more tractable and lets us do operations on the whole dataset with less code.
+
+We can use the `pivot_longer()` function to change our data to make the implicit variable explicit and to make our data tidier.
+
+```{r pivoting data tables}
+berry_data %>%
+  select(`Subject Code`, `Sample Name`, berry, starts_with("cata_"), starts_with("9pt")) %>% # for clarity
+  pivot_longer(cols = starts_with("cata_"),
+               names_prefix = "cata_",
+               names_to = "attribute",
+               values_to = "presence") -> berry_data_cata_long
+#The names_prefix will be *removed* from the start of every column name
+#before putting the rest of the name in the `names_to` column
+
+berry_data_cata_long
+```
+
+Remember that `tibble`s and `data.frame`s can only have one data type per column (`logical > integer > numeric > character`), however! If we have one row for each CATA, JAR, hedonic scale, AND free response question, the `value` column would have a mixture of different data types. This is why we have to tell `pivot_longer()` which `cols` to pull the `names` and `values` from.
+
+Now for each unique combination of `Sample Name` and `Subject Code`, we have 36 rows, one for each CATA question that was asked. The variables that weren't listed in the `cols` argument are just replicated on each of these rows. Each of the 36 rows that represent `Subject Code` 1001's CATA responses for `raspberry 6` has the same `Subject Code`, `Sample Name`, `berry`, and various `9pt_` ratings as the other 35.
+
+Sometimes we want to have "wider" or "untidy" data.  We can use `pivot_wider()` to reverse the effects of `pivot_longer()`.
+
+```{r reversing the effects of pivot_longer() with pivot_wider()}
+berry_data_cata_long %>%
+  pivot_wider(names_from = "attribute",
+              values_from = "presence",
+              names_prefix = "cata_") #pivot_wider *adds* the names_prefix
+```
+
+Pivoting is an incredibly powerful and incredibly common data manipulation technique that will become even more powerful when we need to make complex graphs later. Different functions and analyses may require the data in different longer or wider formats, and you will often find yourself starting with even less tidy data than what we've provided.
+
+For an example of this power, let's imagine that we want to compare the 3 different liking scales by normalizing each by the `mean()` and `sd()` of that particular scale, then comparing average liking for each attribute of each berry across the three scales.
+
+```{r}
+berry_data %>%
+  pivot_longer(cols = starts_with(c("9pt_","lms_","us_")),
+               names_to = c("scale", "attribute"),
+               names_sep = "_",
+               values_to = "rating",
+               values_drop_na = TRUE) %>%
+  group_by(scale) %>%
+  mutate(normalized_rating = (rating - mean(rating)) / sd(rating)) %>%
+  group_by(scale, attribute, berry) %>%
+  summarize(avg_liking = mean(normalized_rating)) %>%
+  pivot_wider(names_from = scale,
+              values_from = avg_liking)
+```
+
+While pivoting may seem simple at first, it can also get pretty confusing! That example required two different pivots! We'll be using these tools throughout the rest of the tutorial, so I wanted to give exposure, but mastering them takes trial and error. I recommend taking a look at the [relevant chapter in Wickham and Grolemund](https://r4ds.had.co.nz/tidy-data.html) for details.
+
+## Utilities for data management
+
+Honestly, the amount of power in `tidyverse` is way more than we can cover today, and is covered more comprehensively (obviously) by [Wickham and Grolemund](https://r4ds.had.co.nz/).  However, I want to name a few more utilities we will make a lot of use of today (and you will want to know about for your own work).
+
+### Rename your columns
+
+Often you will import data with bad column names or you'll realize you need to rename variables during your workflow. This is one way to get around having to type a bunch of backticks forever. For this, you can use the `rename()` function:
+
+```{r renaming columns}
+names(berry_data)
+
+berry_data %>%
+  rename(Sample = `Sample Name`,
+         Subject = `Participant Name`) %>%
+  select(Subject, Sample, everything()) #no more backticks!
+```
+
+You can also rename by position, but be sure you have the right order and don't change the input data later:
+
+```{r rename() works with positions as well as explicit names}
+berry_data %>%
+  rename(Subject = 1)
+```
+
+### Relocate your columns
+
+If you `mutate()` columns or just have a big data set with a lot of variables, often you want to move columns around.  This is a pain to do with `[]`, but again `tidyverse` has a utility to move things around easily: `relocate()`.
+
+```{r reordering columns in a tibble}
+berry_data %>%
+  relocate(`Sample Name`) # giving no other arguments will move to front
+```
+
+You can also use `relocate()` to specify positions
+
+```{r using relative positions with relocate()}
+berry_data %>%
+  relocate(Gender, Age, `Subject Code`, `Start Time (UTC)`, `End Time (UTC)`, `Sample Identifier`, .after = berry) # move repetitive and empty columns to the end
+```
+
+### Remove missing values
+
+Missing values (the `NA`s you've been seeing so much) can be a huge pain, because they make more of themselves.
+
+```{r missing values make more of themselves}
+mean(berry_data$price) #This column had no NAs, so we can take the average
+mean(berry_data$`9pt_overall`) #This column has some NAs, so we get NA
+```
+Many base R functions that take a vector and return some mathematical function (e.g., `mean()`, `sum()`, `sd()`) have an argument called `na.rm` that can be set to just act as if the values aren't there at all.
+
+```{r na.rm in base R functions}
+mean(berry_data$`9pt_overall`, na.rm = TRUE) #We get the average of only the valid numbers
+sum(berry_data$`9pt_overall`, na.rm = TRUE) /
+  length(berry_data$`9pt_overall`) #The denominator is NOT the same as the total number of values anymore
+sum(berry_data$`9pt_overall`, na.rm = TRUE) /
+  sum(!is.na(berry_data$`9pt_overall`)) #The denominator is the number of non-NA values
+```
+However, this isn't always convenient. Sometimes it may be easier to simply get rid of all observations with any missing values, which tidyverse has a handy `drop_na()` function for:
+
+```{r removing rows with na values}
+berry_data %>%
+  drop_na() #All of our rows have *some* NA values, so this returns nothing
+
+berry_data %>%
+  select(`Participant Name`, `Sample Name`, contains("9pt_")) %>%
+  drop_na() #Now we get only respondants who answered all 9-point liking questions.
+```
+
+Or you may want to remove any columns/variables that have some missing data, which is one of the most common uses of `where()`:
+
+```{r removing columns with missing values}
+berry_data %>%
+  select(where(~!any(is.na(.)))) #Only 38 columns with absolutely no missing values.
+#This loses all of the liking data.
+```
+
+Both of the above methods guarantee that you will have an output with absolutely no missing data, but may be over-zealous if, say, everyone answered overall liking on one of the three scales and we want to do some work to combine those later. `filter()` and `select()` can be combined to do infinitely complex missing value removal.
+
+```{r removing rows that don't have at least one non-missing aroma liking rating}
+berry_data %>%
+  select(where(~!all(is.na(.)))) %>% #remove columns with no data
+  filter(!(is.na(`9pt_aroma`) & is.na(lms_aroma) & is.na(us_aroma)))
+#You'll notice that this is all strawberries, actually
+```
+
+### Counting categorical variables
+
+Often, we'll want to count how many observations are in a group without having to actually count ourselves. Do we have enough observations for each sample? How many people in each demographic category do we have? Is it balanced?
+
+You've already written code to do this, if you've been following along! `summarize()` is incredibly powerful, and it will happily use *any* function that takes a vector or vectors and returns a single value. This includes categorical or `chr` data!
+
+```{r using summarize() to count responses}
+berry_data %>%
+  group_by(`Sample Name`) %>%
+  summarize(n_responses = n())
+```
+
+We can also do this with a little less typing using `count()`, which is handy if we're repeatedly doing a lot of counting observations in various categories (like for CATA tests and Correspondence Analyses):
+
+```{r using count() to count responses}
+berry_data %>%
+  count(`Sample Name`) #Counts the number of observations (rows) of each berry
+
+berry_data %>%
+  count(berry) #Number of observations, *not necessarily* the number of participants!
+```
+
+Depending on the shape of your data, the number of rows may or may not be the count you actually want. Maybe we want to know how many people participated in each day of testing, but we have one row per *tasting event*.
+
+We could use `pivot_wider()` to reshape our data first, so we have one row per *completed tasting session*, but since `count()` drops most columns anyways, we only really need one row for each thing we care about. `distinct()` can be handy here. It keeps one row for each **distinct** combination of the columns you give it, getting rid of all other columns so it doesn't have to worry about the fact that one person gave multiple different `9pt_overall` ratings per `test_day`.
+
+```{r easy counting with distinct() and count()}
+berry_data %>%
+  distinct(test_day, `Subject Code`)
+#Two columns, with one row for each completed tasting session
+#(each reflects 5-6 rows in the initial data)
+
+berry_data %>%
+  distinct(test_day, `Subject Code`) %>%
+  count(test_day)
+#Counts the number of participants per testing day
+```
+
+### Sort your data
+
+More frequently, we will want to rearrange our rows, which can be done with `arrange()`.  All you have to do is give `arrange()` one or more columns to sort the data by.  You can use either the `desc()` or the `-` shortcut to sort in reverse order. Whether ascending or descending, `arrange()` places missing values at the bottom.
+
+```{r arrange() lets you sort your data}
+berry_data %>%
+  arrange(desc(lms_overall)) %>% # which berries had the highest liking on the lms?
+  select(`Sample Name`, `Participant Name`, lms_overall)
+```
+
+You can sort alphabetically as well:
+
+```{r arrange() works on both numeric and character data}
+tibble(state_name = state.name, area = state.area) %>% # using a dataset of US States for demonstration
+  arrange(desc(state_name))                            # sort states reverse-alphabetically
+```
+
+It's not a bad idea to restart your R session here.  Make sure to save your work, but a clean `Environment` is great when we're shifting topics.
+
+You can accomplish this by going to `Session > Restart R` in the menu.
+
+Then, we want to make sure to re-load our packages and import our data.
+
+```{r making sure that we have loaded all packages and data}
+# The packages we're using
+library(tidyverse)
+library(ca)
+
+# The dataset
+berry_data <- read_csv("data/clt-berry-data.csv")
+```

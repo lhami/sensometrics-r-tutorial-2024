@@ -2,14 +2,14 @@
 
 ```{r setup, include = FALSE}
 library(tidyverse)
-beer_data <- read_csv("data/clt-berry-data.csv")
+berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
 A common saying in data science is that about 90% of the effort in an analysis workflow is in getting data wrangled into the right format and shape, and 10% is actual analysis.  In a point and click program like SPSS or XLSTAT we don't think about this as much because the activity of reshaping the data--making it longer or wider as required, finding and cleaning missing values, selecting columns or rows, etc--is often temporally and programmatically separated from the "actual" analysis. 
 
 In `R`, this can feel a bit different because we are using the same interface to manipulate our data and to analyze it.  Sometimes we'll want to jump back out to a spreadsheet program like Excel or even the command line (the "shell" like `bash` or `zsh`) to make some changes.  But in general the tools for manipulating data in `R` are both more powerful and more easily used than doing these activities by hand, and you will make yourself a much more effective analyst by mastering these basic tools.
 
-Here, we are going to emphasize the set of tools from the [`tidyverse`](https://www.tidyverse.org/), which are extensively documented in Hadley Wickham's and Garrett Grolemund's book [*R for Data Science*](https://r4ds.had.co.nz/).  If you want to learn more, start there!
+Here, we are going to emphasize the set of tools from the [`tidyverse`](https://www.tidyverse.org/), which are extensively documented in Hadley Wickham and Garrett Grolemund's book [*R for Data Science*](https://r4ds.had.co.nz/).  If you want to learn more, start there!
 
 <center>
 
@@ -21,19 +21,19 @@ Before we move on to actually learning the tools, let's make sure we've got our 
 
 ```{r reload the berry data in case you started your session over}
 library(tidyverse)
-beer_data <- read_csv("data/clt-berry-data.csv")
+berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
 
 ## Subsetting data
 
-R's system for **indexing** data frames is clear and sensible for those who are used to programming languages, but it is not necessarily easy to read.  
+R's system for **indexing** data frames is clear and sensible for those who are used to programming languages, but not necessarily easy to read.  
 
-A common situation in R is wanting to select some rows and some columns of our data--this is called "**subsetting**" our data.  But this is less easy than it might be for the beginner in R.  Happily, the `tidverse` methods are much easier to read (and modeled after syntax from **SQL**, which may be helpful for some users.)  We are going to focus on 
+A common situation in R is wanting to select some rows and some columns of our data--this is called "**subsetting**" our data.  But this is less easy than it might be for the beginner in R.  Happily, the `tidverse` methods are much easier to read (and modeled after syntax from **SQL**, which may be helpful for some users). Starting with...
 
 ### `select()` for columns
 
-The first thing we often want to do in a data analysis is to pick a subset of columns, which usually represent variables.  If we take a look at our beer data, we see that, for example, we have some columns that contain the answers to survey questions, some columns that are about the test day or panelist, and some that identify the panelist or berry:
+The first thing we often want to do in a data analysis is to pick a subset of columns, which usually represent variables.  If we take a look at our berry data, we see that, for example, we have some columns that contain the answers to survey questions, some columns that are about the test day or panelist, and some that identify the panelist or berry:
 
 ```{r use glimpse() to examine the berry data}
 glimpse(berry_data)
@@ -45,7 +45,7 @@ So, for example, we might want to determine whether there are differences in lik
 berry_data[, c(10,25,28,45,56:64,81,89:91)]
 ```
 
-However, this is both difficult for novices to `R` and difficult to read if you are not intimately familiar with the data.  It is also rather fragile--what if someone else rearranged the data in your import file?  You're just selecting the last 6 columns, which are not guaranteed to contain the rating data you're interested in. Not to mention all of the counting was annoying!
+However, this is both difficult for novices to `R` and difficult to read if you are not intimately familiar with the data.  It is also rather fragile--what if someone else rearranged the data in your import file?  You're just selecting columns by their order, so column 91 is not guaranteed to contain the berry type every time. Not to mention all of the counting was annoying!
 
 Subsetting using names is a little more stable, but still not that readable and takes a lot of typing.
 
@@ -57,7 +57,7 @@ berry_data[, c("9pt_aroma","9pt_overall","9pt_taste","9pt_texture","9pt_appearan
 ```
 
 
-The `select()` function in `tidyverse` (actually from the `dplyr` package) is the smarter, easier way to do this.  It works on data frames, and it can be read as "from \<data frame\>, select the columns that meet the criteria we've set."
+The `select()` function in `tidyverse` (actually from the `dplyr` package) is the smarter, easier way to do this.  It works on data frames, and it can be read as "`select()` the columns from \<data frame\> that meet the criteria we've set."
 
 `select(<data frame>, <column 1>, <column 2>, ...)`
 
@@ -70,14 +70,14 @@ select(berry_data, berry, test_day,
 
 This is much clearer to the reader.
 
-Getting rid of the double quotes around `"column names"` we saw before can have some consequences, though. R variable names can *only* contain letters, numbers, and underscores (_), no spaces ( ) or dashes (-), and can't start with numbers, but the tidyverse *will* let you make column names that break these rules. So if you try to do the exact same thing as before to get the data from the 9-point hedonic scale instead of the labeled magnitude scale:
+Getting rid of the double quotes we previously saw around `"column names"` can have some consequences, though. R variable names can *only* contain letters, numbers, and underscores (_), no spaces ( ) or dashes (-), and can't start with numbers, but the tidyverse *will* let you make column names that break these rules. So if you try to do the exact same thing as before to get the data from the 9-point hedonic scale instead of the labeled magnitude scale:
 
 ```{r errors from select() with unusual column names}
 select(berry_data, berry, test_day,
        9pt_aroma, 9pt_overall, 9pt_taste, 9pt_texture, 9pt_appearance) # this will cause an error
 ```
 
-You'll run into an error. The solution to this is a different kind of quote called a backtick (`) which is usually next to the number 1 key in the very top left of QWERTY (US and UK) keyboards. On QWERTZ and AZERTY keyboards, it may be next to the backspace key or one of the alternate characters made by the 7 key. Look [at this page](https://superuser.com/questions/254076/how-do-i-type-the-tick-and-backtick-characters-on-windows) for help finding it in common international keyboard layouts.
+You'll run into an error. The solution to this is a different kind of quote called a backtick (`) which is usually next to the number 1 key in the very top left of QWERTY (US and UK) keyboards. On QWERTZ and AZERTY keyboards, it may be next to the backspace key or one of the alternate characters made by the 7 key. Look [at this guide](https://superuser.com/questions/254076/how-do-i-type-the-tick-and-backtick-characters-on-windows) for help finding it in common international keyboard layouts.
 
 ```{r using select() with escaped column names}
 select(berry_data, berry, test_day, #these ruly column names don't need escaping
@@ -86,7 +86,7 @@ select(berry_data, berry, test_day, #these ruly column names don't need escaping
        `Sample Name`) #or containing spaces
 ```
 
-The backticks are only necessary when a column name breaks one of the variable-naming rules, and RStudio will fill them in for you if you use tab autocompletion when writing your select() and other tidyverse functions.
+The backticks are only necessary when a column name breaks one of the variable-naming rules, and RStudio will usually fill them in for you if you use tab autocompletion when writing your select() and other tidyverse functions.
 
 You can also use `select()` with a number of helper functions, which use logic to select columns that meet whatever conditions you set.  For example, the `starts_with()` helper function lets us give a set of characters we want columns to start with:
 
@@ -94,7 +94,7 @@ You can also use `select()` with a number of helper functions, which use logic t
 select(berry_data, starts_with("lms_")) #the double-quotes are back because this isn't a full column name
 ```
 
-There are equivalents for the end of column names (`ends_with()`) and text found anywhere in the name (`contains()`). 
+There are equivalents for the end of column names (`ends_with()`) and text found anywhere in the name (`contains()`).
 
 You can combine these statements together to get subsets of columns however you want:
 
@@ -127,7 +127,7 @@ Besides being easier to write conditions for than indexing with `[]`, `select()`
 
 ### `filter()` for rows
 
-So `select()` lets us pick which columns we want.  Can we also use it to pick particular observations?  No.  But for that, there's `filter()`.
+So `select()` lets us pick which columns we want.  Can we also use it to pick particular observations?  No.  For that, there's `filter()`.
 
 We learned that, using `[]` indexing, we'd specify a set of rows we want.  If we want the first 10 rows of `berry_data`, we'd write
 
@@ -173,7 +173,7 @@ Here, the `str_detect()` function searched for any text that **contains** "Day 1
 
 It isn't hard to imagine a situation in which we want to **both** `select()` some columns and `filter()` some rows.  There are 3 ways we can do this, one of which is going to be the best for most situations.
 
-Let's imagine we want to get only information about the berries, overall liking, and cata attributes for blackberries
+Let's imagine we want to get only information about the berries, overall liking, and CATA attributes for blackberries.
 
 First, we can nest functions:
 
@@ -200,13 +200,12 @@ rm(blackberries)
 
 The final method, and what is becoming standard in modern `R` coding, is the **pipe**, which is written in `tidyverse` as `%>%`.  This garbage-looking set of symbols is actually your best friend, you just don't know it yet.  I use this tool constantly in my R programming, but I've been avoiding it up to this point because it wasn't a part of base R for the vast majority of its history.
 
-
 OK, enough background, what the heck _is_ a pipe?  The term "pipe" comes from what it does: like a pipe, `%>%` let's whatever is on it's left side flow through to the right hand side.  It is easiest to read `%>%` as "**AND THEN**". 
 
 ```{r the mighty pipe!}
 berry_data %>%                             # Start with the berry_data
   filter(berry == "blackberry") %>%        # AND THEN filter to blackberries
-  select(`Sample Name`,                    # AND THEN select sample name, overall liking, etc
+  select(`Sample Name`,                    # AND THEN select sample name, overall liking...
          contains("_overall"), contains("cata_"))
 ```
 
@@ -290,21 +289,20 @@ What does the above function do?
 
 `mutate()` is a very easy way to edit your data mid-pipe.  So we might want to do some calculations, create a temporary variable using `mutate()`, and then continue our pipe.  **Unless we use `<-` to store our `mutate()`d data, the results will be only temporary.**
 
-We can use the same kind of functional logic we've been using in other `tidyverse` commands in `mutate()` to get real, powerful results.  For example, we might want to know if a beer is rated better than the `mean()` of the ratings.  We can do this easily using `mutate()`:
+We can use the same kind of functional logic we've been using in other `tidyverse` commands in `mutate()` to get real, powerful results.  For example, it might be easier to interpret the individual ratings on the 9-point scale if we can compare them to the `mean()` of all berry ratings.  We can do this easily using `mutate()`:
 
 ```{r mutate() makes new columns}
 # Let's find out the average (mean) rating for the berries on the 9-point scale
-berry_data$`9pt_overall` %>% #we need the backticks for $ subsetting just like for tidy-selecting 
+berry_data$`9pt_overall` %>% #we need the backticks for $ subsetting whenever we'd need them for tidy-selecting 
   mean(na.rm = TRUE)
 
-# Now, let's create a column that tells us if a beer is rated > average
+# Now, let's create a column that tells us how far each rating is from to the average
 berry_data %>%
-  mutate(better_than_average = `9pt_overall` > mean(`9pt_overall`, na.rm = TRUE)) %>%
+  mutate(difference_from_average = `9pt_overall` - mean(`9pt_overall`, na.rm = TRUE)) %>%
   # Again, let's select just a few columns
-  select(`Sample Name`, `9pt_overall`, better_than_average)
+  select(`Sample Name`, `9pt_overall`, difference_from_average)
 ```
-
-## Split-apply-combine analyses with `group_by()` and `summarize()`
+## Split-apply-combine analyses
 
 Many basic data analyses can be described as *split-apply-combine*: *split* the data into groups, *apply* some analysis into groups, and then *combine* the results.
 
@@ -316,13 +314,49 @@ However, `tidyverse` provides two powerful tools to do this kind of analysis:
 2.  The `summarize()` function is like `mutate()` for groups created with `group_by()`: 
   1.  First, you specify 1 or more new columns you want to calculate for each group
   2.  Second, the function produces 1 value for each group for each new column
-  
+
+### Groups of data: Split-apply
+
+The first of these tools is `group_by()`, which you *can* use with `mutate()` if you want to use both individual observed values (one per row) and groupwise summary statistics to calculate a new column.
+
+If we wanted to make a column that shows how each individual person's rating differs from the mean of *that specific berry sample*:
+
+```{r mutate() using group means}
+berry_data %>%
+  group_by(`Sample Name`) %>%
+  mutate(difference_from_average = `9pt_overall` - mean(`9pt_overall`, na.rm = TRUE)) %>%
+  # Again, let's select just a few columns
+  select(`Sample Name`, `9pt_overall`, difference_from_average)
+```
+
+You might notice that the `mutate()` call hasn't been changed at all from when we did this in the last code chunk using the global average, but that the numbers are in fact different. The tibble also now tells us that it has `Groups: Sample Name[23]`, because of our group_by() call.
+
+It's good practice to `ungroup()` as soon as you're done calculating groupwise statistics, so you don't cause unexpected problems later in the analysis.
+
+```{r Grouped and ungrouped averages}
+berry_data %>%
+  select(`Sample Name`, `9pt_overall`) %>%
+  group_by(`Sample Name`) %>%
+  mutate(group_average = mean(`9pt_overall`, na.rm = TRUE),
+         difference_from_average = `9pt_overall` - group_average) %>%
+  ungroup() %>%
+  mutate(grand_average = mean(`9pt_overall`, na.rm = TRUE))
+```
+
+You'll see that the `Groups` info at the top of the tibble is gone, and that thanks to `ungroup()` every single row has the same grand average.
+
+### Split-apply-combine in fewer steps with `summarize()`
+
+So why would we want to use `summarize()`? Well, it's not very convenient to have repeated data if we just want the average rating of each group (or any other groupwise **summary**).
+
+Use `mutate()` when you want to add a **new column with one number for each current row**. Use `summarize()` when you need to use data from **multiple rows to create a summary**.
+
 To accomplish the example above, we'd do the following:
 
 ```{r split-apply-combine pipeline example}
 berry_summary <- 
   berry_data %>%
-  filter(!is.na(`9pt_overall`)) %>%
+  filter(!is.na(`9pt_overall`)) %>%                    # only rows with 9-point ratings
   group_by(`Sample Name`) %>%                          # we will create a group for each berry sample
   summarize(n_responses = n(),                         # n() counts number of ratings for each berry
             mean_rating = mean(`9pt_overall`),         # the mean rating for each species
@@ -351,180 +385,3 @@ berry_summary %>%
 
 Note that in the above example we use `mutate()`, *not* `summarize()`, because we had saved our summarized data.  We could also have calculated `lower_limit` and `upper_limit` directly as part of the `summarize()` statement if we hadn't saved the intermediate.
 
-## Utilities for data management
-
-Honestly, the amount of power in `tidyverse` is way more than we can cover today, and is covered more comprehensively (obviously) by [Wickham and Grolemund](https://r4ds.had.co.nz/).  However, I want to name 4 more utilities we will make a lot of use of today (and you will want to know about for your own work).  
-
-### Rename your columns
-
-Often you will import data with bad column names or you'll realize you need to rename variables during your workflow. This is one way to get around having to type a bunch of backticks forever. For this, you can use the `rename()` function:
-
-```{r renaming columns}
-names(berry_data)
-
-berry_data %>%
-  rename(Sample = `Sample Name`,
-         Subject = `Participant Name`) %>%
-  select(Subject, Sample, everything()) #no more backticks!
-```
-
-You can also rename by position, but be sure you have the right order and don't change the input data later:
-
-```{r rename() works with positions as well as explicit names}
-berry_data %>%
-  rename(Subject = 1)
-```
-
-### Relocate your columns
-
-If you `mutate()` columns or just have a big data set with a lot of variables, often you want to move columns around.  This is a pain to do with `[]`, but again `tidyverse` has a utility to move things around easily: `relocate()`.
-
-```{r reordering columns in a tibble}
-berry_data %>%
-  relocate(`Sample Name`) # giving no other arguments will move to front
-```
-
-You can also use `relocate()` to specify positions
-
-```{r using relative positions with relocate()}
-berry_data %>%
-  relocate(Gender, Age, `Subject Code`, `Start Time (UTC)`, `End Time (UTC)`, `Sample Identifier`, .after = berry) # move repetitive and empty columns to the end
-```
-
-### Remove missing values
-
-Missing values (the `NA`s you've been seeing so much) can be a huge pain, because they make more of themselves.
-
-```{r missing values make more of themselves}
-mean(berry_data$price) #This column had no NAs, so we can take the average
-mean(berry_data$`9pt_overall`) #This column has some NAs, so we get NA
-```
-Many base R functions that take a vector and return some mathematical function (e.g., `mean()`, `sum()`, `sd()`) have an argument called `na.rm` that can be set to just act as if the values aren't there at all.
-
-```{r na.rm in base R functions}
-mean(berry_data$`9pt_overall`, na.rm = TRUE) #We get the average of only the valid numbers
-sum(berry_data$`9pt_overall`, na.rm = TRUE) /
-  length(berry_data$`9pt_overall`) #The denominator is NOT the same as the total number of values anymore
-sum(berry_data$`9pt_overall`, na.rm = TRUE) /
-  sum(!is.na(berry_data$`9pt_overall`)) #The denominator is the number of non-NA values
-```
-However, this isn't always convenient. Sometimes it may be easier to simply get rid of all observations with any missing values, which tidyverse has a handy `drop_na()` function for:
-
-```{r removing rows with na values}
-berry_data %>%
-  drop_na() #All of our rows have *some* NA values, so this returns nothing
-
-berry_data %>%
-  select(`Participant Name`, `Sample Name`, contains("9pt_")) %>%
-  drop_na() #Now we get only respondants who answered all 9-point liking questions.
-```
-
-Or you may want to remove any columns/variables that have some missing data, which is one of the most common uses of `where()`:
-
-```{r removing columns with missing values}
-berry_data %>%
-  select(where(~!any(is.na(.)))) #Only 38 columns with absolutely no missing values.
-#This loses all of the liking data.
-```
-
-Both of the above methods guarantee that you will have an output with absolutely no missing data, but may be over-zealous if, say, everyone answered overall liking on one of the three scales and we want to do some work to combine those later. `filter()` and `select()` can be combined to do infinitely complex missing value removal.
-
-```{r removing rows that don't have at least one non-missing aroma liking rating}
-berry_data %>%
-  select(where(~!all(is.na(.)))) %>% #remove columns with no data
-  filter(!(is.na(`9pt_aroma`) & is.na(lms_aroma) & is.na(us_aroma)))
-#You'll notice that this is all strawberries, actually
-```
-
-### Sort your data
-
-More frequently, we will want to rearrange our rows, which can be done with `arrange()`.  All you have to do is give `arrange()` one or more columns to sort the data by.  You can use either the `desc()` or the `-` shortcut to sort in reverse order. Whether ascending or descending, `arrange()` places missing values at the bottom.
-
-```{r arrange() lets you sort your data}
-berry_data %>%
-  arrange(desc(lms_overall)) %>% # which berries had the highest liking on the lms?
-  select(`Sample Name`, `Participant Name`, lms_overall)
-```
-
-You can sort alphabetically as well:
-
-```{r arrange() works on both numeric and character data}
-tibble(state_name = state.name, area = state.area) %>% # using a dataset of US States for demonstration
-  arrange(desc(state_name))                            # sort states reverse-alphabetically
-```
-
-### Pivot tables
-
-Users of Excel may be familiar with the idea of pivot tables.  These are functions that let us make our data tidier.  To quote Wickham and Grolemund:
-
-> here are three interrelated rules which make a dataset tidy:
->
-> 1.  Each variable must have its own column.
-> 2.  Each observation must have its own row.
-> 3.  Each value must have its own cell.
-
-While these authors present "tidiness" of data as an objective property, I'd argue that data is always tidy **for a specific purpose**.  For example, our data is relatively tidy with one row per tasting event (one person tasting one berry), but this data still has an unruly number of variables (92 columns!!). You've already learned some tricks for dealing with large numbers of columns at once like `across()` and other functions using select helpers, but we have to do this *every time* we use `mutate()`, `summarize()`, or a similar function.
-
-We could also treat the attribute or question as an independent variable affecting the response. If we take this view, then the tidiest dataset actually has one row for each person's response to a single `question`. If we want to make plots or do other modelling, this **longer** form is often more tractable and lets us do operations on the whole dataset with less code.
-
-We can use the `pivot_longer()` function to change our data to make the implicit variable explicit and to make our data tidier.
-
-```{r pivoting data tables}
-berry_data %>%
-  select(`Subject Code`, `Sample Name`, berry, starts_with("cata_"), starts_with("9pt")) %>% # for clarity
-  pivot_longer(cols = starts_with("cata_"),
-               names_prefix = "cata_",
-               names_to = "attribute",
-               values_to = "presence") -> berry_data_cata_long
-
-berry_data_cata_long
-```
-
-Remember that `tibble`s and `data.frame`s can only have one data type per column (`logical > integer > numeric > character`), however! If we have one row for each CATA, JAR, hedonic scale, AND free response question, the `value` column would have a mixture of different data types. This is why we have to tell `pivot_longer()` which `cols` to pull the `names` and `values` from.
-
-Now for each unique combination of `Sample Name` and `Subject Code`, we have 36 rows, one for each CATA question that was asked. The variables that weren't listed in the `cols` argument are just replicated on each of these rows. Each of the 36 rows that represent `Subject Code` 1001's CATA responses for `raspberry 6` has the same `Subject Code`, `Sample Name`, `berry`, and various `9pt_` ratings as the other 35.
-
-Sometimes we want to have "wider" or "untidy" data.  We can use `pivot_wider()` to reverse the effects of `pivot_longer()`.
-
-```{r reversing the effects of pivot_longer() with pivot_wider()}
-berry_data_cata_long %>%
-  pivot_wider(names_from = "attribute",
-              values_from = "presence",
-              names_prefix = "cata_")
-```
-
-Pivoting is an incredibly powerful and incredibly common data manipulation technique that will become even more powerful when we need to make complex graphs later. Different functions and analyses may require the data in different longer or wider formats, and you will often find yourself starting with even less tidy data than what we've provided.
-
-For an example of this power, let's imagine that we want to compare the 3 different liking scales by normalizing each by the `mean()` and `sd()` of that particular scale, then comparing average liking for each attribute of each berry across the three scales.
-
-```{r}
-berry_data %>%
-  pivot_longer(cols = starts_with(c("9pt_","lms_","us_")),
-               names_to = c("scale", "attribute"),
-               names_sep = "_",
-               values_to = "rating",
-               values_drop_na = TRUE) %>%
-  group_by(scale) %>%
-  mutate(normalized_rating = (rating - mean(rating)) / sd(rating)) %>%
-  group_by(scale, attribute, berry) %>%
-  summarize(avg_liking = mean(normalized_rating)) %>%
-  pivot_wider(names_from = scale,
-              values_from = avg_liking)
-```
-
-While pivoting may seem simple at first, it can also get pretty confusing! That example required two different pivots! We'll be using these tools throughout the rest of the tutorial, so I wanted to give exposure, but mastering them takes trial and error. I recommend taking a look at the [relevant chapter in Wickham and Grolemund](https://r4ds.had.co.nz/tidy-data.html) for details.
-
-It's not a bad idea to restart your R session here.  Make sure to save your work, but a clean `Environment` is great when we're shifting topics.
-
-You can accomplish this by going to `Session > Restart R` in the menu.
-
-Then, we want to make sure to re-load our packages and import our data.
-
-```{r making sure that we have loaded all packages and data}
-# The packages we're using
-library(tidyverse)
-library(ca)
-
-# The dataset
-berry_data <- read_csv("data/clt-berry-data.csv")
-```

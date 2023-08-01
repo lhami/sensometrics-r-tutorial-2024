@@ -5,6 +5,122 @@ library(tidyverse)
 berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
+```{r}
+#Normally, we present CA results as a graph, and you can use plot() directly
+#on the results for quick results:
+plot(berry_cata_ca)
+
+#But if you want to make this look publication-friendly by getting rid of overlapping text,
+#changing font size and color, color-coding your berries, etc, it's much easier to use
+#the tidyverse package ggplot2 to manipulate the graph than using "base R" plotting.
+#Since ggplot2 is a tidyverse package, we'll need to re-tidy the data.
+
+#ggplot2 generally works best when you have one row for every observation or point,
+#By default, the scatterplot function needs one row per point with one column of
+#coordinates for each axis (normally x and y):
+
+berry_data %>%
+  select(`Sample Name`, contains(c("9pt_","lms_","us_"))) %>%
+  summarize(across(everything(), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) -> berry_average_likings
+
+berry_average_likings %>%
+  nrow()
+
+berry_average_likings %>%
+  ggplot(aes(x = `9pt_overall`, y = `lms_overall`)) +
+  geom_point() #23 points, one per row
+
+#and the bar plot/histogram functions are given a categorical or binnable numeric variable,
+#respectively, with one row per observation to *count*. These don't draw one 
+#although you can override them.
+#geom_bar() is for when you already have discrete data, it just counts:
+berry_data %>%
+  ggplot(aes(x = cata_taste_berry)) +
+  geom_bar()
+
+berry_data %>%
+  ggplot(aes(x = `9pt_overall`)) +
+  geom_bar()
+
+#and geom_histogram() is for continuous data, it counts and bins:
+berry_data %>%
+  ggplot(aes(x = `lms_overall`)) +
+  geom_histogram()
+
+#Note: there are exceptions! You may eventually end up having to do something like this:
+#insert a horrible ggplot() call with different data for different geoms.
+
+
+
+
+
+
+
+
+
+#So we need to think about what we want to plot. The CA maps are **scatterplots**
+#where each point is a **sample** (row variable) or **attribute** (column variable).
+#These coordinates are in the list that the ca function outputs, but in two separate
+#matrices. We want to combine them into *one* where the columns are *axes* and the
+#rows are the *variables* from our initial dataset. It's also good to have a column
+#specifying whether each row is a sample or an attribute variable.
+
+#So we can simply **retidy** and **row bind** the two coordinate matrices we get from
+#ca():
+
+bind_rows(Berry = rownames_to_column(as.data.frame(berry_cata_ca$rowcoord), "Variable"),
+          Attribute = rownames_to_column(as.data.frame(berry_cata_ca$colcoord), "Variable"),
+          .id = "Type") %>%
+  as_tibble() -> berry_ca_std_coords_tidy
+
+berry_ca_std_coords_tidy %>%
+  mutate(Variable = str_remove(Variable, "cata_")) %>%
+  ggplot(aes(x = Dim1, y = Dim2, color = Type, label = Variable)) +
+  geom_hline(color="black", yintercept = 0) +
+  geom_vline(color="black", xintercept = 0) +
+  geom_text_repel() +
+  theme_bw() +
+  xlab("Dimension 1") +
+  ylab("Dimension 2")
+
+berry_cata_ca$sv %>%
+  {str_c("Dimension ", 1:length(.), " (", round(100 * .^2 / sum(.^2), 1), "% Inertia)")} ->
+  berry_cata_ca_dimnames
+
+berry_ca_std_coords_tidy %>%
+  mutate(Variable = str_remove(Variable, "cata_"),
+         Variable = str_replace(Variable, "Strawberry", "Strawberry "),
+         font = ifelse(Type == "Attribute", "italic", "plain")) %>%
+  separate(Variable, c("Var_Major", "Var_Minor"), remove = FALSE) %>%
+  ggplot(aes(x = Dim1, y = Dim2, fontface = font, color = Var_Major, label = Variable)) +
+  geom_hline(color="black", yintercept = 0) +
+  geom_vline(color="black", xintercept = 0) +
+  geom_point() +
+  geom_text_repel(size = 5) +
+  theme_bw() +
+  xlab(berry_cata_ca_dimnames[1]) +
+  ylab(berry_cata_ca_dimnames[2]) +
+  scale_color_manual(values = c("appearance" = "#bababa",
+                                "taste" = "#7f7f7f",
+                                "Blackberry" = "#2d0645",
+                                "Blueberry" = "#3e17e8",
+                                "raspberry" = "#7a1414",
+                                "Strawberry" = "#f089cb"))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 `R` includes extremely powerful utilities for data visualization, but most modern applications make use of the `tidyverse` package `ggplot2`.
 
 A quick word about base `R` plotting--I don't mean to declare that you can't use base `R` plotting for your projects at all, and I have published several papers using base `R` plots.  Particularly as you are using `R` for your own data exploration (not meant for sharing outside your team, say), base utilities like `plot()` will be very useful for quick insight. 

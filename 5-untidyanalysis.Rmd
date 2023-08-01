@@ -1,0 +1,227 @@
+# Untidy Data Analysis
+
+```{r setup, include = FALSE}
+library(tidyverse)
+berry_data <- read_csv("data/clt-berry-data.csv")
+```
+
+
+```{r}
+library(tidyverse)
+library(ca)
+library(ggrepel)
+
+berry_data <- read_csv("data/clt-berry-data.csv")
+
+str(berry_data)
+
+#overall counts
+berry_data %>%
+  select(contains("cata")) %>%
+  pivot_longer(everything(), names_prefix = "cata_",
+               values_to = "presence",
+               names_to = "attribute") %>%
+  drop_na() %>% #or filter(!is.na(presence))
+  summarize(count = sum(presence), 
+            percentage = sum(presence) / n(),
+            .by = attribute)
+
+#counts by berry type & strain (each row will be one person and CA can't look at
+#individual-level data)
+berry_data %>%
+  select(`Sample Name`, contains("cata")) %>%
+  #note: the select statement is now more or less optional, if you want to
+  #preserve your full data connectivity longer then pivot_longer will figure
+  #the metadata out if you tell it which columns you're longifying.
+  pivot_longer(contains("cata"), names_prefix = "cata_",
+               values_to = "presence",
+               names_to = "attribute") %>%
+  drop_na() %>% #or filter(!is.na(presence))
+  summarize(count = sum(presence), 
+            percentage = sum(presence) / n(),
+            .by = c(attribute, `Sample Name`))
+#Count & percentage of people who answered each attribute for each berry (denominator is total number of people)
+
+#Quick count of the number of (unique) participants
+berry_data %>%
+  distinct(`Participant Name`) %>%
+  nrow() #969
+
+#And now a slightly-hacky way of getting the # of sessions
+berry_data %>%
+  distinct(`Participant Name`, `Sample Name`) %>%
+  count(`Sample Name`) %>%
+  filter(str_detect(`Sample Name`, '1')) %>% #`Serving Position` == 1 could also work
+  pull(n) %>%
+  sum()
+
+berry_data %>%
+  filter(`Serving Position` == 1) %>% #so counts are on a per-session basis
+  summarize(across(everything(), ~ sum(is.na(.x)))) %>%
+  pivot_longer(everything(), values_to = "count_na", names_to = "attribute") %>%
+  #arrange(desc(count_na)) %>%
+  #arrange(count_na) %>%
+  filter(str_detect(attribute, "cata")) %>%
+  nrow() #36 cata attributes total
+
+berry_data %>%
+  filter(`Serving Position` == 1) %>% #so counts are on a per-session basis
+  summarize(across(everything(), ~ sum(is.na(.x)))) %>%
+  pivot_longer(everything(), values_to = "count_na", names_to = "attribute") %>%
+  #arrange(desc(count_na)) %>%
+  #arrange(count_na) %>%
+  filter(str_detect(attribute, "cata"), count_na == 0) %>%
+  nrow() #13 cata attributes with no NAs
+
+berry_data %>%
+  filter(`Serving Position` == 1) %>% #so counts are on a per-session basis
+  summarize(across(everything(), ~ sum(is.na(.x)))) %>%
+  pivot_longer(everything(), values_to = "count_na", names_to = "attribute") %>%
+  arrange(count_na) %>%
+  View()
+
+#We've got general stuff like `Sample Name`, `Serving Position`, `Subject Code`, etc
+#for all of our data points. Around half of the cata/jar survey questions were
+#seen for every single sample, but some (e.g., clove taste) are berry-specific.
+
+berry_data %>%
+  filter(`Serving Position` == 1) %>%
+  summarize(Clove_Responses = sum(!is.na(cata_taste_clove)),
+            Cinnamon_Responses = sum(!is.na(cata_taste_cinnamon)),
+            Citrus_Responses = sum(!is.na(cata_taste_citrus)),
+            Earthy_Responses = sum(!is.na(cata_taste_earthy)),
+            .by = berry)
+#We can see that these CATA attributes are attached to a specific berry
+#But something else is happening with the liking scales.
+berry_data %>%
+  filter(`Serving Position` == 1) %>%
+  summarize(US_Responses = sum(!is.na(us_overall)),
+            Ninept_Responses = sum(!is.na(`9pt_overall`)),
+            LMS_Responses = sum(!is.na(lms_overall)),
+            .by = berry)
+
+berry_data %>%
+  filter(`Serving Position` == 1) %>%
+  summarize(US_Responses = sum(!is.na(us_overall)),
+            Ninept_Responses = sum(!is.na(`9pt_overall`)),
+            LMS_Responses = sum(!is.na(lms_overall)),
+            .by = test_day)
+#It's also not blocked by test day
+#In actuality, people were randomly assigned to see one of the three tested scale types.
+
+#It's a little annoying to write those long summarize statements, so let's look at across():
+berry_data %>%
+  filter(`Serving Position` == 1) %>%
+  summarize(across(contains("_overall"), ~ sum(!is.na(.x)), .names = "responses_{.col}"), .by = berry)
+
+#We can also look at the variables with the most missing data first, like so:
+berry_data %>%
+  filter(`Serving Position` == 1) %>% #so counts are on a per-session basis
+  summarize(across(everything(), ~ sum(is.na(.x)))) %>%
+  pivot_longer(everything(), values_to = "count_na", names_to = "attribute") %>%
+  arrange(desc(count_na))
+
+#No gender & age data because these have been anonymized. Very few people rated
+#liking of the aroma--turns out that this is because it was only asked for strawberries
+berry_data %>%
+  filter(`Serving Position` == 1) %>%
+  summarize(across(contains("_overall"), ~ sum(!is.na(.x)) / n(), .names = "responses_{.col}"), .by = test_day)
+#This is expressed as the percentage of people who took that test on that day, and
+#we know everybody doing a strawberry test saw one of the 3 types of aroma-liking
+#questions because the rows sum to 100%.
+
+#Let's start by looking at just the 13 CATA questions with responses for all 4 berry species.
+#In a correspondence analysis, we want to understand the relative positions of the samples,
+#so we need counts of how often each of the attributes was attributed to each berry.
+berry_data %>%
+  select(`Sample Name`, contains("cata_"),
+         -where(~ any(is.na(.x)))) %>%
+  summarize(across(everything(), sum), .by = `Sample Name`) -> berry_cata_tidy_contingency
+
+berry_cata_tidy_contingency %>%
+  column_to_rownames("Sample Name") -> berry_cata_contingency
+#This gives us a data.frame with one less column than before:
+
+berry_cata_contingency %>%
+  str() #see?
+
+#The CA package ca() function can take a data.frame or a matrix
+?ca::ca
+#So this is all the work we actually have to do right now, but if you have a function
+#that needs a matrix, specifically:
+
+berry_cata_contingency %>%
+  as.matrix()
+
+#Note that this will not *quite* work on a tibble.
+berry_cata_tidy_contingency %>%
+  as.matrix() -> bad_berry_matrix
+#A matrix can only have one data type out of the hierarchy
+#character > complex > double > integer > logical
+#And thus all values are converted to the highest (i.e., least-restrictive)
+#data type. So we have a bunch of character (i.e., text) data in this matrix now:
+bad_berry_matrix %>%
+  str()
+
+#Which is a problem because you can't do math with character vectors:
+1 + 2
+"1" + "2"
+
+#If you ever run into this, the solution is as.numeric():
+sum(c("1","2","3"))
+sum(as.numeric(c("1","2","3")))
+
+#But you probably want to get rid of whatever text caused the problem first:
+as.numeric(c("1","2","3","rogue column name"))
+as.numeric(bad_berry_matrix)
+
+#In older versions of the tidyverse, as.matrix may not work on a tibble at all.
+#So it's easiest to use column_to_rownames() first, even if you ultimately want a matrix.
+#Named rows are useful.
+
+#data.matrix() is a version of as.matrix() that turns everything into a number, including
+#text strings! Again, you have more control with the above methods.
+berry_cata_tidy_contingency %>%
+  data.matrix()
+
+
+berry_cata_contingency %>%
+  ca() -> berry_cata_ca
+
+
+berry_cata_ca %>%
+  str()
+#The result of the ca() is a list with multiple useful things:
+#the standard coordinates for the row (berry) and column (attribute) variables,
+berry_cata_ca$rowcoord
+berry_cata_ca$colcoord
+#the singular values (which are useful in calculating % of intertia explained
+#by each dimension)
+berry_cata_ca$sv
+berry_cata_ca$sv %>%
+  {.^2 / sum(.^2)}
+#The column and row masses (in case you want to add your own supplementary variables
+#after the fact):
+berry_cata_ca$rowmass
+berry_cata_ca$colmass
+
+#It's sort of like a data.frame or tibble, because it has named 
+#but not every named item in the list has to be the same length, unlike a column.
+
+#In general, I find it easiest to do all of the filtering and selecting *on the tibble*
+#so I can use the handy tidyverse functions, before I untidy the data, but 
+#you can include extra rows or columns in your contingency table (as long as they're also numbers!!)
+#and then tell the ca() function which columns are active and supplemental,
+#which may help if you're comparing a few different analyses rather than repeatedly
+#making a bunch of different contingency matrices.
+berry_data %>%
+  select(`Sample Name`, contains(c("cata_", "9pt_", "lms_", "us_"))) %>%
+  summarize(across(contains("cata_"), ~ sum(.x, na.rm = TRUE)),
+            across(contains(c("9pt_","lms_","us_")), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) -> berry_cata_liking_tidy_contingency
+
+berry_cata_liking_tidy_contingency %>%
+  View()
+#Note that the _aroma liking scores still can't be calculated for anything but strawberries,
+#even with na.rm = TRUE.
+#You will have to think about this when you do your CA, if you include any of these variables.
+```
