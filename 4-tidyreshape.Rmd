@@ -11,9 +11,56 @@ It's more common to have groups of **observations** in tidy data, reflected by c
 
 We have a group of `cata_` variables, a group of liking data with subtypes `9_pt`, `lms_`, `us_`, `_overall`, `_appearance`, etc...
 
-What if we want to count the total number of times each `cata_` attribute was 
+What if we want to count the total number of times each `cata_` attribute was used for one of the berries?
 
-Well, we *can* do this with `summarize()` or its cousin `count()`, but we'd have to 
+Well, we *can* do this with `summarize()`, but we'd have to type out the names of all 36 columns manually. This is what `select()` helpers are for, and we *can* use them in functions that operate on rows or groups like `filter()`, `mutate()`, and `summarize()` if we use the new `across()` function.
+
+```{r apply the same tidy operation across() multiple columns}
+berry_data %>%
+  group_by(`Sample Name`) %>%
+  summarize(across(.cols = starts_with("cata_"),
+                   .fns = sum))
+```
+
+You might read this as: `summarize()` `across()` every `.col` that `starts_with("cata_")` by taking the `sum()`. 
+
+We can easily expand this to take multiple kinds of summaries for each column, in which case it helps to **name** the functions. `across()` uses **lists** to work with more than one function, so it will look at the **list names** (lefthand-side of the arguments in `list()`) to name the output columns:
+
+```{r apply the same tidy operation across() multiple columns}
+berry_data %>%
+  group_by(`Sample Name`) %>%
+  summarize(across(.cols = starts_with("cata_"),
+                   .fns = list(frequency = sum,
+                               #the sum of binary cata data gives the citation frequency
+                               percentage = mean)))
+                               #meanwhile, the mean gives the percentage.
+```
+
+`across()` is capable of taking arbitrarily complicated functions, but you'll notice that we didn't include the parentheses we usually see after a function name for `sum()` and `mean()`. `across()` will just pipe in each column to the `.fns` as the first argument. That means, however, that there's nowhere for us to put additional arguments like `na.rm`.
+
+We can use **lambda functions** to . This basically just means starting each function off with a tilde (~) and telling `across()` where we want our `.cols` to go manually using `.x`.
+
+Remember, the tilde is usually above the backtick on QWERTY keyboards. Try the instructions [here](https://apple.stackexchange.com/questions/286197/typing-the-tilde-character-on-a-pc-keyboard) and [here](https://www.liquisearch.com/tilde/keyboards) to type a tilde if you have a non-QWERTY keyboard. If those methods don't work, try [this guide for Italian keyboards](https://superuser.com/questions/667622/italian-keyboard-entering-tilde-and-backtick-characters-without-changin), [this guide for Spanish keyboards](https://apple.stackexchange.com/q/219603/5472), [this guide for German](https://apple.stackexchange.com/q/395677/5472), [this guide for Norwegian](https://apple.stackexchange.com/q/141066/5472), or [this guide for Swedish](https://apple.stackexchange.com/q/329085/5472) keyboards.
+
+This will be necessary if we want to take the average of our various liking columns without those pesky `NA`s propogating.
+
+```{r lambda functions for more complicated `across()`}
+berry_data %>%
+  group_by(`Sample Name`) %>%
+  summarize(across(.cols = starts_with("9pt_"),
+                   .fns = list(mean = mean,
+                               sd = sd))) #All NA
+
+berry_data %>%
+  group_by(`Sample Name`) %>%
+  summarize(across(.cols = starts_with("9pt_"),
+                   .fns = list(mean = ~ mean(.x, na.rm = TRUE),
+                               sd = ~ sd(.x, na.rm = TRUE))))
+```
+
+The `across()` function is very powerful and also pretty new to the tidyverse. It's probably the least intuitive thing we're covering today other than graphs, in my opinion, but it's also leagues better than the `summarize_at()`, `summarize_if()`, and `summarize_all()` functions that came before.
+
+You can also use `across()` to `filter()` rows based on multiple columns or `mutate()` multiple columns at once, but you don't need to worry about `across()` at all if you know exactly what columns you're working with and don't mind typing them all out!
 
 ## Pivot tables- wider and longer data
 
