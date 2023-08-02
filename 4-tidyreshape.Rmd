@@ -125,6 +125,14 @@ berry_data %>%
 
 While pivoting may seem simple at first, it can also get pretty confusing! That example required two different pivots! We'll be using these tools throughout the rest of the tutorial, so I wanted to give exposure, but mastering them takes trial and error. I recommend taking a look at the [relevant chapter in Wickham and Grolemund](https://r4ds.had.co.nz/tidy-data.html) for details.
 
+## Combining data
+
+`bind_rows()`
+
+There *is* a `bind_cols()` function, but it's easy to accidentally have the raspberries on the top in one table and the blueberries on the top in another, or to have one table sorted alphabetically and another by blinding code or participant ID, so it's safer to use the `*_join()` functions if you're adding columns instead of rows. `left_join()` is the most common.
+
+`anti_join()` can be used to *remove* data. If you have a list of participants whose responses had data quality issues, you can put it in the second argument of `anti_join()` to return the lefthand table with those entries removed.
+
 ## Utilities for data management
 
 Honestly, the amount of power in `tidyverse` is way more than we can cover today, and is covered more comprehensively (obviously) by [Wickham and Grolemund](https://r4ds.had.co.nz/).  However, I want to name a few more utilities we will make a lot of use of today (and you will want to know about for your own work).
@@ -197,17 +205,17 @@ Or you may want to remove any columns/variables that have some missing data, whi
 
 ```{r removing columns with missing values}
 berry_data %>%
-  select(where(~!any(is.na(.)))) #Only 38 columns with absolutely no missing values.
+  select(where(~none(.x, is.na))) #Only 38 columns with absolutely no missing values.
 #This loses all of the liking data.
 ```
 
 Both of the above methods guarantee that you will have an output with absolutely no missing data, but may be over-zealous if, say, everyone answered overall liking on one of the three scales and we want to do some work to combine those later. `filter()` and `select()` can be combined to do infinitely complex missing value removal.
 
-```{r removing rows that don't have at least one non-missing aroma liking rating}
+```{r removing rows that are missing all three aroma liking ratings}
 berry_data %>%
-  select(where(~!all(is.na(.)))) %>% #remove columns with no data
+  select(where(~!every(.x, is.na))) %>% #remove columns with no data
   filter(!(is.na(`9pt_aroma`) & is.na(lms_aroma) & is.na(us_aroma)))
-#You'll notice that this is all strawberries, actually
+#You'll notice that only strawberries have any non-NA liking values, actually
 ```
 
 ### Counting categorical variables

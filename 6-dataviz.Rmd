@@ -6,20 +6,47 @@ library(ggrepel)
 berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
-```{r}
-#Normally, we present CA results as a graph, and you can use plot() directly
-#on the results for quick results:
-plot(berry_cata_ca)
+## Built-in plots with the ca package
 
-#But if you want to make this look publication-friendly by getting rid of overlapping text,
-#changing font size and color, color-coding your berries, etc, it's much easier to use
-#the tidyverse package ggplot2 to manipulate the graph than using "base R" plotting.
-#Since ggplot2 is a tidyverse package, we'll need to re-tidy the data.
+Normally, we present CA results as a graph. You can use the base R `plot()` function *directly* on the output of `ca()` for quick results.
 
-#ggplot2 generally works best when you have one row for every observation or point,
-#By default, the scatterplot function needs one row per point with one column of
-#coordinates for each axis (normally x and y):
+```{r base R plotting example}
+plot(berry_ca_res)
+```
 
+You can learn some things from this already: Strawberries 1 & 2 had some appearance defects that made them noticably different from the others. The blackberries were generally more earthy, while many of the raspberries and strawberries had more fruity/berry flavor. Often, multivariate data analysis packages have pretty good defaults built into their packages that you should take advantage of to quickly look at your data.
+
+But it's hard to see what's going on with the blueberries. A lot of the text is impossible to read. And some additional color- or shape-coding with a key would be helpful.
+
+## Basics of Tidy Graphics
+
+If you want to make this look publication-friendly by getting rid of overlapping text, changing font size and color, color-coding your berries, etc, you *can* do this with base R's plotting functions, but it's much easier to use the tidyverse package `ggplot2` to manipulate graphs.
+
+`ggplot2` provides a standardized, programmatic interface for data visualization, in contrast to the piecemeal approach common to base `R` graphics plotting.  This means that, while the syntax itself can be challenging to learn, syntax for different tasks differs in logical and predictable ways and it works well together with other `tidyverse` functions and principles (like `select()` and `filter()`).
+
+The schematic elements of a ggplot are as follows:
+
+```{r non-working schematic of a ggplot, eval = FALSE}
+# The ggplot() function creates your plotting environment.  We usually save it to a variable in R so that we can use the plug-n-play functionality of ggplot without retyping a bunch of nonsense
+p <- ggplot(mapping = aes(x = <a variable>, y = <another variable>, ...),
+            data = <your data>)
+
+# Then, you can add various ways of plotting data to make different visualizations.
+p + 
+  geom_<your chosen way of plotting>(...) +
+  theme_<your chosen theme> +
+  ...
+```
+
+In graphical form, the following diagram ([from VT Professor JP Gannon](https://vt-hydroinformatics.github.io/Plotting.html#our-first-ggplot)) gives an intuition of what is happening:
+
+![Basic ggplot mappings.  Color boxes indicate where the elements go in the function and in the plot.](img/GGplot syntax.png)
+
+Since ggplot2 is a tidyverse package, we do need to re-tidy the data (and, often, keep reshaping it after that). In general, `ggplot2` works best with data in "long" or "tidy" format, such as that resulting from the output of `pivot_longer()`: one row for every observation or point.
+
+By default, the scatterplot function needs one row per point with one column of coordinates for each axis (normally x and y): By default, the scatterplot function needs one row per point with one column of coordinates for each axis (normally x and y):
+
+``` {r basic ggplot2 scatterplot}
 berry_data %>%
   select(`Sample Name`, contains(c("9pt_","lms_","us_"))) %>%
   summarize(across(everything(), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) -> berry_average_likings
@@ -30,10 +57,11 @@ berry_average_likings %>%
 berry_average_likings %>%
   ggplot(aes(x = `9pt_overall`, y = `lms_overall`)) +
   geom_point() #23 points, one per row
+```
 
-#and the bar plot/histogram functions are given a categorical or binnable numeric variable,
-#respectively, with one row per observation to *count*. These don't draw one 
-#although you can override them.
+The bar plot and histograph functions take a categorical or binnable numeric variable, respectively, with one row per observation that they will *count*. These do some summarizing work and draw one bar per *group*, although you can override this behavior.
+
+```{r }
 #geom_bar() is for when you already have discrete data, it just counts:
 berry_data %>%
   ggplot(aes(x = cata_taste_berry)) +
@@ -47,34 +75,29 @@ berry_data %>%
 berry_data %>%
   ggplot(aes(x = `lms_overall`)) +
   geom_histogram()
+```
 
-#Note: there are exceptions! You may eventually end up having to do something like this:
+Like many things today, you can make infinitely-complicated graphs using these same basic semantics. `ggplot2`, especially, is a world of exceptions! You could eventually end up having to do something like this, where each `geom_*` has a totally different dataset:
+
+```{r}
 #insert a horrible ggplot() call with different data for different geoms.
 
+```
 
+We will not be doing that today. But if you ever find yourself tearing your hair out over a complicated plot, remember this section.
 
+## Better CA plots with ggplot2
 
+We need to think about what we want to plot. The CA maps are **scatterplots** where each point is a **sample** (row variable) or **attribute** (column variable). These coordinates are in the list that the `ca()` function outputs, but in two separate matrices. We already learned how to combine them into *one* where the columns are *axes* and the rows are the *variables* from our initial dataset, with a column specifying whether each row is a sample or an attribute variable.
 
+```{r }
+berry_ca_coords
+```
 
+This will get us pretty far.
 
-
-
-#So we need to think about what we want to plot. The CA maps are **scatterplots**
-#where each point is a **sample** (row variable) or **attribute** (column variable).
-#These coordinates are in the list that the ca function outputs, but in two separate
-#matrices. We want to combine them into *one* where the columns are *axes* and the
-#rows are the *variables* from our initial dataset. It's also good to have a column
-#specifying whether each row is a sample or an attribute variable.
-
-#So we can simply **retidy** and **row bind** the two coordinate matrices we get from
-#ca():
-
-bind_rows(Berry = rownames_to_column(as.data.frame(berry_cata_ca$rowcoord), "Variable"),
-          Attribute = rownames_to_column(as.data.frame(berry_cata_ca$colcoord), "Variable"),
-          .id = "Type") %>%
-  as_tibble() -> berry_ca_std_coords_tidy
-
-berry_ca_std_coords_tidy %>%
+``` {r a basic ca map with ggplot2}
+berry_ca_coords %>%
   mutate(Variable = str_remove(Variable, "cata_")) %>%
   ggplot(aes(x = Dim1, y = Dim2, color = Type, label = Variable)) +
   geom_hline(color="black", yintercept = 0) +
@@ -83,6 +106,9 @@ berry_ca_std_coords_tidy %>%
   theme_bw() +
   xlab("Dimension 1") +
   ylab("Dimension 2")
+```
+
+```{r}
 
 berry_cata_ca$sv %>%
   {str_c("Dimension ", 1:length(.), " (", round(100 * .^2 / sum(.^2), 1), "% Inertia)")} ->
@@ -122,31 +148,6 @@ berry_ca_std_coords_tidy %>%
 
 
 
-`R` includes extremely powerful utilities for data visualization, but most modern applications make use of the `tidyverse` package `ggplot2`.
-
-A quick word about base `R` plotting--I don't mean to declare that you can't use base `R` plotting for your projects at all, and I have published several papers using base `R` plots.  Particularly as you are using `R` for your own data exploration (not meant for sharing outside your team, say), base utilities like `plot()` will be very useful for quick insight. 
-
-`ggplot2` provides a standardized, programmatic interface for data visualization, in contrast to the piecemeal approach common to base `R` graphics plotting.  This means that, while the syntax itself can be challenging to learn, syntax for different tasks differs in logical and predictable ways and, together with other `tidyverse` principles (like `select()` and `filter()` approaches), `ggplot2` makes it easy to make publication-quality visualizations with relative ease.
-
-In general, `ggplot2` works best with data in "long" or "tidy" format, such as that resulting from the output of `pivot_longer()`.  The 
-
-The schematic elements of a ggplot are as follows:
-
-```{r non-working schematic of a ggplot, eval = FALSE}
-# The ggplot() function creates your plotting environment.  We usually save it to a variable in R so that we can use the plug-n-play functionality of ggplot without retyping a bunch of nonsense
-p <- ggplot(mapping = aes(x = <a variable>, y = <another variable>, ...),
-            data = <your data>)
-
-# Then, you can add various ways of plotting data to make different visualizations.
-p + 
-  geom_<your chosen way of plotting>(...) +
-  theme_<your chosen theme> +
-  ...
-```
-
-In graphical form, the following diagram ([from VT Professor JP Gannon](https://vt-hydroinformatics.github.io/Plotting.html#our-first-ggplot)) gives an intuition of what is happening:
-
-![Basic ggplot mappings.  Color boxes indicate where the elements go in the function and in the plot.](img/GGplot syntax.png)
 
 ## Your first `ggplot()`
 
@@ -324,7 +325,7 @@ By splitting into facets we can see that there is much more density towards the 
 
 ## Some further reading
 
-This has been a lightning tour of `ggplot2` as preparatory material for our core material on text analysis; it barely scratches the surface.  If you're interested in learning more, I recommend taking a look at the following sources:
+This has been a lightning tour of `ggplot2`. It barely scratches the surface.  If you're interested in learning more, I recommend taking a look at the following sources:
 
 1.  Kieran Healy's "[Data Visualization: a Practical Introduction](https://socviz.co/index.html#preface)".
 2.  The plotting section of [R for Data Science](https://r4ds.had.co.nz/data-visualisation.html).

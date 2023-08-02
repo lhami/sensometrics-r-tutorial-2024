@@ -163,6 +163,26 @@ Note that you have to dobule-quote ("") column names for `column_to_rownames()`.
 
 `berry_contingency_df` is all set for the `ca()` function now, but if you run into any functions (like many of those in `FactoMineR` and other packages) that need matrices, you can always use `as.matrix()` on the results of `column_to_rownames()`.
 
+`column_to_rownames()` will almost always be the cleanest way to untidy your data, but there are some other functions that may be handy if you need a different data format, like a vector. You already know about $-subsetting, but you can also use `pull()` to pull one column out of a `tibble` as a vector using tidyverse syntax, so it fits easily at the end or in the middle of a series of piped steps.
+
+```{r }
+berry_data %>%
+  pivot_longer(starts_with("cata_"),
+               names_to = "attribute",
+               values_to = "presence") %>%
+  filter(presence == 1) %>%
+  count(attribute) %>%
+  arrange(desc(n)) %>% #Arranges the highest-cited CATA terms first
+  pull(attribute)      #Pulls the attribute names as a vector, in the order above
+```
+
+In summary:
+- Reshape your data in the `tidyverse` and then change it as needed for analysis.
+- If you need a `data.frame` or `matrix` with `rownames` set, use `column_to_rownames()`.
+- Use `as.matrix()` carefully, only on tabular data with **all the same data type**.
+- `as.matrix()` may not work on `tibble`s *at all* in older versions of the `tidyverse`, so it's always safest to go `tibble` -> `data.frame` -> `matrix`.
+- If you need a vector, use `pull()`.
+
 ### Data Analysis
 
 Okay, are you ready? Our data is *finally* in the shape and format we needed. You're ready to run multivariate statistics in R.
@@ -219,3 +239,59 @@ berry_ca_res$colmass  #the column masses
                       #after the analysis)
 ```
 
+The *main* results of CA are the row and column coordinates, which are in two matrices with the same columns. We can tidy them with the reverse of `column_to_rownames()`, `rownames_to_column()`, and then we can use `bind_rows()` to combine them.
+
+```{r tidying the row and column coordinates}
+berry_row_coords <- berry_ca_res$rowcoord %>%
+  as.data.frame() %>% #rownames_to_column() works on data.frames, not matrices
+  rownames_to_column("Variable") #This has to be the same for both to use bind_rows()!
+
+berry_col_coords <- berry_ca_res$colcoord %>%
+  as_tibble(rownames = "Variable") #Equivalent to the above, and works on matrices.
+
+berry_ca_coords <- bind_rows(Berry = berry_row_coords,
+                             Attribute = berry_col_coords,
+                             .id = "Type")
+
+berry_ca_coords
+```
+
+We could also add on any columns that have one value for each product *and* each attribute (or fill in the gaps with `NA`s). Maybe we want a column with the `rowmass`es and `colmass`es. These are vectors, so it would be handy if we could wrangle them into tibbles first.
+
+You can use either `tibble()` or `data.frame()` to make vectors in the same order into a table. They have basically the same usage. Just make sure you name your columns!
+
+```{r turning multiple vectors into one tibble}
+berry_rowmass <- tibble(Variable = berry_ca_res$rownames,
+                        Mass = berry_ca_res$rowmass)
+
+berry_rowmass
+```
+
+If you have an already-named vector, `enframe()` is a handy shortcut to making a two-column tibble, but unfortunately this isn't how the `ca` package structures its output.
+
+```{r turning named vectors into tibbles}
+named_colmasses <- berry_ca_res$colmass
+names(named_colmasses) <- berry_ca_res$colnames
+
+berry_colmass <- named_colmasses %>%
+  enframe(name = "Variable",
+          value = "Mass")
+
+berry_colmass
+```
+
+And now we can use `bind_rows()` and `left_join()` to jigsaw these together.
+
+```{r remember: tidy-joining multiple tables}
+bind_rows(berry_colmass, berry_rowmass) %>%
+  left_join(berry_ca_coords, by = "Variable")
+```
+
+In summary:
+- Many analyses will give you **lists** full of every possible piece of data you could need, which aren't necessarily tabular.
+- If you need to turn a **tabular data** with `rownames` into a tibble, use `rownames_to_column()` or `as_tibble()`.
+- If you need to turn a **named vector** into a two-column table, use `enframe()`
+- If you need to turn **multiple vectors** into a table, use `tibble()` or `data.frame()`.
+- You can combine multiple tables together using `bind_rows()` and `left_join()`, if you manage your column names and the orders of your vectors carefully.
+
+Like with our *untidying* process, the shape you need to get your data into during *retidying* is ultimately decided by what you want to do with it next. Correspondence Analysis is primarily a graphical method, so next we're going to talk about graphing functions in R in our last substantive chapter. By the end, you will be able to make the plots we showed in the beginning!
