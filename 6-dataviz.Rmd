@@ -2,6 +2,7 @@
 
 ```{r setup, include = FALSE}
 library(tidyverse)
+library(ggrepel)
 berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 

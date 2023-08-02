@@ -2,226 +2,220 @@
 
 ```{r setup, include = FALSE}
 library(tidyverse)
+library(ca)
 berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
+## Correspondence Analysis Overview
 
-```{r}
-library(tidyverse)
+Remember what we said about most of the work of analysis being data wrangling? Now that we're about 2/3 of the way through this workshop, it's finally time to talk **data analysis**. The shape you need to wrangle your data *into* is determined by the analysis you want to run. Today, we have a bunch of **categorical data** and we want to understand the overall patterns within it. Which berries are **similar** and which are **different** from each other? Which sensory attributes are driving those differences?
+
+One analysis well-suited to answer these questions for CATA and other categorical data is **Correspondence Analysis**. It's a singular value decomposition-based dimensionality-reduction method, so it's similar to Principal Component Analysis, but can be used when individual observations don't have numerical responses, or when the distances between those numbers (e.g., rankings) aren't meaningful.
+
+We're using Correspondence Analysis as an example, so you can see the tidyverse in action! This is not intended to be a statistics lesson. If you want to understand the theoretical and mathematical underpinnings of Correspondence Analysis and its variations, we recommend Michael Greenacre's book [*Correspondence Analysis in Practice*](https://doi.org/10.1201/9781315369983). It was written by the author of the R package we'll be using today (`ca`), and includes R code in the appendix.
+
+### The CA package
+
+Let's take a look at this `ca` package!
+
+```{r loading the ca package and looking at help files}
 library(ca)
-library(ggrepel)
 
-berry_data <- read_csv("data/clt-berry-data.csv")
+?ca
+```
 
-str(berry_data)
+The first thing you'll see is that it wants, specifically, a data frame or matrix as `obj`. We'll be ignoring the `formula` option, because a frequency table stored as a matrix is more flexible: you can use it in other functions like those in the `FactoMineR` package.
 
-#overall counts
+A **frequency table** or **contingency table** is one way of numerically representing multiple categorical variables measured on the same set of observations. Each row represents one group of observations, each column represents one level of a given categorical variable, and the cells are filled with the number of observations in that group that fall into that level of the categorical variable.
+
+The help file shows us an example of a frequency table included in base R, so we can take a look at the shape we need to match:
+
+```{r example contingency table}
+data("author")
+str(author)
+head(author)
+```
+
+Now let's take a look at the **tidy** CATA data we need to convert into a frequency table:
+
+```{r example of tidy CATA data}
 berry_data %>%
-  select(contains("cata")) %>%
-  pivot_longer(everything(), names_prefix = "cata_",
-               values_to = "presence",
-               names_to = "attribute") %>%
-  drop_na() %>% #or filter(!is.na(presence))
-  summarize(count = sum(presence), 
-            percentage = sum(presence) / n(),
-            .by = attribute)
+  select(`Sample Name`, `Subject Code`, starts_with("cata_"))
+```
 
-#counts by berry type & strain (each row will be one person and CA can't look at
-#individual-level data)
+This is a pretty typical way for data collection software to save data from categorical questions like CATA and ordinal questions like JAR: one column per attribute. It's also, currently, a `tibble`, which is not in the list of objects that the `ca()` function will take.
+
+We need to **untidy** our data to do this analysis, which is pretty common, but the `tidyverse` functions are still going to make it much easier than trying to reshape the data in base R. The makers of the packages have included some helpful functions for converting data *out of the tidyverse*, which we'll cover in a few minutes.
+
+## Categorical, Character, Binomial, Binary, and Count data
+
+Now, you might notice that, for categorical data, there are an awful lot of numbers in both of these tables. Without giving a whole statistics lesson, I want to take a minute to stress that the **data type** in R or another statistical software (`logical > integer > numeric > character`) is **not** necessarily the same as your statistical **level of measurement** (categorical/numerical or nominal/ordinal/interval/ratio).
+
+It is your job as a sensory scientist and data analyst to understand what kind of data you have *based on how it was collected*, and select appropriate analyses accordingly.
+
+In `berry_data$cata_*`, the data is represented as a 1 if that panelist checked that attribute for that sample, and a 0 otherwise. This could also be represented as a logical `TRUE` or `FALSE`, but the 0 and 1 convention makes binomial statistics most common, so you'll see it a lot.
+
+You can also pretty easily convert between binomial/binary data stored as `numeric` 0s and 1s and `logical` data.
+
+```{r converting binary data from numeric to logical}
+testlogic <- c(TRUE,FALSE,FALSE)
+testlogic
+class(testlogic) #We start with logical data
+
+testnums <- as.numeric(testlogic) #as.numeric() turns FALSE to 0 and TRUE to 1
+testnums
+class(testnums) #Now it's numeric
+
+as.logical(testnums) #We can turn numeric to logical data the same way
+as.logical(c(0,1,2,3)) #Be careful with non-binary data, though!
+```
+You may also have your categorical data stored as a `character` type, namely if the categories are **mutually exclusive** or if you have free response data where there were not a finite/fixed set of options. The latter can quickly become thorny to deal with, because every single respondent could have their own unique categories that don't align with any others. Julia Silge and David Robinson's book [*Text Mining with R*](https://www.tidytextmining.com/) is a good primer for tidying and doing basic analysis of text data.
+
+The first type of `character` data (with a limited number of mutually exclusive categories), thankfully, is much easier to deal with. We could turn the `berry` type variable into four separate **indicator variables** with 0s and 1s, if the analysis called for it, using `pivot_wider()`. Because we're turning *one column* into *multiple columns*, we're making the data wider, even though we don't actually want to make it any shorter.
+
+```{r }
 berry_data %>%
-  select(`Sample Name`, contains("cata")) %>%
-  #note: the select statement is now more or less optional, if you want to
-  #preserve your full data connectivity longer then pivot_longer will figure
-  #the metadata out if you tell it which columns you're longifying.
-  pivot_longer(contains("cata"), names_prefix = "cata_",
-               values_to = "presence",
-               names_to = "attribute") %>%
-  drop_na() %>% #or filter(!is.na(presence))
-  summarize(count = sum(presence), 
-            percentage = sum(presence) / n(),
-            .by = c(attribute, `Sample Name`))
-#Count & percentage of people who answered each attribute for each berry (denominator is total number of people)
+  mutate(presence = 1) %>%
+  pivot_wider(names_from = berry,
+              values_from = presence, values_fill = 0) %>%
+  #The rest is just for visibility:
+  select(ends_with("berry"), `Sample Name`, everything()) %>%
+  arrange(lms_overall)
+```
 
-#Quick count of the number of (unique) participants
+And we can see here that `pivot_wider()` increased the number of columns without decreasing the number of rows. By default, it will only combine rows where every column other than the `names_from` and `values_from` columns are identical.
+
+It's often possible to convert between data types by changing the scope of your focus. **Summary tables** of categorical data can include numerical statistics (and this might give you a clue as to which `tidyverse` verb we're going to be using the most in this chapter). The most common kind of summary statistic for categorical variables is the **count** or **frequency**, which is where frequency tables get their name.
+
+```{r using summarize to count the CATA frequency}
 berry_data %>%
-  distinct(`Participant Name`) %>%
-  nrow() #969
+  group_by(`Sample Name`) %>%
+  summarize(across(starts_with("cata_"), sum))
+```
 
-#And now a slightly-hacky way of getting the # of sessions
+Note that the there are some attributes with NA counts. If we reran the analysis with `na.rm = TRUE`, we'd see that these attributes have zero citations for the berries that were `NA` before. This is because some attributes were only relevant for some of the berries. You will have to think about whether and how to include any of these variables in your analysis.
+
+For now, we'll just drop those terms.
+
+```{r frequency table of terms shared by all berries}
 berry_data %>%
-  distinct(`Participant Name`, `Sample Name`) %>%
-  count(`Sample Name`) %>%
-  filter(str_detect(`Sample Name`, '1')) %>% #`Serving Position` == 1 could also work
-  pull(n) %>%
-  sum()
+  group_by(`Sample Name`) %>%
+  summarize(across(starts_with("cata_"), sum)) %>%
+  select(where(~ none(.x, is.na))) -> berry_tidy_contingency
 
-berry_data %>%
-  filter(`Serving Position` == 1) %>% #so counts are on a per-session basis
-  summarize(across(everything(), ~ sum(is.na(.x)))) %>%
-  pivot_longer(everything(), values_to = "count_na", names_to = "attribute") %>%
-  #arrange(desc(count_na)) %>%
-  #arrange(count_na) %>%
-  filter(str_detect(attribute, "cata")) %>%
-  nrow() #36 cata attributes total
+berry_tidy_contingency
+```
 
-berry_data %>%
-  filter(`Serving Position` == 1) %>% #so counts are on a per-session basis
-  summarize(across(everything(), ~ sum(is.na(.x)))) %>%
-  pivot_longer(everything(), values_to = "count_na", names_to = "attribute") %>%
-  #arrange(desc(count_na)) %>%
-  #arrange(count_na) %>%
-  filter(str_detect(attribute, "cata"), count_na == 0) %>%
-  nrow() #13 cata attributes with no NAs
+## Untidy Analysis
+We have our contingency table now, right? That wasn't so hard! Let's do CA!
 
-berry_data %>%
-  filter(`Serving Position` == 1) %>% #so counts are on a per-session basis
-  summarize(across(everything(), ~ sum(is.na(.x)))) %>%
-  pivot_longer(everything(), values_to = "count_na", names_to = "attribute") %>%
-  arrange(count_na) %>%
-  View()
+```{r error with tibbles in base R functions}
+berry_tidy_contingency %>%
+  ca()
+```
 
-#We've got general stuff like `Sample Name`, `Serving Position`, `Subject Code`, etc
-#for all of our data points. Around half of the cata/jar survey questions were
-#seen for every single sample, but some (e.g., clove taste) are berry-specific.
+To explain why this error happens, we're going to need to talk a bit more about base R, since `ca` and many other data analysis packages aren't part of the `tidyverse`. Specifically, we need to talk about matrices and row names.
 
-berry_data %>%
-  filter(`Serving Position` == 1) %>%
-  summarize(Clove_Responses = sum(!is.na(cata_taste_clove)),
-            Cinnamon_Responses = sum(!is.na(cata_taste_cinnamon)),
-            Citrus_Responses = sum(!is.na(cata_taste_citrus)),
-            Earthy_Responses = sum(!is.na(cata_taste_earthy)),
-            .by = berry)
-#We can see that these CATA attributes are attached to a specific berry
-#But something else is happening with the liking scales.
-berry_data %>%
-  filter(`Serving Position` == 1) %>%
-  summarize(US_Responses = sum(!is.na(us_overall)),
-            Ninept_Responses = sum(!is.na(`9pt_overall`)),
-            LMS_Responses = sum(!is.na(lms_overall)),
-            .by = berry)
+### Untidying Data
 
-berry_data %>%
-  filter(`Serving Position` == 1) %>%
-  summarize(US_Responses = sum(!is.na(us_overall)),
-            Ninept_Responses = sum(!is.na(`9pt_overall`)),
-            LMS_Responses = sum(!is.na(lms_overall)),
-            .by = test_day)
-#It's also not blocked by test day
-#In actuality, people were randomly assigned to see one of the three tested scale types.
+Let's take another look at the ways the example `author` dataset are different from our data.
 
-#It's a little annoying to write those long summarize statements, so let's look at across():
-berry_data %>%
-  filter(`Serving Position` == 1) %>%
-  summarize(across(contains("_overall"), ~ sum(!is.na(.x)), .names = "responses_{.col}"), .by = berry)
+```{r tabular data with and without rownames}
+class(author)
+dimnames(author)
+class(berry_tidy_contingency)
+dimnames(berry_tidy_contingency)
+```
 
-#We can also look at the variables with the most missing data first, like so:
-berry_data %>%
-  filter(`Serving Position` == 1) %>% #so counts are on a per-session basis
-  summarize(across(everything(), ~ sum(is.na(.x)))) %>%
-  pivot_longer(everything(), values_to = "count_na", names_to = "attribute") %>%
-  arrange(desc(count_na))
+The example data we're trying to replicate is a `matrix`. This is another kind of tabular data, similar to a `tibble` or `data.frame`. The thing that sets matrices apart is that *every single cell in a matrix has the same data type*. This is a property that a lot of matrix algebra relies upon, like the math underpinning Correspondence Analysis.
 
-#No gender & age data because these have been anonymized. Very few people rated
-#liking of the aroma--turns out that this is because it was only asked for strawberries
-berry_data %>%
-  filter(`Serving Position` == 1) %>%
-  summarize(across(contains("_overall"), ~ sum(!is.na(.x)) / n(), .names = "responses_{.col}"), .by = test_day)
-#This is expressed as the percentage of people who took that test on that day, and
-#we know everybody doing a strawberry test saw one of the 3 types of aroma-liking
-#questions because the rows sum to 100%.
+Because they're tabular, it's very easy to turn a `data.frame` *into* a `matrix`, like the `ca()` function alludes to in the help files.
 
-#Let's start by looking at just the 13 CATA questions with responses for all 4 berry species.
-#In a correspondence analysis, we want to understand the relative positions of the samples,
-#so we need counts of how often each of the attributes was attributed to each berry.
-berry_data %>%
-  select(`Sample Name`, contains("cata_"),
-         -where(~ any(is.na(.x)))) %>%
-  summarize(across(everything(), sum), .by = `Sample Name`) -> berry_cata_tidy_contingency
+```{r turning data frames into matrices (badly)}
+as.matrix(berry_tidy_contingency)
+```
 
-berry_cata_tidy_contingency %>%
-  column_to_rownames("Sample Name") -> berry_cata_contingency
-#This gives us a data.frame with one less column than before:
+This is what the `ca()` function does for us when we give it a `data.frame` or `tibble`. It follows the hierarchy of data types, so you'll see that now every single number is surrounded by quotation marks now ("). It's been converted into the least-restrictive data type in `berry_tidy_contingency`, which is `character`.
 
-berry_cata_contingency %>%
-  str() #see?
+Unfortunately, you can't do math on `character` vectors.
 
-#The CA package ca() function can take a data.frame or a matrix
-?ca::ca
-#So this is all the work we actually have to do right now, but if you have a function
-#that needs a matrix, specifically:
-
-berry_cata_contingency %>%
-  as.matrix()
-
-#Note that this will not *quite* work on a tibble.
-berry_cata_tidy_contingency %>%
-  as.matrix() -> bad_berry_matrix
-#A matrix can only have one data type out of the hierarchy
-#character > complex > double > integer > logical
-#And thus all values are converted to the highest (i.e., least-restrictive)
-#data type. So we have a bunch of character (i.e., text) data in this matrix now:
-bad_berry_matrix %>%
-  str()
-
-#Which is a problem because you can't do math with character vectors:
+```{r trying to do math with character data}
 1 + 2
 "1" + "2"
+```
 
-#If you ever run into this, the solution is as.numeric():
-sum(c("1","2","3"))
-sum(as.numeric(c("1","2","3")))
+It's important to know which row corresponds to which berry, though, so we want to keep the `Sample Name` column *somehow*! This is where `rownames` come in handy, which the `author` data has but our `berry_tidy_contingency` doesn't.
 
-#But you probably want to get rid of whatever text caused the problem first:
-as.numeric(c("1","2","3","rogue column name"))
-as.numeric(bad_berry_matrix)
+The `tidyverse` doesn't really use row names (it is technically *possible* to have a tibble with `rownames`, but extremely error-prone). The theory is that whatever information you *could* use as `rownames` could be added as another column, and that you may have multiple variables whose combined levels define each row (say the sample and the participant IDs) rather than needing a single less-informative ID unique to each row.
 
-#In older versions of the tidyverse, as.matrix may not work on a tibble at all.
-#So it's easiest to use column_to_rownames() first, even if you ultimately want a matrix.
-#Named rows are useful.
+Row names are important to numeric matrices, though, because we can't do math on a matrix of character variables!
 
-#data.matrix() is a version of as.matrix() that turns everything into a number, including
-#text strings! Again, you have more control with the above methods.
-berry_cata_tidy_contingency %>%
-  data.matrix()
+The `tidyverse` provides a handy function for this, `column_to_rownames()`:
 
+```{r Turning a Column to Rownames}
+berry_tidy_contingency %>%
+  column_to_rownames("Sample Name") -> berry_contingency_df
 
-berry_cata_contingency %>%
-  ca() -> berry_cata_ca
+class(berry_contingency_df)
+dimnames(berry_contingency_df)
+```
+Note that you have to dobule-quote ("") column names for `column_to_rownames()`. No idea why. I just do what `?column_to_rownames` tells me.
 
+`berry_contingency_df` is all set for the `ca()` function now, but if you run into any functions (like many of those in `FactoMineR` and other packages) that need matrices, you can always use `as.matrix()` on the results of `column_to_rownames()`.
 
-berry_cata_ca %>%
-  str()
-#The result of the ca() is a list with multiple useful things:
-#the standard coordinates for the row (berry) and column (attribute) variables,
-berry_cata_ca$rowcoord
-berry_cata_ca$colcoord
-#the singular values (which are useful in calculating % of intertia explained
-#by each dimension)
-berry_cata_ca$sv
-berry_cata_ca$sv %>%
-  {.^2 / sum(.^2)}
-#The column and row masses (in case you want to add your own supplementary variables
-#after the fact):
-berry_cata_ca$rowmass
-berry_cata_ca$colmass
+### Data Analysis
 
-#It's sort of like a data.frame or tibble, because it has named 
-#but not every named item in the list has to be the same length, unlike a column.
+Okay, are you ready? Our data is *finally* in the shape and format we needed. You're ready to run multivariate statistics in R.
 
-#In general, I find it easiest to do all of the filtering and selecting *on the tibble*
-#so I can use the handy tidyverse functions, before I untidy the data, but 
-#you can include extra rows or columns in your contingency table (as long as they're also numbers!!)
-#and then tell the ca() function which columns are active and supplemental,
-#which may help if you're comparing a few different analyses rather than repeatedly
-#making a bunch of different contingency matrices.
+Ready?
+
+Are you sure?
+
+```{r doing Correspondence Analysis!!}
+ca(berry_contingency_df) -> berry_ca_res
+```
+
+Yep, that's it.
+
+There are other options you can read about in the help files, if you need a more sophisticated analysis, but most of the time, if I need to change something, it's with the way I'm arranging my data *before* analysis rather than fundamentally changing the `ca()` call.
+
+In general, I find it easiest to do all of the filtering and selecting *on the tibble* so I can use the handy `tidyverse` functions, before I untidy the data, but you can also include extra rows or columns in your contingency table (as long as they're also numbers!!) and then tell the `ca()` function which columns are active and supplemental. This may be an easier way to compare a few different analyses with different variables or levels of summarization, rather than having to make a bunch of different contingency matrices for each.
+
+```{r }
 berry_data %>%
   select(`Sample Name`, contains(c("cata_", "9pt_", "lms_", "us_"))) %>%
   summarize(across(contains("cata_"), ~ sum(.x, na.rm = TRUE)),
-            across(contains(c("9pt_","lms_","us_")), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) -> berry_cata_liking_tidy_contingency
-
-berry_cata_liking_tidy_contingency %>%
-  View()
-#Note that the _aroma liking scores still can't be calculated for anything but strawberries,
-#even with na.rm = TRUE.
-#You will have to think about this when you do your CA, if you include any of these variables.
+            across(contains(c("9pt_","lms_","us_")), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) %>%
+  column_to_rownames("Sample Name") %>%
+  ca(supcol = 37:51) #You have to know the NUMERIC indices to do it this way.
 ```
+
+### Retidying Data
+
+What does the `ca()` function actually give us?
+
+```{r structure of ca() results}
+berry_ca_res %>%
+  str()
+```
+It's a list with many useful things. You can think of a list as kinda like a data frame, because each item has a **name** (like columns in data frames), except they can be any length/size/shape. It's *not* tabular, so you can't use [1,2] for indexing rows and columns, but you *can* use $ indexing if you know the name of the data you're after.
+
+You're unlikely to need to worry about the specifics. Just remember that lists can be $-indexed.
+
+There are a few things we may want out of the list that `ca()` gives us, and we can see descriptions of them in plain English by typing `?ca`. These are the ones we'll be using:
+
+```{r the most commonly-used parts of ca() results}
+berry_ca_res$rowcoord #the standard coordinates of the row variable (berry)
+berry_ca_res$colcoord #the standard coordinates of the column variable (attribute)
+
+berry_ca_res$sv       #the singular value for each dimension
+berry_ca_res$sv %>%   #which are useful in calculating the % inertia of each dimension
+  {.^2 / sum(.^2)}
+#The column and row masses (in case you want to add your own supplementary variables
+#after the fact):
+berry_ca_res$rowmass  #the row masses
+berry_ca_res$colmass  #the column masses
+                      #(in case you want to add your own supplementary variables
+                      #after the analysis)
+```
+
