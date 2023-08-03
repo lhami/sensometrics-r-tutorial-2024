@@ -37,23 +37,23 @@ Today's workshop is going to take ~3 hours, with a break for lunch, and we'll be
 1.  Crash course in using R  
 2.  Creating, importing, and manipulating data in R
 3.  Tidy Data Analysis: Rows, Columns, and Groups
-  1. What is tidy data?
-  2. Subsetting data
-  3. Chaining steps together
-  4. Making new variables
-  5. Groups of rows and split-apply-combine
+    1. What is tidy data?
+    2. Subsetting data
+    3. Chaining steps together
+    4. Making new variables
+    5. Groups of rows and split-apply-combine
 4. Tidy Data Analysis: Reshaping tidy data
-  1. Groups of columns
-  2. Combining data frames
-  3. Wider and longer data
-  4. Other data-wrangling utilities
+    1. Groups of columns
+    2. Combining data frames
+    3. Wider and longer data
+    4. Other data-wrangling utilities
 5.  Data analysis outside the `tidyverse`
-  1. Correspondence Analysis overview
-  2. Working with binary, count, and character data
-  3. Untidying & Retidying data
+    1. Correspondence Analysis overview
+    2. Working with binary, count, and character data
+    3. Untidying & Retidying data
 6.  Basics of data visualization in `R`/`ggplot2`
-  1. Built-in plots using ca package
-  2. Customizing plots with ggplot2
+    1. Built-in plots using ca package
+    2. Customizing plots with ggplot2
   
 ## How we're going to run {-}
 

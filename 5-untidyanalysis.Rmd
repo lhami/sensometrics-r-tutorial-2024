@@ -18,7 +18,7 @@ We're using Correspondence Analysis as an example, so you can see the tidyverse 
 
 Let's take a look at this `ca` package!
 
-```{r loading the ca package and looking at help files}
+```{r loading the ca package and looking at help files, eval = FALSE}
 library(ca)
 
 ?ca

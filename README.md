@@ -1,6 +1,6 @@
 # Tutorial for Pangborn 2023: "An introduction to R for sensory and consumer scientists"
 
-This repository contains code and markdown files for the tutorial presented at Pangborn 2023.  If you like, you can download the materials by using the "..." menu at the top right of the repository menu.  You can also see the rendered version of this material by going to the [workshop bookdown page](https://lhami.github.io/pangborn-r-tuturial-2023/).
+This repository contains code and markdown files for the tutorial presented at Pangborn 2023.  If you like, you can download the materials by using the "..." menu at the top right of the repository menu.  You can also see the rendered version of this material by going to the [workshop bookdown page](https://lhami.github.io/pangborn-r-tutorial-2023/).
 
 # Setup for this tutorial (Do this before you travel!)
 
@@ -9,11 +9,11 @@ In order to be prepared to participate for this tutorial, you should bring a lap
 1.  **Install/update R**:
     1.  Download [R from the CRAN website](https://cran.r-project.org/).
     1.  Run the installer and make sure you can open R.
-    2.  (If you already have R, make sure you have version > 4.3.0, to limit compatibility errors.  You can check your version by opening either R or RStudio and typing `sessionInfo()` followed by hitting **return** on your keyboard at the command prompt.)
+    2.  (If you already have R, make sure you have version > 4.1.0, to limit compatibility errors.  You can check your version by opening either R or RStudio and typing `sessionInfo()` followed by hitting **return** on your keyboard at the command prompt.)
 2. **Install/update RStudio**.
     1.  Download the free version of [RStudio Desktop from the Posit website](https://posit.co/download/rstudio-desktop/#download).
     2.  Run the installer and make sure you can open RStudio.
-    3.  (If you already have RStudio, check your version by opening RStudio and navigating to the menu **Help > About RStudio**.  You should be using a version later than the 2022-05-xx release.  If you are not, or if you cannot find this information, please just update your version by following steps 1-2 above.)
+    3.  (If you already have RStudio, check your version by opening RStudio and navigating to the menu **Help > About RStudio**.  You should be using a version later than the 2022.07.0 release.  If you are not, or if you cannot find this information, please just update your version by following steps 1-2 above.)
     4. If you cannot download RStudio for any reason (such as using a tablet or having an institutional lock on your laptop), you can set up a free account with [Posit](https://posit.cloud/plans/free) to use Rstudio in your browser (Firefox, Edge, Chrome, Safari, Opera, etc) for the sake of the workshop. This method takes some extra work to set up your R Project will be different and you will only be able to run a limited amount of code each month.
 3.  **Download the tutorial materials** by [going to the `code/pangborn-code-download.zip` file](https://github.com/lhami/pangborn-tutorial-2023/blob/main/code/pangborn-code-download.zip) in this repo and clicking `Download`.
     1.  We suggest that you create a new folder on your Desktop to work in.  By downloading the files, you'll get copies of everything you need for the class:

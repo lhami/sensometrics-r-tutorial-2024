@@ -429,9 +429,8 @@ random_colors <- print(colors()[sample(x = 1:length(colors()), size = 10)])
 ```
 
 ```
-##  [1] "orchid3"       "lightblue3"    "orchid1"       "antiquewhite4"
-##  [5] "aquamarine1"   "burlywood3"    "gray75"        "firebrick4"   
-##  [9] "grey25"        "chartreuse4"
+##  [1] "thistle3"     "gray11"       "gray84"       "lightpink"    "lightcyan3"  
+##  [6] "snow3"        "khaki1"       "tan3"         "grey1"        "deepskyblue2"
 ```
 
 ```r
