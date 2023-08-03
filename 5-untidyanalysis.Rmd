@@ -109,7 +109,7 @@ berry_tidy_contingency
 ## Untidy Analysis
 We have our contingency table now, right? That wasn't so hard! Let's do CA!
 
-```{r error with tibbles in base R functions}
+```{r error with tibbles in base R functions, eval = FALSE}
 berry_tidy_contingency %>%
   ca()
 ```
@@ -139,7 +139,7 @@ This is what the `ca()` function does for us when we give it a `data.frame` or `
 
 Unfortunately, you can't do math on `character` vectors.
 
-```{r trying to do math with character data}
+```{r trying to do math with character data, eval = FALSE}
 1 + 2
 "1" + "2"
 ```
@@ -295,3 +295,25 @@ In summary:
 - You can combine multiple tables together using `bind_rows()` and `left_join()`, if you manage your column names and the orders of your vectors carefully.
 
 Like with our *untidying* process, the shape you need to get your data into during *retidying* is ultimately decided by what you want to do with it next. Correspondence Analysis is primarily a graphical method, so next we're going to talk about graphing functions in R in our last substantive chapter. By the end, you will be able to make the plots we showed in the beginning!
+
+Let's take a quick moment to **save our data** before we move on, though, so we don't have to rerun our `ca()` whenever we restart `R` to make more changes to our graph.
+
+As we've shown before, you can save tabular data easily:
+
+```{r saving the tidy and tabular ca results}
+berry_ca_coords %>%
+  write_csv("data/berry_ca_coords.csv")
+
+berry_col_coords %>%
+  write_csv("data/berry_ca_col_coords.csv")
+
+berry_row_coords %>%
+  write_csv("data/berry_ca_row_coords.csv")
+```
+
+But `.csv` is a **tabular format**, so it's a little harder to save the whole non-tabular list of `berry_ca_res` as a table. There's a lot of stuff we may need later, though, so just in case we can save it as an `.Rds` file:
+
+```{r saving the jagged berry_ca_res as an rds}
+berry_ca_res %>%
+  write_rds("data/berry_ca_results.rds")
+```

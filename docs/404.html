@@ -4,23 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | An introduction to text analysis with R for sensory and consumer scientists</title>
-  <meta name="description" content="Page not found | An introduction to text analysis with R for sensory and consumer scientists" />
+  <title>Page not found | An introduction to R for sensory and consumer scientists</title>
+  <meta name="description" content="Page not found | An introduction to R for sensory and consumer scientists" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta property="og:title" content="Page not found | An introduction to R for sensory and consumer scientists" />
   <meta property="og:type" content="book" />
   
   
-  <meta name="github-repo" content="jlahne/eurosense-tutorial-2022" />
+  <meta name="github-repo" content="lhami/pangborn-tutorial-2023" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta name="twitter:title" content="Page not found | An introduction to R for sensory and consumer scientists" />
   
   
   
 
 <meta name="author" content="Jacob Lahne" />
+<meta name="author" content="Leah Hamilton" />
 
 
 
@@ -141,7 +142,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#martha-calvert-ms"><i class="fa fa-check"></i>Martha Calvert, MS</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
@@ -200,50 +200,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-are-a-pain-to-type"><i class="fa fa-check"></i><b>3.2.3</b> Pipes are a pain to type</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>3.3</b> Make new columns: <code>mutate()</code></a></li>
-<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses-with-group_by-and-summarize"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses with <code>group_by()</code> and <code>summarize()</code></a></li>
-<li class="chapter" data-level="3.5" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#utilities-for-data-management"><i class="fa fa-check"></i><b>3.5</b> Utilities for data management</a>
+<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#rename-your-columns"><i class="fa fa-check"></i><b>3.5.1</b> Rename your columns</a></li>
-<li class="chapter" data-level="3.5.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#relocate-your-columns"><i class="fa fa-check"></i><b>3.5.2</b> Relocate your columns</a></li>
-<li class="chapter" data-level="3.5.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#sort-your-data"><i class="fa fa-check"></i><b>3.5.3</b> Sort your data</a></li>
-<li class="chapter" data-level="3.5.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pivot-tables"><i class="fa fa-check"></i><b>3.5.4</b> Pivot tables</a></li>
+<li class="chapter" data-level="3.4.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#groups-of-data-split-apply"><i class="fa fa-check"></i><b>3.4.1</b> Groups of data: Split-apply</a></li>
+<li class="chapter" data-level="3.4.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-in-fewer-steps-with-summarize"><i class="fa fa-check"></i><b>3.4.2</b> Split-apply-combine in fewer steps with <code>summarize()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>4</b> Data visualization basics with <code>ggplot2</code></a>
+<li class="chapter" data-level="4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html"><i class="fa fa-check"></i><b>4</b> Wrangling data with <code>tidyverse</code></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#your-first-ggplot"><i class="fa fa-check"></i><b>4.1</b> Your first <code>ggplot()</code></a></li>
-<li class="chapter" data-level="4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>4.2</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
-<li class="chapter" data-level="4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>4.3</b> Adding layers with <code>geom_*()</code> functions</a></li>
-<li class="chapter" data-level="4.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>4.4</b> Arguments inside and outside of <code>aes()</code></a>
+<li class="chapter" data-level="4.1" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#groups-of-columns-and-across"><i class="fa fa-check"></i><b>4.1</b> Groups of columns and across()</a></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#pivot-tables--wider-and-longer-data"><i class="fa fa-check"></i><b>4.2</b> Pivot tables- wider and longer data</a></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#combining-data"><i class="fa fa-check"></i><b>4.3</b> Combining data</a></li>
+<li class="chapter" data-level="4.4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.4</b> Utilities for data management</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>4.4.1</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
-<li class="chapter" data-level="4.4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>4.4.2</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
-<li class="chapter" data-level="4.4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>4.4.3</b> Finally, <code>facet_*()</code></a></li>
+<li class="chapter" data-level="4.4.1" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#rename-your-columns"><i class="fa fa-check"></i><b>4.4.1</b> Rename your columns</a></li>
+<li class="chapter" data-level="4.4.2" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#relocate-your-columns"><i class="fa fa-check"></i><b>4.4.2</b> Relocate your columns</a></li>
+<li class="chapter" data-level="4.4.3" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#remove-missing-values"><i class="fa fa-check"></i><b>4.4.3</b> Remove missing values</a></li>
+<li class="chapter" data-level="4.4.4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#counting-categorical-variables"><i class="fa fa-check"></i><b>4.4.4</b> Counting categorical variables</a></li>
+<li class="chapter" data-level="4.4.5" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#sort-your-data"><i class="fa fa-check"></i><b>4.4.5</b> Sort your data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#some-further-reading"><i class="fa fa-check"></i><b>4.5</b> Some further reading</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>5</b> Text Analysis</a>
+<li class="chapter" data-level="5" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Untidy Data Analysis</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-i-getting-your-text-data"><i class="fa fa-check"></i><b>5.1</b> Text Analysis Pt. I: Getting your text data</a>
+<li class="chapter" data-level="5.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#correspondence-analysis-overview"><i class="fa fa-check"></i><b>5.1</b> Correspondence Analysis Overview</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="text-analysis.html"><a href="text-analysis.html#basic-import-and-cleaning-with-text-data"><i class="fa fa-check"></i><b>5.1.1</b> Basic import and cleaning with text data</a></li>
-<li class="chapter" data-level="5.1.2" data-path="text-analysis.html"><a href="text-analysis.html#where-is-the-data-in-character-a-tidy-approach."><i class="fa fa-check"></i><b>5.1.2</b> Where is the data in <code>character</code>? A <em>tidy</em> approach.</a></li>
-<li class="chapter" data-level="5.1.3" data-path="text-analysis.html"><a href="text-analysis.html#a-quick-note-saving-data"><i class="fa fa-check"></i><b>5.1.3</b> A quick note: saving data</a></li>
+<li class="chapter" data-level="5.1.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#the-ca-package"><i class="fa fa-check"></i><b>5.1.1</b> The CA package</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-ii-basic-text-analysis-approaches-using-tokens"><i class="fa fa-check"></i><b>5.2</b> Text Analysis Pt. II: Basic text analysis approaches using tokens</a>
+<li class="chapter" data-level="5.2" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#categorical-character-binomial-binary-and-count-data"><i class="fa fa-check"></i><b>5.2</b> Categorical, Character, Binomial, Binary, and Count data</a></li>
+<li class="chapter" data-level="5.3" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#untidy-analysis"><i class="fa fa-check"></i><b>5.3</b> Untidy Analysis</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="text-analysis.html"><a href="text-analysis.html#word-counts"><i class="fa fa-check"></i><b>5.2.1</b> Word counts</a></li>
-<li class="chapter" data-level="5.2.2" data-path="text-analysis.html"><a href="text-analysis.html#term-frequency-inverse-document-frequency-tf-idf"><i class="fa fa-check"></i><b>5.2.2</b> Term Frequency-Inverse Document Frequency (TF-IDF)</a></li>
+<li class="chapter" data-level="5.3.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#untidying-data"><i class="fa fa-check"></i><b>5.3.1</b> Untidying Data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#data-analysis"><i class="fa fa-check"></i><b>5.3.2</b> Data Analysis</a></li>
+<li class="chapter" data-level="5.3.3" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#retidying-data"><i class="fa fa-check"></i><b>5.3.3</b> Retidying Data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iii-sentiment-analysis"><i class="fa fa-check"></i><b>5.3</b> Text Analysis Pt. III: Sentiment analysis</a></li>
-<li class="chapter" data-level="5.4" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iv-n-gram-models"><i class="fa fa-check"></i><b>5.4</b> Text Analysis Pt. IV: <em>n</em>-gram models</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>6</b> Wrap-up and further resources</a>
+<li class="chapter" data-level="6" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Data visualization basics with <code>ggplot2</code></a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>6.1</b> Getting help</a></li>
-<li class="chapter" data-level="6.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>6.2</b> Learning more with Sensometrics Society</a></li>
-<li class="chapter" data-level="6.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>6.3</b> Further reading/resources</a></li>
-<li class="chapter" data-level="6.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>6.4</b> Questions/Comments</a></li>
+<li class="chapter" data-level="6.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#built-in-plots-with-the-ca-package"><i class="fa fa-check"></i><b>6.1</b> Built-in plots with the ca package</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#basics-of-tidy-graphics"><i class="fa fa-check"></i><b>6.2</b> Basics of Tidy Graphics</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>6.2.1</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>6.2.2</b> Adding layers with <code>geom_*()</code> functions</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#geoms-for-categorical-ordinal-or-unevenly-distributed-data"><i class="fa fa-check"></i><b>6.2.3</b> Geoms for categorical, ordinal, or unevenly-distributed data</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>6.2.4</b> Arguments inside and outside of <code>aes()</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>6.2.5</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
+<li class="chapter" data-level="6.2.6" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>6.2.6</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
+<li class="chapter" data-level="6.2.7" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>6.2.7</b> Finally, <code>facet_*()</code></a></li>
+<li class="chapter" data-level="6.2.8" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-ggplot-rabbithole"><i class="fa fa-check"></i><b>6.2.8</b> The ggplot rabbithole</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#better-ca-plots-with-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Better CA plots with ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>7</b> Wrap-up and further resources</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>7.1</b> Getting help</a></li>
+<li class="chapter" data-level="7.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>7.2</b> Learning more with Sensometrics Society</a></li>
+<li class="chapter" data-level="7.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>7.3</b> Further reading/resources</a></li>
+<li class="chapter" data-level="7.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>7.4</b> Questions/Comments</a></li>
 </ul></li>
 </ul>
 
@@ -254,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to text analysis with R for sensory and consumer scientists</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to R for sensory and consumer scientists</a>
           </h1>
         </div>
 
@@ -328,20 +340,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

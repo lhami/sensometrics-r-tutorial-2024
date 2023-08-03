@@ -4,23 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 How to work with R | An introduction to text analysis with R for sensory and consumer scientists</title>
-  <meta name="description" content="2 How to work with R | An introduction to text analysis with R for sensory and consumer scientists" />
+  <title>2 How to work with R | An introduction to R for sensory and consumer scientists</title>
+  <meta name="description" content="2 How to work with R | An introduction to R for sensory and consumer scientists" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 How to work with R | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta property="og:title" content="2 How to work with R | An introduction to R for sensory and consumer scientists" />
   <meta property="og:type" content="book" />
   
   
-  <meta name="github-repo" content="jlahne/eurosense-tutorial-2022" />
+  <meta name="github-repo" content="lhami/pangborn-tutorial-2023" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 How to work with R | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta name="twitter:title" content="2 How to work with R | An introduction to R for sensory and consumer scientists" />
   
   
   
 
 <meta name="author" content="Jacob Lahne" />
+<meta name="author" content="Leah Hamilton" />
 
 
 
@@ -141,7 +142,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#martha-calvert-ms"><i class="fa fa-check"></i>Martha Calvert, MS</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
@@ -200,50 +200,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-are-a-pain-to-type"><i class="fa fa-check"></i><b>3.2.3</b> Pipes are a pain to type</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>3.3</b> Make new columns: <code>mutate()</code></a></li>
-<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses-with-group_by-and-summarize"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses with <code>group_by()</code> and <code>summarize()</code></a></li>
-<li class="chapter" data-level="3.5" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#utilities-for-data-management"><i class="fa fa-check"></i><b>3.5</b> Utilities for data management</a>
+<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#rename-your-columns"><i class="fa fa-check"></i><b>3.5.1</b> Rename your columns</a></li>
-<li class="chapter" data-level="3.5.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#relocate-your-columns"><i class="fa fa-check"></i><b>3.5.2</b> Relocate your columns</a></li>
-<li class="chapter" data-level="3.5.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#sort-your-data"><i class="fa fa-check"></i><b>3.5.3</b> Sort your data</a></li>
-<li class="chapter" data-level="3.5.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pivot-tables"><i class="fa fa-check"></i><b>3.5.4</b> Pivot tables</a></li>
+<li class="chapter" data-level="3.4.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#groups-of-data-split-apply"><i class="fa fa-check"></i><b>3.4.1</b> Groups of data: Split-apply</a></li>
+<li class="chapter" data-level="3.4.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-in-fewer-steps-with-summarize"><i class="fa fa-check"></i><b>3.4.2</b> Split-apply-combine in fewer steps with <code>summarize()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>4</b> Data visualization basics with <code>ggplot2</code></a>
+<li class="chapter" data-level="4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html"><i class="fa fa-check"></i><b>4</b> Wrangling data with <code>tidyverse</code></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#your-first-ggplot"><i class="fa fa-check"></i><b>4.1</b> Your first <code>ggplot()</code></a></li>
-<li class="chapter" data-level="4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>4.2</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
-<li class="chapter" data-level="4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>4.3</b> Adding layers with <code>geom_*()</code> functions</a></li>
-<li class="chapter" data-level="4.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>4.4</b> Arguments inside and outside of <code>aes()</code></a>
+<li class="chapter" data-level="4.1" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#groups-of-columns-and-across"><i class="fa fa-check"></i><b>4.1</b> Groups of columns and across()</a></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#pivot-tables--wider-and-longer-data"><i class="fa fa-check"></i><b>4.2</b> Pivot tables- wider and longer data</a></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#combining-data"><i class="fa fa-check"></i><b>4.3</b> Combining data</a></li>
+<li class="chapter" data-level="4.4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.4</b> Utilities for data management</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>4.4.1</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
-<li class="chapter" data-level="4.4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>4.4.2</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
-<li class="chapter" data-level="4.4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>4.4.3</b> Finally, <code>facet_*()</code></a></li>
+<li class="chapter" data-level="4.4.1" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#rename-your-columns"><i class="fa fa-check"></i><b>4.4.1</b> Rename your columns</a></li>
+<li class="chapter" data-level="4.4.2" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#relocate-your-columns"><i class="fa fa-check"></i><b>4.4.2</b> Relocate your columns</a></li>
+<li class="chapter" data-level="4.4.3" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#remove-missing-values"><i class="fa fa-check"></i><b>4.4.3</b> Remove missing values</a></li>
+<li class="chapter" data-level="4.4.4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#counting-categorical-variables"><i class="fa fa-check"></i><b>4.4.4</b> Counting categorical variables</a></li>
+<li class="chapter" data-level="4.4.5" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#sort-your-data"><i class="fa fa-check"></i><b>4.4.5</b> Sort your data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#some-further-reading"><i class="fa fa-check"></i><b>4.5</b> Some further reading</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>5</b> Text Analysis</a>
+<li class="chapter" data-level="5" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Untidy Data Analysis</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-i-getting-your-text-data"><i class="fa fa-check"></i><b>5.1</b> Text Analysis Pt. I: Getting your text data</a>
+<li class="chapter" data-level="5.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#correspondence-analysis-overview"><i class="fa fa-check"></i><b>5.1</b> Correspondence Analysis Overview</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="text-analysis.html"><a href="text-analysis.html#basic-import-and-cleaning-with-text-data"><i class="fa fa-check"></i><b>5.1.1</b> Basic import and cleaning with text data</a></li>
-<li class="chapter" data-level="5.1.2" data-path="text-analysis.html"><a href="text-analysis.html#where-is-the-data-in-character-a-tidy-approach."><i class="fa fa-check"></i><b>5.1.2</b> Where is the data in <code>character</code>? A <em>tidy</em> approach.</a></li>
-<li class="chapter" data-level="5.1.3" data-path="text-analysis.html"><a href="text-analysis.html#a-quick-note-saving-data"><i class="fa fa-check"></i><b>5.1.3</b> A quick note: saving data</a></li>
+<li class="chapter" data-level="5.1.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#the-ca-package"><i class="fa fa-check"></i><b>5.1.1</b> The CA package</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-ii-basic-text-analysis-approaches-using-tokens"><i class="fa fa-check"></i><b>5.2</b> Text Analysis Pt. II: Basic text analysis approaches using tokens</a>
+<li class="chapter" data-level="5.2" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#categorical-character-binomial-binary-and-count-data"><i class="fa fa-check"></i><b>5.2</b> Categorical, Character, Binomial, Binary, and Count data</a></li>
+<li class="chapter" data-level="5.3" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#untidy-analysis"><i class="fa fa-check"></i><b>5.3</b> Untidy Analysis</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="text-analysis.html"><a href="text-analysis.html#word-counts"><i class="fa fa-check"></i><b>5.2.1</b> Word counts</a></li>
-<li class="chapter" data-level="5.2.2" data-path="text-analysis.html"><a href="text-analysis.html#term-frequency-inverse-document-frequency-tf-idf"><i class="fa fa-check"></i><b>5.2.2</b> Term Frequency-Inverse Document Frequency (TF-IDF)</a></li>
+<li class="chapter" data-level="5.3.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#untidying-data"><i class="fa fa-check"></i><b>5.3.1</b> Untidying Data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#data-analysis"><i class="fa fa-check"></i><b>5.3.2</b> Data Analysis</a></li>
+<li class="chapter" data-level="5.3.3" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#retidying-data"><i class="fa fa-check"></i><b>5.3.3</b> Retidying Data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iii-sentiment-analysis"><i class="fa fa-check"></i><b>5.3</b> Text Analysis Pt. III: Sentiment analysis</a></li>
-<li class="chapter" data-level="5.4" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iv-n-gram-models"><i class="fa fa-check"></i><b>5.4</b> Text Analysis Pt. IV: <em>n</em>-gram models</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>6</b> Wrap-up and further resources</a>
+<li class="chapter" data-level="6" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Data visualization basics with <code>ggplot2</code></a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>6.1</b> Getting help</a></li>
-<li class="chapter" data-level="6.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>6.2</b> Learning more with Sensometrics Society</a></li>
-<li class="chapter" data-level="6.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>6.3</b> Further reading/resources</a></li>
-<li class="chapter" data-level="6.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>6.4</b> Questions/Comments</a></li>
+<li class="chapter" data-level="6.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#built-in-plots-with-the-ca-package"><i class="fa fa-check"></i><b>6.1</b> Built-in plots with the ca package</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#basics-of-tidy-graphics"><i class="fa fa-check"></i><b>6.2</b> Basics of Tidy Graphics</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>6.2.1</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>6.2.2</b> Adding layers with <code>geom_*()</code> functions</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#geoms-for-categorical-ordinal-or-unevenly-distributed-data"><i class="fa fa-check"></i><b>6.2.3</b> Geoms for categorical, ordinal, or unevenly-distributed data</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>6.2.4</b> Arguments inside and outside of <code>aes()</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>6.2.5</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
+<li class="chapter" data-level="6.2.6" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>6.2.6</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
+<li class="chapter" data-level="6.2.7" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>6.2.7</b> Finally, <code>facet_*()</code></a></li>
+<li class="chapter" data-level="6.2.8" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-ggplot-rabbithole"><i class="fa fa-check"></i><b>6.2.8</b> The ggplot rabbithole</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#better-ca-plots-with-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Better CA plots with ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>7</b> Wrap-up and further resources</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>7.1</b> Getting help</a></li>
+<li class="chapter" data-level="7.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>7.2</b> Learning more with Sensometrics Society</a></li>
+<li class="chapter" data-level="7.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>7.3</b> Further reading/resources</a></li>
+<li class="chapter" data-level="7.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>7.4</b> Questions/Comments</a></li>
 </ul></li>
 </ul>
 
@@ -254,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to text analysis with R for sensory and consumer scientists</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to R for sensory and consumer scientists</a>
           </h1>
         </div>
 
@@ -269,15 +281,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="doing-math-and-creating-objects-in-r" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Doing math and creating objects in <code>R</code><a href="how-to-work-with-r.html#doing-math-and-creating-objects-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>At it’s most basic, <code>R</code> can be a calculator. If you type math into the <code>Console</code> and hit <code>return</code> it will do math for you!</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="how-to-work-with-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="how-to-work-with-r.html#cb11-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="how-to-work-with-r.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1000</span> <span class="sc">/</span> <span class="fl">3.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="how-to-work-with-r.html#cb13-1" tabindex="-1"></a><span class="dv">1000</span> <span class="sc">/</span> <span class="fl">3.5</span></span></code></pre></div>
 <pre><code>## [1] 285.7143</code></pre>
 <p>To get the most out of R, though, we are going to want to use its abilities as a programming language. Among some other topics that I won’t explicitly cover today, this means using <code>R</code> to store values (and later objects that contain multiple lines of values, like you’d get in an Excel spreadsheet).</p>
 <p>This set of characters is the <strong>assignment operator</strong>: <code>&lt;-</code>. It works like this:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="how-to-work-with-r.html#cb15-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb15-2"><a href="how-to-work-with-r.html#cb15-2" aria-hidden="true" tabindex="-1"></a>hi <span class="ot">&lt;-</span> <span class="st">&quot;hello world&quot;</span></span>
-<span id="cb15-3"><a href="how-to-work-with-r.html#cb15-3" aria-hidden="true" tabindex="-1"></a>data_set <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="how-to-work-with-r.html#cb15-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb15-2"><a href="how-to-work-with-r.html#cb15-2" tabindex="-1"></a>hi <span class="ot">&lt;-</span> <span class="st">&quot;hello world&quot;</span></span>
+<span id="cb15-3"><a href="how-to-work-with-r.html#cb15-3" tabindex="-1"></a>data_set <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>… but that didn’t do anything! Where’s the output? Well, we can do two things. First, look at the “Environment” tab in your RStudio after you run the above code chunk. You’ll notice that there are 3 new things there: <code>x</code>, <code>hi</code>, and <code>data_set</code>. In general I am going to call those <strong>objects</strong>–they are stored variables, which R now knows about by name. How did it learn about them? You guessed it: the assignment operator: <code>&lt;-</code>.</p>
 <p>To be explicit: <code>x &lt;- 100</code> can be read in English as “x gets 100” (what a lot of programmers like to say) or, in a clearer but longer way, “assign 100 to a variable called x”.</p>
 <p><strong>NB</strong>: R also allows you to use <code>=</code> as an assignment operator. <strong>DO NOT DO THIS!</strong>. There are two good reasons.</p>
@@ -290,88 +302,86 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If you find typing <code>&lt;-</code> a pain (reasonably), RStudio provides a keyboard shortcut: either <code>option + -</code> on Mac or <code>Alt + -</code> on PC.</p>
 <p>I am going to use the terms “object” and “variable” interchangeably in this workshop–in other programming languages there are hard distinctions between these concepts, and even in some <code>R</code> packages this can be important, but for our purposes I mean the same thing if I am sloppy.</p>
 <p>The advantage of storing values into objects is that we can do math with them, change them, and duplicate and store them elsewhere.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="how-to-work-with-r.html#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">/</span> <span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="how-to-work-with-r.html#cb16-1" tabindex="-1"></a>x <span class="sc">/</span> <span class="dv">10</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="how-to-work-with-r.html#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="how-to-work-with-r.html#cb18-1" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
 <pre><code>## [1] 101</code></pre>
 <p>Note that doing math with a variable doesn’t change the variable itself. To do that, you have to use the assignment <code>&lt;-</code> to change the value of the variable again:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="how-to-work-with-r.html#cb20-1" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="how-to-work-with-r.html#cb20-1" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="how-to-work-with-r.html#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb22-2"><a href="how-to-work-with-r.html#cb22-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="how-to-work-with-r.html#cb22-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb22-2"><a href="how-to-work-with-r.html#cb22-2" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>## [1] 101</code></pre>
 </div>
 <div id="functions-and-their-arguments-in-r" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Functions and their arguments in <code>R</code><a href="how-to-work-with-r.html#functions-and-their-arguments-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Obviously if we’re using <code>R</code> as a calculator we might want to do more than basic arithmetic. What about taking the square root of <code>x</code>?</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="how-to-work-with-r.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="how-to-work-with-r.html#cb24-1" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span></code></pre></div>
 <pre><code>## [1] 10.04988</code></pre>
 <p>In fact, we can ask R to do lots of neat stuff, like generate random numbers for us. For example, here are 100 random numbers from a normal distribution with mean of 0 and standard deviation of 1.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="how-to-work-with-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>##   [1]  0.493314849  0.037875052 -0.211972307 -0.875487006  0.814358638
-##   [6] -0.868587814 -0.020584111  0.389302201  0.045168552 -1.153879935
-##  [11]  0.872436440 -1.854804848  0.752453147 -1.386239257 -1.495545322
-##  [16]  0.142909754 -1.449700289 -1.445263805  1.806849572 -0.234379139
-##  [21] -0.215623795  0.344922672 -1.559864288  1.864363246  1.146328013
-##  [26]  0.705156965  0.182219071 -0.909343999  0.462941302 -1.739210947
-##  [31]  2.128012614  0.976619954 -1.908483671 -1.285247803 -0.325279320
-##  [36]  1.235528183  0.725011919 -0.631203797  0.019585759 -0.698657145
-##  [41]  1.594744703 -1.336593507  0.421908848 -0.371551728 -1.418393033
-##  [46]  0.359238602  0.070269750 -0.440425309  1.808341281 -0.422607262
-##  [51] -1.076978311  2.090414396  1.644807946  0.826807026 -0.460110527
-##  [56]  0.528209201  0.162983875  1.893506167 -0.349446812 -1.199174318
-##  [61]  0.747865836  1.003744338  1.144803866 -0.004604193  0.889891940
-##  [66] -1.064555795  0.560428654 -0.077482382  0.129229629 -1.529513215
-##  [71]  2.066494468  1.418752470  0.998379563 -0.090186051 -2.226059548
-##  [76]  0.654523496  1.423097012 -0.167062902 -0.137992001  1.654034282
-##  [81] -0.388873449 -1.439625065  0.315172074  1.100587344  0.589404324
-##  [86]  1.740988679 -2.812221802  0.516105557 -0.854028120 -0.059160053
-##  [91]  1.378400882 -2.642380043 -1.204771792  1.244427027 -2.012964182
-##  [96]  0.114693495  0.090963804  0.510090308 -0.311709831 -0.331538613</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="how-to-work-with-r.html#cb26-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##   [1]  1.176144664  1.702832940  0.556365154  0.042518923 -0.497628207
+##   [6]  1.751241214  1.941096358  0.822533607  0.598305887 -2.543061149
+##  [11]  0.335211680 -1.015949787 -1.288552968  0.145282605  1.208146462
+##  [16] -1.160377442 -0.312136972  0.011087824 -0.166828024  0.364736920
+##  [21]  1.514416310 -0.358300430 -0.430456247  0.561516068 -0.237558805
+##  [26] -0.405705305  0.595289151  0.473338638  0.496913242  0.241098190
+##  [31] -0.167936021  0.339023538  0.133552156 -0.240849214 -0.112197078
+##  [36]  0.718289787 -0.142126585 -0.718541358 -1.027535877 -0.868362429
+##  [41] -0.702308452  1.206258205  0.754082018  0.777700991 -0.903293182
+##  [46] -0.015362320 -0.170401538 -0.053284206 -1.170385393  0.720932491
+##  [51]  2.490001138  0.765312097 -0.580529593  1.031178791 -0.728936376
+##  [56]  1.081562214  0.609345265 -0.574858042  0.449337951  0.508161442
+##  [61]  0.043340722  0.198791293  1.133515190  0.396425858 -0.349214490
+##  [66] -1.023859531  0.871154981  0.005242787  0.508026211 -1.234521111
+##  [71] -1.492877258  0.255118078 -2.015280595  2.029017834 -0.120404912
+##  [76]  0.043070083  1.195949165 -0.068299002 -0.501805683 -0.342959729
+##  [81] -1.206883353 -0.456853926  0.201003707  2.023542701  1.569184519
+##  [86] -2.217372279 -0.466102808  0.789207389  0.786906576  1.299669087
+##  [91]  0.970938335 -0.732693592 -0.298267686  0.121272434  2.131400894
+##  [96] -0.462468067  1.238233850  0.558034814 -1.778024346 -0.128942575</code></pre>
 <p>These forms are called a <strong>function</strong> in R. Functions lie at the heart of <code>R</code>’s power: they are pre-written scripts that are included with base <code>R</code> or added in packages, like the ones we installed. In general, an <code>R</code> function will have a form like <code>&lt;name&gt;(&lt;argument&gt;, &lt;argument&gt;, ...)</code>. In other words, the function will have a name (that lets <code>R</code> know what you’re trying to do) followed by an open parenthesis, and inside that a list of arguments, which are variables, objects, values, etc that you “pass” to the function, finally followed by a close parenthesis. In the case of our <code>sqrt()</code> function, there is only a single argument: a variable to which the square-root operation will be applied. In the case of the <code>rnorm()</code> function there are 3 arguments: the number of values we want, <code>n</code>, and the <code>mean</code> and standard deviation <code>sd</code> of the normal distribution we wish to sample from.</p>
 <p>Functions are the <code>R</code> tools for which you can make the most use of the help operator: <code>?</code>. Try typing <code>?rnorm</code> into your console, and when you hit <code>return</code> you’ll see the help page for the function.</p>
 <p>Notice that in the <code>rnorm()</code> example we <em>named</em> the arguments–we told <code>R</code> which was the <code>n</code>, <code>mean</code>, and <code>sd</code>. This is because if we name arguments, we can give them in any order. Otherwise, <code>R</code> will try to match the provided values to the arguments <strong>in the order in which they are given in the help file</strong>. This is a major source of errors for newer <code>R</code> users!</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="how-to-work-with-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This will give us 1 value from the normal distribution with mean = 0 and sd = 100</span></span>
-<span id="cb28-2"><a href="how-to-work-with-r.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div>
-<pre><code>## [1] 47.18328</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="how-to-work-with-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># But we can also use named arguments to provide them in any order we wish!</span></span>
-<span id="cb30-2"><a href="how-to-work-with-r.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">sd =</span> <span class="dv">1</span>, <span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>)</span></code></pre></div>
-<pre><code>##   [1]  0.057848995 -0.495057447  0.844496326 -0.153930514  0.743224961
-##   [6]  0.669449721  1.106530676  0.721502710  0.298407278 -0.134521056
-##  [11]  0.239202533  0.328215416  1.641046413  0.747961113  0.950868788
-##  [16]  0.570694764  0.264835549 -1.389866238 -1.693586364 -0.712183326
-##  [21] -0.151952622 -2.844356664  0.776679992 -0.496039287  0.256124599
-##  [26]  1.008850441  2.201486250  0.080494920  1.339432324  0.234445699
-##  [31] -0.911168498  0.083887666 -0.977560174 -1.167568364 -0.335448973
-##  [36] -0.538334347 -0.433266880  1.843038176  0.620781663 -2.293211221
-##  [41] -0.412376413  0.062321220 -0.889774392  2.326536173 -1.242482651
-##  [46]  1.184015926 -1.643253063  0.094257223  1.678081274 -0.817034022
-##  [51]  1.598765257  1.168040054  1.275514591  0.352142311  0.028311079
-##  [56]  0.160118173 -1.314070883  0.815794134  0.847673124  0.782306176
-##  [61] -1.246646743 -1.474180122 -0.297977942 -0.825252688 -0.898017230
-##  [66]  0.754474976  0.336108217 -1.324008783 -0.583290890  0.252256470
-##  [71]  1.167557005  0.909657307  0.340683562 -0.454838368  0.414714117
-##  [76] -1.798439986 -1.487966336  1.041104430  2.039158453  0.735159865
-##  [81]  0.549553336 -1.242439183 -0.929697566 -0.741427413  1.119578891
-##  [86]  0.433362464  0.291564825 -0.761713502  1.058681234 -0.742053370
-##  [91]  0.158985468  0.469426204  0.913799161  0.002775476 -1.868987754
-##  [96] -1.255792369 -0.484834511  0.245653161  1.197361313 -0.015974368</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="how-to-work-with-r.html#cb28-1" tabindex="-1"></a><span class="co"># This will give us 1 value from the normal distribution with mean = 0 and sd = 100</span></span>
+<span id="cb28-2"><a href="how-to-work-with-r.html#cb28-2" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div>
+<pre><code>## [1] -146.8794</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="how-to-work-with-r.html#cb30-1" tabindex="-1"></a><span class="co"># But we can also use named arguments to provide them in any order we wish!</span></span>
+<span id="cb30-2"><a href="how-to-work-with-r.html#cb30-2" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">sd =</span> <span class="dv">1</span>, <span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>##   [1] -1.52174054  0.77169136  0.53395394 -0.17640066  1.36713969  0.98074707
+##   [7] -0.20097700  1.92612362 -0.31829332  0.52864966 -0.82307793  0.82944975
+##  [13] -1.68789575 -0.47795408 -1.22478361  0.23814270  1.34342220  0.69679670
+##  [19]  0.51877972 -0.32022319  0.02380965  1.35986992 -0.41198273  1.11595789
+##  [25] -0.11257255  1.57248122 -0.61071462  0.06558852 -0.11948284 -1.76282861
+##  [31] -1.58096871  1.61129932  1.42624763  1.22430128 -0.49985092 -1.14430806
+##  [37]  1.34602677  1.22399547  0.15988419 -1.04730991  1.85471381  0.26026558
+##  [43]  1.51498355  1.97289936  0.17146224 -0.10035531 -0.13004686  0.03585737
+##  [49]  0.72475842  0.45818533  0.75383627 -0.24271869  2.18713298 -1.16836519
+##  [55] -0.03131123 -1.87289724  1.44984079  0.62935762 -0.06670326 -0.43688577
+##  [61] -0.52078456 -0.91156383 -0.11379424 -0.12741756 -0.48438306  0.42609903
+##  [67]  0.75326783 -0.31824770  0.38197124 -0.43079047 -1.65060261  0.76411119
+##  [73]  0.64189494 -0.27593573  1.32262086  0.48565398  0.78067890 -0.43786264
+##  [79]  0.14360089  0.80394730 -0.27637823 -0.47187657  0.87022197 -1.03706837
+##  [85] -0.94269008 -0.10675036 -0.53400417  0.32128419  0.08664750 -0.89241747
+##  [91]  0.87970039 -0.60086946  2.51310171  0.70652680 -0.67827154  0.35074052
+##  [97]  0.89460795  0.33109720  0.40665236 -0.19771870</code></pre>
 <p>Programming languages like <code>R</code> are very literal, and we need to be as literal as we can to make them work the way we want them to.</p>
 </div>
 <div id="reading-data-into-r" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Reading data into <code>R</code><a href="how-to-work-with-r.html#reading-data-into-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>So far we’ve only done very basic things with <code>R</code>, which probably haven’t sold you on its power and utility. Let’s try doing some things that will hopefully get us a little further towards actual, useful applications.</p>
 <p>First off, make sure you have the <code>tidyverse</code> package loaded by using the <code>library()</code> function.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="how-to-work-with-r.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="how-to-work-with-r.html#cb32-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>Now, we’re going to read in the data we’re going to use for this workshop using the function <code>read_csv()</code>. If you want to learn about this function, use the <code>?read_csv</code> command to get some details.</p>
-<p>In the workshop archive you downloaded, the <code>data/</code> directory has a file called <code>ba_2002.csv</code>. If you double-click this in your file browser, it will (most likely) open in Excel, and you can take a look at it. It is 20,000 reviews of beer, posted in the year 2002. This is an edited (not original) and very delimited version of the dataset (which had &gt;1 million reviews), as the original one has been removed from the web at the original website owner’s request. It will be the training dataset we use for today.</p>
+<p>In the workshop archive you downloaded, the <code>data/</code> directory has a file called <code>clt-berry-data.csv</code>. If you double-click this in your file browser, it will (most likely) open in Excel, and you can take a look at it. The data describe the attributes and liking scores reported by consumers for a variety of berries across multiple CLTs. A total of 969 unique participants (<code>Subject Code</code>) and 23 berries (<code>Sample Name</code>) were involved in these tests, with only one species of berry (blackberry, blueberry, raspberry, or strawberry) presented during each CLT.</p>
+<p>As for the survey, panelists were asked JAR, CATA, and free response questions, as well as liking on the Unlabeled Line Scale (<code>us_*</code>), 9-point scale (<code>9pt_*</code>), or labeled magnitude scale (<code>lms_*</code>).</p>
 <p>To get this data into <code>R</code>, we have to tell <code>R</code> where it lives on your computer, and what kind of data it is.</p>
 <div id="where-the-data-lives" class="section level3 hasAnchor" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Where the data lives<a href="how-to-work-with-r.html#where-the-data-lives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We touched on <strong>working directories</strong> because this is how <code>R</code> “sees” your computer. It will look first in the working directory, and then you will have to tell it where the file is <em>relative</em> to that directory. If you have been following along and opened up the <code>.Rproj</code> file in the downloaded archive, your working directory should be the archive’s top level, which will mean that we only need to point <code>R</code> towards the <code>data/</code> folder and then the <code>ba_2002.csv</code> file. We can check the working directory with the <code>getwd()</code> function.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="how-to-work-with-r.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;C:/Users/Leah/Documents/R/pangborn-r-tutorial-2023&quot;</code></pre>
-<p>Therefore, <strong>relative to the working directory</strong>, the file path to this data is <code>data/ba_2002.csv</code>. Please note that this is the UNIX convention for file paths: in Windows, the backslash <code>\</code> is used to separate directories. Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention in this workshop.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="how-to-work-with-r.html#cb33-1" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;C:/Users/lhamilton/Documents/pangborn-r-tutorial-2023&quot;</code></pre>
+<p>Therefore, <strong>relative to the working directory</strong>, the file path to this data is <code>data/clt-berry-data.csv</code>. Please note that this is the UNIX convention for file paths: in Windows, the backslash <code>\</code> is used to separate directories. Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention in this workshop.</p>
 </div>
 <div id="what-kind-of-file-are-we-importing" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> What kind of file are we importing?<a href="how-to-work-with-r.html#what-kind-of-file-are-we-importing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -383,38 +393,44 @@ cat_acquisition_order,name,weight\n
 2,Margot,10\n
 3,Little Guy,13\n</code></pre>
 <p>Each line represents a row of data, and each field is separated by a comma (<code>,</code>). We can read this kind of data into <code>R</code> by using the <code>read_csv()</code> function.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="how-to-work-with-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/ba_2002.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## Rows: 20359 Columns: 14
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="how-to-work-with-r.html#cb36-1" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/clt-berry-data.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 7507 Columns: 92
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
-## chr (5): reviews, beer_name, brewery_name, style, user_id
-## dbl (9): beer_id, brewery_id, abv, appearance, aroma, palate, taste, overall...
+## chr  (7): Start Time (UTC), End Time (UTC), Sample Name, verbal_likes, verba...
+## dbl (83): Subject Code, Participant Name, Serving Position, Sample Identifie...
+## lgl  (2): Gender, Age
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre><code>## # A tibble: 20,359 × 14
-##    reviews         beer_name beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 This is a very… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 jisurf…
-##  2 Great head cre… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 allbou…
-##  3 Wow what a dif… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 frank4…
-##  4 Tried this one… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 beergl…
-##  5 Caffrey&#39;s on-t… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 proc.1…
-##  6 The nitro can … Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 zerk.4…
-##  7 Nitro can...Ty… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 adr.263
-##  8 Excellent pour… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 dogbri…
-##  9 A very good Ir… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 goindo…
-## 10 Looks very nic… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 irishr…
-## # ℹ 20,349 more rows
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 7,507 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 21:05   
+##  2           1001               1001 NA     NA    6/13/2019 20:55   
+##  3           1001               1001 NA     NA    6/13/2019 20:49   
+##  4           1001               1001 NA     NA    6/13/2019 20:45   
+##  5           1001               1001 NA     NA    6/13/2019 21:00   
+##  6           1001               1001 NA     NA    6/13/2019 21:10   
+##  7           1002               1002 NA     NA    6/13/2019 20:08   
+##  8           1002               1002 NA     NA    6/13/2019 19:57   
+##  9           1002               1002 NA     NA    6/13/2019 20:13   
+## 10           1002               1002 NA     NA    6/13/2019 20:03   
+## # ℹ 7,497 more rows
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
 <p>Suddenly, we have tabular data (i.e., data in rows and columns), like we’d have in Excel! Now we’re getting somewhere. However, before we go forward we’ll have to store this data somewhere–right now we’re just reading it and throwing it away.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="how-to-work-with-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/ba_2002.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## Rows: 20359 Columns: 14
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="how-to-work-with-r.html#cb39-1" tabindex="-1"></a>berry_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/clt-berry-data.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 7507 Columns: 92
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
-## chr (5): reviews, beer_name, brewery_name, style, user_id
-## dbl (9): beer_id, brewery_id, abv, appearance, aroma, palate, taste, overall...
+## chr  (7): Start Time (UTC), End Time (UTC), Sample Name, verbal_likes, verba...
+## dbl (83): Subject Code, Participant Name, Serving Position, Sample Identifie...
+## lgl  (2): Gender, Age
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
@@ -423,171 +439,333 @@ cat_acquisition_order,name,weight\n
 </div>
 <div id="data-in-r" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Data in <code>R</code><a href="how-to-work-with-r.html#data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s take a look at the <code>Environment</code> tab. Among some other objects you may have created (like <code>x</code>), you should see <code>beer_data</code> listed. This is a type of data called a <code>data.frame</code> in <code>R</code>, and it is going to be, for the most part, the kind of data you interact with most. Let’s learn about how these types of objects work by doing a quick review of the basics.</p>
+<p>Let’s take a look at the <code>Environment</code> tab. Among some other objects you may have created (like <code>x</code>), you should see <code>berry_data</code> listed. This is a type of data called a <code>data.frame</code> in <code>R</code>, and it is going to be, for the most part, the kind of data you interact with most. Let’s learn about how these types of objects work by doing a quick review of the basics.</p>
 <p>We started by creating an object called <code>x</code> and storing a number (<code>100</code>) into it. What kind of thing is this?</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="how-to-work-with-r.html#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb41-2"><a href="how-to-work-with-r.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="how-to-work-with-r.html#cb41-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb41-2"><a href="how-to-work-with-r.html#cb41-2" tabindex="-1"></a><span class="fu">class</span>(x)</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="how-to-work-with-r.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="how-to-work-with-r.html#cb43-1" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
 <p><code>R</code> has a bunch of basic data types, including the above “numeric” data type, which is a “real number” (in computer terms, a floating-point double as opposed to an integer). It can also store logical values (<code>TRUE</code> and <code>FALSE</code>), integers, characters/strings (which are what we’re really here to deal with) and some more exotic data types you won’t encounter very much. What <code>R</code> does that makes it good for data analysis is that it stores these all as <strong>vectors</strong>: 1-dimensional arrays of the same type of data. So, in fact, <code>x</code> is a length-1 vector of numeric data:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="how-to-work-with-r.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="how-to-work-with-r.html#cb45-1" tabindex="-1"></a><span class="fu">length</span>(x)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>The operator to explicitly make a vector in <code>R</code> is the <code>c()</code> function, which stands for “combine”. So if we want to make a vector of a few values, we use this function as so:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="how-to-work-with-r.html#cb47-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">50</span>)</span>
-<span id="cb47-2"><a href="how-to-work-with-r.html#cb47-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="how-to-work-with-r.html#cb47-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">50</span>)</span>
+<span id="cb47-2"><a href="how-to-work-with-r.html#cb47-2" tabindex="-1"></a>y</span></code></pre></div>
 <pre><code>## [1]  1  2  3 10 50</code></pre>
 <p>We can also use <code>c()</code> to combine pre-existing objects:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="how-to-work-with-r.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(x, y)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="how-to-work-with-r.html#cb49-1" tabindex="-1"></a><span class="fu">c</span>(x, y)</span></code></pre></div>
 <pre><code>## [1] 100   1   2   3  10  50</code></pre>
 <p>You can have vectors of other types of objects:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="how-to-work-with-r.html#cb51-1" aria-hidden="true" tabindex="-1"></a>animals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;fox&quot;</span>, <span class="st">&quot;bat&quot;</span>, <span class="st">&quot;rat&quot;</span>, <span class="st">&quot;cat&quot;</span>)</span>
-<span id="cb51-2"><a href="how-to-work-with-r.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(animals)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="how-to-work-with-r.html#cb51-1" tabindex="-1"></a>animals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;fox&quot;</span>, <span class="st">&quot;bat&quot;</span>, <span class="st">&quot;rat&quot;</span>, <span class="st">&quot;cat&quot;</span>)</span>
+<span id="cb51-2"><a href="how-to-work-with-r.html#cb51-2" tabindex="-1"></a><span class="fu">class</span>(animals)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>If we try to combine vectors of 2 types of data, <code>R</code> will “coerce” the data types to match to the less restrictive type, in the following order: <code>logical &gt; integer &gt; numeric &gt; character</code>. So if we combine <code>y</code> and <code>animals</code>, we’ll turn the numbers into their character representations. I mention this because it can be a source of error and confusion when we are working with large datasets, as we may see.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="how-to-work-with-r.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(y, animals)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="how-to-work-with-r.html#cb53-1" tabindex="-1"></a><span class="fu">c</span>(y, animals)</span></code></pre></div>
 <pre><code>## [1] &quot;1&quot;   &quot;2&quot;   &quot;3&quot;   &quot;10&quot;  &quot;50&quot;  &quot;fox&quot; &quot;bat&quot; &quot;rat&quot; &quot;cat&quot;</code></pre>
 <p>For example, we can divide all the numbers in <code>y</code> by <code>2</code>, but if we try to divide <code>c(y, animals)</code> by <code>2</code> we will get an error:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="how-to-work-with-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(y, animals) <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="how-to-work-with-r.html#cb55-1" tabindex="-1"></a><span class="fu">c</span>(y, animals) <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## Error in c(y, animals)/2: non-numeric argument to binary operator</code></pre>
 <p>For vectors (and more complex objects), we can use the <code>str()</code> (“structure”) function to get some details about their nature and what they contain:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="how-to-work-with-r.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="how-to-work-with-r.html#cb57-1" tabindex="-1"></a><span class="fu">str</span>(y)</span></code></pre></div>
 <pre><code>##  num [1:5] 1 2 3 10 50</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="how-to-work-with-r.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(animals)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="how-to-work-with-r.html#cb59-1" tabindex="-1"></a><span class="fu">str</span>(animals)</span></code></pre></div>
 <pre><code>##  chr [1:4] &quot;fox&quot; &quot;bat&quot; &quot;rat&quot; &quot;cat&quot;</code></pre>
-<p>This <code>str()</code> function is especially useful when we have big, complicated datasets, like <code>beer_data</code>:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="how-to-work-with-r.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(beer_data)</span></code></pre></div>
-<pre><code>## spc_tbl_ [20,359 × 14] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
-##  $ reviews     : chr [1:20359] &quot;This is a very good Irish ale. I&#39;m not sure if it would be considered a cream ale, but it&#39;s very creamy in colo&quot;| __truncated__ &quot;Great head creation and retention from the Nitro can. A pinky finger width head stuck with the beer all the way&quot;| __truncated__ &quot;Wow what a different brew in England. I still am not a huge fan but the brew is improved on tap and fresh. It t&quot;| __truncated__ &quot;Tried this one in a steak house. Pours a light reddish colour topped by a thick white head that settles rather &quot;| __truncated__ ...
-##  $ beer_name   : chr [1:20359] &quot;Caffrey&#39;s Irish Ale&quot; &quot;Caffrey&#39;s Irish Ale&quot; &quot;Caffrey&#39;s Irish Ale&quot; &quot;Caffrey&#39;s Irish Ale&quot; ...
-##  $ beer_id     : num [1:20359] 825 825 825 825 825 825 825 825 825 825 ...
-##  $ brewery_name: chr [1:20359] &quot;Thomas Caffrey Brewing Co.&quot; &quot;Thomas Caffrey Brewing Co.&quot; &quot;Thomas Caffrey Brewing Co.&quot; &quot;Thomas Caffrey Brewing Co.&quot; ...
-##  $ brewery_id  : num [1:20359] 297 297 297 297 297 297 297 297 297 297 ...
-##  $ style       : chr [1:20359] &quot;Irish Red Ale&quot; &quot;Irish Red Ale&quot; &quot;Irish Red Ale&quot; &quot;Irish Red Ale&quot; ...
-##  $ abv         : num [1:20359] 3.8 3.8 3.8 3.8 3.8 3.8 3.8 3.8 3.8 3.8 ...
-##  $ user_id     : chr [1:20359] &quot;jisurfer.1152&quot; &quot;allboutbierge.746&quot; &quot;frank4sail.48&quot; &quot;beerglassescollector.1006&quot; ...
-##  $ appearance  : num [1:20359] 5 5 4 3.5 4 4 3.5 4 4 4 ...
-##  $ aroma       : num [1:20359] 4 3.5 3 3.5 3 3 3.5 3 4 3 ...
-##  $ palate      : num [1:20359] 4 4 3 3.5 4 2.5 4 3 4 3.5 ...
-##  $ taste       : num [1:20359] 4.5 3.5 3.5 3.5 4.5 3 3.5 3 4 3 ...
-##  $ overall     : num [1:20359] 5 4 3 3.5 3.5 3.5 3.5 3 4 3.5 ...
-##  $ rating      : num [1:20359] 4.46 3.74 3.26 3.5 3.86 3.11 3.55 3.06 4 3.21 ...
+<p>This <code>str()</code> function is especially useful when we have big, complicated datasets, like <code>berry_data</code>:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="how-to-work-with-r.html#cb61-1" tabindex="-1"></a><span class="fu">str</span>(berry_data)</span></code></pre></div>
+<pre><code>## spc_tbl_ [7,507 × 92] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ Subject Code               : num [1:7507] 1001 1001 1001 1001 1001 ...
+##  $ Participant Name           : num [1:7507] 1001 1001 1001 1001 1001 ...
+##  $ Gender                     : logi [1:7507] NA NA NA NA NA NA ...
+##  $ Age                        : logi [1:7507] NA NA NA NA NA NA ...
+##  $ Start Time (UTC)           : chr [1:7507] &quot;6/13/2019 21:05&quot; &quot;6/13/2019 20:55&quot; &quot;6/13/2019 20:49&quot; &quot;6/13/2019 20:45&quot; ...
+##  $ End Time (UTC)             : chr [1:7507] &quot;6/13/2019 21:09&quot; &quot;6/13/2019 20:59&quot; &quot;6/13/2019 20:53&quot; &quot;6/13/2019 20:48&quot; ...
+##  $ Serving Position           : num [1:7507] 5 3 2 1 4 6 3 1 4 2 ...
+##  $ Sample Identifier          : num [1:7507] 1426 3167 4624 5068 7195 ...
+##  $ Sample Name                : chr [1:7507] &quot;raspberry 6&quot; &quot;raspberry 5&quot; &quot;raspberry 2&quot; &quot;raspberry 3&quot; ...
+##  $ 9pt_appearance             : num [1:7507] 4 8 4 7 7 7 6 8 8 7 ...
+##  $ pre_expectation            : num [1:7507] 2 4 2 4 3 4 2 3 5 3 ...
+##  $ jar_color                  : num [1:7507] 2 3 2 2 4 4 2 3 3 2 ...
+##  $ jar_gloss                  : num [1:7507] 4 3 2 3 3 3 4 3 4 4 ...
+##  $ jar_size                   : num [1:7507] 2 3 3 4 3 3 4 3 5 3 ...
+##  $ cata_appearance_unevencolor: num [1:7507] 0 0 0 0 1 0 0 1 1 1 ...
+##  $ cata_appearance_misshapen  : num [1:7507] 1 0 0 0 1 0 0 0 0 0 ...
+##  $ cata_appearance_creased    : num [1:7507] 0 0 0 0 0 0 0 0 1 1 ...
+##  $ cata_appearance_seedy      : num [1:7507] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ cata_appearance_bruised    : num [1:7507] 0 0 0 0 0 0 0 0 1 1 ...
+##  $ cata_appearance_notfresh   : num [1:7507] 1 0 1 0 0 0 0 0 0 0 ...
+##  $ cata_appearance_fresh      : num [1:7507] 0 1 0 1 0 1 1 1 1 1 ...
+##  $ cata_appearance_goodshape  : num [1:7507] 0 1 0 1 0 1 1 1 0 0 ...
+##  $ cata_appearance_goodquality: num [1:7507] 0 1 0 1 0 1 1 1 1 0 ...
+##  $ cata_appearance_none       : num [1:7507] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ 9pt_overall                : num [1:7507] 4 9 3 7 4 4 4 7 7 9 ...
+##  $ verbal_likes               : chr [1:7507] &quot;Out of the two, there was one that had a good sweetness to it&quot; &quot;It was firm to the touch but was very delicate when you bit on it. There was an even amount of tart and sweetne&quot;| __truncated__ &quot;It was firm to the touch&quot; &quot;It had a naturally sweet flavor both from the start and the finish&quot; ...
+##  $ verbal_dislikes            : chr [1:7507] &quot;There were different flavors coming from each and different sizes. The first was a smaller than normal one and &quot;| __truncated__ &quot;They seemed bigger in size than normal raspberries&quot; &quot;It did not have the fresh flavor of a normal raspberry. Instead, it felt like there were other ingredients adde&quot;| __truncated__ &quot;It felt too delicate from the touch&quot; ...
+##  $ 9pt_taste                  : num [1:7507] 4 9 3 6 3 3 4 4 6 9 ...
+##  $ grid_sweetness             : num [1:7507] 3 6 3 6 2 3 3 2 2 6 ...
+##  $ grid_tartness              : num [1:7507] 6 5 5 3 5 6 5 5 5 2 ...
+##  $ grid_raspberryflavor       : num [1:7507] 4 7 2 6 2 3 2 6 2 7 ...
+##  $ jar_sweetness              : num [1:7507] 2 3 2 3 2 1 1 1 1 3 ...
+##  $ jar_tartness               : num [1:7507] 4 3 3 3 4 5 4 4 4 3 ...
+##  $ cata_taste_floral          : num [1:7507] 0 0 0 1 0 0 0 1 1 1 ...
+##  $ cata_taste_berry           : num [1:7507] 1 1 0 1 0 0 0 1 0 1 ...
+##  $ cata_taste_green           : num [1:7507] 0 0 0 1 1 1 0 0 1 0 ...
+##  $ cata_taste_grassy          : num [1:7507] 0 0 0 0 1 1 1 0 1 0 ...
+##  $ cata_taste_fermented       : num [1:7507] 0 0 1 0 0 0 0 0 0 0 ...
+##  $ cata_taste_tropical        : num [1:7507] 1 1 0 0 0 0 0 0 0 1 ...
+##  $ cata_taste_fruity          : num [1:7507] 1 1 0 1 0 0 0 0 0 1 ...
+##  $ cata_taste_citrus          : num [1:7507] 1 0 0 0 0 1 1 0 0 0 ...
+##  $ cata_taste_earthy          : num [1:7507] 0 0 0 0 1 0 0 1 0 0 ...
+##  $ cata_taste_candy           : num [1:7507] 0 0 1 0 0 0 0 0 0 0 ...
+##  $ cata_taste_none            : num [1:7507] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ 9pt_texture                : num [1:7507] 6 8 2 8 5 6 6 9 8 7 ...
+##  $ grid_seediness             : num [1:7507] 3 5 6 3 5 5 6 4 6 5 ...
+##  $ grid_firmness              : num [1:7507] 5 5 5 2 6 5 5 6 5 3 ...
+##  $ grid_juiciness             : num [1:7507] 2 5 2 2 2 4 2 4 2 3 ...
+##  $ jar_firmness               : num [1:7507] 3 3 4 2 4 3 3 3 3 2 ...
+##  $ jar_juciness               : num [1:7507] 2 3 1 2 2 2 1 2 1 3 ...
+##  $ post_expectation           : num [1:7507] 1 5 2 4 2 2 2 2 2 5 ...
+##  $ price                      : num [1:7507] 1.99 4.99 2.99 4.99 2.99 3.99 3.99 3.99 2.99 4.99 ...
+##  $ product_tier               : num [1:7507] 1 3 2 3 1 2 2 2 1 3 ...
+##  $ purchase_intent            : num [1:7507] 1 5 2 4 2 2 3 4 2 5 ...
+##  $ subject                    : num [1:7507] 1031946 1031946 1031946 1031946 1031946 ...
+##  $ test_day                   : chr [1:7507] &quot;Raspberry Day 1&quot; &quot;Raspberry Day 1&quot; &quot;Raspberry Day 1&quot; &quot;Raspberry Day 1&quot; ...
+##  $ us_appearance              : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ us_overall                 : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ us_taste                   : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ us_texture                 : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ lms_appearance             : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ lms_overall                : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ lms_taste                  : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ lms_texture                : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_appearane_bruised     : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_appearance_goodshapre : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_appearance_goodcolor  : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ grid_blackberryflavor      : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_cinnamon        : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_lemon           : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_clove           : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_minty           : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_grape           : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ grid_crispness             : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ jar_crispness              : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ jar_juiciness              : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_appearane_creased     : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ grid_blueberryflavor       : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_piney           : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_peachy          : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ 9pt_aroma                  : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ grid_strawberryflavor      : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_caramel         : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_grapey          : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_melon           : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ cata_taste_cherry          : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ grid_crunchiness           : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ jar_crunch                 : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ us_aroma                   : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ lms_aroma                  : num [1:7507] NA NA NA NA NA NA NA NA NA NA ...
+##  $ berry                      : chr [1:7507] &quot;raspberry&quot; &quot;raspberry&quot; &quot;raspberry&quot; &quot;raspberry&quot; ...
+##  $ sample                     : num [1:7507] 6 5 2 3 4 1 6 5 2 3 ...
 ##  - attr(*, &quot;spec&quot;)=
 ##   .. cols(
-##   ..   reviews = col_character(),
-##   ..   beer_name = col_character(),
-##   ..   beer_id = col_double(),
-##   ..   brewery_name = col_character(),
-##   ..   brewery_id = col_double(),
-##   ..   style = col_character(),
-##   ..   abv = col_double(),
-##   ..   user_id = col_character(),
-##   ..   appearance = col_double(),
-##   ..   aroma = col_double(),
-##   ..   palate = col_double(),
-##   ..   taste = col_double(),
-##   ..   overall = col_double(),
-##   ..   rating = col_double()
+##   ..   `Subject Code` = col_double(),
+##   ..   `Participant Name` = col_double(),
+##   ..   Gender = col_logical(),
+##   ..   Age = col_logical(),
+##   ..   `Start Time (UTC)` = col_character(),
+##   ..   `End Time (UTC)` = col_character(),
+##   ..   `Serving Position` = col_double(),
+##   ..   `Sample Identifier` = col_double(),
+##   ..   `Sample Name` = col_character(),
+##   ..   `9pt_appearance` = col_double(),
+##   ..   pre_expectation = col_double(),
+##   ..   jar_color = col_double(),
+##   ..   jar_gloss = col_double(),
+##   ..   jar_size = col_double(),
+##   ..   cata_appearance_unevencolor = col_double(),
+##   ..   cata_appearance_misshapen = col_double(),
+##   ..   cata_appearance_creased = col_double(),
+##   ..   cata_appearance_seedy = col_double(),
+##   ..   cata_appearance_bruised = col_double(),
+##   ..   cata_appearance_notfresh = col_double(),
+##   ..   cata_appearance_fresh = col_double(),
+##   ..   cata_appearance_goodshape = col_double(),
+##   ..   cata_appearance_goodquality = col_double(),
+##   ..   cata_appearance_none = col_double(),
+##   ..   `9pt_overall` = col_double(),
+##   ..   verbal_likes = col_character(),
+##   ..   verbal_dislikes = col_character(),
+##   ..   `9pt_taste` = col_double(),
+##   ..   grid_sweetness = col_double(),
+##   ..   grid_tartness = col_double(),
+##   ..   grid_raspberryflavor = col_double(),
+##   ..   jar_sweetness = col_double(),
+##   ..   jar_tartness = col_double(),
+##   ..   cata_taste_floral = col_double(),
+##   ..   cata_taste_berry = col_double(),
+##   ..   cata_taste_green = col_double(),
+##   ..   cata_taste_grassy = col_double(),
+##   ..   cata_taste_fermented = col_double(),
+##   ..   cata_taste_tropical = col_double(),
+##   ..   cata_taste_fruity = col_double(),
+##   ..   cata_taste_citrus = col_double(),
+##   ..   cata_taste_earthy = col_double(),
+##   ..   cata_taste_candy = col_double(),
+##   ..   cata_taste_none = col_double(),
+##   ..   `9pt_texture` = col_double(),
+##   ..   grid_seediness = col_double(),
+##   ..   grid_firmness = col_double(),
+##   ..   grid_juiciness = col_double(),
+##   ..   jar_firmness = col_double(),
+##   ..   jar_juciness = col_double(),
+##   ..   post_expectation = col_double(),
+##   ..   price = col_double(),
+##   ..   product_tier = col_double(),
+##   ..   purchase_intent = col_double(),
+##   ..   subject = col_double(),
+##   ..   test_day = col_character(),
+##   ..   us_appearance = col_double(),
+##   ..   us_overall = col_double(),
+##   ..   us_taste = col_double(),
+##   ..   us_texture = col_double(),
+##   ..   lms_appearance = col_double(),
+##   ..   lms_overall = col_double(),
+##   ..   lms_taste = col_double(),
+##   ..   lms_texture = col_double(),
+##   ..   cata_appearane_bruised = col_double(),
+##   ..   cata_appearance_goodshapre = col_double(),
+##   ..   cata_appearance_goodcolor = col_double(),
+##   ..   grid_blackberryflavor = col_double(),
+##   ..   cata_taste_cinnamon = col_double(),
+##   ..   cata_taste_lemon = col_double(),
+##   ..   cata_taste_clove = col_double(),
+##   ..   cata_taste_minty = col_double(),
+##   ..   cata_taste_grape = col_double(),
+##   ..   grid_crispness = col_double(),
+##   ..   jar_crispness = col_double(),
+##   ..   jar_juiciness = col_double(),
+##   ..   cata_appearane_creased = col_double(),
+##   ..   grid_blueberryflavor = col_double(),
+##   ..   cata_taste_piney = col_double(),
+##   ..   cata_taste_peachy = col_double(),
+##   ..   `9pt_aroma` = col_double(),
+##   ..   grid_strawberryflavor = col_double(),
+##   ..   cata_taste_caramel = col_double(),
+##   ..   cata_taste_grapey = col_double(),
+##   ..   cata_taste_melon = col_double(),
+##   ..   cata_taste_cherry = col_double(),
+##   ..   grid_crunchiness = col_double(),
+##   ..   jar_crunch = col_double(),
+##   ..   us_aroma = col_double(),
+##   ..   lms_aroma = col_double(),
+##   ..   berry = col_character(),
+##   ..   sample = col_double()
 ##   .. )
 ##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
 <div id="subsetting-data" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Subsetting data<a href="how-to-work-with-r.html#subsetting-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Vectors, by nature, are ordered arrays of data (in this case, 1-dimensional arrays). That means they have a first element, a second element, and so on. Our <code>y</code> vector has 5 total elements, and our <code>animals</code> vector has 4 elements. In <code>R</code>, the way to <strong>subset</strong> vectors is to use the <code>[]</code> (square brackets) operator. For a 1-dimensional vector, we use this to select one or more elements:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="how-to-work-with-r.html#cb63-1" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="how-to-work-with-r.html#cb63-1" tabindex="-1"></a>y[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="how-to-work-with-r.html#cb65-1" aria-hidden="true" tabindex="-1"></a>animals[<span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="how-to-work-with-r.html#cb65-1" tabindex="-1"></a>animals[<span class="dv">4</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;cat&quot;</code></pre>
 <p>We can also select multiple elements by using a vector of indices</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="how-to-work-with-r.html#cb67-1" aria-hidden="true" tabindex="-1"></a>animals[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="how-to-work-with-r.html#cb67-1" tabindex="-1"></a>animals[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span></code></pre></div>
 <pre><code>## [1] &quot;fox&quot; &quot;bat&quot;</code></pre>
 <p>A shortcut for a sequence of numbers in <code>R</code> is the <code>:</code> (colon) operator, so this is often used for indexing:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="how-to-work-with-r.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="how-to-work-with-r.html#cb69-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="how-to-work-with-r.html#cb71-1" aria-hidden="true" tabindex="-1"></a>animals[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="how-to-work-with-r.html#cb71-1" tabindex="-1"></a>animals[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;fox&quot; &quot;bat&quot; &quot;rat&quot;</code></pre>
 <p>We often want to use programmatic (or “conditional”) logic to subset vectors and more complex datasets. For example, we might want to only select elements of <code>y</code> that are less than <code>10</code>. To do that, we can use one of <code>R</code>’s conditional logic operators: <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>==</code>, or <code>!=</code>. These, in order, stand for “less than,”greater than,“,”less than or equal to,” “greater than or equal to,” “equal to,” and “not equal to.”</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="how-to-work-with-r.html#cb73-1" aria-hidden="true" tabindex="-1"></a>y <span class="sc">&lt;</span> <span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="how-to-work-with-r.html#cb73-1" tabindex="-1"></a>y <span class="sc">&lt;</span> <span class="dv">10</span></span></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE  TRUE FALSE FALSE</code></pre>
 <p>We can then use this same set of logical values to select only the elements of <code>y</code> for which the condition is <code>TRUE</code>:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="how-to-work-with-r.html#cb75-1" aria-hidden="true" tabindex="-1"></a>y[y <span class="sc">&lt;</span> <span class="dv">10</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="how-to-work-with-r.html#cb75-1" tabindex="-1"></a>y[y <span class="sc">&lt;</span> <span class="dv">10</span>]</span></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
 <p>This is useful if we have a long vector (frequently) and do not want to list or are not able to list all of the actual indices that we want to select.</p>
 </div>
 <div id="complex-vectorslists-data.frame-and-tibble" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Complex vectors/lists: <code>data.frame</code> and <code>tibble</code><a href="how-to-work-with-r.html#complex-vectorslists-data.frame-and-tibble" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Now that we have the basics of vectors, we can move on to the complex data object we’re really interested in: <code>beer_data</code>. This is a type of object called a <code>tibble</code>, which is a cute/fancy version of the more basic <code>R</code> object called a <code>data.frame</code>. These are <code>R</code>’s version of the <code>.csv</code> file or your typical Excel file: a rectangular matrix of data, with (usually) columns representing some variable and rows representing some kind of observation. Each row will have a value in each column or will be <code>NA</code>, which is <code>R</code>’s specific value to represent <strong>missing data</strong>.</p>
+<p>Now that we have the basics of vectors, we can move on to the complex data object we’re really interested in: <code>berry_data</code>. This is a type of object called a <code>tibble</code>, which is a cute/fancy version of the more basic <code>R</code> object called a <code>data.frame</code>. These are <code>R</code>’s version of the <code>.csv</code> file or your typical Excel file: a rectangular matrix of data, with (usually) columns representing some variable and rows representing some kind of observation. Each row will have a value in each column or will be <code>NA</code>, which is <code>R</code>’s specific value to represent <strong>missing data</strong>.</p>
 <p>In a <code>data.frame</code>, every column has to have only a single data type: a column might be <code>logical</code> or <code>integer</code> or <code>character</code>, but it cannot be a mix. However, each column can be a different type. For example, the first column in our <code>beer_data</code>, called <code>reviews</code>, is a <code>character</code> vector, but the third column, <code>beer_id</code>, is a <code>numeric</code> column.</p>
 <p>We have now moved from 1-dimensional vectors to 2-dimensional data tables, which means we’re going to have some new properties to investigate. First off, we might want to know how many rows and columns our data table has:</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="how-to-work-with-r.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(beer_data)</span></code></pre></div>
-<pre><code>## [1] 20359</code></pre>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="how-to-work-with-r.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(beer_data)</span></code></pre></div>
-<pre><code>## [1] 14</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="how-to-work-with-r.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(beer_data) <span class="co"># Note that length() of a data.frame is the same as ncol()</span></span></code></pre></div>
-<pre><code>## [1] 14</code></pre>
-<p>We already tried running <code>str(beer_data)</code>, which gives us the data types of each column and an example. Some other ways to examine the data include the following:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="how-to-work-with-r.html#cb83-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="co"># simply printing the object</span></span>
-<span id="cb83-2"><a href="how-to-work-with-r.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(beer_data) <span class="co"># show the first few rows</span></span>
-<span id="cb83-3"><a href="how-to-work-with-r.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(beer_data) <span class="co"># show the last few rows</span></span>
-<span id="cb83-4"><a href="how-to-work-with-r.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(beer_data) <span class="co"># a more compact version of str()</span></span>
-<span id="cb83-5"><a href="how-to-work-with-r.html#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(beer_data) <span class="co"># get the variable/column names</span></span></code></pre></div>
-<p>Note that some of these functions (for example, <code>glimpse()</code>) come from the <code>tidyverse</code> package, so if you are having trouble running a command, first make sure you have run <code>library(tidyverse)</code>.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="how-to-work-with-r.html#cb77-1" tabindex="-1"></a><span class="fu">nrow</span>(berry_data)</span></code></pre></div>
+<pre><code>## [1] 7507</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="how-to-work-with-r.html#cb79-1" tabindex="-1"></a><span class="fu">ncol</span>(berry_data)</span></code></pre></div>
+<pre><code>## [1] 92</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="how-to-work-with-r.html#cb81-1" tabindex="-1"></a><span class="fu">length</span>(berry_data) <span class="co"># Note that length() of a data.frame is the same as ncol()</span></span></code></pre></div>
+<pre><code>## [1] 92</code></pre>
+<p>We already tried running <code>str(berry_data)</code>, which gives us the data types of each column and an example. Some other ways to examine the data include the following:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="how-to-work-with-r.html#cb83-1" tabindex="-1"></a>berry_data <span class="co"># simply printing the object</span></span>
+<span id="cb83-2"><a href="how-to-work-with-r.html#cb83-2" tabindex="-1"></a><span class="fu">head</span>(berry_data) <span class="co"># show the first few rows</span></span>
+<span id="cb83-3"><a href="how-to-work-with-r.html#cb83-3" tabindex="-1"></a><span class="fu">tail</span>(berry_data) <span class="co"># show the last few rows</span></span>
+<span id="cb83-4"><a href="how-to-work-with-r.html#cb83-4" tabindex="-1"></a><span class="fu">glimpse</span>(berry_data) <span class="co"># a more compact version of str()</span></span>
+<span id="cb83-5"><a href="how-to-work-with-r.html#cb83-5" tabindex="-1"></a><span class="fu">names</span>(berry_data) <span class="co"># get the variable/column names</span></span></code></pre></div>
+<p>Some of these functions (for example, <code>glimpse()</code>) come from the <code>tidyverse</code> package, so if you are having trouble running a command, first make sure you have run <code>library(tidyverse)</code>.</p>
 </div>
 </div>
 <div id="subsetting-and-wrangling-data-tables" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Subsetting and wrangling data tables<a href="how-to-work-with-r.html#subsetting-and-wrangling-data-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Since we now have 2 dimensions, our old strategy of using a single number to select a value from a vector won’t work! But the <code>[]</code> operator still works on data frames and tibbles. We just have to specify coordinates, as <code>[&lt;row&gt;, &lt;column&gt;]</code>.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="how-to-work-with-r.html#cb84-1" aria-hidden="true" tabindex="-1"></a>beer_data[<span class="dv">5</span>, <span class="dv">1</span>] <span class="co"># get the 5th row, 1st column value</span></span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="how-to-work-with-r.html#cb84-1" tabindex="-1"></a>berry_data[<span class="dv">3</span>, <span class="dv">9</span>] <span class="co"># get the 3rd row, 9th column value</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
-##   reviews                                                                       
-##   &lt;chr&gt;                                                                         
-## 1 Caffrey&#39;s on-tap is less creamy than the nitro can, but seems to be more subs…</code></pre>
+##   `Sample Name`
+##   &lt;chr&gt;        
+## 1 raspberry 2</code></pre>
 <p>We can continue to use ranges or vectors of indices to select larger parts of the table</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="how-to-work-with-r.html#cb86-1" aria-hidden="true" tabindex="-1"></a>beer_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span>] <span class="co"># get the first 5 rows of the 1st column value</span></span></code></pre></div>
-<pre><code>## # A tibble: 5 × 1
-##   reviews                                                                       
-##   &lt;chr&gt;                                                                         
-## 1 This is a very good Irish ale. I&#39;m not sure if it would be considered a cream…
-## 2 Great head creation and retention from the Nitro can. A pinky finger width he…
-## 3 Wow what a different brew in England. I still am not a huge fan but the brew …
-## 4 Tried this one in a steak house. Pours a light reddish colour topped by a thi…
-## 5 Caffrey&#39;s on-tap is less creamy than the nitro can, but seems to be more subs…</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="how-to-work-with-r.html#cb86-1" tabindex="-1"></a>berry_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">9</span>] <span class="co"># get the first 5 rows of the 9th column value</span></span></code></pre></div>
+<pre><code>## # A tibble: 6 × 1
+##   `Sample Name`
+##   &lt;chr&gt;        
+## 1 raspberry 6  
+## 2 raspberry 5  
+## 3 raspberry 2  
+## 4 raspberry 3  
+## 5 raspberry 4  
+## 6 raspberry 1</code></pre>
 <p>If we only want to subset on a specific dimension and get everything from the other dimension, we just leave it blank.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="how-to-work-with-r.html#cb88-1" aria-hidden="true" tabindex="-1"></a>beer_data[, <span class="dv">2</span>] <span class="co"># get all rows of the 2nd column</span></span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 1
-##    beer_name          
-##    &lt;chr&gt;              
-##  1 Caffrey&#39;s Irish Ale
-##  2 Caffrey&#39;s Irish Ale
-##  3 Caffrey&#39;s Irish Ale
-##  4 Caffrey&#39;s Irish Ale
-##  5 Caffrey&#39;s Irish Ale
-##  6 Caffrey&#39;s Irish Ale
-##  7 Caffrey&#39;s Irish Ale
-##  8 Caffrey&#39;s Irish Ale
-##  9 Caffrey&#39;s Irish Ale
-## 10 Caffrey&#39;s Irish Ale
-## # ℹ 20,349 more rows</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="how-to-work-with-r.html#cb88-1" tabindex="-1"></a>berry_data[, <span class="dv">1</span>] <span class="co"># get all rows of the 1st column</span></span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 1
+##    `Subject Code`
+##             &lt;dbl&gt;
+##  1           1001
+##  2           1001
+##  3           1001
+##  4           1001
+##  5           1001
+##  6           1001
+##  7           1002
+##  8           1002
+##  9           1002
+## 10           1002
+## # ℹ 7,497 more rows</code></pre>
 <p>We can also use logical subsetting, just like in vectors. This is very powerful but a bit complicated, so we are going to introduce some <code>tidyverse</code> based operators to do this that will make it a lot easier. I will just give an example:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="how-to-work-with-r.html#cb90-1" aria-hidden="true" tabindex="-1"></a>beer_data[beer_data<span class="sc">$</span>rating <span class="sc">&gt;</span> <span class="fl">4.5</span>, ] <span class="co"># get all rows for which rating &gt; 3</span></span></code></pre></div>
-<pre><code>## # A tibble: 1,952 × 14
-##    reviews         beer_name beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 I must agree w… Old Engi…     875 Harviestoun…        323 Engl…   6   viking…
-##  2 I had this bee… Schiehal…    6438 Harviestoun…        323 Euro…   4.8 thelon…
-##  3 Haven&#39;t found … Deuchars…    2389 The Caledon…        188 Engl…   4.4 freed.…
-##  4 Once again had… Deuchars…    2389 The Caledon…        188 Engl…   4.4 mark.65
-##  5 Hazy (bottle c… Edinburg…    6466 The Caledon…        188 Scot…   6.4 nerofi…
-##  6 The first time… McEwan&#39;s…     911 The Caledon…        188 Engl…   4.7 jdhilt…
-##  7 The brew pours… McEwan&#39;s…    1275 The Caledon…        188 Scot…   8   murph.…
-##  8 Deep dark brow… McEwan&#39;s…    1275 The Caledon…        188 Scot…   8   zap.184
-##  9 Clear deep sca… Traquair…      36 Traquair Ho…         24 Scot…   7.2 bighug…
-## 10 Reddish brown … Traquair…      36 Traquair Ho…         24 Scot…   7.2 mjohn2…
-## # ℹ 1,942 more rows
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="how-to-work-with-r.html#cb90-1" tabindex="-1"></a>berry_data[berry_data<span class="sc">$</span>berry <span class="sc">==</span> <span class="st">&quot;raspberry&quot;</span>, ] <span class="co"># get all raspberry data</span></span></code></pre></div>
+<pre><code>## # A tibble: 2,148 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 21:05   
+##  2           1001               1001 NA     NA    6/13/2019 20:55   
+##  3           1001               1001 NA     NA    6/13/2019 20:49   
+##  4           1001               1001 NA     NA    6/13/2019 20:45   
+##  5           1001               1001 NA     NA    6/13/2019 21:00   
+##  6           1001               1001 NA     NA    6/13/2019 21:10   
+##  7           1002               1002 NA     NA    6/13/2019 20:08   
+##  8           1002               1002 NA     NA    6/13/2019 19:57   
+##  9           1002               1002 NA     NA    6/13/2019 20:13   
+## 10           1002               1002 NA     NA    6/13/2019 20:03   
+## # ℹ 2,138 more rows
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
 <p>In this last example I also introduced the final bit of <code>tibble</code> and <code>data.frame</code> wrangling we will cover here: the <code>$</code> operator. This is the operator to select a single column from a <code>data.frame</code> or <code>tibble</code>. It gives you back the vector that makes up that column:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="how-to-work-with-r.html#cb92-1" aria-hidden="true" tabindex="-1"></a>beer_data<span class="sc">$</span>style <span class="co"># not printed because it is too long!</span></span></code></pre></div>
-<p>One of the nice things about RStudio is that it provides tab-completion for <code>$</code>. Go to the console, type “bee” and hit <code>tab</code>. You’ll see a list of possible matches, with <code>beer_data</code> at the top. Hit enter, and this will fill out the typing for you! Now, type “$” and hit <code>tab</code> again. You’ll see a list of the columns in <code>beer_data</code>! This can save a huge amount of typing and memorizing the names of variables and objects.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="how-to-work-with-r.html#cb92-1" tabindex="-1"></a>berry_data<span class="sc">$</span>lms_overall <span class="co"># not printed because it is too long!</span></span>
+<span id="cb92-2"><a href="how-to-work-with-r.html#cb92-2" tabindex="-1"></a>berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="co"># column names starting with numbers or containing special characters like spaces need to be surrounded by backticks (`)</span></span></code></pre></div>
+<p>One of the nice things about RStudio is that it provides tab-completion for <code>$</code>. Go to the console, type “ber” and hit <code>tab</code> (or just wait a second or two, if you use the default RStudio settings). You’ll see a list of possible matches, with <code>berry_data</code> at the top. Hit enter, and this will fill out the typing for you! Now, type “$” and hit <code>tab</code> again. You’ll see a list of the columns in <code>berry_data</code>! This can save a huge amount of typing and memorizing the names of variables and objects.</p>
 <p>Now that we’ve gone over the basics of creating and manipulating objects in <code>R</code>, we’re going to run through the basics of data manipulation and visualization with the <code>tidyverse</code>. Before we move on to that topic, let’s address <strong>any questions</strong>.</p>
 </div>
 <div id="psa-not-knowing-is-normal" class="section level2 hasAnchor" number="2.6">
@@ -667,20 +845,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

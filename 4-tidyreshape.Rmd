@@ -26,7 +26,7 @@ You might read this as: `summarize()` `across()` every `.col` that `starts_with(
 
 We can easily expand this to take multiple kinds of summaries for each column, in which case it helps to **name** the functions. `across()` uses **lists** to work with more than one function, so it will look at the **list names** (lefthand-side of the arguments in `list()`) to name the output columns:
 
-```{r apply the same tidy operation across() multiple columns}
+```{r using multiple functions in across()}
 berry_data %>%
   group_by(`Sample Name`) %>%
   summarize(across(.cols = starts_with("cata_"),

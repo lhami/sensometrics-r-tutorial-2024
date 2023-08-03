@@ -72,7 +72,7 @@ This is much clearer to the reader.
 
 Getting rid of the double quotes we previously saw around `"column names"` can have some consequences, though. R variable names can *only* contain letters, numbers, and underscores (_), no spaces ( ) or dashes (-), and can't start with numbers, but the tidyverse *will* let you make column names that break these rules. So if you try to do the exact same thing as before to get the data from the 9-point hedonic scale instead of the labeled magnitude scale:
 
-```{r errors from select() with unusual column names}
+```{r errors from select() with unusual column names, eval = FALSE}
 select(berry_data, berry, test_day,
        9pt_aroma, 9pt_overall, 9pt_taste, 9pt_texture, 9pt_appearance) # this will cause an error
 ```

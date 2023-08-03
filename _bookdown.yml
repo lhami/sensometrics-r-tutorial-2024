@@ -5,8 +5,9 @@ rmd_files: ["index.Rmd",
             "1-intro-to-R.Rmd",
             "2-using-R.Rmd",
             "3-tidyverse.Rmd",
-            "4-dataviz.Rmd",
-            "5-text-analysis.Rmd",
-            "6-conclusions.Rmd"]
+            "4-tidyreshape.Rmd",
+            "5-untidyanalysis.Rmd",
+            "6-dataviz.Rmd",
+            "7-conclusions.Rmd"]
 keep_md: false
 output_dir: "docs"

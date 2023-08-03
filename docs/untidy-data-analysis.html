@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Untidy Data Analysis | An introduction to R for sensory and consumer scientists</title>
+  <meta name="description" content="5 Untidy Data Analysis | An introduction to R for sensory and consumer scientists" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Untidy Data Analysis | An introduction to R for sensory and consumer scientists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="lhami/pangborn-tutorial-2023" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Untidy Data Analysis | An introduction to R for sensory and consumer scientists" />
+  
+  
+  
+
+<meta name="author" content="Jacob Lahne" />
+<meta name="author" content="Leah Hamilton" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="wrangling-data-with-tidyverse-1.html"/>
+<link rel="next" href="data-visualization-basics-with-ggplot2.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction and welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introductions"><i class="fa fa-check"></i>Introductions</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recommended-approach-for-livecoding"><i class="fa fa-check"></i>Recommended approach for livecoding</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dealing-with-errors"><i class="fa fa-check"></i>Dealing with errors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html"><i class="fa fa-check"></i><b>1</b> A crash course in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#r-vs-rstudio"><i class="fa fa-check"></i><b>1.1</b> <code>R</code> vs RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#what-is-r"><i class="fa fa-check"></i><b>1.1.1</b> What is <code>R</code>?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#great-why-are-we-using-rstudio-then"><i class="fa fa-check"></i><b>1.1.2</b> Great, why are we using RStudio then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#the-parts-of-rstudio"><i class="fa fa-check"></i><b>1.2</b> The parts of RStudio</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#the-working-directory-and-why-you-should-care"><i class="fa fa-check"></i><b>1.2.1</b> The “working directory” and why you should care</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#extending-r-with-packages"><i class="fa fa-check"></i><b>1.3</b> Extending <code>R</code> with packages</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#installing-packages"><i class="fa fa-check"></i><b>1.3.1</b> Installing packages</a></li>
+<li class="chapter" data-level="1.3.2" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#loading-packages"><i class="fa fa-check"></i><b>1.3.2</b> Loading packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#getting-help"><i class="fa fa-check"></i><b>1.4</b> Getting help</a></li>
+<li class="chapter" data-level="1.5" data-path="a-crash-course-in-r.html"><a href="a-crash-course-in-r.html#livecoding-along"><i class="fa fa-check"></i><b>1.5</b> Livecoding along</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html"><i class="fa fa-check"></i><b>2</b> How to work with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#doing-math-and-creating-objects-in-r"><i class="fa fa-check"></i><b>2.1</b> Doing math and creating objects in <code>R</code></a></li>
+<li class="chapter" data-level="2.2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#functions-and-their-arguments-in-r"><i class="fa fa-check"></i><b>2.2</b> Functions and their arguments in <code>R</code></a></li>
+<li class="chapter" data-level="2.3" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#reading-data-into-r"><i class="fa fa-check"></i><b>2.3</b> Reading data into <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#where-the-data-lives"><i class="fa fa-check"></i><b>2.3.1</b> Where the data lives</a></li>
+<li class="chapter" data-level="2.3.2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#what-kind-of-file-are-we-importing"><i class="fa fa-check"></i><b>2.3.2</b> What kind of file are we importing?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#data-in-r"><i class="fa fa-check"></i><b>2.4</b> Data in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#subsetting-data"><i class="fa fa-check"></i><b>2.4.1</b> Subsetting data</a></li>
+<li class="chapter" data-level="2.4.2" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#complex-vectorslists-data.frame-and-tibble"><i class="fa fa-check"></i><b>2.4.2</b> Complex vectors/lists: <code>data.frame</code> and <code>tibble</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#subsetting-and-wrangling-data-tables"><i class="fa fa-check"></i><b>2.5</b> Subsetting and wrangling data tables</a></li>
+<li class="chapter" data-level="2.6" data-path="how-to-work-with-r.html"><a href="how-to-work-with-r.html#psa-not-knowing-is-normal"><i class="fa fa-check"></i><b>2.6</b> PSA: not-knowing is normal!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Wrangling data with <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#subsetting-data-1"><i class="fa fa-check"></i><b>3.1</b> Subsetting data</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#select-for-columns"><i class="fa fa-check"></i><b>3.1.1</b> <code>select()</code> for columns</a></li>
+<li class="chapter" data-level="3.1.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#filter-for-rows"><i class="fa fa-check"></i><b>3.1.2</b> <code>filter()</code> for rows</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#combining-steps-with-the-pipe"><i class="fa fa-check"></i><b>3.2</b> Combining steps with the pipe: <code>%&gt;%</code></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-require-that-the-lefthand-side-be-a-single-functional-command"><i class="fa fa-check"></i><b>3.2.1</b> Pipes require that the lefthand side be a single functional command</a></li>
+<li class="chapter" data-level="3.2.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side"><i class="fa fa-check"></i><b>3.2.2</b> Pipes always pass the result of the lefthand side to the <em>first</em> argument of the righthand side</a></li>
+<li class="chapter" data-level="3.2.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-are-a-pain-to-type"><i class="fa fa-check"></i><b>3.2.3</b> Pipes are a pain to type</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>3.3</b> Make new columns: <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#groups-of-data-split-apply"><i class="fa fa-check"></i><b>3.4.1</b> Groups of data: Split-apply</a></li>
+<li class="chapter" data-level="3.4.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-in-fewer-steps-with-summarize"><i class="fa fa-check"></i><b>3.4.2</b> Split-apply-combine in fewer steps with <code>summarize()</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html"><i class="fa fa-check"></i><b>4</b> Wrangling data with <code>tidyverse</code></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#groups-of-columns-and-across"><i class="fa fa-check"></i><b>4.1</b> Groups of columns and across()</a></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#pivot-tables--wider-and-longer-data"><i class="fa fa-check"></i><b>4.2</b> Pivot tables- wider and longer data</a></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#combining-data"><i class="fa fa-check"></i><b>4.3</b> Combining data</a></li>
+<li class="chapter" data-level="4.4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.4</b> Utilities for data management</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#rename-your-columns"><i class="fa fa-check"></i><b>4.4.1</b> Rename your columns</a></li>
+<li class="chapter" data-level="4.4.2" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#relocate-your-columns"><i class="fa fa-check"></i><b>4.4.2</b> Relocate your columns</a></li>
+<li class="chapter" data-level="4.4.3" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#remove-missing-values"><i class="fa fa-check"></i><b>4.4.3</b> Remove missing values</a></li>
+<li class="chapter" data-level="4.4.4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#counting-categorical-variables"><i class="fa fa-check"></i><b>4.4.4</b> Counting categorical variables</a></li>
+<li class="chapter" data-level="4.4.5" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#sort-your-data"><i class="fa fa-check"></i><b>4.4.5</b> Sort your data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Untidy Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#correspondence-analysis-overview"><i class="fa fa-check"></i><b>5.1</b> Correspondence Analysis Overview</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#the-ca-package"><i class="fa fa-check"></i><b>5.1.1</b> The CA package</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#categorical-character-binomial-binary-and-count-data"><i class="fa fa-check"></i><b>5.2</b> Categorical, Character, Binomial, Binary, and Count data</a></li>
+<li class="chapter" data-level="5.3" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#untidy-analysis"><i class="fa fa-check"></i><b>5.3</b> Untidy Analysis</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#untidying-data"><i class="fa fa-check"></i><b>5.3.1</b> Untidying Data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#data-analysis"><i class="fa fa-check"></i><b>5.3.2</b> Data Analysis</a></li>
+<li class="chapter" data-level="5.3.3" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#retidying-data"><i class="fa fa-check"></i><b>5.3.3</b> Retidying Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Data visualization basics with <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#built-in-plots-with-the-ca-package"><i class="fa fa-check"></i><b>6.1</b> Built-in plots with the ca package</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#basics-of-tidy-graphics"><i class="fa fa-check"></i><b>6.2</b> Basics of Tidy Graphics</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>6.2.1</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>6.2.2</b> Adding layers with <code>geom_*()</code> functions</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#geoms-for-categorical-ordinal-or-unevenly-distributed-data"><i class="fa fa-check"></i><b>6.2.3</b> Geoms for categorical, ordinal, or unevenly-distributed data</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>6.2.4</b> Arguments inside and outside of <code>aes()</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>6.2.5</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
+<li class="chapter" data-level="6.2.6" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>6.2.6</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
+<li class="chapter" data-level="6.2.7" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>6.2.7</b> Finally, <code>facet_*()</code></a></li>
+<li class="chapter" data-level="6.2.8" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-ggplot-rabbithole"><i class="fa fa-check"></i><b>6.2.8</b> The ggplot rabbithole</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#better-ca-plots-with-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Better CA plots with ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>7</b> Wrap-up and further resources</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>7.1</b> Getting help</a></li>
+<li class="chapter" data-level="7.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>7.2</b> Learning more with Sensometrics Society</a></li>
+<li class="chapter" data-level="7.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>7.3</b> Further reading/resources</a></li>
+<li class="chapter" data-level="7.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>7.4</b> Questions/Comments</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to R for sensory and consumer scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="untidy-data-analysis" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Untidy Data Analysis<a href="untidy-data-analysis.html#untidy-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="correspondence-analysis-overview" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Correspondence Analysis Overview<a href="untidy-data-analysis.html#correspondence-analysis-overview" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Remember what we said about most of the work of analysis being data wrangling? Now that we’re about 2/3 of the way through this workshop, it’s finally time to talk <strong>data analysis</strong>. The shape you need to wrangle your data <em>into</em> is determined by the analysis you want to run. Today, we have a bunch of <strong>categorical data</strong> and we want to understand the overall patterns within it. Which berries are <strong>similar</strong> and which are <strong>different</strong> from each other? Which sensory attributes are driving those differences?</p>
+<p>One analysis well-suited to answer these questions for CATA and other categorical data is <strong>Correspondence Analysis</strong>. It’s a singular value decomposition-based dimensionality-reduction method, so it’s similar to Principal Component Analysis, but can be used when individual observations don’t have numerical responses, or when the distances between those numbers (e.g., rankings) aren’t meaningful.</p>
+<p>We’re using Correspondence Analysis as an example, so you can see the tidyverse in action! This is not intended to be a statistics lesson. If you want to understand the theoretical and mathematical underpinnings of Correspondence Analysis and its variations, we recommend Michael Greenacre’s book <a href="https://doi.org/10.1201/9781315369983"><em>Correspondence Analysis in Practice</em></a>. It was written by the author of the R package we’ll be using today (<code>ca</code>), and includes R code in the appendix.</p>
+<div id="the-ca-package" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> The CA package<a href="untidy-data-analysis.html#the-ca-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s take a look at this <code>ca</code> package!</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="untidy-data-analysis.html#cb232-1" tabindex="-1"></a><span class="fu">library</span>(ca)</span>
+<span id="cb232-2"><a href="untidy-data-analysis.html#cb232-2" tabindex="-1"></a></span>
+<span id="cb232-3"><a href="untidy-data-analysis.html#cb232-3" tabindex="-1"></a>?ca</span></code></pre></div>
+<pre><code>## starting httpd help server ... done</code></pre>
+<p>The first thing you’ll see is that it wants, specifically, a data frame or matrix as <code>obj</code>. We’ll be ignoring the <code>formula</code> option, because a frequency table stored as a matrix is more flexible: you can use it in other functions like those in the <code>FactoMineR</code> package.</p>
+<p>A <strong>frequency table</strong> or <strong>contingency table</strong> is one way of numerically representing multiple categorical variables measured on the same set of observations. Each row represents one group of observations, each column represents one level of a given categorical variable, and the cells are filled with the number of observations in that group that fall into that level of the categorical variable.</p>
+<p>The help file shows us an example of a frequency table included in base R, so we can take a look at the shape we need to match:</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="untidy-data-analysis.html#cb234-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;author&quot;</span>)</span>
+<span id="cb234-2"><a href="untidy-data-analysis.html#cb234-2" tabindex="-1"></a><span class="fu">str</span>(author)</span></code></pre></div>
+<pre><code>##  num [1:12, 1:26] 550 515 590 557 589 541 517 592 576 557 ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : chr [1:12] &quot;three daughters (buck)&quot; &quot;drifters (michener)&quot; &quot;lost world (clark)&quot; &quot;east wind (buck)&quot; ...
+##   ..$ : chr [1:26] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...</code></pre>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="untidy-data-analysis.html#cb236-1" tabindex="-1"></a><span class="fu">head</span>(author)</span></code></pre></div>
+<pre><code>##                                a   b   c   d    e   f   g   h   i j  k   l   m
+## three daughters (buck)       550 116 147 374 1015 131 131 493 442 2 52 302 159
+## drifters (michener)          515 109 172 311  827 167 136 376 432 8 61 280 146
+## lost world (clark)           590 112 181 265  940 137 119 419 514 6 46 335 176
+## east wind (buck)             557 129 128 343  996 158 129 571 555 4 76 291 247
+## farewell to arms (hemingway) 589  72 129 339  866 108 159 449 472 7 59 264 158
+## sound and fury 7 (faulkner)  541 109 136 228  763 126 129 401 520 5 72 280 209
+##                                n   o   p q   r   s   t   u   v   w  x   y  z
+## three daughters (buck)       534 516 115 4 409 467 632 174  66 155  5 150  3
+## drifters (michener)          470 561 140 4 368 387 632 195  60 156 14 137  5
+## lost world (clark)           403 505 147 8 395 464 670 224 113 146 13 162 10
+## east wind (buck)             479 509  92 3 413 533 632 181  68 187 10 184  4
+## farewell to arms (hemingway) 504 542  95 0 416 314 691 197  64 225  1 155  2
+## sound and fury 7 (faulkner)  471 589  84 2 324 454 672 247  71 160 11 280  1</code></pre>
+<p>Now let’s take a look at the <strong>tidy</strong> CATA data we need to convert into a frequency table:</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="untidy-data-analysis.html#cb238-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb238-2"><a href="untidy-data-analysis.html#cb238-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, <span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 38
+##    `Sample Name` `Subject Code` cata_appearance_unevenc…¹ cata_appearance_miss…²
+##    &lt;chr&gt;                  &lt;dbl&gt;                     &lt;dbl&gt;                  &lt;dbl&gt;
+##  1 raspberry 6             1001                         0                      1
+##  2 raspberry 5             1001                         0                      0
+##  3 raspberry 2             1001                         0                      0
+##  4 raspberry 3             1001                         0                      0
+##  5 raspberry 4             1001                         1                      1
+##  6 raspberry 1             1001                         0                      0
+##  7 raspberry 6             1002                         0                      0
+##  8 raspberry 5             1002                         1                      0
+##  9 raspberry 2             1002                         1                      0
+## 10 raspberry 3             1002                         1                      0
+## # ℹ 7,497 more rows
+## # ℹ abbreviated names: ¹​cata_appearance_unevencolor, ²​cata_appearance_misshapen
+## # ℹ 34 more variables: cata_appearance_creased &lt;dbl&gt;,
+## #   cata_appearance_seedy &lt;dbl&gt;, cata_appearance_bruised &lt;dbl&gt;,
+## #   cata_appearance_notfresh &lt;dbl&gt;, cata_appearance_fresh &lt;dbl&gt;,
+## #   cata_appearance_goodshape &lt;dbl&gt;, cata_appearance_goodquality &lt;dbl&gt;,
+## #   cata_appearance_none &lt;dbl&gt;, cata_taste_floral &lt;dbl&gt;, …</code></pre>
+<p>This is a pretty typical way for data collection software to save data from categorical questions like CATA and ordinal questions like JAR: one column per attribute. It’s also, currently, a <code>tibble</code>, which is not in the list of objects that the <code>ca()</code> function will take.</p>
+<p>We need to <strong>untidy</strong> our data to do this analysis, which is pretty common, but the <code>tidyverse</code> functions are still going to make it much easier than trying to reshape the data in base R. The makers of the packages have included some helpful functions for converting data <em>out of the tidyverse</em>, which we’ll cover in a few minutes.</p>
+</div>
+</div>
+<div id="categorical-character-binomial-binary-and-count-data" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Categorical, Character, Binomial, Binary, and Count data<a href="untidy-data-analysis.html#categorical-character-binomial-binary-and-count-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now, you might notice that, for categorical data, there are an awful lot of numbers in both of these tables. Without giving a whole statistics lesson, I want to take a minute to stress that the <strong>data type</strong> in R or another statistical software (<code>logical &gt; integer &gt; numeric &gt; character</code>) is <strong>not</strong> necessarily the same as your statistical <strong>level of measurement</strong> (categorical/numerical or nominal/ordinal/interval/ratio).</p>
+<p>It is your job as a sensory scientist and data analyst to understand what kind of data you have <em>based on how it was collected</em>, and select appropriate analyses accordingly.</p>
+<p>In <code>berry_data$cata_*</code>, the data is represented as a 1 if that panelist checked that attribute for that sample, and a 0 otherwise. This could also be represented as a logical <code>TRUE</code> or <code>FALSE</code>, but the 0 and 1 convention makes binomial statistics most common, so you’ll see it a lot.</p>
+<p>You can also pretty easily convert between binomial/binary data stored as <code>numeric</code> 0s and 1s and <code>logical</code> data.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="untidy-data-analysis.html#cb240-1" tabindex="-1"></a>testlogic <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>)</span>
+<span id="cb240-2"><a href="untidy-data-analysis.html#cb240-2" tabindex="-1"></a>testlogic</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="untidy-data-analysis.html#cb242-1" tabindex="-1"></a><span class="fu">class</span>(testlogic) <span class="co">#We start with logical data</span></span></code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="untidy-data-analysis.html#cb244-1" tabindex="-1"></a>testnums <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(testlogic) <span class="co">#as.numeric() turns FALSE to 0 and TRUE to 1</span></span>
+<span id="cb244-2"><a href="untidy-data-analysis.html#cb244-2" tabindex="-1"></a>testnums</span></code></pre></div>
+<pre><code>## [1] 1 0 0</code></pre>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="untidy-data-analysis.html#cb246-1" tabindex="-1"></a><span class="fu">class</span>(testnums) <span class="co">#Now it&#39;s numeric</span></span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="untidy-data-analysis.html#cb248-1" tabindex="-1"></a><span class="fu">as.logical</span>(testnums) <span class="co">#We can turn numeric to logical data the same way</span></span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="untidy-data-analysis.html#cb250-1" tabindex="-1"></a><span class="fu">as.logical</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="co">#Be careful with non-binary data, though!</span></span></code></pre></div>
+<pre><code>## [1] FALSE  TRUE  TRUE  TRUE</code></pre>
+<p>You may also have your categorical data stored as a <code>character</code> type, namely if the categories are <strong>mutually exclusive</strong> or if you have free response data where there were not a finite/fixed set of options. The latter can quickly become thorny to deal with, because every single respondent could have their own unique categories that don’t align with any others. Julia Silge and David Robinson’s book <a href="https://www.tidytextmining.com/"><em>Text Mining with R</em></a> is a good primer for tidying and doing basic analysis of text data.</p>
+<p>The first type of <code>character</code> data (with a limited number of mutually exclusive categories), thankfully, is much easier to deal with. We could turn the <code>berry</code> type variable into four separate <strong>indicator variables</strong> with 0s and 1s, if the analysis called for it, using <code>pivot_wider()</code>. Because we’re turning <em>one column</em> into <em>multiple columns</em>, we’re making the data wider, even though we don’t actually want to make it any shorter.</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="untidy-data-analysis.html#cb252-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb252-2"><a href="untidy-data-analysis.html#cb252-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">presence =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb252-3"><a href="untidy-data-analysis.html#cb252-3" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> berry,</span>
+<span id="cb252-4"><a href="untidy-data-analysis.html#cb252-4" tabindex="-1"></a>              <span class="at">values_from =</span> presence, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb252-5"><a href="untidy-data-analysis.html#cb252-5" tabindex="-1"></a>  <span class="co">#The rest is just for visibility:</span></span>
+<span id="cb252-6"><a href="untidy-data-analysis.html#cb252-6" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">&quot;berry&quot;</span>), <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb252-7"><a href="untidy-data-analysis.html#cb252-7" tabindex="-1"></a>  <span class="fu">arrange</span>(lms_overall)</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 95
+##    cata_taste_berry raspberry blackberry blueberry strawberry `Sample Name`
+##               &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;        
+##  1                0         1          0         0          0 raspberry 2  
+##  2                0         0          0         0          1 Strawberry2  
+##  3                0         1          0         0          0 raspberry 2  
+##  4                0         1          0         0          0 raspberry 1  
+##  5                0         1          0         0          0 raspberry 5  
+##  6                0         0          1         0          0 Blackberry 1 
+##  7                0         0          1         0          0 Blackberry 2 
+##  8                0         0          0         1          0 Blueberry 2  
+##  9                0         0          0         1          0 Blueberry 4  
+## 10                0         0          0         0          1 Strawberry1  
+## # ℹ 7,497 more rows
+## # ℹ 89 more variables: `Subject Code` &lt;dbl&gt;, `Participant Name` &lt;dbl&gt;,
+## #   Gender &lt;lgl&gt;, Age &lt;lgl&gt;, `Start Time (UTC)` &lt;chr&gt;, `End Time (UTC)` &lt;chr&gt;,
+## #   `Serving Position` &lt;dbl&gt;, `Sample Identifier` &lt;dbl&gt;,
+## #   `9pt_appearance` &lt;dbl&gt;, pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;,
+## #   jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;, cata_appearance_unevencolor &lt;dbl&gt;,
+## #   cata_appearance_misshapen &lt;dbl&gt;, cata_appearance_creased &lt;dbl&gt;, …</code></pre>
+<p>And we can see here that <code>pivot_wider()</code> increased the number of columns without decreasing the number of rows. By default, it will only combine rows where every column other than the <code>names_from</code> and <code>values_from</code> columns are identical.</p>
+<p>It’s often possible to convert between data types by changing the scope of your focus. <strong>Summary tables</strong> of categorical data can include numerical statistics (and this might give you a clue as to which <code>tidyverse</code> verb we’re going to be using the most in this chapter). The most common kind of summary statistic for categorical variables is the <strong>count</strong> or <strong>frequency</strong>, which is where frequency tables get their name.</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="untidy-data-analysis.html#cb254-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb254-2"><a href="untidy-data-analysis.html#cb254-2" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb254-3"><a href="untidy-data-analysis.html#cb254-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>), sum))</span></code></pre></div>
+<pre><code>## # A tibble: 23 × 37
+##    `Sample Name` cata_appearance_unevencolor cata_appearance_misshapen
+##    &lt;chr&gt;                               &lt;dbl&gt;                     &lt;dbl&gt;
+##  1 Blackberry 1                           28                        67
+##  2 Blackberry 2                           32                        72
+##  3 Blackberry 3                           25                        50
+##  4 Blackberry 4                           46                       114
+##  5 Blackberry 5                           32                       144
+##  6 Blueberry 1                            46                        13
+##  7 Blueberry 2                            48                        25
+##  8 Blueberry 3                            34                        37
+##  9 Blueberry 4                            29                        26
+## 10 Blueberry 5                            22                        35
+## # ℹ 13 more rows
+## # ℹ 34 more variables: cata_appearance_creased &lt;dbl&gt;,
+## #   cata_appearance_seedy &lt;dbl&gt;, cata_appearance_bruised &lt;dbl&gt;,
+## #   cata_appearance_notfresh &lt;dbl&gt;, cata_appearance_fresh &lt;dbl&gt;,
+## #   cata_appearance_goodshape &lt;dbl&gt;, cata_appearance_goodquality &lt;dbl&gt;,
+## #   cata_appearance_none &lt;dbl&gt;, cata_taste_floral &lt;dbl&gt;,
+## #   cata_taste_berry &lt;dbl&gt;, cata_taste_green &lt;dbl&gt;, cata_taste_grassy &lt;dbl&gt;, …</code></pre>
+<p>Note that the there are some attributes with NA counts. If we reran the analysis with <code>na.rm = TRUE</code>, we’d see that these attributes have zero citations for the berries that were <code>NA</code> before. This is because some attributes were only relevant for some of the berries. You will have to think about whether and how to include any of these variables in your analysis.</p>
+<p>For now, we’ll just drop those terms.</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="untidy-data-analysis.html#cb256-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb256-2"><a href="untidy-data-analysis.html#cb256-2" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb256-3"><a href="untidy-data-analysis.html#cb256-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>), sum)) <span class="sc">%&gt;%</span></span>
+<span id="cb256-4"><a href="untidy-data-analysis.html#cb256-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span> <span class="fu">none</span>(.x, is.na))) <span class="ot">-&gt;</span> berry_tidy_contingency</span>
+<span id="cb256-5"><a href="untidy-data-analysis.html#cb256-5" tabindex="-1"></a></span>
+<span id="cb256-6"><a href="untidy-data-analysis.html#cb256-6" tabindex="-1"></a>berry_tidy_contingency</span></code></pre></div>
+<pre><code>## # A tibble: 23 × 14
+##    `Sample Name` cata_appearance_unevencolor cata_appearance_misshapen
+##    &lt;chr&gt;                               &lt;dbl&gt;                     &lt;dbl&gt;
+##  1 Blackberry 1                           28                        67
+##  2 Blackberry 2                           32                        72
+##  3 Blackberry 3                           25                        50
+##  4 Blackberry 4                           46                       114
+##  5 Blackberry 5                           32                       144
+##  6 Blueberry 1                            46                        13
+##  7 Blueberry 2                            48                        25
+##  8 Blueberry 3                            34                        37
+##  9 Blueberry 4                            29                        26
+## 10 Blueberry 5                            22                        35
+## # ℹ 13 more rows
+## # ℹ 11 more variables: cata_appearance_notfresh &lt;dbl&gt;,
+## #   cata_appearance_fresh &lt;dbl&gt;, cata_appearance_goodquality &lt;dbl&gt;,
+## #   cata_appearance_none &lt;dbl&gt;, cata_taste_floral &lt;dbl&gt;,
+## #   cata_taste_berry &lt;dbl&gt;, cata_taste_grassy &lt;dbl&gt;,
+## #   cata_taste_fermented &lt;dbl&gt;, cata_taste_fruity &lt;dbl&gt;,
+## #   cata_taste_earthy &lt;dbl&gt;, cata_taste_none &lt;dbl&gt;</code></pre>
+</div>
+<div id="untidy-analysis" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Untidy Analysis<a href="untidy-data-analysis.html#untidy-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have our contingency table now, right? That wasn’t so hard! Let’s do CA!</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="untidy-data-analysis.html#cb258-1" tabindex="-1"></a>berry_tidy_contingency <span class="sc">%&gt;%</span></span>
+<span id="cb258-2"><a href="untidy-data-analysis.html#cb258-2" tabindex="-1"></a>  <span class="fu">ca</span>()</span></code></pre></div>
+<p>To explain why this error happens, we’re going to need to talk a bit more about base R, since <code>ca</code> and many other data analysis packages aren’t part of the <code>tidyverse</code>. Specifically, we need to talk about matrices and row names.</p>
+<div id="untidying-data" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Untidying Data<a href="untidy-data-analysis.html#untidying-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s take another look at the ways the example <code>author</code> dataset are different from our data.</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="untidy-data-analysis.html#cb259-1" tabindex="-1"></a><span class="fu">class</span>(author)</span></code></pre></div>
+<pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="untidy-data-analysis.html#cb261-1" tabindex="-1"></a><span class="fu">dimnames</span>(author)</span></code></pre></div>
+<pre><code>## [[1]]
+##  [1] &quot;three daughters (buck)&quot;       &quot;drifters (michener)&quot;         
+##  [3] &quot;lost world (clark)&quot;           &quot;east wind (buck)&quot;            
+##  [5] &quot;farewell to arms (hemingway)&quot; &quot;sound and fury 7 (faulkner)&quot; 
+##  [7] &quot;sound and fury 6 (faulkner)&quot;  &quot;profiles of future (clark)&quot;  
+##  [9] &quot;islands (hemingway)&quot;          &quot;pendorric 3 (holt)&quot;          
+## [11] &quot;asia (michener)&quot;              &quot;pendorric 2 (holt)&quot;          
+## 
+## [[2]]
+##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot;
+## [20] &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="untidy-data-analysis.html#cb263-1" tabindex="-1"></a><span class="fu">class</span>(berry_tidy_contingency)</span></code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="untidy-data-analysis.html#cb265-1" tabindex="-1"></a><span class="fu">dimnames</span>(berry_tidy_contingency)</span></code></pre></div>
+<pre><code>## [[1]]
+##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot; &quot;15&quot;
+## [16] &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot; &quot;21&quot; &quot;22&quot; &quot;23&quot;
+## 
+## [[2]]
+##  [1] &quot;Sample Name&quot;                 &quot;cata_appearance_unevencolor&quot;
+##  [3] &quot;cata_appearance_misshapen&quot;   &quot;cata_appearance_notfresh&quot;   
+##  [5] &quot;cata_appearance_fresh&quot;       &quot;cata_appearance_goodquality&quot;
+##  [7] &quot;cata_appearance_none&quot;        &quot;cata_taste_floral&quot;          
+##  [9] &quot;cata_taste_berry&quot;            &quot;cata_taste_grassy&quot;          
+## [11] &quot;cata_taste_fermented&quot;        &quot;cata_taste_fruity&quot;          
+## [13] &quot;cata_taste_earthy&quot;           &quot;cata_taste_none&quot;</code></pre>
+<p>The example data we’re trying to replicate is a <code>matrix</code>. This is another kind of tabular data, similar to a <code>tibble</code> or <code>data.frame</code>. The thing that sets matrices apart is that <em>every single cell in a matrix has the same data type</em>. This is a property that a lot of matrix algebra relies upon, like the math underpinning Correspondence Analysis.</p>
+<p>Because they’re tabular, it’s very easy to turn a <code>data.frame</code> <em>into</em> a <code>matrix</code>, like the <code>ca()</code> function alludes to in the help files.</p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="untidy-data-analysis.html#cb267-1" tabindex="-1"></a><span class="fu">as.matrix</span>(berry_tidy_contingency)</span></code></pre></div>
+<pre><code>##       Sample Name    cata_appearance_unevencolor cata_appearance_misshapen
+##  [1,] &quot;Blackberry 1&quot; &quot; 28&quot;                       &quot; 67&quot;                    
+##  [2,] &quot;Blackberry 2&quot; &quot; 32&quot;                       &quot; 72&quot;                    
+##  [3,] &quot;Blackberry 3&quot; &quot; 25&quot;                       &quot; 50&quot;                    
+##  [4,] &quot;Blackberry 4&quot; &quot; 46&quot;                       &quot;114&quot;                    
+##  [5,] &quot;Blackberry 5&quot; &quot; 32&quot;                       &quot;144&quot;                    
+##  [6,] &quot;Blueberry 1&quot;  &quot; 46&quot;                       &quot; 13&quot;                    
+##  [7,] &quot;Blueberry 2&quot;  &quot; 48&quot;                       &quot; 25&quot;                    
+##  [8,] &quot;Blueberry 3&quot;  &quot; 34&quot;                       &quot; 37&quot;                    
+##  [9,] &quot;Blueberry 4&quot;  &quot; 29&quot;                       &quot; 26&quot;                    
+## [10,] &quot;Blueberry 5&quot;  &quot; 22&quot;                       &quot; 35&quot;                    
+## [11,] &quot;Blueberry 6&quot;  &quot; 43&quot;                       &quot; 45&quot;                    
+## [12,] &quot;Strawberry1&quot;  &quot;192&quot;                       &quot; 18&quot;                    
+## [13,] &quot;Strawberry2&quot;  &quot;213&quot;                       &quot; 51&quot;                    
+## [14,] &quot;Strawberry3&quot;  &quot;139&quot;                       &quot; 24&quot;                    
+## [15,] &quot;Strawberry4&quot;  &quot;144&quot;                       &quot; 25&quot;                    
+## [16,] &quot;Strawberry5&quot;  &quot;160&quot;                       &quot; 32&quot;                    
+## [17,] &quot;Strawberry6&quot;  &quot;197&quot;                       &quot; 87&quot;                    
+## [18,] &quot;raspberry 1&quot;  &quot;126&quot;                       &quot; 52&quot;                    
+## [19,] &quot;raspberry 2&quot;  &quot; 99&quot;                       &quot; 58&quot;                    
+## [20,] &quot;raspberry 3&quot;  &quot;184&quot;                       &quot;100&quot;                    
+## [21,] &quot;raspberry 4&quot;  &quot;112&quot;                       &quot; 56&quot;                    
+## [22,] &quot;raspberry 5&quot;  &quot;121&quot;                       &quot; 43&quot;                    
+## [23,] &quot;raspberry 6&quot;  &quot;116&quot;                       &quot; 45&quot;                    
+##       cata_appearance_notfresh cata_appearance_fresh
+##  [1,] &quot; 27&quot;                    &quot;191&quot;                
+##  [2,] &quot; 37&quot;                    &quot;197&quot;                
+##  [3,] &quot;  9&quot;                    &quot;222&quot;                
+##  [4,] &quot; 38&quot;                    &quot;170&quot;                
+##  [5,] &quot; 16&quot;                    &quot;197&quot;                
+##  [6,] &quot; 20&quot;                    &quot;223&quot;                
+##  [7,] &quot; 30&quot;                    &quot;203&quot;                
+##  [8,] &quot; 40&quot;                    &quot;196&quot;                
+##  [9,] &quot; 24&quot;                    &quot;219&quot;                
+## [10,] &quot; 39&quot;                    &quot;209&quot;                
+## [11,] &quot; 30&quot;                    &quot;198&quot;                
+## [12,] &quot; 99&quot;                    &quot;129&quot;                
+## [13,] &quot;155&quot;                    &quot; 65&quot;                
+## [14,] &quot; 55&quot;                    &quot;185&quot;                
+## [15,] &quot; 73&quot;                    &quot;156&quot;                
+## [16,] &quot; 80&quot;                    &quot;168&quot;                
+## [17,] &quot;226&quot;                    &quot; 38&quot;                
+## [18,] &quot; 60&quot;                    &quot;228&quot;                
+## [19,] &quot; 57&quot;                    &quot;216&quot;                
+## [20,] &quot;111&quot;                    &quot;145&quot;                
+## [21,] &quot; 75&quot;                    &quot;199&quot;                
+## [22,] &quot; 59&quot;                    &quot;219&quot;                
+## [23,] &quot; 61&quot;                    &quot;218&quot;                
+##       cata_appearance_goodquality cata_appearance_none cata_taste_floral
+##  [1,] &quot;172&quot;                       &quot; 3&quot;                 &quot;48&quot;             
+##  [2,] &quot;170&quot;                       &quot; 2&quot;                 &quot;32&quot;             
+##  [3,] &quot;204&quot;                       &quot; 4&quot;                 &quot;56&quot;             
+##  [4,] &quot;152&quot;                       &quot; 1&quot;                 &quot;56&quot;             
+##  [5,] &quot;161&quot;                       &quot; 3&quot;                 &quot;56&quot;             
+##  [6,] &quot;208&quot;                       &quot; 3&quot;                 &quot;54&quot;             
+##  [7,] &quot;202&quot;                       &quot; 3&quot;                 &quot;24&quot;             
+##  [8,] &quot;189&quot;                       &quot; 1&quot;                 &quot;64&quot;             
+##  [9,] &quot;198&quot;                       &quot; 3&quot;                 &quot;57&quot;             
+## [10,] &quot;193&quot;                       &quot; 2&quot;                 &quot;49&quot;             
+## [11,] &quot;201&quot;                       &quot; 5&quot;                 &quot;61&quot;             
+## [12,] &quot; 92&quot;                       &quot; 0&quot;                 &quot;56&quot;             
+## [13,] &quot; 63&quot;                       &quot; 4&quot;                 &quot;36&quot;             
+## [14,] &quot;159&quot;                       &quot; 4&quot;                 &quot;39&quot;             
+## [15,] &quot;121&quot;                       &quot; 1&quot;                 &quot;39&quot;             
+## [16,] &quot;141&quot;                       &quot; 3&quot;                 &quot;34&quot;             
+## [17,] &quot; 43&quot;                       &quot; 0&quot;                 &quot;46&quot;             
+## [18,] &quot;206&quot;                       &quot; 1&quot;                 &quot;48&quot;             
+## [19,] &quot;190&quot;                       &quot; 4&quot;                 &quot;63&quot;             
+## [20,] &quot;127&quot;                       &quot; 1&quot;                 &quot;74&quot;             
+## [21,] &quot;181&quot;                       &quot; 7&quot;                 &quot;60&quot;             
+## [22,] &quot;196&quot;                       &quot; 3&quot;                 &quot;67&quot;             
+## [23,] &quot;169&quot;                       &quot;12&quot;                 &quot;60&quot;             
+##       cata_taste_berry cata_taste_grassy cata_taste_fermented cata_taste_fruity
+##  [1,] &quot;155&quot;            &quot; 55&quot;             &quot;72&quot;                 &quot; 88&quot;            
+##  [2,] &quot;127&quot;            &quot; 79&quot;             &quot;70&quot;                 &quot; 71&quot;            
+##  [3,] &quot;161&quot;            &quot; 66&quot;             &quot;64&quot;                 &quot;107&quot;            
+##  [4,] &quot;167&quot;            &quot; 53&quot;             &quot;21&quot;                 &quot;129&quot;            
+##  [5,] &quot;183&quot;            &quot; 61&quot;             &quot;47&quot;                 &quot;115&quot;            
+##  [6,] &quot;156&quot;            &quot; 69&quot;             &quot;22&quot;                 &quot;116&quot;            
+##  [7,] &quot;182&quot;            &quot; 48&quot;             &quot;17&quot;                 &quot;134&quot;            
+##  [8,] &quot;172&quot;            &quot; 73&quot;             &quot;33&quot;                 &quot;111&quot;            
+##  [9,] &quot;171&quot;            &quot; 44&quot;             &quot;35&quot;                 &quot;125&quot;            
+## [10,] &quot;180&quot;            &quot; 56&quot;             &quot;21&quot;                 &quot;120&quot;            
+## [11,] &quot;218&quot;            &quot; 45&quot;             &quot;19&quot;                 &quot;155&quot;            
+## [12,] &quot;204&quot;            &quot; 55&quot;             &quot;53&quot;                 &quot;172&quot;            
+## [13,] &quot;144&quot;            &quot;113&quot;             &quot;59&quot;                 &quot;105&quot;            
+## [14,] &quot;171&quot;            &quot; 77&quot;             &quot;37&quot;                 &quot;148&quot;            
+## [15,] &quot;137&quot;            &quot;125&quot;             &quot;35&quot;                 &quot;111&quot;            
+## [16,] &quot;201&quot;            &quot; 81&quot;             &quot;53&quot;                 &quot;164&quot;            
+## [17,] &quot; 84&quot;            &quot;113&quot;             &quot;66&quot;                 &quot; 82&quot;            
+## [18,] &quot;173&quot;            &quot;102&quot;             &quot;36&quot;                 &quot;122&quot;            
+## [19,] &quot;217&quot;            &quot; 78&quot;             &quot;31&quot;                 &quot;156&quot;            
+## [20,] &quot;266&quot;            &quot; 29&quot;             &quot;20&quot;                 &quot;213&quot;            
+## [21,] &quot;198&quot;            &quot; 67&quot;             &quot;28&quot;                 &quot;151&quot;            
+## [22,] &quot;231&quot;            &quot; 59&quot;             &quot;20&quot;                 &quot;175&quot;            
+## [23,] &quot;268&quot;            &quot; 36&quot;             &quot;15&quot;                 &quot;212&quot;            
+##       cata_taste_earthy cata_taste_none
+##  [1,] &quot; 92&quot;             &quot;13&quot;           
+##  [2,] &quot;102&quot;             &quot;24&quot;           
+##  [3,] &quot; 82&quot;             &quot;13&quot;           
+##  [4,] &quot; 51&quot;             &quot;36&quot;           
+##  [5,] &quot; 72&quot;             &quot;19&quot;           
+##  [6,] &quot; 67&quot;             &quot;19&quot;           
+##  [7,] &quot; 35&quot;             &quot;25&quot;           
+##  [8,] &quot; 67&quot;             &quot;11&quot;           
+##  [9,] &quot; 55&quot;             &quot; 9&quot;           
+## [10,] &quot; 60&quot;             &quot;24&quot;           
+## [11,] &quot; 41&quot;             &quot; 6&quot;           
+## [12,] &quot; 64&quot;             &quot;13&quot;           
+## [13,] &quot;101&quot;             &quot;24&quot;           
+## [14,] &quot; 57&quot;             &quot;26&quot;           
+## [15,] &quot;100&quot;             &quot;24&quot;           
+## [16,] &quot; 69&quot;             &quot;11&quot;           
+## [17,] &quot;109&quot;             &quot;23&quot;           
+## [18,] &quot; 90&quot;             &quot;19&quot;           
+## [19,] &quot;100&quot;             &quot;21&quot;           
+## [20,] &quot; 48&quot;             &quot;13&quot;           
+## [21,] &quot; 82&quot;             &quot;17&quot;           
+## [22,] &quot; 68&quot;             &quot;19&quot;           
+## [23,] &quot; 47&quot;             &quot;14&quot;</code></pre>
+<p>This is what the <code>ca()</code> function does for us when we give it a <code>data.frame</code> or <code>tibble</code>. It follows the hierarchy of data types, so you’ll see that now every single number is surrounded by quotation marks now (“). It’s been converted into the least-restrictive data type in <code>berry_tidy_contingency</code>, which is <code>character</code>.</p>
+<p>Unfortunately, you can’t do math on <code>character</code> vectors.</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="untidy-data-analysis.html#cb269-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb269-2"><a href="untidy-data-analysis.html#cb269-2" tabindex="-1"></a><span class="st">&quot;1&quot;</span> <span class="sc">+</span> <span class="st">&quot;2&quot;</span></span></code></pre></div>
+<p>It’s important to know which row corresponds to which berry, though, so we want to keep the <code>Sample Name</code> column <em>somehow</em>! This is where <code>rownames</code> come in handy, which the <code>author</code> data has but our <code>berry_tidy_contingency</code> doesn’t.</p>
+<p>The <code>tidyverse</code> doesn’t really use row names (it is technically <em>possible</em> to have a tibble with <code>rownames</code>, but extremely error-prone). The theory is that whatever information you <em>could</em> use as <code>rownames</code> could be added as another column, and that you may have multiple variables whose combined levels define each row (say the sample and the participant IDs) rather than needing a single less-informative ID unique to each row.</p>
+<p>Row names are important to numeric matrices, though, because we can’t do math on a matrix of character variables!</p>
+<p>The <code>tidyverse</code> provides a handy function for this, <code>column_to_rownames()</code>:</p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="untidy-data-analysis.html#cb270-1" tabindex="-1"></a>berry_tidy_contingency <span class="sc">%&gt;%</span></span>
+<span id="cb270-2"><a href="untidy-data-analysis.html#cb270-2" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Sample Name&quot;</span>) <span class="ot">-&gt;</span> berry_contingency_df</span>
+<span id="cb270-3"><a href="untidy-data-analysis.html#cb270-3" tabindex="-1"></a></span>
+<span id="cb270-4"><a href="untidy-data-analysis.html#cb270-4" tabindex="-1"></a><span class="fu">class</span>(berry_contingency_df)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="untidy-data-analysis.html#cb272-1" tabindex="-1"></a><span class="fu">dimnames</span>(berry_contingency_df)</span></code></pre></div>
+<pre><code>## [[1]]
+##  [1] &quot;Blackberry 1&quot; &quot;Blackberry 2&quot; &quot;Blackberry 3&quot; &quot;Blackberry 4&quot; &quot;Blackberry 5&quot;
+##  [6] &quot;Blueberry 1&quot;  &quot;Blueberry 2&quot;  &quot;Blueberry 3&quot;  &quot;Blueberry 4&quot;  &quot;Blueberry 5&quot; 
+## [11] &quot;Blueberry 6&quot;  &quot;Strawberry1&quot;  &quot;Strawberry2&quot;  &quot;Strawberry3&quot;  &quot;Strawberry4&quot; 
+## [16] &quot;Strawberry5&quot;  &quot;Strawberry6&quot;  &quot;raspberry 1&quot;  &quot;raspberry 2&quot;  &quot;raspberry 3&quot; 
+## [21] &quot;raspberry 4&quot;  &quot;raspberry 5&quot;  &quot;raspberry 6&quot; 
+## 
+## [[2]]
+##  [1] &quot;cata_appearance_unevencolor&quot; &quot;cata_appearance_misshapen&quot;  
+##  [3] &quot;cata_appearance_notfresh&quot;    &quot;cata_appearance_fresh&quot;      
+##  [5] &quot;cata_appearance_goodquality&quot; &quot;cata_appearance_none&quot;       
+##  [7] &quot;cata_taste_floral&quot;           &quot;cata_taste_berry&quot;           
+##  [9] &quot;cata_taste_grassy&quot;           &quot;cata_taste_fermented&quot;       
+## [11] &quot;cata_taste_fruity&quot;           &quot;cata_taste_earthy&quot;          
+## [13] &quot;cata_taste_none&quot;</code></pre>
+<p>Note that you have to dobule-quote (““) column names for <code>column_to_rownames()</code>. No idea why. I just do what <code>?column_to_rownames</code> tells me.</p>
+<p><code>berry_contingency_df</code> is all set for the <code>ca()</code> function now, but if you run into any functions (like many of those in <code>FactoMineR</code> and other packages) that need matrices, you can always use <code>as.matrix()</code> on the results of <code>column_to_rownames()</code>.</p>
+<p><code>column_to_rownames()</code> will almost always be the cleanest way to untidy your data, but there are some other functions that may be handy if you need a different data format, like a vector. You already know about $-subsetting, but you can also use <code>pull()</code> to pull one column out of a <code>tibble</code> as a vector using tidyverse syntax, so it fits easily at the end or in the middle of a series of piped steps.</p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="untidy-data-analysis.html#cb274-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb274-2"><a href="untidy-data-analysis.html#cb274-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>),</span>
+<span id="cb274-3"><a href="untidy-data-analysis.html#cb274-3" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;attribute&quot;</span>,</span>
+<span id="cb274-4"><a href="untidy-data-analysis.html#cb274-4" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;presence&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb274-5"><a href="untidy-data-analysis.html#cb274-5" tabindex="-1"></a>  <span class="fu">filter</span>(presence <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb274-6"><a href="untidy-data-analysis.html#cb274-6" tabindex="-1"></a>  <span class="fu">count</span>(attribute) <span class="sc">%&gt;%</span></span>
+<span id="cb274-7"><a href="untidy-data-analysis.html#cb274-7" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> <span class="co">#Arranges the highest-cited CATA terms first</span></span>
+<span id="cb274-8"><a href="untidy-data-analysis.html#cb274-8" tabindex="-1"></a>  <span class="fu">pull</span>(attribute)      <span class="co">#Pulls the attribute names as a vector, in the order above</span></span></code></pre></div>
+<pre><code>##  [1] &quot;cata_appearance_fresh&quot;       &quot;cata_taste_berry&quot;           
+##  [3] &quot;cata_appearance_goodquality&quot; &quot;cata_appearance_goodshape&quot;  
+##  [5] &quot;cata_taste_fruity&quot;           &quot;cata_appearance_goodcolor&quot;  
+##  [7] &quot;cata_appearance_unevencolor&quot; &quot;cata_taste_earthy&quot;          
+##  [9] &quot;cata_taste_grassy&quot;           &quot;cata_appearance_notfresh&quot;   
+## [11] &quot;cata_taste_citrus&quot;           &quot;cata_appearance_misshapen&quot;  
+## [13] &quot;cata_taste_floral&quot;           &quot;cata_appearance_bruised&quot;    
+## [15] &quot;cata_taste_fermented&quot;        &quot;cata_appearance_goodshapre&quot; 
+## [17] &quot;cata_appearance_seedy&quot;       &quot;cata_taste_peachy&quot;          
+## [19] &quot;cata_taste_none&quot;             &quot;cata_taste_tropical&quot;        
+## [21] &quot;cata_taste_candy&quot;            &quot;cata_taste_green&quot;           
+## [23] &quot;cata_appearance_creased&quot;     &quot;cata_taste_piney&quot;           
+## [25] &quot;cata_taste_lemon&quot;            &quot;cata_taste_grapey&quot;          
+## [27] &quot;cata_taste_cherry&quot;           &quot;cata_appearane_bruised&quot;     
+## [29] &quot;cata_taste_melon&quot;            &quot;cata_taste_grape&quot;           
+## [31] &quot;cata_taste_clove&quot;            &quot;cata_taste_caramel&quot;         
+## [33] &quot;cata_appearance_none&quot;        &quot;cata_appearane_creased&quot;     
+## [35] &quot;cata_taste_minty&quot;            &quot;cata_taste_cinnamon&quot;</code></pre>
+<p>In summary:
+- Reshape your data in the <code>tidyverse</code> and then change it as needed for analysis.
+- If you need a <code>data.frame</code> or <code>matrix</code> with <code>rownames</code> set, use <code>column_to_rownames()</code>.
+- Use <code>as.matrix()</code> carefully, only on tabular data with <strong>all the same data type</strong>.
+- <code>as.matrix()</code> may not work on <code>tibble</code>s <em>at all</em> in older versions of the <code>tidyverse</code>, so it’s always safest to go <code>tibble</code> -&gt; <code>data.frame</code> -&gt; <code>matrix</code>.
+- If you need a vector, use <code>pull()</code>.</p>
+</div>
+<div id="data-analysis" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Data Analysis<a href="untidy-data-analysis.html#data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Okay, are you ready? Our data is <em>finally</em> in the shape and format we needed. You’re ready to run multivariate statistics in R.</p>
+<p>Ready?</p>
+<p>Are you sure?</p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="untidy-data-analysis.html#cb276-1" tabindex="-1"></a><span class="fu">ca</span>(berry_contingency_df) <span class="ot">-&gt;</span> berry_ca_res</span></code></pre></div>
+<p>Yep, that’s it.</p>
+<p>There are other options you can read about in the help files, if you need a more sophisticated analysis, but most of the time, if I need to change something, it’s with the way I’m arranging my data <em>before</em> analysis rather than fundamentally changing the <code>ca()</code> call.</p>
+<p>In general, I find it easiest to do all of the filtering and selecting <em>on the tibble</em> so I can use the handy <code>tidyverse</code> functions, before I untidy the data, but you can also include extra rows or columns in your contingency table (as long as they’re also numbers!!) and then tell the <code>ca()</code> function which columns are active and supplemental. This may be an easier way to compare a few different analyses with different variables or levels of summarization, rather than having to make a bunch of different contingency matrices for each.</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="untidy-data-analysis.html#cb277-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb277-2"><a href="untidy-data-analysis.html#cb277-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">&quot;cata_&quot;</span>, <span class="st">&quot;9pt_&quot;</span>, <span class="st">&quot;lms_&quot;</span>, <span class="st">&quot;us_&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb277-3"><a href="untidy-data-analysis.html#cb277-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">&quot;cata_&quot;</span>), <span class="sc">~</span> <span class="fu">sum</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb277-4"><a href="untidy-data-analysis.html#cb277-4" tabindex="-1"></a>            <span class="fu">across</span>(<span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">&quot;9pt_&quot;</span>,<span class="st">&quot;lms_&quot;</span>,<span class="st">&quot;us_&quot;</span>)), <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="at">.by =</span> <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb277-5"><a href="untidy-data-analysis.html#cb277-5" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Sample Name&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb277-6"><a href="untidy-data-analysis.html#cb277-6" tabindex="-1"></a>  <span class="fu">ca</span>(<span class="at">supcol =</span> <span class="dv">37</span><span class="sc">:</span><span class="dv">51</span>) <span class="co">#You have to know the NUMERIC indices to do it this way.</span></span></code></pre></div>
+<pre><code>## 
+##  Principal inertias (eigenvalues):
+##            1        2        3        4        5        6        7       
+## Value      0.295123 0.148008 0.109166 0.033574 0.016535 0.010195 0.007532
+## Percentage 46.03%   23.09%   17.03%   5.24%    2.58%    1.59%    1.17%   
+##            8       9        10       11      12       13       14      
+## Value      0.00576 0.003221 0.002931 0.00244 0.001342 0.001226 0.001024
+## Percentage 0.9%    0.5%     0.46%    0.38%   0.21%    0.19%    0.16%   
+##            15       16       17       18      19       20       21      
+## Value      0.000914 0.000631 0.000562 0.00036 0.000227 0.000155 0.000123
+## Percentage 0.14%    0.1%     0.09%    0.06%   0.04%    0.02%    0.02%   
+##            22     
+## Value      4.8e-05
+## Percentage 0.01%  
+## 
+## 
+##  Rows:
+##         raspberry 6 raspberry 5 raspberry 2 raspberry 3 raspberry 4 raspberry 1
+## Mass       0.047104    0.047309    0.046566    0.048898    0.046797    0.046745
+## ChiDist    0.701154    0.597664    0.544036    0.778030    0.603364    0.588880
+## Inertia    0.023157    0.016899    0.013782    0.029599    0.017036    0.016210
+## Dim. 1     0.539265    0.541430    0.498086    0.695131    0.597405    0.528684
+## Dim. 2     0.936377    0.758876    0.559180    0.455674    0.602968    0.588395
+##         Blackberry 4 Blackberry 2 Blackberry 1 Blackberry 3 Blackberry 5
+## Mass        0.038160     0.039979     0.040569     0.041850     0.039672
+## ChiDist     0.987037     1.105960     1.166375     1.113777     0.910491
+## Inertia     0.037177     0.048901     0.055191     0.051915     0.032888
+## Dim. 1     -1.589369    -1.864827    -1.959700    -1.884164    -1.525017
+## Dim. 2     -0.699024    -0.999143    -1.019725    -0.767436    -0.525974
+##         Blueberry 1 Blueberry 4 Blueberry 2 Blueberry 3 Blueberry 5 Blueberry 6
+## Mass       0.040774    0.041235    0.040979    0.042209    0.041363    0.043234
+## ChiDist    0.703408    0.648461    0.608480    0.638924    0.636871    0.635531
+## Inertia    0.020174    0.017339    0.015172    0.017231    0.016777    0.017462
+## Dim. 1    -0.284508   -0.300322   -0.151757   -0.294232   -0.287190   -0.261262
+## Dim. 2     1.230837    1.164323    1.114938    1.095328    1.124883    1.167484
+##         Strawberry4 Strawberry1 Strawberry2 Strawberry6 Strawberry3 Strawberry5
+## Mass       0.043875    0.046643    0.043849    0.043824    0.043106    0.045259
+## ChiDist    0.711993    1.037185    0.879538    1.102282    0.613945    0.636763
+## Inertia    0.022242    0.050176    0.033921    0.053247    0.016248    0.018351
+## Dim. 1     0.915361    1.082511    1.092504    1.155009    0.762252    0.816533
+## Dim. 2    -0.968446   -1.424927   -1.542342   -1.688415   -0.549006   -0.794523
+## 
+## 
+##  Columns:
+##         cata_appearance_unevencolor cata_appearance_misshapen
+## Mass                       0.056074                  0.031240
+## ChiDist                    0.624470                  0.632738
+## Inertia                    0.021867                  0.012507
+## Dim. 1                     0.954959                 -0.541613
+## Dim. 2                    -0.794647                 -0.478410
+##         cata_appearance_creased cata_appearance_seedy cata_appearance_bruised
+## Mass                   0.006663              0.015838                0.027986
+## ChiDist                1.107665              1.738786                1.105926
+## Inertia                0.008175              0.047884                0.034228
+## Dim. 1                 1.443844              1.752834                1.463469
+## Dim. 2                -0.717471             -2.632660               -1.526336
+##         cata_appearance_notfresh cata_appearance_fresh
+## Mass                    0.036417              0.107406
+## ChiDist                 0.754184              0.277362
+## Inertia                 0.020714              0.008263
+## Dim. 1                  0.889423             -0.307694
+## Dim. 2                 -1.022464              0.452318
+##         cata_appearance_goodshape cata_appearance_goodquality
+## Mass                     0.093311                    0.095797
+## ChiDist                  0.550292                    0.296273
+## Inertia                  0.028257                    0.008409
+## Dim. 1                   0.660358                   -0.332910
+## Dim. 2                   0.965680                    0.529804
+##         cata_appearance_none cata_taste_floral cata_taste_berry
+## Mass                0.001794          0.030215         0.106766
+## ChiDist             0.789222          0.223386         0.192937
+## Inertia             0.001117          0.001508         0.003974
+## Dim. 1             -0.037264         -0.093179        -0.001625
+## Dim. 2              0.690895          0.230931         0.291399
+##         cata_taste_green cata_taste_grassy cata_taste_fermented
+## Mass            0.007945          0.040595             0.022399
+## ChiDist         1.679549          0.354579             0.501741
+## Inertia         0.022411          0.005104             0.005639
+## Dim. 1          1.022314          0.128887            -0.319566
+## Dim. 2          1.693699         -0.500564            -1.022115
+##         cata_taste_tropical cata_taste_fruity cata_taste_citrus
+## Mass               0.010687          0.078985          0.032471
+## ChiDist            1.669061          0.225740          0.650213
+## Inertia            0.029771          0.004025          0.013728
+## Dim. 1             1.067362          0.148197          0.820933
+## Dim. 2             1.699332          0.249386          0.714076
+##         cata_taste_earthy cata_taste_candy cata_taste_none
+## Mass             0.042517         0.008278        0.010841
+## ChiDist          0.298491         1.656958        0.405144
+## Inertia          0.003788         0.022727        0.001779
+## Dim. 1          -0.072856         1.067984       -0.127751
+## Dim. 2          -0.463882         1.685638       -0.298570
+##         cata_appearane_bruised cata_appearance_goodshapre
+## Mass                  0.004869                   0.020169
+## ChiDist               2.101907                   2.040213
+## Inertia               0.021513                   0.083953
+## Dim. 1               -3.226349                  -3.308097
+## Dim. 2               -2.103976                  -2.154730
+##         cata_appearance_goodcolor cata_taste_cinnamon cata_taste_lemon
+## Mass                     0.058944            0.000948         0.006023
+## ChiDist                  1.107046            2.121291         2.088847
+## Inertia                  0.072239            0.004267         0.026278
+## Dim. 1                  -1.735961           -3.328963        -3.317694
+## Dim. 2                   0.698509           -2.141693        -2.201850
+##         cata_taste_clove cata_taste_minty cata_taste_grape
+## Mass            0.002383         0.001256         0.003998
+## ChiDist         2.103524         2.036370         2.072312
+## Inertia         0.010546         0.005207         0.017169
+## Dim. 1         -3.313433        -3.286100        -3.318432
+## Dim. 2         -2.132266        -2.105219        -2.191008
+##         cata_appearane_creased cata_taste_piney cata_taste_peachy
+## Mass                  0.001281         0.006407          0.011353
+## ChiDist               1.920294         1.831149          1.144327
+## Inertia               0.004725         0.021483          0.014867
+## Dim. 1               -0.489183        -0.500874          0.309423
+## Dim. 2                2.954184         3.007418          0.883482
+##         cata_taste_caramel cata_taste_grapey cata_taste_melon cata_taste_cherry
+## Mass              0.001896          0.005843         0.004767          0.005638
+## ChiDist           1.794449          1.668738         1.711006          1.718018
+## Inertia           0.006107          0.016271         0.013955          0.016641
+## Dim. 1            1.768170          1.775356         1.792723          1.761788
+## Dim. 2           -2.946463         -2.971754        -3.038976         -2.919189
+##         9pt_appearance (*) 9pt_overall (*) 9pt_taste (*) 9pt_texture (*)
+## Mass                    NA              NA            NA              NA
+## ChiDist           0.130697        0.102893      0.113246        0.096145
+## Inertia                 NA              NA            NA              NA
+## Dim. 1           -0.186168       -0.075320     -0.076711       -0.101059
+## Dim. 2            0.143741        0.095335      0.129310        0.066306
+##         9pt_aroma (*) lms_appearance (*) lms_overall (*) lms_taste (*)
+## Mass               NA                 NA              NA            NA
+## ChiDist           NaN           0.463025        0.502031      0.687212
+## Inertia            NA                 NA              NA            NA
+## Dim. 1            NaN          -0.588691        0.019500      0.024678
+## Dim. 2            NaN           0.687830        0.735511      1.065640
+##         lms_texture (*) lms_aroma (*) us_appearance (*) us_overall (*)
+## Mass                 NA            NA                NA             NA
+## ChiDist        0.331814           NaN          0.169497       0.128866
+## Inertia              NA            NA                NA             NA
+## Dim. 1        -0.198320           NaN         -0.234714      -0.084274
+## Dim. 2         0.436500           NaN          0.211381       0.195086
+##         us_taste (*) us_texture (*) us_aroma (*)
+## Mass              NA             NA           NA
+## ChiDist     0.149586       0.111795          NaN
+## Inertia           NA             NA           NA
+## Dim. 1     -0.070870      -0.117917          NaN
+## Dim. 2      0.225916       0.128712          NaN</code></pre>
+</div>
+<div id="retidying-data" class="section level3 hasAnchor" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Retidying Data<a href="untidy-data-analysis.html#retidying-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What does the <code>ca()</code> function actually give us?</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="untidy-data-analysis.html#cb279-1" tabindex="-1"></a>berry_ca_res <span class="sc">%&gt;%</span></span>
+<span id="cb279-2"><a href="untidy-data-analysis.html#cb279-2" tabindex="-1"></a>  <span class="fu">str</span>()</span></code></pre></div>
+<pre><code>## List of 16
+##  $ sv        : num [1:12] 0.2958 0.1659 0.133 0.0724 0.0647 ...
+##  $ nd        : logi NA
+##  $ rownames  : chr [1:23] &quot;Blackberry 1&quot; &quot;Blackberry 2&quot; &quot;Blackberry 3&quot; &quot;Blackberry 4&quot; ...
+##  $ rowmass   : num [1:23] 0.0392 0.0394 0.0412 0.0401 0.0429 ...
+##  $ rowdist   : num [1:23] 0.364 0.399 0.376 0.379 0.468 ...
+##  $ rowinertia: num [1:23] 0.00519 0.00625 0.00583 0.00575 0.00941 ...
+##  $ rowcoord  : num [1:23, 1:12] -0.676 -0.461 -1.025 -0.476 -0.738 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:23] &quot;Blackberry 1&quot; &quot;Blackberry 2&quot; &quot;Blackberry 3&quot; &quot;Blackberry 4&quot; ...
+##   .. ..$ : chr [1:12] &quot;Dim1&quot; &quot;Dim2&quot; &quot;Dim3&quot; &quot;Dim4&quot; ...
+##  $ rowsup    : logi(0) 
+##  $ colnames  : chr [1:13] &quot;cata_appearance_unevencolor&quot; &quot;cata_appearance_misshapen&quot; &quot;cata_appearance_notfresh&quot; &quot;cata_appearance_fresh&quot; ...
+##  $ colmass   : num [1:13] 0.0848 0.0473 0.0551 0.1625 0.1449 ...
+##  $ coldist   : num [1:13] 0.618 0.599 0.755 0.285 0.31 ...
+##  $ colinertia: num [1:13] 0.0324 0.017 0.0314 0.0132 0.0139 ...
+##  $ colcoord  : num [1:13, 1:12] 1.9366 0.0589 2.4533 -0.9373 -0.9973 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:13] &quot;cata_appearance_unevencolor&quot; &quot;cata_appearance_misshapen&quot; &quot;cata_appearance_notfresh&quot; &quot;cata_appearance_fresh&quot; ...
+##   .. ..$ : chr [1:12] &quot;Dim1&quot; &quot;Dim2&quot; &quot;Dim3&quot; &quot;Dim4&quot; ...
+##  $ colsup    : logi(0) 
+##  $ N         : num [1:23, 1:13] 28 32 25 46 32 46 48 34 29 22 ...
+##  $ call      : language ca.matrix(obj = as.matrix(obj))
+##  - attr(*, &quot;class&quot;)= chr &quot;ca&quot;</code></pre>
+<p>It’s a list with many useful things. You can think of a list as kinda like a data frame, because each item has a <strong>name</strong> (like columns in data frames), except they can be any length/size/shape. It’s <em>not</em> tabular, so you can’t use [1,2] for indexing rows and columns, but you <em>can</em> use $ indexing if you know the name of the data you’re after.</p>
+<p>You’re unlikely to need to worry about the specifics. Just remember that lists can be $-indexed.</p>
+<p>There are a few things we may want out of the list that <code>ca()</code> gives us, and we can see descriptions of them in plain English by typing <code>?ca</code>. These are the ones we’ll be using:</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="untidy-data-analysis.html#cb281-1" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>rowcoord <span class="co">#the standard coordinates of the row variable (berry)</span></span></code></pre></div>
+<pre><code>##                      Dim1        Dim2        Dim3       Dim4         Dim5
+## Blackberry 1 -0.676422039  1.55801517  0.02889809 -2.1207457  0.421035244
+## Blackberry 2 -0.460988133  2.16220762  0.44500036 -0.6763648 -0.401344347
+## Blackberry 3 -1.025439995  1.02861582  0.58873600 -1.5512728  0.149090611
+## Blackberry 4 -0.475531553  0.73822421 -2.14355819  1.8024546 -1.054134662
+## Blackberry 5 -0.737948756  1.55341431 -2.29069697 -0.3768377 -1.478964909
+## Blueberry 1  -0.942208700 -0.16697306  1.34533986  0.9721393  0.341902827
+## Blueberry 2  -0.891383712 -0.73549822  0.46896273  1.3567656 -0.058683995
+## Blueberry 3  -0.693395862  0.30840131  0.49784640  0.2667007  1.452589890
+## Blueberry 4  -1.062846799 -0.19768031  0.54029846 -0.6011662  1.453852344
+## Blueberry 5  -0.903946503  0.01258835  0.29565501  1.3192008  1.250783134
+## Blueberry 6  -0.911518977 -0.80933135 -0.45676687 -0.1166850  1.177305333
+## Strawberry1   1.123787175 -1.29134698  0.30029870 -1.9371408 -0.269928992
+## Strawberry2   2.186526847  0.39020970  0.46639303 -0.0688568 -0.454494991
+## Strawberry3   0.216458365 -0.68408859  0.84099468  0.1817546 -1.474293484
+## Strawberry4   0.779921416  0.31126088  1.56706081  1.0718960 -1.737282915
+## Strawberry5   0.595885377 -0.65590705  0.58277734 -1.2198681 -0.852687372
+## Strawberry6   2.890807350  1.51710457 -0.40231055  0.8846827  2.338783198
+## raspberry 1   0.002784249  0.24770479  0.77952820  0.7647137 -0.914998126
+## raspberry 2  -0.181932219 -0.05470297  0.05660525  0.2948372 -0.159554062
+## raspberry 3   0.714829561 -1.32650761 -2.11426476 -0.3861240  0.086736116
+## raspberry 4   0.041631118 -0.30336432 -0.10035713  0.3256547  0.412286985
+## raspberry 5  -0.177484391 -0.92080171 -0.04037283  0.3511281 -0.003814396
+## raspberry 6  -0.239619991 -1.64119492 -0.69498878 -0.3495728  0.259177191
+##                      Dim6         Dim7        Dim8        Dim9      Dim10
+## Blackberry 1  0.416339437 -0.087205574  0.55527540  0.66487134  0.7992141
+## Blackberry 2  1.353241139 -0.143661403  0.31809116  0.82018151  1.3393069
+## Blackberry 3 -0.154464899 -0.009161493  0.17303241 -0.07476922 -1.5859313
+## Blackberry 4  0.604303775  1.121173149  1.61580941 -0.44455523 -1.3036853
+## Blackberry 5 -0.652553200 -0.503141105 -0.95611885 -0.76061578 -0.2891770
+## Blueberry 1  -0.708842996  0.275826588  0.50857290  0.94363142 -1.0496073
+## Blueberry 2   3.082539058  0.538179530 -1.16634324 -0.43368257  1.1514695
+## Blueberry 3  -1.525570006  0.767208280 -0.17612888 -1.96339520 -0.1572088
+## Blueberry 4  -0.121844931  0.606785673 -0.26607669  0.49314835 -0.9894949
+## Blueberry 5   0.820976326  0.475499585  1.30639341 -0.73014319  1.4665355
+## Blueberry 6  -0.582502705 -0.563767160 -1.33239601 -1.94597487 -0.2792107
+## Strawberry1   0.003367573  1.980558028  1.56631289 -0.17821445 -0.0413237
+## Strawberry2   0.333203747 -1.237545485  0.45004439 -0.95562013  0.1394031
+## Strawberry3   1.174373617  0.381298231  0.06195272  0.41063042 -2.2704383
+## Strawberry4  -1.577928830 -0.329844134  0.71300614 -1.32879302  0.5226638
+## Strawberry5   0.761511155  0.054789811 -1.58761812 -1.24962440  0.5416557
+## Strawberry6   0.483756496  0.160111078 -0.57887026  0.34590501 -0.8335918
+## raspberry 1  -0.901156816  0.498483211 -2.30064883  1.53815305  0.2120347
+## raspberry 2  -1.041068949 -0.750258551  1.07509047  0.55799211  1.7404352
+## raspberry 3  -0.577370181  1.175513729 -0.54472390  0.75571365  0.9693176
+## raspberry 4  -0.435287990 -1.543719337 -0.11575622  1.57370723 -0.2755199
+## raspberry 5  -0.678042187  0.444107106  0.28159320  1.09950507  0.3868386
+## raspberry 6   0.697218086 -2.755894177  0.71155298  0.04135319 -0.5673104
+##                    Dim11        Dim12
+## Blackberry 1 -0.95983642 -0.009253265
+## Blackberry 2  0.68731238  0.267060332
+## Blackberry 3 -0.69717059 -1.168003875
+## Blackberry 4 -0.22875124 -0.894559086
+## Blackberry 5  0.74883806  1.156346478
+## Blueberry 1  -0.33120184 -0.408429808
+## Blueberry 2  -0.67185606 -0.519204536
+## Blueberry 3  -0.29921710  1.327706362
+## Blueberry 4   1.24943134  0.309664418
+## Blueberry 5   0.54425299  1.516555388
+## Blueberry 6  -1.24454179 -1.159488529
+## Strawberry1   0.49720288  0.715403472
+## Strawberry2  -2.84848835  1.293593154
+## Strawberry3  -0.36073715  0.084475487
+## Strawberry4   1.45255686 -0.678893230
+## Strawberry5   1.25779330 -1.359994255
+## Strawberry6   1.22987860 -0.669642985
+## raspberry 1  -0.04656501  1.543167644
+## raspberry 2  -0.10284611 -1.758554927
+## raspberry 3  -0.40241340 -0.328363440
+## raspberry 4  -0.43059527 -0.823009716
+## raspberry 5  -0.56755742  0.383635858
+## raspberry 6   1.44742716  1.252192647</code></pre>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="untidy-data-analysis.html#cb283-1" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>colcoord <span class="co">#the standard coordinates of the column variable (attribute)</span></span></code></pre></div>
+<pre><code>##                                   Dim1        Dim2        Dim3       Dim4
+## cata_appearance_unevencolor  1.9366137 -1.17322492  0.32072486 -0.3691085
+## cata_appearance_misshapen    0.0589441  2.05113772 -3.66060544  0.3531013
+## cata_appearance_notfresh     2.4532684  0.16152199 -0.22489458  0.9952467
+## cata_appearance_fresh       -0.9372699  0.02467928  0.44045357  0.1240773
+## cata_appearance_goodquality -0.9973472  0.08087827  0.50595892  0.4849384
+## cata_appearance_none        -0.7937563 -1.48244462 -0.16563013 -1.4180918
+## cata_taste_floral           -0.2815016 -0.15570463 -0.66082635 -0.2243516
+## cata_taste_berry            -0.3325407 -0.79022119 -0.46021047 -0.4352527
+## cata_taste_grassy            0.5978264  1.20258057  1.48981642  1.2955302
+## cata_taste_fermented         0.4853398  2.23871239  0.82509530 -3.9589988
+## cata_taste_fruity           -0.1224089 -1.18256562 -0.46550861 -0.2273194
+## cata_taste_earthy            0.3549054  1.43796995  0.85550318 -0.3491357
+## cata_taste_none              0.1207429  0.96539923 -0.03486454  3.5345743
+##                                    Dim5       Dim6         Dim7       Dim8
+## cata_appearance_unevencolor -1.62005938 -0.3774736   0.30154586 -0.6335252
+## cata_appearance_misshapen   -1.00603555 -0.2124960  -0.23927488 -1.0951641
+## cata_appearance_notfresh     2.86890300  1.0263872  -0.05545059 -0.3850610
+## cata_appearance_fresh       -0.10863293  0.1414962   0.04397075 -0.2062730
+## cata_appearance_goodquality  0.52975420  0.3327724   0.34250974 -1.0731454
+## cata_appearance_none         0.69017805  3.2913350 -17.00616406  1.3294917
+## cata_taste_floral            1.49728372 -2.8193315   0.86406459  1.8336607
+## cata_taste_berry             0.03456135  0.0893703  -0.21406092  0.2679412
+## cata_taste_grassy           -0.96800100 -1.0235468  -0.48915622 -0.7017379
+## cata_taste_fermented         0.10594194  1.8898178   1.03877228  0.3000662
+## cata_taste_fruity           -0.14530173  0.2930711   0.08434588  0.4291713
+## cata_taste_earthy           -0.01891776 -1.2013919  -0.99644609  1.3593894
+## cata_taste_none             -2.05265315  3.7122409   1.34673737  4.8331118
+##                                    Dim9      Dim10       Dim11       Dim12
+## cata_appearance_unevencolor  1.22816392 -0.4084541 -0.62254913  0.31727241
+## cata_appearance_misshapen    0.26709095 -0.1111936  0.11384684 -0.11854340
+## cata_appearance_notfresh     0.06475031  0.2590012  0.65050805  0.36937808
+## cata_appearance_fresh        0.81170689 -0.1700575  1.47757553  1.05774152
+## cata_appearance_goodquality  0.47718892 -0.1537466 -1.36294181 -0.79924373
+## cata_appearance_none         1.45853357 -7.0630004 -2.76411379  0.82437204
+## cata_taste_floral            0.12638909 -2.2281270 -0.79295431  0.61533873
+## cata_taste_berry            -0.98297215  1.2341189 -0.68568963  0.98439275
+## cata_taste_grassy           -2.52321861 -0.6268628  0.30656609  0.11219358
+## cata_taste_fermented        -0.78605241 -1.2096748 -0.26064110  0.09947975
+## cata_taste_fruity           -0.65205090 -0.3340588  1.11961579 -1.89705359
+## cata_taste_earthy            1.24888861  2.0332988  0.06165682 -1.23209187
+## cata_taste_none              0.41381134 -0.8624509 -1.47668343  0.52466551</code></pre>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="untidy-data-analysis.html#cb285-1" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>sv       <span class="co">#the singular value for each dimension</span></span></code></pre></div>
+<pre><code>##  [1] 0.295838428 0.165865288 0.132976201 0.072363931 0.064690580 0.044807235
+##  [7] 0.038031617 0.029774848 0.024918839 0.021300214 0.014415082 0.008117431</code></pre>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="untidy-data-analysis.html#cb287-1" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>sv <span class="sc">%&gt;%</span>   <span class="co">#which are useful in calculating the % inertia of each dimension</span></span>
+<span id="cb287-2"><a href="untidy-data-analysis.html#cb287-2" tabindex="-1"></a>  {.<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>(.<span class="sc">^</span><span class="dv">2</span>)}</span></code></pre></div>
+<pre><code>##  [1] 0.5920550825 0.1861075348 0.1196191706 0.0354239712 0.0283096845
+##  [6] 0.0135815468 0.0097845873 0.0059972484 0.0042005733 0.0030691695
+## [11] 0.0014056824 0.0004457488</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="untidy-data-analysis.html#cb289-1" tabindex="-1"></a><span class="co">#The column and row masses (in case you want to add your own supplementary variables</span></span>
+<span id="cb289-2"><a href="untidy-data-analysis.html#cb289-2" tabindex="-1"></a><span class="co">#after the fact):</span></span>
+<span id="cb289-3"><a href="untidy-data-analysis.html#cb289-3" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>rowmass  <span class="co">#the row masses</span></span></code></pre></div>
+<pre><code>##  [1] 0.03919516 0.03935024 0.04121113 0.04008684 0.04287819 0.03938901
+##  [7] 0.03783826 0.03985423 0.03857486 0.03915639 0.04136621 0.04446771
+## [13] 0.04392494 0.04345972 0.04229666 0.04640614 0.04318834 0.04896488
+## [19] 0.05001163 0.05160115 0.04780181 0.04962394 0.04935256</code></pre>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="untidy-data-analysis.html#cb291-1" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>colmass  <span class="co">#the column masses</span></span></code></pre></div>
+<pre><code>##  [1] 0.084825929 0.047259052 0.055090331 0.162479646 0.144917423 0.002713809
+##  [7] 0.045708304 0.161510429 0.061409630 0.033883849 0.119485152 0.064317283
+## [13] 0.016399163</code></pre>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="untidy-data-analysis.html#cb293-1" tabindex="-1"></a>                      <span class="co">#(in case you want to add your own supplementary variables</span></span>
+<span id="cb293-2"><a href="untidy-data-analysis.html#cb293-2" tabindex="-1"></a>                      <span class="co">#after the analysis)</span></span></code></pre></div>
+<p>The <em>main</em> results of CA are the row and column coordinates, which are in two matrices with the same columns. We can tidy them with the reverse of <code>column_to_rownames()</code>, <code>rownames_to_column()</code>, and then we can use <code>bind_rows()</code> to combine them.</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="untidy-data-analysis.html#cb294-1" tabindex="-1"></a>berry_row_coords <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>rowcoord <span class="sc">%&gt;%</span></span>
+<span id="cb294-2"><a href="untidy-data-analysis.html#cb294-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> <span class="co">#rownames_to_column() works on data.frames, not matrices</span></span>
+<span id="cb294-3"><a href="untidy-data-analysis.html#cb294-3" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Variable&quot;</span>) <span class="co">#This has to be the same for both to use bind_rows()!</span></span>
+<span id="cb294-4"><a href="untidy-data-analysis.html#cb294-4" tabindex="-1"></a></span>
+<span id="cb294-5"><a href="untidy-data-analysis.html#cb294-5" tabindex="-1"></a>berry_col_coords <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>colcoord <span class="sc">%&gt;%</span></span>
+<span id="cb294-6"><a href="untidy-data-analysis.html#cb294-6" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;Variable&quot;</span>) <span class="co">#Equivalent to the above, and works on matrices.</span></span>
+<span id="cb294-7"><a href="untidy-data-analysis.html#cb294-7" tabindex="-1"></a></span>
+<span id="cb294-8"><a href="untidy-data-analysis.html#cb294-8" tabindex="-1"></a>berry_ca_coords <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="at">Berry =</span> berry_row_coords,</span>
+<span id="cb294-9"><a href="untidy-data-analysis.html#cb294-9" tabindex="-1"></a>                             <span class="at">Attribute =</span> berry_col_coords,</span>
+<span id="cb294-10"><a href="untidy-data-analysis.html#cb294-10" tabindex="-1"></a>                             <span class="at">.id =</span> <span class="st">&quot;Type&quot;</span>)</span>
+<span id="cb294-11"><a href="untidy-data-analysis.html#cb294-11" tabindex="-1"></a></span>
+<span id="cb294-12"><a href="untidy-data-analysis.html#cb294-12" tabindex="-1"></a>berry_ca_coords</span></code></pre></div>
+<pre><code>##         Type                    Variable         Dim1        Dim2        Dim3
+## 1      Berry                Blackberry 1 -0.676422039  1.55801517  0.02889809
+## 2      Berry                Blackberry 2 -0.460988133  2.16220762  0.44500036
+## 3      Berry                Blackberry 3 -1.025439995  1.02861582  0.58873600
+## 4      Berry                Blackberry 4 -0.475531553  0.73822421 -2.14355819
+## 5      Berry                Blackberry 5 -0.737948756  1.55341431 -2.29069697
+## 6      Berry                 Blueberry 1 -0.942208700 -0.16697306  1.34533986
+## 7      Berry                 Blueberry 2 -0.891383712 -0.73549822  0.46896273
+## 8      Berry                 Blueberry 3 -0.693395862  0.30840131  0.49784640
+## 9      Berry                 Blueberry 4 -1.062846799 -0.19768031  0.54029846
+## 10     Berry                 Blueberry 5 -0.903946503  0.01258835  0.29565501
+## 11     Berry                 Blueberry 6 -0.911518977 -0.80933135 -0.45676687
+## 12     Berry                 Strawberry1  1.123787175 -1.29134698  0.30029870
+## 13     Berry                 Strawberry2  2.186526847  0.39020970  0.46639303
+## 14     Berry                 Strawberry3  0.216458365 -0.68408859  0.84099468
+## 15     Berry                 Strawberry4  0.779921416  0.31126088  1.56706081
+## 16     Berry                 Strawberry5  0.595885377 -0.65590705  0.58277734
+## 17     Berry                 Strawberry6  2.890807350  1.51710457 -0.40231055
+## 18     Berry                 raspberry 1  0.002784249  0.24770479  0.77952820
+## 19     Berry                 raspberry 2 -0.181932219 -0.05470297  0.05660525
+## 20     Berry                 raspberry 3  0.714829561 -1.32650761 -2.11426476
+## 21     Berry                 raspberry 4  0.041631118 -0.30336432 -0.10035713
+## 22     Berry                 raspberry 5 -0.177484391 -0.92080171 -0.04037283
+## 23     Berry                 raspberry 6 -0.239619991 -1.64119492 -0.69498878
+## 24 Attribute cata_appearance_unevencolor  1.936613700 -1.17322492  0.32072486
+## 25 Attribute   cata_appearance_misshapen  0.058944103  2.05113772 -3.66060544
+## 26 Attribute    cata_appearance_notfresh  2.453268365  0.16152199 -0.22489458
+## 27 Attribute       cata_appearance_fresh -0.937269938  0.02467928  0.44045357
+## 28 Attribute cata_appearance_goodquality -0.997347176  0.08087827  0.50595892
+## 29 Attribute        cata_appearance_none -0.793756318 -1.48244462 -0.16563013
+## 30 Attribute           cata_taste_floral -0.281501563 -0.15570463 -0.66082635
+## 31 Attribute            cata_taste_berry -0.332540749 -0.79022119 -0.46021047
+## 32 Attribute           cata_taste_grassy  0.597826399  1.20258057  1.48981642
+## 33 Attribute        cata_taste_fermented  0.485339794  2.23871239  0.82509530
+## 34 Attribute           cata_taste_fruity -0.122408859 -1.18256562 -0.46550861
+## 35 Attribute           cata_taste_earthy  0.354905352  1.43796995  0.85550318
+## 36 Attribute             cata_taste_none  0.120742891  0.96539923 -0.03486454
+##          Dim4         Dim5         Dim6          Dim7        Dim8        Dim9
+## 1  -2.1207457  0.421035244  0.416339437  -0.087205574  0.55527540  0.66487134
+## 2  -0.6763648 -0.401344347  1.353241139  -0.143661403  0.31809116  0.82018151
+## 3  -1.5512728  0.149090611 -0.154464899  -0.009161493  0.17303241 -0.07476922
+## 4   1.8024546 -1.054134662  0.604303775   1.121173149  1.61580941 -0.44455523
+## 5  -0.3768377 -1.478964909 -0.652553200  -0.503141105 -0.95611885 -0.76061578
+## 6   0.9721393  0.341902827 -0.708842996   0.275826588  0.50857290  0.94363142
+## 7   1.3567656 -0.058683995  3.082539058   0.538179530 -1.16634324 -0.43368257
+## 8   0.2667007  1.452589890 -1.525570006   0.767208280 -0.17612888 -1.96339520
+## 9  -0.6011662  1.453852344 -0.121844931   0.606785673 -0.26607669  0.49314835
+## 10  1.3192008  1.250783134  0.820976326   0.475499585  1.30639341 -0.73014319
+## 11 -0.1166850  1.177305333 -0.582502705  -0.563767160 -1.33239601 -1.94597487
+## 12 -1.9371408 -0.269928992  0.003367573   1.980558028  1.56631289 -0.17821445
+## 13 -0.0688568 -0.454494991  0.333203747  -1.237545485  0.45004439 -0.95562013
+## 14  0.1817546 -1.474293484  1.174373617   0.381298231  0.06195272  0.41063042
+## 15  1.0718960 -1.737282915 -1.577928830  -0.329844134  0.71300614 -1.32879302
+## 16 -1.2198681 -0.852687372  0.761511155   0.054789811 -1.58761812 -1.24962440
+## 17  0.8846827  2.338783198  0.483756496   0.160111078 -0.57887026  0.34590501
+## 18  0.7647137 -0.914998126 -0.901156816   0.498483211 -2.30064883  1.53815305
+## 19  0.2948372 -0.159554062 -1.041068949  -0.750258551  1.07509047  0.55799211
+## 20 -0.3861240  0.086736116 -0.577370181   1.175513729 -0.54472390  0.75571365
+## 21  0.3256547  0.412286985 -0.435287990  -1.543719337 -0.11575622  1.57370723
+## 22  0.3511281 -0.003814396 -0.678042187   0.444107106  0.28159320  1.09950507
+## 23 -0.3495728  0.259177191  0.697218086  -2.755894177  0.71155298  0.04135319
+## 24 -0.3691085 -1.620059383 -0.377473620   0.301545855 -0.63352523  1.22816392
+## 25  0.3531013 -1.006035553 -0.212496004  -0.239274881 -1.09516405  0.26709095
+## 26  0.9952467  2.868903004  1.026387237  -0.055450592 -0.38506099  0.06475031
+## 27  0.1240773 -0.108632925  0.141496178   0.043970746 -0.20627303  0.81170689
+## 28  0.4849384  0.529754205  0.332772420   0.342509736 -1.07314538  0.47718892
+## 29 -1.4180918  0.690178046  3.291335009 -17.006164060  1.32949174  1.45853357
+## 30 -0.2243516  1.497283724 -2.819331519   0.864064594  1.83366072  0.12638909
+## 31 -0.4352527  0.034561355  0.089370302  -0.214060919  0.26794118 -0.98297215
+## 32  1.2955302 -0.968001002 -1.023546788  -0.489156221 -0.70173788 -2.52321861
+## 33 -3.9589988  0.105941940  1.889817842   1.038772276  0.30006618 -0.78605241
+## 34 -0.2273194 -0.145301727  0.293071101   0.084345882  0.42917126 -0.65205090
+## 35 -0.3491357 -0.018917764 -1.201391871  -0.996446089  1.35938942  1.24888861
+## 36  3.5345743 -2.052653151  3.712240877   1.346737365  4.83311179  0.41381134
+##         Dim10       Dim11        Dim12
+## 1   0.7992141 -0.95983642 -0.009253265
+## 2   1.3393069  0.68731238  0.267060332
+## 3  -1.5859313 -0.69717059 -1.168003875
+## 4  -1.3036853 -0.22875124 -0.894559086
+## 5  -0.2891770  0.74883806  1.156346478
+## 6  -1.0496073 -0.33120184 -0.408429808
+## 7   1.1514695 -0.67185606 -0.519204536
+## 8  -0.1572088 -0.29921710  1.327706362
+## 9  -0.9894949  1.24943134  0.309664418
+## 10  1.4665355  0.54425299  1.516555388
+## 11 -0.2792107 -1.24454179 -1.159488529
+## 12 -0.0413237  0.49720288  0.715403472
+## 13  0.1394031 -2.84848835  1.293593154
+## 14 -2.2704383 -0.36073715  0.084475487
+## 15  0.5226638  1.45255686 -0.678893230
+## 16  0.5416557  1.25779330 -1.359994255
+## 17 -0.8335918  1.22987860 -0.669642985
+## 18  0.2120347 -0.04656501  1.543167644
+## 19  1.7404352 -0.10284611 -1.758554927
+## 20  0.9693176 -0.40241340 -0.328363440
+## 21 -0.2755199 -0.43059527 -0.823009716
+## 22  0.3868386 -0.56755742  0.383635858
+## 23 -0.5673104  1.44742716  1.252192647
+## 24 -0.4084541 -0.62254913  0.317272405
+## 25 -0.1111936  0.11384684 -0.118543402
+## 26  0.2590012  0.65050805  0.369378079
+## 27 -0.1700575  1.47757553  1.057741523
+## 28 -0.1537466 -1.36294181 -0.799243733
+## 29 -7.0630004 -2.76411379  0.824372037
+## 30 -2.2281270 -0.79295431  0.615338734
+## 31  1.2341189 -0.68568963  0.984392755
+## 32 -0.6268628  0.30656609  0.112193577
+## 33 -1.2096748 -0.26064110  0.099479751
+## 34 -0.3340588  1.11961579 -1.897053591
+## 35  2.0332988  0.06165682 -1.232091871
+## 36 -0.8624509 -1.47668343  0.524665515</code></pre>
+<p>We could also add on any columns that have one value for each product <em>and</em> each attribute (or fill in the gaps with <code>NA</code>s). Maybe we want a column with the <code>rowmass</code>es and <code>colmass</code>es. These are vectors, so it would be handy if we could wrangle them into tibbles first.</p>
+<p>You can use either <code>tibble()</code> or <code>data.frame()</code> to make vectors in the same order into a table. They have basically the same usage. Just make sure you name your columns!</p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="untidy-data-analysis.html#cb296-1" tabindex="-1"></a>berry_rowmass <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Variable =</span> berry_ca_res<span class="sc">$</span>rownames,</span>
+<span id="cb296-2"><a href="untidy-data-analysis.html#cb296-2" tabindex="-1"></a>                        <span class="at">Mass =</span> berry_ca_res<span class="sc">$</span>rowmass)</span>
+<span id="cb296-3"><a href="untidy-data-analysis.html#cb296-3" tabindex="-1"></a></span>
+<span id="cb296-4"><a href="untidy-data-analysis.html#cb296-4" tabindex="-1"></a>berry_rowmass</span></code></pre></div>
+<pre><code>## # A tibble: 23 × 2
+##    Variable       Mass
+##    &lt;chr&gt;         &lt;dbl&gt;
+##  1 Blackberry 1 0.0392
+##  2 Blackberry 2 0.0394
+##  3 Blackberry 3 0.0412
+##  4 Blackberry 4 0.0401
+##  5 Blackberry 5 0.0429
+##  6 Blueberry 1  0.0394
+##  7 Blueberry 2  0.0378
+##  8 Blueberry 3  0.0399
+##  9 Blueberry 4  0.0386
+## 10 Blueberry 5  0.0392
+## # ℹ 13 more rows</code></pre>
+<p>If you have an already-named vector, <code>enframe()</code> is a handy shortcut to making a two-column tibble, but unfortunately this isn’t how the <code>ca</code> package structures its output.</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="untidy-data-analysis.html#cb298-1" tabindex="-1"></a>named_colmasses <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>colmass</span>
+<span id="cb298-2"><a href="untidy-data-analysis.html#cb298-2" tabindex="-1"></a><span class="fu">names</span>(named_colmasses) <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>colnames</span>
+<span id="cb298-3"><a href="untidy-data-analysis.html#cb298-3" tabindex="-1"></a></span>
+<span id="cb298-4"><a href="untidy-data-analysis.html#cb298-4" tabindex="-1"></a>berry_colmass <span class="ot">&lt;-</span> named_colmasses <span class="sc">%&gt;%</span></span>
+<span id="cb298-5"><a href="untidy-data-analysis.html#cb298-5" tabindex="-1"></a>  <span class="fu">enframe</span>(<span class="at">name =</span> <span class="st">&quot;Variable&quot;</span>,</span>
+<span id="cb298-6"><a href="untidy-data-analysis.html#cb298-6" tabindex="-1"></a>          <span class="at">value =</span> <span class="st">&quot;Mass&quot;</span>)</span>
+<span id="cb298-7"><a href="untidy-data-analysis.html#cb298-7" tabindex="-1"></a></span>
+<span id="cb298-8"><a href="untidy-data-analysis.html#cb298-8" tabindex="-1"></a>berry_colmass</span></code></pre></div>
+<pre><code>## # A tibble: 13 × 2
+##    Variable                       Mass
+##    &lt;chr&gt;                         &lt;dbl&gt;
+##  1 cata_appearance_unevencolor 0.0848 
+##  2 cata_appearance_misshapen   0.0473 
+##  3 cata_appearance_notfresh    0.0551 
+##  4 cata_appearance_fresh       0.162  
+##  5 cata_appearance_goodquality 0.145  
+##  6 cata_appearance_none        0.00271
+##  7 cata_taste_floral           0.0457 
+##  8 cata_taste_berry            0.162  
+##  9 cata_taste_grassy           0.0614 
+## 10 cata_taste_fermented        0.0339 
+## 11 cata_taste_fruity           0.119  
+## 12 cata_taste_earthy           0.0643 
+## 13 cata_taste_none             0.0164</code></pre>
+<p>And now we can use <code>bind_rows()</code> and <code>left_join()</code> to jigsaw these together.</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="untidy-data-analysis.html#cb300-1" tabindex="-1"></a><span class="fu">bind_rows</span>(berry_colmass, berry_rowmass) <span class="sc">%&gt;%</span></span>
+<span id="cb300-2"><a href="untidy-data-analysis.html#cb300-2" tabindex="-1"></a>  <span class="fu">left_join</span>(berry_ca_coords, <span class="at">by =</span> <span class="st">&quot;Variable&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 36 × 15
+##    Variable    Mass Type     Dim1    Dim2   Dim3   Dim4    Dim5    Dim6     Dim7
+##    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+##  1 cata_ap… 0.0848  Attr…  1.94   -1.17    0.321 -0.369 -1.62   -0.377    0.302 
+##  2 cata_ap… 0.0473  Attr…  0.0589  2.05   -3.66   0.353 -1.01   -0.212   -0.239 
+##  3 cata_ap… 0.0551  Attr…  2.45    0.162  -0.225  0.995  2.87    1.03    -0.0555
+##  4 cata_ap… 0.162   Attr… -0.937   0.0247  0.440  0.124 -0.109   0.141    0.0440
+##  5 cata_ap… 0.145   Attr… -0.997   0.0809  0.506  0.485  0.530   0.333    0.343 
+##  6 cata_ap… 0.00271 Attr… -0.794  -1.48   -0.166 -1.42   0.690   3.29   -17.0   
+##  7 cata_ta… 0.0457  Attr… -0.282  -0.156  -0.661 -0.224  1.50   -2.82     0.864 
+##  8 cata_ta… 0.162   Attr… -0.333  -0.790  -0.460 -0.435  0.0346  0.0894  -0.214 
+##  9 cata_ta… 0.0614  Attr…  0.598   1.20    1.49   1.30  -0.968  -1.02    -0.489 
+## 10 cata_ta… 0.0339  Attr…  0.485   2.24    0.825 -3.96   0.106   1.89     1.04  
+## # ℹ 26 more rows
+## # ℹ 5 more variables: Dim8 &lt;dbl&gt;, Dim9 &lt;dbl&gt;, Dim10 &lt;dbl&gt;, Dim11 &lt;dbl&gt;,
+## #   Dim12 &lt;dbl&gt;</code></pre>
+<p>In summary:
+- Many analyses will give you <strong>lists</strong> full of every possible piece of data you could need, which aren’t necessarily tabular.
+- If you need to turn a <strong>tabular data</strong> with <code>rownames</code> into a tibble, use <code>rownames_to_column()</code> or <code>as_tibble()</code>.
+- If you need to turn a <strong>named vector</strong> into a two-column table, use <code>enframe()</code>
+- If you need to turn <strong>multiple vectors</strong> into a table, use <code>tibble()</code> or <code>data.frame()</code>.
+- You can combine multiple tables together using <code>bind_rows()</code> and <code>left_join()</code>, if you manage your column names and the orders of your vectors carefully.</p>
+<p>Like with our <em>untidying</em> process, the shape you need to get your data into during <em>retidying</em> is ultimately decided by what you want to do with it next. Correspondence Analysis is primarily a graphical method, so next we’re going to talk about graphing functions in R in our last substantive chapter. By the end, you will be able to make the plots we showed in the beginning!</p>
+<p>Let’s take a quick moment to <strong>save our data</strong> before we move on, though, so we don’t have to rerun our <code>ca()</code> whenever we restart <code>R</code> to make more changes to our graph.</p>
+<p>As we’ve shown before, you can save tabular data easily:</p>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="untidy-data-analysis.html#cb302-1" tabindex="-1"></a>berry_ca_coords <span class="sc">%&gt;%</span></span>
+<span id="cb302-2"><a href="untidy-data-analysis.html#cb302-2" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;data/berry_ca_coords.csv&quot;</span>)</span>
+<span id="cb302-3"><a href="untidy-data-analysis.html#cb302-3" tabindex="-1"></a></span>
+<span id="cb302-4"><a href="untidy-data-analysis.html#cb302-4" tabindex="-1"></a>berry_col_coords <span class="sc">%&gt;%</span></span>
+<span id="cb302-5"><a href="untidy-data-analysis.html#cb302-5" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;data/berry_ca_col_coords.csv&quot;</span>)</span>
+<span id="cb302-6"><a href="untidy-data-analysis.html#cb302-6" tabindex="-1"></a></span>
+<span id="cb302-7"><a href="untidy-data-analysis.html#cb302-7" tabindex="-1"></a>berry_row_coords <span class="sc">%&gt;%</span></span>
+<span id="cb302-8"><a href="untidy-data-analysis.html#cb302-8" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;data/berry_ca_row_coords.csv&quot;</span>)</span></code></pre></div>
+<p>But <code>.csv</code> is a <strong>tabular format</strong>, so it’s a little harder to save the whole non-tabular list of <code>berry_ca_res</code> as a table. There’s a lot of stuff we may need later, though, so just in case we can save it as an <code>.Rds</code> file:</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="untidy-data-analysis.html#cb303-1" tabindex="-1"></a>berry_ca_res <span class="sc">%&gt;%</span></span>
+<span id="cb303-2"><a href="untidy-data-analysis.html#cb303-2" tabindex="-1"></a>  <span class="fu">write_rds</span>(<span class="st">&quot;data/berry_ca_results.rds&quot;</span>)</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="wrangling-data-with-tidyverse-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-visualization-basics-with-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

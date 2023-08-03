@@ -4,23 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Wrap-up and further resources | An introduction to text analysis with R for sensory and consumer scientists</title>
-  <meta name="description" content="6 Wrap-up and further resources | An introduction to text analysis with R for sensory and consumer scientists" />
+  <title>7 Wrap-up and further resources | An introduction to R for sensory and consumer scientists</title>
+  <meta name="description" content="7 Wrap-up and further resources | An introduction to R for sensory and consumer scientists" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Wrap-up and further resources | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta property="og:title" content="7 Wrap-up and further resources | An introduction to R for sensory and consumer scientists" />
   <meta property="og:type" content="book" />
   
   
-  <meta name="github-repo" content="jlahne/eurosense-tutorial-2022" />
+  <meta name="github-repo" content="lhami/pangborn-tutorial-2023" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Wrap-up and further resources | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta name="twitter:title" content="7 Wrap-up and further resources | An introduction to R for sensory and consumer scientists" />
   
   
   
 
 <meta name="author" content="Jacob Lahne" />
+<meta name="author" content="Leah Hamilton" />
 
 
 
@@ -29,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="text-analysis.html"/>
+<link rel="prev" href="data-visualization-basics-with-ggplot2.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -141,7 +142,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#martha-calvert-ms"><i class="fa fa-check"></i>Martha Calvert, MS</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
@@ -200,50 +200,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-are-a-pain-to-type"><i class="fa fa-check"></i><b>3.2.3</b> Pipes are a pain to type</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>3.3</b> Make new columns: <code>mutate()</code></a></li>
-<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses-with-group_by-and-summarize"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses with <code>group_by()</code> and <code>summarize()</code></a></li>
-<li class="chapter" data-level="3.5" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#utilities-for-data-management"><i class="fa fa-check"></i><b>3.5</b> Utilities for data management</a>
+<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#rename-your-columns"><i class="fa fa-check"></i><b>3.5.1</b> Rename your columns</a></li>
-<li class="chapter" data-level="3.5.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#relocate-your-columns"><i class="fa fa-check"></i><b>3.5.2</b> Relocate your columns</a></li>
-<li class="chapter" data-level="3.5.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#sort-your-data"><i class="fa fa-check"></i><b>3.5.3</b> Sort your data</a></li>
-<li class="chapter" data-level="3.5.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pivot-tables"><i class="fa fa-check"></i><b>3.5.4</b> Pivot tables</a></li>
+<li class="chapter" data-level="3.4.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#groups-of-data-split-apply"><i class="fa fa-check"></i><b>3.4.1</b> Groups of data: Split-apply</a></li>
+<li class="chapter" data-level="3.4.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-in-fewer-steps-with-summarize"><i class="fa fa-check"></i><b>3.4.2</b> Split-apply-combine in fewer steps with <code>summarize()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>4</b> Data visualization basics with <code>ggplot2</code></a>
+<li class="chapter" data-level="4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html"><i class="fa fa-check"></i><b>4</b> Wrangling data with <code>tidyverse</code></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#your-first-ggplot"><i class="fa fa-check"></i><b>4.1</b> Your first <code>ggplot()</code></a></li>
-<li class="chapter" data-level="4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>4.2</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
-<li class="chapter" data-level="4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>4.3</b> Adding layers with <code>geom_*()</code> functions</a></li>
-<li class="chapter" data-level="4.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>4.4</b> Arguments inside and outside of <code>aes()</code></a>
+<li class="chapter" data-level="4.1" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#groups-of-columns-and-across"><i class="fa fa-check"></i><b>4.1</b> Groups of columns and across()</a></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#pivot-tables--wider-and-longer-data"><i class="fa fa-check"></i><b>4.2</b> Pivot tables- wider and longer data</a></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#combining-data"><i class="fa fa-check"></i><b>4.3</b> Combining data</a></li>
+<li class="chapter" data-level="4.4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.4</b> Utilities for data management</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>4.4.1</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
-<li class="chapter" data-level="4.4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>4.4.2</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
-<li class="chapter" data-level="4.4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>4.4.3</b> Finally, <code>facet_*()</code></a></li>
+<li class="chapter" data-level="4.4.1" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#rename-your-columns"><i class="fa fa-check"></i><b>4.4.1</b> Rename your columns</a></li>
+<li class="chapter" data-level="4.4.2" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#relocate-your-columns"><i class="fa fa-check"></i><b>4.4.2</b> Relocate your columns</a></li>
+<li class="chapter" data-level="4.4.3" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#remove-missing-values"><i class="fa fa-check"></i><b>4.4.3</b> Remove missing values</a></li>
+<li class="chapter" data-level="4.4.4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#counting-categorical-variables"><i class="fa fa-check"></i><b>4.4.4</b> Counting categorical variables</a></li>
+<li class="chapter" data-level="4.4.5" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#sort-your-data"><i class="fa fa-check"></i><b>4.4.5</b> Sort your data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#some-further-reading"><i class="fa fa-check"></i><b>4.5</b> Some further reading</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>5</b> Text Analysis</a>
+<li class="chapter" data-level="5" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Untidy Data Analysis</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-i-getting-your-text-data"><i class="fa fa-check"></i><b>5.1</b> Text Analysis Pt. I: Getting your text data</a>
+<li class="chapter" data-level="5.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#correspondence-analysis-overview"><i class="fa fa-check"></i><b>5.1</b> Correspondence Analysis Overview</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="text-analysis.html"><a href="text-analysis.html#basic-import-and-cleaning-with-text-data"><i class="fa fa-check"></i><b>5.1.1</b> Basic import and cleaning with text data</a></li>
-<li class="chapter" data-level="5.1.2" data-path="text-analysis.html"><a href="text-analysis.html#where-is-the-data-in-character-a-tidy-approach."><i class="fa fa-check"></i><b>5.1.2</b> Where is the data in <code>character</code>? A <em>tidy</em> approach.</a></li>
-<li class="chapter" data-level="5.1.3" data-path="text-analysis.html"><a href="text-analysis.html#a-quick-note-saving-data"><i class="fa fa-check"></i><b>5.1.3</b> A quick note: saving data</a></li>
+<li class="chapter" data-level="5.1.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#the-ca-package"><i class="fa fa-check"></i><b>5.1.1</b> The CA package</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-ii-basic-text-analysis-approaches-using-tokens"><i class="fa fa-check"></i><b>5.2</b> Text Analysis Pt. II: Basic text analysis approaches using tokens</a>
+<li class="chapter" data-level="5.2" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#categorical-character-binomial-binary-and-count-data"><i class="fa fa-check"></i><b>5.2</b> Categorical, Character, Binomial, Binary, and Count data</a></li>
+<li class="chapter" data-level="5.3" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#untidy-analysis"><i class="fa fa-check"></i><b>5.3</b> Untidy Analysis</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="text-analysis.html"><a href="text-analysis.html#word-counts"><i class="fa fa-check"></i><b>5.2.1</b> Word counts</a></li>
-<li class="chapter" data-level="5.2.2" data-path="text-analysis.html"><a href="text-analysis.html#term-frequency-inverse-document-frequency-tf-idf"><i class="fa fa-check"></i><b>5.2.2</b> Term Frequency-Inverse Document Frequency (TF-IDF)</a></li>
+<li class="chapter" data-level="5.3.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#untidying-data"><i class="fa fa-check"></i><b>5.3.1</b> Untidying Data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#data-analysis"><i class="fa fa-check"></i><b>5.3.2</b> Data Analysis</a></li>
+<li class="chapter" data-level="5.3.3" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#retidying-data"><i class="fa fa-check"></i><b>5.3.3</b> Retidying Data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iii-sentiment-analysis"><i class="fa fa-check"></i><b>5.3</b> Text Analysis Pt. III: Sentiment analysis</a></li>
-<li class="chapter" data-level="5.4" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iv-n-gram-models"><i class="fa fa-check"></i><b>5.4</b> Text Analysis Pt. IV: <em>n</em>-gram models</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>6</b> Wrap-up and further resources</a>
+<li class="chapter" data-level="6" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Data visualization basics with <code>ggplot2</code></a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>6.1</b> Getting help</a></li>
-<li class="chapter" data-level="6.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>6.2</b> Learning more with Sensometrics Society</a></li>
-<li class="chapter" data-level="6.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>6.3</b> Further reading/resources</a></li>
-<li class="chapter" data-level="6.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>6.4</b> Questions/Comments</a></li>
+<li class="chapter" data-level="6.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#built-in-plots-with-the-ca-package"><i class="fa fa-check"></i><b>6.1</b> Built-in plots with the ca package</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#basics-of-tidy-graphics"><i class="fa fa-check"></i><b>6.2</b> Basics of Tidy Graphics</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>6.2.1</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>6.2.2</b> Adding layers with <code>geom_*()</code> functions</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#geoms-for-categorical-ordinal-or-unevenly-distributed-data"><i class="fa fa-check"></i><b>6.2.3</b> Geoms for categorical, ordinal, or unevenly-distributed data</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>6.2.4</b> Arguments inside and outside of <code>aes()</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>6.2.5</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
+<li class="chapter" data-level="6.2.6" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>6.2.6</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
+<li class="chapter" data-level="6.2.7" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>6.2.7</b> Finally, <code>facet_*()</code></a></li>
+<li class="chapter" data-level="6.2.8" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-ggplot-rabbithole"><i class="fa fa-check"></i><b>6.2.8</b> The ggplot rabbithole</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#better-ca-plots-with-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Better CA plots with ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>7</b> Wrap-up and further resources</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>7.1</b> Getting help</a></li>
+<li class="chapter" data-level="7.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>7.2</b> Learning more with Sensometrics Society</a></li>
+<li class="chapter" data-level="7.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>7.3</b> Further reading/resources</a></li>
+<li class="chapter" data-level="7.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>7.4</b> Questions/Comments</a></li>
 </ul></li>
 </ul>
 
@@ -254,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to text analysis with R for sensory and consumer scientists</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to R for sensory and consumer scientists</a>
           </h1>
         </div>
 
@@ -262,23 +274,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="wrap-up-and-further-resources" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">6</span> Wrap-up and further resources<a href="wrap-up-and-further-resources.html#wrap-up-and-further-resources" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="wrap-up-and-further-resources" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Wrap-up and further resources<a href="wrap-up-and-further-resources.html#wrap-up-and-further-resources" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Let’s look back at what we were aiming to do today:</p>
 <blockquote>
-<p>In this tutorial, we will introduce the audience to the R statistical programming environment and the RStudio Interactive Development Environment (IDE) with the aim of developing sufficient basic skills to conduct a text analysis on sensory-relevant text data. We will provide a learning dataset of text data for the analysis—a set of food-product free-comment reviews that are associated with overall liking scores. This will allow us to demonstrate connections between text analysis methods and basic sensory and consumer science approaches. We will also provide an R script that walks through all steps of importing, manipulating, and analysing the test dataset.</p>
-<p>The tutorial will have 2 sections. In the first section of the tutorial, we will introduce R and RStudio, we will cover the basic commands of R, and we will cover key, user-friendly conventions of ”tidy” R programming for importing, manipulating, and plotting data using the “tidyverse” packages. In the second section we will use the “tidytext” package to conduct basic text analysis, including text tokenization, text modeling using TF-IDF, and basic lexicon-based sentiment analysis.</p>
+<p>In this tutorial, we will introduce the audience to the R statistical programming environment and the RStudio Interactive Development Environment (IDE) with the aim of developing sufficient basic skills to conduct multivariate analyses (like Correspondence Analysis) on sensory and consumer datasets. We will provide a learning dataset for the analysis—a set of free response comments and overall liking scores from a central location test on berries. We will teach participants how to import, manipulate, and plot data using user-friendly, “tidy” R programming. All resources used in the tutorial are open-source and will remain available to attendees, including an R script covering the full workflow.</p>
+<p>At the end of the tutorial, attendees will be able to prepare raw sensory data for common multivariate analyses or visual representations in R.</p>
 </blockquote>
-<p>We have managed to touch on all of these topics, but of course we have taken the most cursory look at each. I hope what we’ve gone over today has inspired you, sure, but I mostly hope it has shown you <strong>how much you can do with just a little knowledge</strong>. My journey in terms of learning data science with <code>R</code>, and text analysis in particular, has been all about building my coding ability incrementally. My code looks more like this than anything else, but I am able to get so much done:</p>
+<p>We have managed to touch on all of these topics, but of course we have taken the most cursory look at each. I hope what we’ve gone over today has inspired you, sure, but I mostly hope it has shown you <strong>how much you can do with just a little knowledge</strong>. My journey in terms of learning data science with <code>R</code> has been all about building my coding ability incrementally. My code looks more like this than anything else, but I am able to get so much done:</p>
 <center>
-<div class="figure">
-<img src="https://imgs.xkcd.com/comics/good_code.png" alt="" />
-<p class="caption">What does good code even look like? (via <a href="https://xkcd.com/844/">XKCD</a>)</p>
+<div class="float">
+<img src="https://imgs.xkcd.com/comics/good_code.png" alt="What does good code even look like? (via XKCD)" />
+<div class="figcaption">What does good code even look like? (via <a href="https://xkcd.com/844/">XKCD</a>)</div>
 </div>
 </center>
 <p>By developing your ability to code (in <code>R</code> or Python, or whatever works for you–Julia?) you will open up a whole set of analyses that you would otherwise be unable to access.</p>
-<div id="getting-help-1" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> Getting help<a href="wrap-up-and-further-resources.html#getting-help-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="getting-help-1" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Getting help<a href="wrap-up-and-further-resources.html#getting-help-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
 <li>Look up the help file for whatever you’re doing. Do this by using the syntax <code>?&lt;search item&gt;</code> (for example <code>?c</code> gets help on the vector command) as a shortcut on the console.</li>
 <li>Search the help files for a term you think is related. Can’t remember the command for making a sequence of integers? Go to the “Help” pane in RStudio and search in the search box for “sequence”. See if some of the top results get you what you need.</li>
@@ -291,23 +303,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>I want to emphasize that <strong>looking up help is normal</strong>. I do it all the time. Learning to ask questions in helpful ways, how to quickly parse the information you find, and how to slightly alter the answers to suit your particular situation are key skills.</p>
 </div>
-<div id="learning-more-with-sensometrics-society" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> Learning more with Sensometrics Society<a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This workshop was organized and sponsored by the Sensometrics Society. Want to learn more? We are hosting our biennial conference <strong>online 15-17 November, 2022</strong>:</p>
+<div id="learning-more-with-sensometrics-society" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Learning more with Sensometrics Society<a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This workshop was organized and sponsored by the Sensometrics Society. Want to learn more? We are hosting our biennial conference <strong>in Paris 3-6 June, 2024</strong>:</p>
 <center>
-<div class="figure">
-<img src="img/sensometrics-logo-2022.png" alt="" />
-<p class="caption">Sensometrics Society biannual conference banner</p>
+<div class="float">
+<img src="img/sensometrics-logo-2024.png" alt="Sensometrics Society biannual conference banner" />
+<div class="figcaption">Sensometrics Society biannual conference banner</div>
 </div>
 </center>
 <p>In general, Sensometrics has a focus on methods and skills for the analysis of sensory data. If you’re interested in contributing to this focus (or just participating), please see our call for papers:</p>
 <blockquote>
-<p>Please submit an abstract for either an oral or poster presentation on the conference website at <a href="http://sensometric.org/2022">www.sensometrics2022.com</a>. All submissions need to be received by <strong>October 17, 2022</strong>. Notification about acceptance will be made by October 24, 2022. All accepted contributions are invited to submit a full paper for inclusion in a virtual special issue of Food Quality and Preference (FQAP).</p>
+<p>Please submit an abstract for either an oral or poster presentation <a href="https://sensometric.org/Abstract-submission">by following the instructions on the conference website through</a>. All submissions need to be received by <strong>December 15, 2023</strong>. All accepted contributions are invited to submit a full paper for inclusion in a virtual special issue of Food Quality and Preference (FQAP).</p>
 </blockquote>
-<p>You can contact us for more information or with questions at <a href="mailto:sensometrics2022@gmail.com">sensometrics2022@gmail.com</a>.</p>
 </div>
-<div id="further-readingresources" class="section level2 hasAnchor" number="6.3">
-<h2><span class="header-section-number">6.3</span> Further reading/resources<a href="wrap-up-and-further-resources.html#further-readingresources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="further-readingresources" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Further reading/resources<a href="wrap-up-and-further-resources.html#further-readingresources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
 <li>General <code>R</code> programming
 <ol style="list-style-type: decimal">
@@ -324,19 +335,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://www.manning.com/books/deep-learning-with-r-second-edition">Chollet et al.’s <em>Deep Learning with R</em></a></li>
 </ol></li>
 </ol>
+<p>We will also be presenting more coding demonstrations in R this week, as part of the “Applying Natural Language Processing tools for sensory and consumer data” workshop from 15:45-17:15 on August 23rd in Room 200! We’d love to see you there if you’re at all interested in working with text data (like the free response comments in the <code>berry_data</code>).</p>
 </div>
-<div id="questionscomments" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> Questions/Comments<a href="wrap-up-and-further-resources.html#questionscomments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>If you end up being confused, come talk to me, or email me at <strong>jlahne at vt dot edu</strong>. I’d love to learn about what you’re working on!</p>
+<div id="questionscomments" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Questions/Comments<a href="wrap-up-and-further-resources.html#questionscomments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you get stuck, feel free to find us during the conference, or email us at <strong>jlahne at vt dot edu</strong> and <strong>lhamilton at vsu dot edu</strong>. I’d love to learn about what you’re working on!</p>
 
 </div>
 </div>
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="text-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-visualization-basics-with-ggplot2.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -391,20 +410,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -1,12 +1,14 @@
 ---
-title: "An introduction to text analysis with R for sensory and consumer scientists"
-author: "Jacob Lahne"
+title: "An introduction to R for sensory and consumer scientists"
+author: 
+  - Jacob Lahne^[Virginia Tech, jlahne@vt.edu]
+  - Leah Hamilton^[Virginia State University, lhamilton@vsu.edu]
 site: "bookdown::bookdown_site"
 documentclass: book
 output:
   bookdown::gitbook: default
   #bookdown::pdf_book: default
-github-repo: jlahne/eurosense-tutorial-2022
+github-repo: lhami/pangborn-tutorial-2023
 ---
 
 # Introduction and welcome {-}
@@ -14,9 +16,9 @@ github-repo: jlahne/eurosense-tutorial-2022
 
 
 
-Welcome to the Eurosense Sensometrics Workshop "**An introduction to text analysis with R for sensory and consumer scientists**"!
+Welcome to the Pangborn Sensometrics Workshop "**An introduction to R for sensory and consumer scientists**"!
 
-This workshop is going to be conducted not using slides, but through **livecoding**.  That means I am going to run code lines in the console or highlight and run code in scripts and other files.  It is also an opportunity and encouragement for you to follow along.  Along with introducing myself and my helpers for today's workshop, we're going to discuss a bit about how that will work here.
+This workshop is going to be conducted not using slides, but through **livecoding**.  That means we are going to run code lines in the console or highlight and run code in scripts and other files.  It is also an opportunity and encouragement for you to follow along.  Along with introducing ourselves for today's workshop, we're going to discuss a bit about how that will work here.
 
 ## Introductions {-}
 
@@ -26,11 +28,7 @@ Jacob Lahne is an Assistant Professor of Food Science & Technology at Virginia T
 
 ### Leah Hamilton, PhD {-}
 
-Leah Hamilton is a postdoctoral researcher at the UC Davis Department of Food Science & Technology, in the US. Her primary research interest is flavor language, including the ways that people talk about flavors using their own words in different contexts.
-
-### Martha Calvert, MS {-}
-
-Martha Calvert is a PhD candidate in the Department of Food Science and Technology at Virginia Tech, in the United States.
+Leah Hamilton is an Assistant Professor of Sensory & Flavor Science at Virginia State University, in the US. Her primary research interest is flavor language, including the ways that people talk about flavors using their own words in different contexts.
 
 ## Today's agenda {-}
 
@@ -38,23 +36,34 @@ Today's workshop is going to take ~3 hours, with a break for lunch, and we'll be
 
 1.  Crash course in using R  
 2.  Creating, importing, and manipulating data in R
-3.  Principles of tidy data analysis using `tidyverse`
-4.  Basics of data visualization in `R`/`ggplot2`
-5.  Basic text analysis with `tidytext` 
-    1.  Dealing with character data
-    2.  Units of analysis: tokenization
-    3.  TF-IDF models
-    4.  Sentiment Analysis
+3.  Tidy Data Analysis: Rows, Columns, and Groups
+  1. What is tidy data?
+  2. Subsetting data
+  3. Chaining steps together
+  4. Making new variables
+  5. Groups of rows and split-apply-combine
+4. Tidy Data Analysis: Reshaping tidy data
+  1. Groups of columns
+  2. Combining data frames
+  3. Wider and longer data
+  4. Other data-wrangling utilities
+5.  Data analysis outside the `tidyverse`
+  1. Correspondence Analysis overview
+  2. Working with binary, count, and character data
+  3. Untidying & Retidying data
+6.  Basics of data visualization in `R`/`ggplot2`
+  1. Built-in plots using ca package
+  2. Customizing plots with ggplot2
   
 ## How we're going to run {-}
 
-This workshop is going to be run with **livecoding**, as noted above.  This means I won't be using slides or a prepared video, but running through code step by step to show how these tools are used in practice.  I encourage **you** to also follow along with livecoding, because the best way to learn coding is to actually do it.
+This workshop is going to be run with **livecoding**, as noted above.  This means we won't be using slides or a prepared video, but running through code step by step to show how these tools are used in practice.  We encourage **you** to also follow along with livecoding, because the best way to learn coding is to actually do it.
 
 ### Recommended approach for livecoding {-}
 
-We recommend that you download the pre-made archive of code and data from the [workshop github repo](https://github.com/jlahne/eurosense-tutorial-2022).  This archive, when unzipped, will have a folder structure and a `.Rproj` file.  We recommend that you close out RStudio, unzip the archive, and double click the `.Rproj` file *in that folder*, which will open a new session of RStudio with proper setting (like the home directory) for the files for this workshop.
+We recommend that you download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/pangborn-tutorial-2023).  This archive, when unzipped, will have a folder structure and a `.Rproj` file.  We recommend that you close out RStudio, unzip the archive, and double click the `.Rproj` file *in that folder*, which will open a new session of RStudio with proper setting (like the home directory) for the files for this workshop.
 
-In that folder, you will find a `data/` folder with the necessary data for the workshop, and a script named `eurosense-workshop-all-code.R`.  This latter file contains all of the code demonstrated in this workshop for your future reference.  You can also follow along with the code at the [workshop's page hosted on github.io](https://jlahne.github.io/eurosense-tutorial-2022/) (which you're reading right now), and which will remain available after this workshop.
+In that folder, you will find a `data/` folder with the necessary data for the workshop, and a script named `eurosense-workshop-all-code.R`.  This latter file contains all of the code demonstrated in this workshop for your future reference.  You can also follow along with the code at the [workshop's page hosted on github.io](https://lhami.github.io/pangborn-tutorial-2023) (which you're reading right now), and which will remain available after this workshop.
 
 Once you're in RStudio, go to the `File > New File > R Script` menu to open a new script.  We'll talk about how these work in a minute, but this is basically a workbook for you to store sequential lines of code to be run in the `Console`.  It is where you can livecode along!  Even though we are giving you all of the code you need right now, you will learn a lot more if you actively follow along, rather than just run that code.
 

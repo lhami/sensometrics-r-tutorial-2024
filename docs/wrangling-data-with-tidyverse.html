@@ -4,23 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Wrangling data with tidyverse | An introduction to text analysis with R for sensory and consumer scientists</title>
-  <meta name="description" content="3 Wrangling data with tidyverse | An introduction to text analysis with R for sensory and consumer scientists" />
+  <title>3 Wrangling data with tidyverse | An introduction to R for sensory and consumer scientists</title>
+  <meta name="description" content="3 Wrangling data with tidyverse | An introduction to R for sensory and consumer scientists" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Wrangling data with tidyverse | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta property="og:title" content="3 Wrangling data with tidyverse | An introduction to R for sensory and consumer scientists" />
   <meta property="og:type" content="book" />
   
   
-  <meta name="github-repo" content="jlahne/eurosense-tutorial-2022" />
+  <meta name="github-repo" content="lhami/pangborn-tutorial-2023" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Wrangling data with tidyverse | An introduction to text analysis with R for sensory and consumer scientists" />
+  <meta name="twitter:title" content="3 Wrangling data with tidyverse | An introduction to R for sensory and consumer scientists" />
   
   
   
 
 <meta name="author" content="Jacob Lahne" />
+<meta name="author" content="Leah Hamilton" />
 
 
 
@@ -30,7 +31,7 @@
   
   
 <link rel="prev" href="how-to-work-with-r.html"/>
-<link rel="next" href="data-visualization-basics-with-ggplot2.html"/>
+<link rel="next" href="wrangling-data-with-tidyverse-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -141,7 +142,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#martha-calvert-ms"><i class="fa fa-check"></i>Martha Calvert, MS</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
@@ -200,50 +200,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pipes-are-a-pain-to-type"><i class="fa fa-check"></i><b>3.2.3</b> Pipes are a pain to type</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#make-new-columns-mutate"><i class="fa fa-check"></i><b>3.3</b> Make new columns: <code>mutate()</code></a></li>
-<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses-with-group_by-and-summarize"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses with <code>group_by()</code> and <code>summarize()</code></a></li>
-<li class="chapter" data-level="3.5" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#utilities-for-data-management"><i class="fa fa-check"></i><b>3.5</b> Utilities for data management</a>
+<li class="chapter" data-level="3.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses"><i class="fa fa-check"></i><b>3.4</b> Split-apply-combine analyses</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#rename-your-columns"><i class="fa fa-check"></i><b>3.5.1</b> Rename your columns</a></li>
-<li class="chapter" data-level="3.5.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#relocate-your-columns"><i class="fa fa-check"></i><b>3.5.2</b> Relocate your columns</a></li>
-<li class="chapter" data-level="3.5.3" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#sort-your-data"><i class="fa fa-check"></i><b>3.5.3</b> Sort your data</a></li>
-<li class="chapter" data-level="3.5.4" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#pivot-tables"><i class="fa fa-check"></i><b>3.5.4</b> Pivot tables</a></li>
+<li class="chapter" data-level="3.4.1" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#groups-of-data-split-apply"><i class="fa fa-check"></i><b>3.4.1</b> Groups of data: Split-apply</a></li>
+<li class="chapter" data-level="3.4.2" data-path="wrangling-data-with-tidyverse.html"><a href="wrangling-data-with-tidyverse.html#split-apply-combine-in-fewer-steps-with-summarize"><i class="fa fa-check"></i><b>3.4.2</b> Split-apply-combine in fewer steps with <code>summarize()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>4</b> Data visualization basics with <code>ggplot2</code></a>
+<li class="chapter" data-level="4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html"><i class="fa fa-check"></i><b>4</b> Wrangling data with <code>tidyverse</code></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#your-first-ggplot"><i class="fa fa-check"></i><b>4.1</b> Your first <code>ggplot()</code></a></li>
-<li class="chapter" data-level="4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>4.2</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
-<li class="chapter" data-level="4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>4.3</b> Adding layers with <code>geom_*()</code> functions</a></li>
-<li class="chapter" data-level="4.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>4.4</b> Arguments inside and outside of <code>aes()</code></a>
+<li class="chapter" data-level="4.1" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#groups-of-columns-and-across"><i class="fa fa-check"></i><b>4.1</b> Groups of columns and across()</a></li>
+<li class="chapter" data-level="4.2" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#pivot-tables--wider-and-longer-data"><i class="fa fa-check"></i><b>4.2</b> Pivot tables- wider and longer data</a></li>
+<li class="chapter" data-level="4.3" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#combining-data"><i class="fa fa-check"></i><b>4.3</b> Combining data</a></li>
+<li class="chapter" data-level="4.4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#utilities-for-data-management"><i class="fa fa-check"></i><b>4.4</b> Utilities for data management</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>4.4.1</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
-<li class="chapter" data-level="4.4.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>4.4.2</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
-<li class="chapter" data-level="4.4.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>4.4.3</b> Finally, <code>facet_*()</code></a></li>
+<li class="chapter" data-level="4.4.1" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#rename-your-columns"><i class="fa fa-check"></i><b>4.4.1</b> Rename your columns</a></li>
+<li class="chapter" data-level="4.4.2" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#relocate-your-columns"><i class="fa fa-check"></i><b>4.4.2</b> Relocate your columns</a></li>
+<li class="chapter" data-level="4.4.3" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#remove-missing-values"><i class="fa fa-check"></i><b>4.4.3</b> Remove missing values</a></li>
+<li class="chapter" data-level="4.4.4" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#counting-categorical-variables"><i class="fa fa-check"></i><b>4.4.4</b> Counting categorical variables</a></li>
+<li class="chapter" data-level="4.4.5" data-path="wrangling-data-with-tidyverse-1.html"><a href="wrangling-data-with-tidyverse-1.html#sort-your-data"><i class="fa fa-check"></i><b>4.4.5</b> Sort your data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#some-further-reading"><i class="fa fa-check"></i><b>4.5</b> Some further reading</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="text-analysis.html"><a href="text-analysis.html"><i class="fa fa-check"></i><b>5</b> Text Analysis</a>
+<li class="chapter" data-level="5" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html"><i class="fa fa-check"></i><b>5</b> Untidy Data Analysis</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-i-getting-your-text-data"><i class="fa fa-check"></i><b>5.1</b> Text Analysis Pt. I: Getting your text data</a>
+<li class="chapter" data-level="5.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#correspondence-analysis-overview"><i class="fa fa-check"></i><b>5.1</b> Correspondence Analysis Overview</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="text-analysis.html"><a href="text-analysis.html#basic-import-and-cleaning-with-text-data"><i class="fa fa-check"></i><b>5.1.1</b> Basic import and cleaning with text data</a></li>
-<li class="chapter" data-level="5.1.2" data-path="text-analysis.html"><a href="text-analysis.html#where-is-the-data-in-character-a-tidy-approach."><i class="fa fa-check"></i><b>5.1.2</b> Where is the data in <code>character</code>? A <em>tidy</em> approach.</a></li>
-<li class="chapter" data-level="5.1.3" data-path="text-analysis.html"><a href="text-analysis.html#a-quick-note-saving-data"><i class="fa fa-check"></i><b>5.1.3</b> A quick note: saving data</a></li>
+<li class="chapter" data-level="5.1.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#the-ca-package"><i class="fa fa-check"></i><b>5.1.1</b> The CA package</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-ii-basic-text-analysis-approaches-using-tokens"><i class="fa fa-check"></i><b>5.2</b> Text Analysis Pt. II: Basic text analysis approaches using tokens</a>
+<li class="chapter" data-level="5.2" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#categorical-character-binomial-binary-and-count-data"><i class="fa fa-check"></i><b>5.2</b> Categorical, Character, Binomial, Binary, and Count data</a></li>
+<li class="chapter" data-level="5.3" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#untidy-analysis"><i class="fa fa-check"></i><b>5.3</b> Untidy Analysis</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="text-analysis.html"><a href="text-analysis.html#word-counts"><i class="fa fa-check"></i><b>5.2.1</b> Word counts</a></li>
-<li class="chapter" data-level="5.2.2" data-path="text-analysis.html"><a href="text-analysis.html#term-frequency-inverse-document-frequency-tf-idf"><i class="fa fa-check"></i><b>5.2.2</b> Term Frequency-Inverse Document Frequency (TF-IDF)</a></li>
+<li class="chapter" data-level="5.3.1" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#untidying-data"><i class="fa fa-check"></i><b>5.3.1</b> Untidying Data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#data-analysis"><i class="fa fa-check"></i><b>5.3.2</b> Data Analysis</a></li>
+<li class="chapter" data-level="5.3.3" data-path="untidy-data-analysis.html"><a href="untidy-data-analysis.html#retidying-data"><i class="fa fa-check"></i><b>5.3.3</b> Retidying Data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iii-sentiment-analysis"><i class="fa fa-check"></i><b>5.3</b> Text Analysis Pt. III: Sentiment analysis</a></li>
-<li class="chapter" data-level="5.4" data-path="text-analysis.html"><a href="text-analysis.html#text-analysis-pt.-iv-n-gram-models"><i class="fa fa-check"></i><b>5.4</b> Text Analysis Pt. IV: <em>n</em>-gram models</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>6</b> Wrap-up and further resources</a>
+<li class="chapter" data-level="6" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Data visualization basics with <code>ggplot2</code></a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>6.1</b> Getting help</a></li>
-<li class="chapter" data-level="6.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>6.2</b> Learning more with Sensometrics Society</a></li>
-<li class="chapter" data-level="6.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>6.3</b> Further reading/resources</a></li>
-<li class="chapter" data-level="6.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>6.4</b> Questions/Comments</a></li>
+<li class="chapter" data-level="6.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#built-in-plots-with-the-ca-package"><i class="fa fa-check"></i><b>6.1</b> Built-in plots with the ca package</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#basics-of-tidy-graphics"><i class="fa fa-check"></i><b>6.2</b> Basics of Tidy Graphics</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>6.2.1</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
+<li class="chapter" data-level="6.2.2" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>6.2.2</b> Adding layers with <code>geom_*()</code> functions</a></li>
+<li class="chapter" data-level="6.2.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#geoms-for-categorical-ordinal-or-unevenly-distributed-data"><i class="fa fa-check"></i><b>6.2.3</b> Geoms for categorical, ordinal, or unevenly-distributed data</a></li>
+<li class="chapter" data-level="6.2.4" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>6.2.4</b> Arguments inside and outside of <code>aes()</code></a></li>
+<li class="chapter" data-level="6.2.5" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>6.2.5</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
+<li class="chapter" data-level="6.2.6" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>6.2.6</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
+<li class="chapter" data-level="6.2.7" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>6.2.7</b> Finally, <code>facet_*()</code></a></li>
+<li class="chapter" data-level="6.2.8" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#the-ggplot-rabbithole"><i class="fa fa-check"></i><b>6.2.8</b> The ggplot rabbithole</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="data-visualization-basics-with-ggplot2.html"><a href="data-visualization-basics-with-ggplot2.html#better-ca-plots-with-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Better CA plots with ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>7</b> Wrap-up and further resources</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>7.1</b> Getting help</a></li>
+<li class="chapter" data-level="7.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>7.2</b> Learning more with Sensometrics Society</a></li>
+<li class="chapter" data-level="7.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>7.3</b> Further reading/resources</a></li>
+<li class="chapter" data-level="7.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>7.4</b> Questions/Comments</a></li>
 </ul></li>
 </ul>
 
@@ -254,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to text analysis with R for sensory and consumer scientists</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An introduction to R for sensory and consumer scientists</a>
           </h1>
         </div>
 
@@ -266,315 +278,593 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">3</span> Wrangling data with <code>tidyverse</code><a href="wrangling-data-with-tidyverse.html#wrangling-data-with-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>A common saying in data science is that about 90% of the effort in an analysis workflow is in getting data wrangled into the right format and shape, and 10% is actual analysis. In a point and click program like SPSS or XLSTAT we don’t think about this as much because the activity of reshaping the data–making it longer or wider as required, finding and cleaning missing values, selecting columns or rows, etc–is often temporally and programmatically separated from the “actual” analysis.</p>
 <p>In <code>R</code>, this can feel a bit different because we are using the same interface to manipulate our data and to analyze it. Sometimes we’ll want to jump back out to a spreadsheet program like Excel or even the command line (the “shell” like <code>bash</code> or <code>zsh</code>) to make some changes. But in general the tools for manipulating data in <code>R</code> are both more powerful and more easily used than doing these activities by hand, and you will make yourself a much more effective analyst by mastering these basic tools.</p>
-<p>Here, we are going to emphasize the set of tools from the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, which are extensively documented in Hadley Wickham’s and Garrett Grolemund’s book <a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a>. If you want to learn more, start there!</p>
+<p>Here, we are going to emphasize the set of tools from the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, which are extensively documented in Hadley Wickham and Garrett Grolemund’s book <a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a>. If you want to learn more, start there!</p>
 <center>
-<div class="figure">
-<img src="img/tidyverse-iconography.png" alt="" />
-<p class="caption">The <code>tidyverse</code> is associated with this hexagonal iconography.</p>
+<div class="float">
+<img src="img/tidyverse-iconography.png" alt="The tidyverse is associated with this hexagonal iconography." />
+<div class="figcaption">The <code>tidyverse</code> is associated with this hexagonal iconography.</div>
 </div>
 </center>
 <p>Before we move on to actually learning the tools, let’s make sure we’ve got our data loaded up.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="wrangling-data-with-tidyverse.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb93-2"><a href="wrangling-data-with-tidyverse.html#cb93-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ba_2002.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## Rows: 20359 Columns: 14
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="wrangling-data-with-tidyverse.html#cb93-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb93-2"><a href="wrangling-data-with-tidyverse.html#cb93-2" tabindex="-1"></a>berry_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/clt-berry-data.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 7507 Columns: 92
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
-## chr (5): reviews, beer_name, brewery_name, style, user_id
-## dbl (9): beer_id, brewery_id, abv, appearance, aroma, palate, taste, overall...
+## chr  (7): Start Time (UTC), End Time (UTC), Sample Name, verbal_likes, verba...
+## dbl (83): Subject Code, Participant Name, Serving Position, Sample Identifie...
+## lgl  (2): Gender, Age
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div id="subsetting-data-1" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Subsetting data<a href="wrangling-data-with-tidyverse.html#subsetting-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>R’s system for <strong>indexing</strong> data frames is clear and sensible for those who are used to programming languages, but it is not necessarily easy to read.</p>
-<p>A common situation in R is wanting to select some rows and some columns of our data–this is called “<strong>subsetting</strong>” our data. But this is less easy than it might be for the beginner in R. Happily, the <code>tidverse</code> methods are much easier to read (and modeled after syntax from <strong>SQL</strong>, which may be helpful for some users.) We are going to focus on</p>
+<p>R’s system for <strong>indexing</strong> data frames is clear and sensible for those who are used to programming languages, but not necessarily easy to read.</p>
+<p>A common situation in R is wanting to select some rows and some columns of our data–this is called “<strong>subsetting</strong>” our data. But this is less easy than it might be for the beginner in R. Happily, the <code>tidverse</code> methods are much easier to read (and modeled after syntax from <strong>SQL</strong>, which may be helpful for some users). Starting with…</p>
 <div id="select-for-columns" class="section level3 hasAnchor" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> <code>select()</code> for columns<a href="wrangling-data-with-tidyverse.html#select-for-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The first thing we often want to do in a data analysis is to pick a subset of columns, which usually represent variables. If we take a look at our beer data, we see that, for example, we have some columns that are data about our beers, and some columns that are user-generated responses:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="wrangling-data-with-tidyverse.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(beer_data)</span></code></pre></div>
-<pre><code>## Rows: 20,359
-## Columns: 14
-## $ reviews      &lt;chr&gt; &quot;This is a very good Irish ale. I&#39;m not sure if it would …
-## $ beer_name    &lt;chr&gt; &quot;Caffrey&#39;s Irish Ale&quot;, &quot;Caffrey&#39;s Irish Ale&quot;, &quot;Caffrey&#39;s …
-## $ beer_id      &lt;dbl&gt; 825, 825, 825, 825, 825, 825, 825, 825, 825, 825, 825, 82…
-## $ brewery_name &lt;chr&gt; &quot;Thomas Caffrey Brewing Co.&quot;, &quot;Thomas Caffrey Brewing Co.…
-## $ brewery_id   &lt;dbl&gt; 297, 297, 297, 297, 297, 297, 297, 297, 297, 297, 297, 29…
-## $ style        &lt;chr&gt; &quot;Irish Red Ale&quot;, &quot;Irish Red Ale&quot;, &quot;Irish Red Ale&quot;, &quot;Irish…
-## $ abv          &lt;dbl&gt; 3.8, 3.8, 3.8, 3.8, 3.8, 3.8, 3.8, 3.8, 3.8, 3.8, 3.8, 3.…
-## $ user_id      &lt;chr&gt; &quot;jisurfer.1152&quot;, &quot;allboutbierge.746&quot;, &quot;frank4sail.48&quot;, &quot;b…
-## $ appearance   &lt;dbl&gt; 5.0, 5.0, 4.0, 3.5, 4.0, 4.0, 3.5, 4.0, 4.0, 4.0, 4.0, 2.…
-## $ aroma        &lt;dbl&gt; 4.0, 3.5, 3.0, 3.5, 3.0, 3.0, 3.5, 3.0, 4.0, 3.0, 4.0, 2.…
-## $ palate       &lt;dbl&gt; 4.0, 4.0, 3.0, 3.5, 4.0, 2.5, 4.0, 3.0, 4.0, 3.5, 3.0, 2.…
-## $ taste        &lt;dbl&gt; 4.5, 3.5, 3.5, 3.5, 4.5, 3.0, 3.5, 3.0, 4.0, 3.0, 3.0, 2.…
-## $ overall      &lt;dbl&gt; 5.0, 4.0, 3.0, 3.5, 3.5, 3.5, 3.5, 3.0, 4.0, 3.5, 3.5, 2.…
-## $ rating       &lt;dbl&gt; 4.46, 3.74, 3.26, 3.50, 3.86, 3.11, 3.55, 3.06, 4.00, 3.2…</code></pre>
-<p>So, for example, we might want to try to reverse engineer the way that the <code>rating</code> is generated from the sub-modalities, in which case perhaps we only want the last 6 columns. We learned previously that we can do this with numeric indexing:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="wrangling-data-with-tidyverse.html#cb97-1" aria-hidden="true" tabindex="-1"></a>beer_data[, <span class="dv">9</span><span class="sc">:</span><span class="dv">14</span>]</span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 6
-##    appearance aroma palate taste overall rating
-##         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-##  1        5     4      4     4.5     5     4.46
-##  2        5     3.5    4     3.5     4     3.74
-##  3        4     3      3     3.5     3     3.26
-##  4        3.5   3.5    3.5   3.5     3.5   3.5 
-##  5        4     3      4     4.5     3.5   3.86
-##  6        4     3      2.5   3       3.5   3.11
-##  7        3.5   3.5    4     3.5     3.5   3.55
-##  8        4     3      3     3       3     3.06
-##  9        4     4      4     4       4     4   
-## 10        4     3      3.5   3       3.5   3.21
-## # ℹ 20,349 more rows</code></pre>
-<p>However, this is both difficult for novices to <code>R</code> and difficult to read if you are not intimately familiar with the data. It is also rather fragile–what if someone else rearranged the data in your import file? You’re just selecting the last 6 columns, which are not guaranteed to contain the rating data you’re interested in.</p>
-<p>The <code>select()</code> function in <code>tidyverse</code> (actually from the <code>dplyr</code> package) is the smarter, easier way to do this. It works on data frames, and it can be read as “from &lt;data frame&gt;, select the columns that meet the criteria we’ve set.”</p>
+<p>The first thing we often want to do in a data analysis is to pick a subset of columns, which usually represent variables. If we take a look at our berry data, we see that, for example, we have some columns that contain the answers to survey questions, some columns that are about the test day or panelist, and some that identify the panelist or berry:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="wrangling-data-with-tidyverse.html#cb95-1" tabindex="-1"></a><span class="fu">glimpse</span>(berry_data)</span></code></pre></div>
+<pre><code>## Rows: 7,507
+## Columns: 92
+## $ `Subject Code`              &lt;dbl&gt; 1001, 1001, 1001, 1001, 1001, 1001, 1002, …
+## $ `Participant Name`          &lt;dbl&gt; 1001, 1001, 1001, 1001, 1001, 1001, 1002, …
+## $ Gender                      &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ Age                         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ `Start Time (UTC)`          &lt;chr&gt; &quot;6/13/2019 21:05&quot;, &quot;6/13/2019 20:55&quot;, &quot;6/1…
+## $ `End Time (UTC)`            &lt;chr&gt; &quot;6/13/2019 21:09&quot;, &quot;6/13/2019 20:59&quot;, &quot;6/1…
+## $ `Serving Position`          &lt;dbl&gt; 5, 3, 2, 1, 4, 6, 3, 1, 4, 2, 6, 5, 2, 4, …
+## $ `Sample Identifier`         &lt;dbl&gt; 1426, 3167, 4624, 5068, 7195, 9161, 1426, …
+## $ `Sample Name`               &lt;chr&gt; &quot;raspberry 6&quot;, &quot;raspberry 5&quot;, &quot;raspberry 2…
+## $ `9pt_appearance`            &lt;dbl&gt; 4, 8, 4, 7, 7, 7, 6, 8, 8, 7, 9, 8, 5, 5, …
+## $ pre_expectation             &lt;dbl&gt; 2, 4, 2, 4, 3, 4, 2, 3, 5, 3, 4, 5, 3, 3, …
+## $ jar_color                   &lt;dbl&gt; 2, 3, 2, 2, 4, 4, 2, 3, 3, 2, 3, 4, 3, 3, …
+## $ jar_gloss                   &lt;dbl&gt; 4, 3, 2, 3, 3, 3, 4, 3, 4, 4, 2, 4, 3, 3, …
+## $ jar_size                    &lt;dbl&gt; 2, 3, 3, 4, 3, 3, 4, 3, 5, 3, 3, 4, 3, 3, …
+## $ cata_appearance_unevencolor &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, …
+## $ cata_appearance_misshapen   &lt;dbl&gt; 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, …
+## $ cata_appearance_creased     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, …
+## $ cata_appearance_seedy       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ cata_appearance_bruised     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, …
+## $ cata_appearance_notfresh    &lt;dbl&gt; 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, …
+## $ cata_appearance_fresh       &lt;dbl&gt; 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, …
+## $ cata_appearance_goodshape   &lt;dbl&gt; 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, …
+## $ cata_appearance_goodquality &lt;dbl&gt; 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, …
+## $ cata_appearance_none        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ `9pt_overall`               &lt;dbl&gt; 4, 9, 3, 7, 4, 4, 4, 7, 7, 9, 7, 2, 8, 7, …
+## $ verbal_likes                &lt;chr&gt; &quot;Out of the two, there was one that had a …
+## $ verbal_dislikes             &lt;chr&gt; &quot;There were different flavors coming from …
+## $ `9pt_taste`                 &lt;dbl&gt; 4, 9, 3, 6, 3, 3, 4, 4, 6, 9, 6, 2, 8, 7, …
+## $ grid_sweetness              &lt;dbl&gt; 3, 6, 3, 6, 2, 3, 3, 2, 2, 6, 4, 1, 6, 4, …
+## $ grid_tartness               &lt;dbl&gt; 6, 5, 5, 3, 5, 6, 5, 5, 5, 2, 2, 7, 4, 5, …
+## $ grid_raspberryflavor        &lt;dbl&gt; 4, 7, 2, 6, 2, 3, 2, 6, 2, 7, 2, 2, 6, 5, …
+## $ jar_sweetness               &lt;dbl&gt; 2, 3, 2, 3, 2, 1, 1, 1, 1, 3, 2, 1, 3, 3, …
+## $ jar_tartness                &lt;dbl&gt; 4, 3, 3, 3, 4, 5, 4, 4, 4, 3, 4, 5, 3, 3, …
+## $ cata_taste_floral           &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, …
+## $ cata_taste_berry            &lt;dbl&gt; 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, …
+## $ cata_taste_green            &lt;dbl&gt; 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, …
+## $ cata_taste_grassy           &lt;dbl&gt; 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, …
+## $ cata_taste_fermented        &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ cata_taste_tropical         &lt;dbl&gt; 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, …
+## $ cata_taste_fruity           &lt;dbl&gt; 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, …
+## $ cata_taste_citrus           &lt;dbl&gt; 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, …
+## $ cata_taste_earthy           &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, …
+## $ cata_taste_candy            &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, …
+## $ cata_taste_none             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ `9pt_texture`               &lt;dbl&gt; 6, 8, 2, 8, 5, 6, 6, 9, 8, 7, 7, 7, 8, 7, …
+## $ grid_seediness              &lt;dbl&gt; 3, 5, 6, 3, 5, 5, 6, 4, 6, 5, 6, 5, 4, 4, …
+## $ grid_firmness               &lt;dbl&gt; 5, 5, 5, 2, 6, 5, 5, 6, 5, 3, 5, 5, 4, 5, …
+## $ grid_juiciness              &lt;dbl&gt; 2, 5, 2, 2, 2, 4, 2, 4, 2, 3, 3, 2, 6, 5, …
+## $ jar_firmness                &lt;dbl&gt; 3, 3, 4, 2, 4, 3, 3, 3, 3, 2, 3, 3, 3, 3, …
+## $ jar_juciness                &lt;dbl&gt; 2, 3, 1, 2, 2, 2, 1, 2, 1, 3, 2, 1, 3, 3, …
+## $ post_expectation            &lt;dbl&gt; 1, 5, 2, 4, 2, 2, 2, 2, 2, 5, 2, 1, 4, 3, …
+## $ price                       &lt;dbl&gt; 1.99, 4.99, 2.99, 4.99, 2.99, 3.99, 3.99, …
+## $ product_tier                &lt;dbl&gt; 1, 3, 2, 3, 1, 2, 2, 2, 1, 3, 2, 1, 2, 2, …
+## $ purchase_intent             &lt;dbl&gt; 1, 5, 2, 4, 2, 2, 3, 4, 2, 5, 3, 1, 5, 5, …
+## $ subject                     &lt;dbl&gt; 1031946, 1031946, 1031946, 1031946, 103194…
+## $ test_day                    &lt;chr&gt; &quot;Raspberry Day 1&quot;, &quot;Raspberry Day 1&quot;, &quot;Ras…
+## $ us_appearance               &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ us_overall                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ us_taste                    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ us_texture                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_appearance              &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_overall                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_taste                   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_texture                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearane_bruised      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearance_goodshapre  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearance_goodcolor   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ grid_blackberryflavor       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_cinnamon         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_lemon            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_clove            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_minty            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_grape            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ grid_crispness              &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ jar_crispness               &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ jar_juiciness               &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearane_creased      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ grid_blueberryflavor        &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_piney            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_peachy           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ `9pt_aroma`                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ grid_strawberryflavor       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_caramel          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_grapey           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_melon            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_cherry           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ grid_crunchiness            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ jar_crunch                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ us_aroma                    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_aroma                   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ berry                       &lt;chr&gt; &quot;raspberry&quot;, &quot;raspberry&quot;, &quot;raspberry&quot;, &quot;ra…
+## $ sample                      &lt;dbl&gt; 6, 5, 2, 3, 4, 1, 6, 5, 2, 3, 4, 1, 6, 5, …</code></pre>
+<p>So, for example, we might want to determine whether there are differences in liking between the berries, test days, or scales, in which case perhaps we only want the columns starting with <code>us_</code>, <code>lms_</code>, and <code>9pt_</code> along with <code>berry</code> and <code>test_day</code>. We learned previously that we can do this with numeric indexing:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="wrangling-data-with-tidyverse.html#cb97-1" tabindex="-1"></a>berry_data[, <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">25</span>,<span class="dv">28</span>,<span class="dv">45</span>,<span class="dv">56</span><span class="sc">:</span><span class="dv">64</span>,<span class="dv">81</span>,<span class="dv">89</span><span class="sc">:</span><span class="dv">91</span>)]</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 17
+##    `9pt_appearance` `9pt_overall` `9pt_taste` `9pt_texture` test_day       
+##               &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;          
+##  1                4             4           4             6 Raspberry Day 1
+##  2                8             9           9             8 Raspberry Day 1
+##  3                4             3           3             2 Raspberry Day 1
+##  4                7             7           6             8 Raspberry Day 1
+##  5                7             4           3             5 Raspberry Day 1
+##  6                7             4           3             6 Raspberry Day 1
+##  7                6             4           4             6 Raspberry Day 1
+##  8                8             7           4             9 Raspberry Day 1
+##  9                8             7           6             8 Raspberry Day 1
+## 10                7             9           9             7 Raspberry Day 1
+## # ℹ 7,497 more rows
+## # ℹ 12 more variables: us_appearance &lt;dbl&gt;, us_overall &lt;dbl&gt;, us_taste &lt;dbl&gt;,
+## #   us_texture &lt;dbl&gt;, lms_appearance &lt;dbl&gt;, lms_overall &lt;dbl&gt;, lms_taste &lt;dbl&gt;,
+## #   lms_texture &lt;dbl&gt;, `9pt_aroma` &lt;dbl&gt;, us_aroma &lt;dbl&gt;, lms_aroma &lt;dbl&gt;,
+## #   berry &lt;chr&gt;</code></pre>
+<p>However, this is both difficult for novices to <code>R</code> and difficult to read if you are not intimately familiar with the data. It is also rather fragile–what if someone else rearranged the data in your import file? You’re just selecting columns by their order, so column 91 is not guaranteed to contain the berry type every time. Not to mention all of the counting was annoying!</p>
+<p>Subsetting using names is a little more stable, but still not that readable and takes a lot of typing.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="wrangling-data-with-tidyverse.html#cb99-1" tabindex="-1"></a>berry_data[, <span class="fu">c</span>(<span class="st">&quot;9pt_aroma&quot;</span>,<span class="st">&quot;9pt_overall&quot;</span>,<span class="st">&quot;9pt_taste&quot;</span>,<span class="st">&quot;9pt_texture&quot;</span>,<span class="st">&quot;9pt_appearance&quot;</span>,</span>
+<span id="cb99-2"><a href="wrangling-data-with-tidyverse.html#cb99-2" tabindex="-1"></a>               <span class="st">&quot;lms_aroma&quot;</span>,<span class="st">&quot;lms_overall&quot;</span>,<span class="st">&quot;lms_taste&quot;</span>,<span class="st">&quot;lms_texture&quot;</span>,<span class="st">&quot;lms_appearance&quot;</span>,</span>
+<span id="cb99-3"><a href="wrangling-data-with-tidyverse.html#cb99-3" tabindex="-1"></a>               <span class="st">&quot;us_aroma&quot;</span>,<span class="st">&quot;us_overall&quot;</span>,<span class="st">&quot;us_taste&quot;</span>,<span class="st">&quot;us_texture&quot;</span>,<span class="st">&quot;us_appearance&quot;</span>,</span>
+<span id="cb99-4"><a href="wrangling-data-with-tidyverse.html#cb99-4" tabindex="-1"></a>               <span class="st">&quot;berry&quot;</span>,<span class="st">&quot;test_day&quot;</span>)]</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 17
+##    `9pt_aroma` `9pt_overall` `9pt_taste` `9pt_texture` `9pt_appearance`
+##          &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;
+##  1          NA             4           4             6                4
+##  2          NA             9           9             8                8
+##  3          NA             3           3             2                4
+##  4          NA             7           6             8                7
+##  5          NA             4           3             5                7
+##  6          NA             4           3             6                7
+##  7          NA             4           4             6                6
+##  8          NA             7           4             9                8
+##  9          NA             7           6             8                8
+## 10          NA             9           9             7                7
+## # ℹ 7,497 more rows
+## # ℹ 12 more variables: lms_aroma &lt;dbl&gt;, lms_overall &lt;dbl&gt;, lms_taste &lt;dbl&gt;,
+## #   lms_texture &lt;dbl&gt;, lms_appearance &lt;dbl&gt;, us_aroma &lt;dbl&gt;, us_overall &lt;dbl&gt;,
+## #   us_taste &lt;dbl&gt;, us_texture &lt;dbl&gt;, us_appearance &lt;dbl&gt;, berry &lt;chr&gt;,
+## #   test_day &lt;chr&gt;</code></pre>
+<p>The <code>select()</code> function in <code>tidyverse</code> (actually from the <code>dplyr</code> package) is the smarter, easier way to do this. It works on data frames, and it can be read as “<code>select()</code> the columns from &lt;data frame&gt; that meet the criteria we’ve set.”</p>
 <p><code>select(&lt;data frame&gt;, &lt;column 1&gt;, &lt;column 2&gt;, ...)</code></p>
 <p>The simplest way to use <code>select()</code> is just to name the columns you want!</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="wrangling-data-with-tidyverse.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, appearance, aroma, palate, taste, overall, rating) <span class="co"># note the lack of quoting on the column names</span></span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 6
-##    appearance aroma palate taste overall rating
-##         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-##  1        5     4      4     4.5     5     4.46
-##  2        5     3.5    4     3.5     4     3.74
-##  3        4     3      3     3.5     3     3.26
-##  4        3.5   3.5    3.5   3.5     3.5   3.5 
-##  5        4     3      4     4.5     3.5   3.86
-##  6        4     3      2.5   3       3.5   3.11
-##  7        3.5   3.5    4     3.5     3.5   3.55
-##  8        4     3      3     3       3     3.06
-##  9        4     4      4     4       4     4   
-## 10        4     3      3.5   3       3.5   3.21
-## # ℹ 20,349 more rows</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="wrangling-data-with-tidyverse.html#cb101-1" tabindex="-1"></a><span class="fu">select</span>(berry_data, berry, test_day,</span>
+<span id="cb101-2"><a href="wrangling-data-with-tidyverse.html#cb101-2" tabindex="-1"></a>       lms_aroma, lms_overall, lms_taste, lms_texture, lms_appearance) <span class="co"># note the lack of quoting on the column names</span></span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 7
+##    berry     test_day lms_aroma lms_overall lms_taste lms_texture lms_appearance
+##    &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;
+##  1 raspberry Raspber…        NA          NA        NA          NA             NA
+##  2 raspberry Raspber…        NA          NA        NA          NA             NA
+##  3 raspberry Raspber…        NA          NA        NA          NA             NA
+##  4 raspberry Raspber…        NA          NA        NA          NA             NA
+##  5 raspberry Raspber…        NA          NA        NA          NA             NA
+##  6 raspberry Raspber…        NA          NA        NA          NA             NA
+##  7 raspberry Raspber…        NA          NA        NA          NA             NA
+##  8 raspberry Raspber…        NA          NA        NA          NA             NA
+##  9 raspberry Raspber…        NA          NA        NA          NA             NA
+## 10 raspberry Raspber…        NA          NA        NA          NA             NA
+## # ℹ 7,497 more rows</code></pre>
 <p>This is much clearer to the reader.</p>
+<p>Getting rid of the double quotes we previously saw around <code>"column names"</code> can have some consequences, though. R variable names can <em>only</em> contain letters, numbers, and underscores (_), no spaces ( ) or dashes (-), and can’t start with numbers, but the tidyverse <em>will</em> let you make column names that break these rules. So if you try to do the exact same thing as before to get the data from the 9-point hedonic scale instead of the labeled magnitude scale:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="wrangling-data-with-tidyverse.html#cb103-1" tabindex="-1"></a><span class="fu">select</span>(berry_data, berry, test_day,</span>
+<span id="cb103-2"><a href="wrangling-data-with-tidyverse.html#cb103-2" tabindex="-1"></a>       9pt_aroma, 9pt_overall, 9pt_taste, 9pt_texture, 9pt_appearance) <span class="co"># this will cause an error</span></span></code></pre></div>
+<p>You’ll run into an error. The solution to this is a different kind of quote called a backtick (`) which is usually next to the number 1 key in the very top left of QWERTY (US and UK) keyboards. On QWERTZ and AZERTY keyboards, it may be next to the backspace key or one of the alternate characters made by the 7 key. Look <a href="https://superuser.com/questions/254076/how-do-i-type-the-tick-and-backtick-characters-on-windows">at this guide</a> for help finding it in common international keyboard layouts.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="wrangling-data-with-tidyverse.html#cb104-1" tabindex="-1"></a><span class="fu">select</span>(berry_data, berry, test_day, <span class="co">#these ruly column names don&#39;t need escaping</span></span>
+<span id="cb104-2"><a href="wrangling-data-with-tidyverse.html#cb104-2" tabindex="-1"></a>       <span class="st">`</span><span class="at">9pt_aroma</span><span class="st">`</span>, <span class="co">#only ones starting with numbers...</span></span>
+<span id="cb104-3"><a href="wrangling-data-with-tidyverse.html#cb104-3" tabindex="-1"></a>       <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="st">`</span><span class="at">9pt_taste</span><span class="st">`</span>, <span class="st">`</span><span class="at">9pt_texture</span><span class="st">`</span>, <span class="st">`</span><span class="at">9pt_appearance</span><span class="st">`</span>,</span>
+<span id="cb104-4"><a href="wrangling-data-with-tidyverse.html#cb104-4" tabindex="-1"></a>       <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="co">#or containing spaces</span></span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 8
+##    berry     test_day        `9pt_aroma` `9pt_overall` `9pt_taste` `9pt_texture`
+##    &lt;chr&gt;     &lt;chr&gt;                 &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;
+##  1 raspberry Raspberry Day 1          NA             4           4             6
+##  2 raspberry Raspberry Day 1          NA             9           9             8
+##  3 raspberry Raspberry Day 1          NA             3           3             2
+##  4 raspberry Raspberry Day 1          NA             7           6             8
+##  5 raspberry Raspberry Day 1          NA             4           3             5
+##  6 raspberry Raspberry Day 1          NA             4           3             6
+##  7 raspberry Raspberry Day 1          NA             4           4             6
+##  8 raspberry Raspberry Day 1          NA             7           4             9
+##  9 raspberry Raspberry Day 1          NA             7           6             8
+## 10 raspberry Raspberry Day 1          NA             9           9             7
+## # ℹ 7,497 more rows
+## # ℹ 2 more variables: `9pt_appearance` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;</code></pre>
+<p>The backticks are only necessary when a column name breaks one of the variable-naming rules, and RStudio will usually fill them in for you if you use tab autocompletion when writing your select() and other tidyverse functions.</p>
 <p>You can also use <code>select()</code> with a number of helper functions, which use logic to select columns that meet whatever conditions you set. For example, the <code>starts_with()</code> helper function lets us give a set of characters we want columns to start with:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="wrangling-data-with-tidyverse.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, <span class="fu">starts_with</span>(<span class="st">&quot;beer&quot;</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 2
-##    beer_name           beer_id
-##    &lt;chr&gt;                 &lt;dbl&gt;
-##  1 Caffrey&#39;s Irish Ale     825
-##  2 Caffrey&#39;s Irish Ale     825
-##  3 Caffrey&#39;s Irish Ale     825
-##  4 Caffrey&#39;s Irish Ale     825
-##  5 Caffrey&#39;s Irish Ale     825
-##  6 Caffrey&#39;s Irish Ale     825
-##  7 Caffrey&#39;s Irish Ale     825
-##  8 Caffrey&#39;s Irish Ale     825
-##  9 Caffrey&#39;s Irish Ale     825
-## 10 Caffrey&#39;s Irish Ale     825
-## # ℹ 20,349 more rows</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="wrangling-data-with-tidyverse.html#cb106-1" tabindex="-1"></a><span class="fu">select</span>(berry_data, <span class="fu">starts_with</span>(<span class="st">&quot;lms_&quot;</span>)) <span class="co">#the double-quotes are back because this isn&#39;t a full column name</span></span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 5
+##    lms_appearance lms_overall lms_taste lms_texture lms_aroma
+##             &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+##  1             NA          NA        NA          NA        NA
+##  2             NA          NA        NA          NA        NA
+##  3             NA          NA        NA          NA        NA
+##  4             NA          NA        NA          NA        NA
+##  5             NA          NA        NA          NA        NA
+##  6             NA          NA        NA          NA        NA
+##  7             NA          NA        NA          NA        NA
+##  8             NA          NA        NA          NA        NA
+##  9             NA          NA        NA          NA        NA
+## 10             NA          NA        NA          NA        NA
+## # ℹ 7,497 more rows</code></pre>
 <p>There are equivalents for the end of column names (<code>ends_with()</code>) and text found anywhere in the name (<code>contains()</code>).</p>
 <p>You can combine these statements together to get subsets of columns however you want:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="wrangling-data-with-tidyverse.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, <span class="fu">starts_with</span>(<span class="st">&quot;beer&quot;</span>), rating, abv)</span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 4
-##    beer_name           beer_id rating   abv
-##    &lt;chr&gt;                 &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-##  1 Caffrey&#39;s Irish Ale     825   4.46   3.8
-##  2 Caffrey&#39;s Irish Ale     825   3.74   3.8
-##  3 Caffrey&#39;s Irish Ale     825   3.26   3.8
-##  4 Caffrey&#39;s Irish Ale     825   3.5    3.8
-##  5 Caffrey&#39;s Irish Ale     825   3.86   3.8
-##  6 Caffrey&#39;s Irish Ale     825   3.11   3.8
-##  7 Caffrey&#39;s Irish Ale     825   3.55   3.8
-##  8 Caffrey&#39;s Irish Ale     825   3.06   3.8
-##  9 Caffrey&#39;s Irish Ale     825   4      3.8
-## 10 Caffrey&#39;s Irish Ale     825   3.21   3.8
-## # ℹ 20,349 more rows</code></pre>
-<p>You can also use programmatic logic in <code>select()</code> by using the <code>where()</code> helper function, which gives you the ability to specify columns by any arbitrary function.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="wrangling-data-with-tidyverse.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_data, <span class="fu">where</span>(<span class="sc">~</span><span class="fu">is.numeric</span>(.)))</span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 9
-##    beer_id brewery_id   abv appearance aroma palate taste overall rating
-##      &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-##  1     825        297   3.8        5     4      4     4.5     5     4.46
-##  2     825        297   3.8        5     3.5    4     3.5     4     3.74
-##  3     825        297   3.8        4     3      3     3.5     3     3.26
-##  4     825        297   3.8        3.5   3.5    3.5   3.5     3.5   3.5 
-##  5     825        297   3.8        4     3      4     4.5     3.5   3.86
-##  6     825        297   3.8        4     3      2.5   3       3.5   3.11
-##  7     825        297   3.8        3.5   3.5    4     3.5     3.5   3.55
-##  8     825        297   3.8        4     3      3     3       3     3.06
-##  9     825        297   3.8        4     4      4     4       4     4   
-## 10     825        297   3.8        4     3      3.5   3       3.5   3.21
-## # ℹ 20,349 more rows</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="wrangling-data-with-tidyverse.html#cb108-1" tabindex="-1"></a><span class="fu">select</span>(berry_data, <span class="fu">starts_with</span>(<span class="st">&quot;lms_&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;9pt_&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;us_&quot;</span>),</span>
+<span id="cb108-2"><a href="wrangling-data-with-tidyverse.html#cb108-2" tabindex="-1"></a>       berry, test_day)</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 17
+##    lms_appearance lms_overall lms_taste lms_texture lms_aroma `9pt_appearance`
+##             &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;
+##  1             NA          NA        NA          NA        NA                4
+##  2             NA          NA        NA          NA        NA                8
+##  3             NA          NA        NA          NA        NA                4
+##  4             NA          NA        NA          NA        NA                7
+##  5             NA          NA        NA          NA        NA                7
+##  6             NA          NA        NA          NA        NA                7
+##  7             NA          NA        NA          NA        NA                6
+##  8             NA          NA        NA          NA        NA                8
+##  9             NA          NA        NA          NA        NA                8
+## 10             NA          NA        NA          NA        NA                7
+## # ℹ 7,497 more rows
+## # ℹ 11 more variables: `9pt_overall` &lt;dbl&gt;, `9pt_taste` &lt;dbl&gt;,
+## #   `9pt_texture` &lt;dbl&gt;, `9pt_aroma` &lt;dbl&gt;, us_appearance &lt;dbl&gt;,
+## #   us_overall &lt;dbl&gt;, us_taste &lt;dbl&gt;, us_texture &lt;dbl&gt;, us_aroma &lt;dbl&gt;,
+## #   berry &lt;chr&gt;, test_day &lt;chr&gt;</code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="wrangling-data-with-tidyverse.html#cb110-1" tabindex="-1"></a><span class="fu">select</span>(berry_data, <span class="fu">starts_with</span>(<span class="st">&quot;jar_&quot;</span>), <span class="fu">ends_with</span>(<span class="st">&quot;_overall&quot;</span>),</span>
+<span id="cb110-2"><a href="wrangling-data-with-tidyverse.html#cb110-2" tabindex="-1"></a>       berry, test_day)</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 15
+##    jar_color jar_gloss jar_size jar_sweetness jar_tartness jar_firmness
+##        &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+##  1         2         4        2             2            4            3
+##  2         3         3        3             3            3            3
+##  3         2         2        3             2            3            4
+##  4         2         3        4             3            3            2
+##  5         4         3        3             2            4            4
+##  6         4         3        3             1            5            3
+##  7         2         4        4             1            4            3
+##  8         3         3        3             1            4            3
+##  9         3         4        5             1            4            3
+## 10         2         4        3             3            3            2
+## # ℹ 7,497 more rows
+## # ℹ 9 more variables: jar_juciness &lt;dbl&gt;, jar_crispness &lt;dbl&gt;,
+## #   jar_juiciness &lt;dbl&gt;, jar_crunch &lt;dbl&gt;, `9pt_overall` &lt;dbl&gt;,
+## #   us_overall &lt;dbl&gt;, lms_overall &lt;dbl&gt;, berry &lt;chr&gt;, test_day &lt;chr&gt;</code></pre>
+<p>If you’re annoyed at the order that your columns are printing in and how far to the right you have to scroll in your previews, <code>select()</code> can also be used to rearrange your columns with a helper function called <code>everything()</code>:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="wrangling-data-with-tidyverse.html#cb112-1" tabindex="-1"></a><span class="fu">select</span>(berry_data, <span class="fu">everything</span>()) <span class="co">#This selects everything--it doesn&#39;t change at all.</span></span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 21:05   
+##  2           1001               1001 NA     NA    6/13/2019 20:55   
+##  3           1001               1001 NA     NA    6/13/2019 20:49   
+##  4           1001               1001 NA     NA    6/13/2019 20:45   
+##  5           1001               1001 NA     NA    6/13/2019 21:00   
+##  6           1001               1001 NA     NA    6/13/2019 21:10   
+##  7           1002               1002 NA     NA    6/13/2019 20:08   
+##  8           1002               1002 NA     NA    6/13/2019 19:57   
+##  9           1002               1002 NA     NA    6/13/2019 20:13   
+## 10           1002               1002 NA     NA    6/13/2019 20:03   
+## # ℹ 7,497 more rows
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="wrangling-data-with-tidyverse.html#cb114-1" tabindex="-1"></a><span class="fu">select</span>(berry_data, berry, <span class="fu">contains</span>(<span class="st">&quot;_overall&quot;</span>),</span>
+<span id="cb114-2"><a href="wrangling-data-with-tidyverse.html#cb114-2" tabindex="-1"></a>       <span class="fu">everything</span>()) <span class="co">#only type the columns you want to move to the front, and everything() will keep the rest</span></span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 92
+##    berry  `9pt_overall` us_overall lms_overall `Subject Code` `Participant Name`
+##    &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;              &lt;dbl&gt;
+##  1 raspb…             4         NA          NA           1001               1001
+##  2 raspb…             9         NA          NA           1001               1001
+##  3 raspb…             3         NA          NA           1001               1001
+##  4 raspb…             7         NA          NA           1001               1001
+##  5 raspb…             4         NA          NA           1001               1001
+##  6 raspb…             4         NA          NA           1001               1001
+##  7 raspb…             4         NA          NA           1002               1002
+##  8 raspb…             7         NA          NA           1002               1002
+##  9 raspb…             7         NA          NA           1002               1002
+## 10 raspb…             9         NA          NA           1002               1002
+## # ℹ 7,497 more rows
+## # ℹ 86 more variables: Gender &lt;lgl&gt;, Age &lt;lgl&gt;, `Start Time (UTC)` &lt;chr&gt;,
+## #   `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;, …</code></pre>
+<p>You may sometimes want to select columns where the data meets some criteria, rather than the column name or position. The <code>where()</code> helper function allows you to insert this kind of programmatic logic into <code>select()</code> statements, which gives you the ability to specify columns using any arbitrary function.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="wrangling-data-with-tidyverse.html#cb116-1" tabindex="-1"></a><span class="fu">select</span>(berry_data, <span class="fu">where</span>(is.numeric)) <span class="co">#a few functions return one logical value per vector</span></span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 83
+##    `Subject Code` `Participant Name` `Serving Position` `Sample Identifier`
+##             &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt;               &lt;dbl&gt;
+##  1           1001               1001                  5                1426
+##  2           1001               1001                  3                3167
+##  3           1001               1001                  2                4624
+##  4           1001               1001                  1                5068
+##  5           1001               1001                  4                7195
+##  6           1001               1001                  6                9161
+##  7           1002               1002                  3                1426
+##  8           1002               1002                  1                3167
+##  9           1002               1002                  4                4624
+## 10           1002               1002                  2                5068
+## # ℹ 7,497 more rows
+## # ℹ 79 more variables: `9pt_appearance` &lt;dbl&gt;, pre_expectation &lt;dbl&gt;,
+## #   jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;,
+## #   cata_appearance_fresh &lt;dbl&gt;, cata_appearance_goodshape &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="wrangling-data-with-tidyverse.html#cb118-1" tabindex="-1"></a><span class="fu">select</span>(berry_data, <span class="fu">where</span>(<span class="sc">~!</span><span class="fu">any</span>(<span class="fu">is.na</span>(.)))) <span class="co">#otherwise we can use &quot;lambda&quot; functions</span></span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 38
+##    `Subject Code` `Participant Name` `Start Time (UTC)` `End Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;           
+##  1           1001               1001 6/13/2019 21:05    6/13/2019 21:09 
+##  2           1001               1001 6/13/2019 20:55    6/13/2019 20:59 
+##  3           1001               1001 6/13/2019 20:49    6/13/2019 20:53 
+##  4           1001               1001 6/13/2019 20:45    6/13/2019 20:48 
+##  5           1001               1001 6/13/2019 21:00    6/13/2019 21:03 
+##  6           1001               1001 6/13/2019 21:10    6/13/2019 21:13 
+##  7           1002               1002 6/13/2019 20:08    6/13/2019 20:11 
+##  8           1002               1002 6/13/2019 19:57    6/13/2019 20:01 
+##  9           1002               1002 6/13/2019 20:13    6/13/2019 20:17 
+## 10           1002               1002 6/13/2019 20:03    6/13/2019 20:07 
+## # ℹ 7,497 more rows
+## # ℹ 34 more variables: `Serving Position` &lt;dbl&gt;, `Sample Identifier` &lt;dbl&gt;,
+## #   `Sample Name` &lt;chr&gt;, pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;,
+## #   jar_size &lt;dbl&gt;, cata_appearance_unevencolor &lt;dbl&gt;,
+## #   cata_appearance_misshapen &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;,
+## #   cata_appearance_fresh &lt;dbl&gt;, cata_appearance_goodquality &lt;dbl&gt;,
+## #   cata_appearance_none &lt;dbl&gt;, grid_sweetness &lt;dbl&gt;, grid_tartness &lt;dbl&gt;, …</code></pre>
+<p>The little squiggly symbol, called a tilde (~), is above the backtick on QWERTY keyboards, and it turns everything that comes after it into a “lambda function”. We’ll talk more about lambda functions later, when we talk about <code>across()</code>. You can read it the above as “<code>select()</code> the columns from <code>berry_data</code> <code>where()</code> there are not (<code>!</code>) <code>any()</code> NA values (<code>is.na(.)</code>)”.</p>
 <p>Besides being easier to write conditions for than indexing with <code>[]</code>, <code>select()</code> is code that is much closer to how you or I think about what we’re actually doing, making code that is more human readable.</p>
 </div>
 <div id="filter-for-rows" class="section level3 hasAnchor" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> <code>filter()</code> for rows<a href="wrangling-data-with-tidyverse.html#filter-for-rows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>So <code>select()</code> lets us pick which columns we want. Can we also use it to pick particular observations? No. But for that, there’s <code>filter()</code>.</p>
-<p>We learned that, using <code>[]</code> indexing, we’d specify a set of rows we want. If we want the first 10 rows of <code>beer_data</code>, we’d write</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="wrangling-data-with-tidyverse.html#cb107-1" aria-hidden="true" tabindex="-1"></a>beer_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code></pre></div>
-<pre><code>## # A tibble: 10 × 14
-##    reviews         beer_name beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 This is a very… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 jisurf…
-##  2 Great head cre… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 allbou…
-##  3 Wow what a dif… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 frank4…
-##  4 Tried this one… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 beergl…
-##  5 Caffrey&#39;s on-t… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 proc.1…
-##  6 The nitro can … Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 zerk.4…
-##  7 Nitro can...Ty… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 adr.263
-##  8 Excellent pour… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 dogbri…
-##  9 A very good Ir… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 goindo…
-## 10 Looks very nic… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 irishr…
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
+<p>So <code>select()</code> lets us pick which columns we want. Can we also use it to pick particular observations? No. For that, there’s <code>filter()</code>.</p>
+<p>We learned that, using <code>[]</code> indexing, we’d specify a set of rows we want. If we want the first 10 rows of <code>berry_data</code>, we’d write</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="wrangling-data-with-tidyverse.html#cb120-1" tabindex="-1"></a>berry_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 21:05   
+##  2           1001               1001 NA     NA    6/13/2019 20:55   
+##  3           1001               1001 NA     NA    6/13/2019 20:49   
+##  4           1001               1001 NA     NA    6/13/2019 20:45   
+##  5           1001               1001 NA     NA    6/13/2019 21:00   
+##  6           1001               1001 NA     NA    6/13/2019 21:10   
+##  7           1002               1002 NA     NA    6/13/2019 20:08   
+##  8           1002               1002 NA     NA    6/13/2019 19:57   
+##  9           1002               1002 NA     NA    6/13/2019 20:13   
+## 10           1002               1002 NA     NA    6/13/2019 20:03   
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;,
+## #   cata_appearance_fresh &lt;dbl&gt;, cata_appearance_goodshape &lt;dbl&gt;, …</code></pre>
 <p>Again, this is not very human readable, and if we reorganize our rows this won’t be useful anymore. The <code>tidyverse</code> answer to this approach is the <code>filter()</code> function, which lets you filter your dataset into specific rows according to <em>data stored in the table itself</em>.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="wrangling-data-with-tidyverse.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="co"># let&#39;s get some heavy beers</span></span></code></pre></div>
-<pre><code>## # A tibble: 571 × 14
-##    reviews         beer_name beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 This is a pers… Thomas H…     578 O&#39;Hanlon Br…       1533 Old …  11.7 putnam…
-##  2 While I a not … Thomas H…     578 O&#39;Hanlon Br…       1533 Old …  11.7 proc.1…
-##  3 1997. Head is … Thomas H…     578 O&#39;Hanlon Br…       1533 Old …  11.7 nerofi…
-##  4 Dark amber/bro… Thomas H…     578 O&#39;Hanlon Br…       1533 Old …  11.7 john.1…
-##  5 A brandy compa… Thomas H…     578 O&#39;Hanlon Br…       1533 Old …  11.7 aracau…
-##  6 Presentation: … Thomas H…     578 O&#39;Hanlon Br…       1533 Old …  11.7 jason.3
-##  7 pours out blac… Thomas H…     578 O&#39;Hanlon Br…       1533 Old …  11.7 budgoo…
-##  8 I know, I know… Thomas H…     578 O&#39;Hanlon Br…       1533 Old …  11.7 mophie…
-##  9 1988 must have… Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 maxpow…
-## 10 1997 vintage. … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 suds.3…
-## # ℹ 561 more rows
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
-<p>When using <code>filter()</code>, we can specify multiple logical conditions. For example, let’s get only Barleywines that are more than 10% ABV. If we wanted only exact matches, we could use the direct <code>==</code> operator:</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="wrangling-data-with-tidyverse.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>, style <span class="sc">==</span> <span class="st">&quot;American Barleywine&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 99 × 14
-##    reviews         beer_name beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 For me, this i… Olde Deu…    2066 Alley Kat B…        711 Amer…  11   mab.734
-##  2 2000 vintage.T… Beer Line    3048 Lakefront B…        741 Amer…  12.5 bighug…
-##  3 A Barleywine m… Beer Line    3048 Lakefront B…        741 Amer…  12.5 zap.184
-##  4 Well, Lagunita… Olde Gna…    1579 Lagunitas B…        220 Amer…  10.6 sinist…
-##  5 Bottle reads 1… Olde Gna…    1579 Lagunitas B…        220 Amer…  10.6 bighug…
-##  6 Presentation: … AleSmith…    6646 AleSmith Br…        396 Amer…  11   jason.3
-##  7 This is for th… AleSmith…    6646 AleSmith Br…        396 Amer…  11   aracau…
-##  8 It&#39;s golden br… AleSmith…    6646 AleSmith Br…        396 Amer…  11   mickey…
-##  9 The color is a… John Bar…   20500 Mad River B…        266 Amer…  11.4 beerma…
-## 10 Pours a slight… John Bar…   20500 Mad River B…        266 Amer…  11.4 murph.…
-## # ℹ 89 more rows
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
-<p>But this won’t return, for example, any beer labeled as an “English Barleywine”.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="wrangling-data-with-tidyverse.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>, style <span class="sc">==</span> <span class="st">&quot;American Barleywine&quot;</span> <span class="sc">|</span> style <span class="sc">==</span> <span class="st">&quot;English Barleywine&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 169 × 14
-##    reviews         beer_name beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 1988 must have… Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 maxpow…
-##  2 1997 vintage. … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 suds.3…
-##  3 2000 vintage. … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 shired…
-##  4 [email&amp;#160;pr… Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 zap.184
-##  5 1997. Hazy che… Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 marc77…
-##  6 2000 vintage. … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 bighug…
-##  7 1999. Pours a … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 murph.…
-##  8 Bottle reviews… Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 bierma…
-##  9 I must say my … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 viking…
-## 10 For me, this i… Olde Deu…    2066 Alley Kat B…        711 Amer…  11   mab.734
-## # ℹ 159 more rows
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
-<p>In <code>R</code>, the <code>|</code> means Boolean <code>OR</code>, and the <code>&amp;</code> means Boolean <code>AND</code>. We can use these to combine conditions for searching our data table. But this can be a bit tedious. The <code>stringr</code> package, part of <code>tidyverse</code>, gives a lot of utility functions that we can use instead of this effortful searching.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="wrangling-data-with-tidyverse.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(beer_data, abv <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="fu">str_detect</span>(style, <span class="st">&quot;Barleywine&quot;</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 169 × 14
-##    reviews         beer_name beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 1988 must have… Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 maxpow…
-##  2 1997 vintage. … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 suds.3…
-##  3 2000 vintage. … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 shired…
-##  4 [email&amp;#160;pr… Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 zap.184
-##  5 1997. Hazy che… Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 marc77…
-##  6 2000 vintage. … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 bighug…
-##  7 1999. Pours a … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 murph.…
-##  8 Bottle reviews… Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 bierma…
-##  9 I must say my … Harvest …     705 J.W. Lees &amp;…        178 Engl…  11.5 viking…
-## 10 For me, this i… Olde Deu…    2066 Alley Kat B…        711 Amer…  11   mab.734
-## # ℹ 159 more rows
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
-<p>Here, the <code>str_detect()</code> function searched for any text that <strong>contains</strong> “Barleywine” in the <code>style</code> column.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="wrangling-data-with-tidyverse.html#cb122-1" tabindex="-1"></a><span class="fu">filter</span>(berry_data, pre_expectation <span class="sc">&gt;</span> <span class="dv">3</span>) <span class="co"># let&#39;s get survey responses with had a higher-than-average expectation</span></span></code></pre></div>
+<pre><code>## # A tibble: 2,192 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 20:55   
+##  2           1001               1001 NA     NA    6/13/2019 20:45   
+##  3           1001               1001 NA     NA    6/13/2019 21:10   
+##  4           1002               1002 NA     NA    6/13/2019 20:13   
+##  5           1002               1002 NA     NA    6/13/2019 20:21   
+##  6           1002               1002 NA     NA    6/13/2019 20:18   
+##  7           1004               1004 NA     NA    6/13/2019 21:09   
+##  8           1004               1004 NA     NA    6/13/2019 20:58   
+##  9           1004               1004 NA     NA    6/13/2019 20:50   
+## 10           1005               1005 NA     NA    6/13/2019 20:13   
+## # ℹ 2,182 more rows
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
+<p>When using <code>filter()</code>, we can specify multiple logical conditions. For example, let’s get only raspberries with initially high expectations. If we want only exact matches, we can use the direct <code>==</code> operator:</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="wrangling-data-with-tidyverse.html#cb124-1" tabindex="-1"></a><span class="fu">filter</span>(berry_data, pre_expectation <span class="sc">&gt;</span> <span class="dv">3</span>, berry <span class="sc">==</span> <span class="st">&quot;raspberry&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 709 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 20:55   
+##  2           1001               1001 NA     NA    6/13/2019 20:45   
+##  3           1001               1001 NA     NA    6/13/2019 21:10   
+##  4           1002               1002 NA     NA    6/13/2019 20:13   
+##  5           1002               1002 NA     NA    6/13/2019 20:21   
+##  6           1002               1002 NA     NA    6/13/2019 20:18   
+##  7           1004               1004 NA     NA    6/13/2019 21:09   
+##  8           1004               1004 NA     NA    6/13/2019 20:58   
+##  9           1004               1004 NA     NA    6/13/2019 20:50   
+## 10           1005               1005 NA     NA    6/13/2019 20:13   
+## # ℹ 699 more rows
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
+<p>But this won’t return, for example, any berries labeled as “Raspberry”, with an uppercase R.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="wrangling-data-with-tidyverse.html#cb126-1" tabindex="-1"></a><span class="fu">filter</span>(berry_data, pre_expectation <span class="sc">&gt;</span> <span class="dv">3</span>, berry <span class="sc">==</span> <span class="st">&quot;Raspberry&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 0 × 92
+## # ℹ 92 variables: Subject Code &lt;dbl&gt;, Participant Name &lt;dbl&gt;, Gender &lt;lgl&gt;,
+## #   Age &lt;lgl&gt;, Start Time (UTC) &lt;chr&gt;, End Time (UTC) &lt;chr&gt;,
+## #   Serving Position &lt;dbl&gt;, Sample Identifier &lt;dbl&gt;, Sample Name &lt;chr&gt;,
+## #   9pt_appearance &lt;dbl&gt;, pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;,
+## #   jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;, cata_appearance_unevencolor &lt;dbl&gt;,
+## #   cata_appearance_misshapen &lt;dbl&gt;, cata_appearance_creased &lt;dbl&gt;,
+## #   cata_appearance_seedy &lt;dbl&gt;, cata_appearance_bruised &lt;dbl&gt;, …</code></pre>
+<p>Luckily, we don’t have a mix of raspberries and Raspberries. Maybe we want both raspberries and strawberries that panelists had high expectations of:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="wrangling-data-with-tidyverse.html#cb128-1" tabindex="-1"></a><span class="fu">filter</span>(berry_data, pre_expectation <span class="sc">&gt;</span> <span class="dv">3</span>, berry <span class="sc">==</span> <span class="st">&quot;raspberry&quot;</span> <span class="sc">|</span> berry <span class="sc">==</span> <span class="st">&quot;strawberry&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1,104 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 20:55   
+##  2           1001               1001 NA     NA    6/13/2019 20:45   
+##  3           1001               1001 NA     NA    6/13/2019 21:10   
+##  4           1002               1002 NA     NA    6/13/2019 20:13   
+##  5           1002               1002 NA     NA    6/13/2019 20:21   
+##  6           1002               1002 NA     NA    6/13/2019 20:18   
+##  7           1004               1004 NA     NA    6/13/2019 21:09   
+##  8           1004               1004 NA     NA    6/13/2019 20:58   
+##  9           1004               1004 NA     NA    6/13/2019 20:50   
+## 10           1005               1005 NA     NA    6/13/2019 20:13   
+## # ℹ 1,094 more rows
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
+<p>In <code>R</code>, the <code>|</code> means Boolean <code>OR</code>, and the <code>&amp;</code> means Boolean <code>AND</code>. If you’re trying to figure out which one to use, phrase what you want to do with your <code>filter()</code> statement by starting “keep only rows that have…”. We may want to look at raspberries <em>and</em> strawberries, but we want to “keep only rows that have a <code>berry</code> type of raspberry <em>or</em> strawberry”.</p>
+<p>We can combine any number of conditions with <code>&amp;</code> and <code>|</code> to search within our data table. But this can be a bit tedious. The <code>stringr</code> package, part of <code>tidyverse</code>, gives a lot of utility functions that we can use to reduce the number of options we’re individually writing out, similar to <code>starts_with()</code> or <code>contains()</code> for columns. Maybe we want the results from the first day of each berry type:</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="wrangling-data-with-tidyverse.html#cb130-1" tabindex="-1"></a><span class="fu">filter</span>(berry_data, <span class="fu">str_detect</span>(test_day, <span class="st">&quot;Day 1&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2,586 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 21:05   
+##  2           1001               1001 NA     NA    6/13/2019 20:55   
+##  3           1001               1001 NA     NA    6/13/2019 20:49   
+##  4           1001               1001 NA     NA    6/13/2019 20:45   
+##  5           1001               1001 NA     NA    6/13/2019 21:00   
+##  6           1001               1001 NA     NA    6/13/2019 21:10   
+##  7           1002               1002 NA     NA    6/13/2019 20:08   
+##  8           1002               1002 NA     NA    6/13/2019 19:57   
+##  9           1002               1002 NA     NA    6/13/2019 20:13   
+## 10           1002               1002 NA     NA    6/13/2019 20:03   
+## # ℹ 2,576 more rows
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
+<p>Here, the <code>str_detect()</code> function searched for any text that <strong>contains</strong> “Day 1” in the <code>test_day</code> column.</p>
 </div>
 </div>
 <div id="combining-steps-with-the-pipe" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Combining steps with the pipe: <code>%&gt;%</code><a href="wrangling-data-with-tidyverse.html#combining-steps-with-the-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>It isn’t hard to imagine a situation in which we want to <strong>both</strong> select some columns and filter some rows. There are 3 ways we can do this, one of which is going to be the best for most situations.</p>
-<p>Let’s imagine we want to get only information about the beers, abv, and rating for stouts</p>
+<p>It isn’t hard to imagine a situation in which we want to <strong>both</strong> <code>select()</code> some columns and <code>filter()</code> some rows. There are 3 ways we can do this, one of which is going to be the best for most situations.</p>
+<p>Let’s imagine we want to get only information about the berries, overall liking, and CATA attributes for blackberries.</p>
 <p>First, we can nest functions:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="wrangling-data-with-tidyverse.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="fu">filter</span>(beer_data, <span class="fu">str_detect</span>(style, <span class="st">&quot;Stout&quot;</span>)), <span class="fu">contains</span>(<span class="st">&quot;beer&quot;</span>), abv, rating)</span></code></pre></div>
-<pre><code>## # A tibble: 1,666 × 4
-##    beer_name                          beer_id   abv rating
-##    &lt;chr&gt;                                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1 Kinmount Willie Oatmeal Stout          149   4.2   3.49
-##  2 Kinmount Willie Oatmeal Stout          149   4.2   3.92
-##  3 Kinmount Willie Oatmeal Stout          149   4.2   3.43
-##  4 Kinmount Willie Oatmeal Stout          149   4.2   2.84
-##  5 Kinmount Willie Oatmeal Stout          149   4.2   4.13
-##  6 Kinmount Willie Oatmeal Stout          149   4.2   3.95
-##  7 Dragonhead Stout                      5781   4     4.43
-##  8 Le Coq Imperial Extra Double Stout     438  10     4.53
-##  9 Le Coq Imperial Extra Double Stout     438  10     4.07
-## 10 Le Coq Imperial Extra Double Stout     438  10     2.93
-## # ℹ 1,656 more rows</code></pre>
-<p>The problem with this approach is that we have to read it “inside out”. First, <code>filter()</code> will happen and get us only beers that match “Stout” in their <code>style</code>. Then <code>select()</code> will get columns that match “beer” in their names, <code>abv</code>, and <code>rating</code>. Especially as your code gets complicated, this can be very hard to read.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="wrangling-data-with-tidyverse.html#cb132-1" tabindex="-1"></a><span class="fu">select</span>(<span class="fu">filter</span>(berry_data, berry <span class="sc">==</span> <span class="st">&quot;blackberry&quot;</span>), <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="fu">contains</span>(<span class="st">&quot;_overall&quot;</span>), <span class="fu">contains</span>(<span class="st">&quot;cata_&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 1,495 × 40
+##    `Sample Name` `9pt_overall` us_overall lms_overall cata_appearance_unevenco…¹
+##    &lt;chr&gt;                 &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;                      &lt;dbl&gt;
+##  1 Blackberry 4              2         NA          NA                          0
+##  2 Blackberry 2              5         NA          NA                          0
+##  3 Blackberry 1              8         NA          NA                          0
+##  4 Blackberry 3              6         NA          NA                          0
+##  5 Blackberry 5              8         NA          NA                          0
+##  6 Blackberry 4              6         NA          NA                          0
+##  7 Blackberry 2              1         NA          NA                          0
+##  8 Blackberry 1              8         NA          NA                          0
+##  9 Blackberry 3              8         NA          NA                          0
+## 10 Blackberry 5              8         NA          NA                          0
+## # ℹ 1,485 more rows
+## # ℹ abbreviated name: ¹​cata_appearance_unevencolor
+## # ℹ 35 more variables: cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;,
+## #   cata_appearance_fresh &lt;dbl&gt;, cata_appearance_goodshape &lt;dbl&gt;,
+## #   cata_appearance_goodquality &lt;dbl&gt;, cata_appearance_none &lt;dbl&gt;, …</code></pre>
+<p>The problem with this approach is that we have to read it “inside out”. First, <code>filter()</code> will happen and get us only berries whose <code>berry</code> is exactly “blackberry”. Then <code>select()</code> will get <code>Sample Name</code> along with columns that match “<em>overall” or “cata</em> in their names. Especially as your code gets complicated, this can be very hard to read.</p>
 <p>So we might take the second approach: creating intermediates. We might first <code>filter()</code>, store that step somewhere, then <code>select()</code>:</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="wrangling-data-with-tidyverse.html#cb119-1" aria-hidden="true" tabindex="-1"></a>beer_stouts <span class="ot">&lt;-</span> <span class="fu">filter</span>(beer_data, <span class="fu">str_detect</span>(style, <span class="st">&quot;Stout&quot;</span>))</span>
-<span id="cb119-2"><a href="wrangling-data-with-tidyverse.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(beer_stouts, <span class="fu">contains</span>(<span class="st">&quot;beer&quot;</span>), abv, rating)</span></code></pre></div>
-<pre><code>## # A tibble: 1,666 × 4
-##    beer_name                          beer_id   abv rating
-##    &lt;chr&gt;                                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1 Kinmount Willie Oatmeal Stout          149   4.2   3.49
-##  2 Kinmount Willie Oatmeal Stout          149   4.2   3.92
-##  3 Kinmount Willie Oatmeal Stout          149   4.2   3.43
-##  4 Kinmount Willie Oatmeal Stout          149   4.2   2.84
-##  5 Kinmount Willie Oatmeal Stout          149   4.2   4.13
-##  6 Kinmount Willie Oatmeal Stout          149   4.2   3.95
-##  7 Dragonhead Stout                      5781   4     4.43
-##  8 Le Coq Imperial Extra Double Stout     438  10     4.53
-##  9 Le Coq Imperial Extra Double Stout     438  10     4.07
-## 10 Le Coq Imperial Extra Double Stout     438  10     2.93
-## # ℹ 1,656 more rows</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="wrangling-data-with-tidyverse.html#cb134-1" tabindex="-1"></a>blackberries <span class="ot">&lt;-</span> <span class="fu">filter</span>(berry_data, berry <span class="sc">==</span> <span class="st">&quot;blackberry&quot;</span>)</span>
+<span id="cb134-2"><a href="wrangling-data-with-tidyverse.html#cb134-2" tabindex="-1"></a><span class="fu">select</span>(blackberries, <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="fu">contains</span>(<span class="st">&quot;_overall&quot;</span>), <span class="fu">contains</span>(<span class="st">&quot;cata_&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 1,495 × 40
+##    `Sample Name` `9pt_overall` us_overall lms_overall cata_appearance_unevenco…¹
+##    &lt;chr&gt;                 &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;                      &lt;dbl&gt;
+##  1 Blackberry 4              2         NA          NA                          0
+##  2 Blackberry 2              5         NA          NA                          0
+##  3 Blackberry 1              8         NA          NA                          0
+##  4 Blackberry 3              6         NA          NA                          0
+##  5 Blackberry 5              8         NA          NA                          0
+##  6 Blackberry 4              6         NA          NA                          0
+##  7 Blackberry 2              1         NA          NA                          0
+##  8 Blackberry 1              8         NA          NA                          0
+##  9 Blackberry 3              8         NA          NA                          0
+## 10 Blackberry 5              8         NA          NA                          0
+## # ℹ 1,485 more rows
+## # ℹ abbreviated name: ¹​cata_appearance_unevencolor
+## # ℹ 35 more variables: cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;,
+## #   cata_appearance_fresh &lt;dbl&gt;, cata_appearance_goodshape &lt;dbl&gt;,
+## #   cata_appearance_goodquality &lt;dbl&gt;, cata_appearance_none &lt;dbl&gt;, …</code></pre>
 <p>But now we have this intermediate we don’t really need cluttering up our <code>Environment</code> tab. This is fine for a single step, but if you have a lot of steps in your analysis this is going to get old (and confusing) fast. You’ll have to remove a lot of these using the <code>rm()</code> command to keep your code clean.</p>
 <p><font color="red"><strong>warning</strong>:</font> <code>rm()</code> will <em>permanently</em> delete whatever objects you run it on from your <code>Environment</code>, and you will only be able to restore them by rerunning the code that generated them in the first place.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="wrangling-data-with-tidyverse.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(beer_stouts)</span></code></pre></div>
-<p>The final method, and what is becoming standard in modern <code>R</code> coding, is the <strong>pipe</strong>, which is written in <code>tidyverse</code> as <code>%&gt;%</code>. This garbage-looking set of symbols is actually your best friend, you just don’t know it yet. I use this tool constantly in my R programming, but I’ve been avoiding it up to this point because it’s not part of base R (in fact that’s no longer strictly true, but it is kind of complicated at the moment).</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="wrangling-data-with-tidyverse.html#cb136-1" tabindex="-1"></a><span class="fu">rm</span>(blackberries)</span></code></pre></div>
+<p>The final method, and what is becoming standard in modern <code>R</code> coding, is the <strong>pipe</strong>, which is written in <code>tidyverse</code> as <code>%&gt;%</code>. This garbage-looking set of symbols is actually your best friend, you just don’t know it yet. I use this tool constantly in my R programming, but I’ve been avoiding it up to this point because it wasn’t a part of base R for the vast majority of its history.</p>
 <p>OK, enough background, what the heck <em>is</em> a pipe? The term “pipe” comes from what it does: like a pipe, <code>%&gt;%</code> let’s whatever is on it’s left side flow through to the right hand side. It is easiest to read <code>%&gt;%</code> as “<strong>AND THEN</strong>”.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="wrangling-data-with-tidyverse.html#cb122-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span>                              <span class="co"># Start with the beer_data</span></span>
-<span id="cb122-2"><a href="wrangling-data-with-tidyverse.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(style, <span class="st">&quot;Stout&quot;</span>)) <span class="sc">%&gt;%</span>   <span class="co"># AND THEN filter to stouts</span></span>
-<span id="cb122-3"><a href="wrangling-data-with-tidyverse.html#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;beer&quot;</span>), abv, rating)    <span class="co"># AND THEN select the beer columns, etc</span></span></code></pre></div>
-<pre><code>## # A tibble: 1,666 × 4
-##    beer_name                          beer_id   abv rating
-##    &lt;chr&gt;                                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1 Kinmount Willie Oatmeal Stout          149   4.2   3.49
-##  2 Kinmount Willie Oatmeal Stout          149   4.2   3.92
-##  3 Kinmount Willie Oatmeal Stout          149   4.2   3.43
-##  4 Kinmount Willie Oatmeal Stout          149   4.2   2.84
-##  5 Kinmount Willie Oatmeal Stout          149   4.2   4.13
-##  6 Kinmount Willie Oatmeal Stout          149   4.2   3.95
-##  7 Dragonhead Stout                      5781   4     4.43
-##  8 Le Coq Imperial Extra Double Stout     438  10     4.53
-##  9 Le Coq Imperial Extra Double Stout     438  10     4.07
-## 10 Le Coq Imperial Extra Double Stout     438  10     2.93
-## # ℹ 1,656 more rows</code></pre>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="wrangling-data-with-tidyverse.html#cb137-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span>                             <span class="co"># Start with the berry_data</span></span>
+<span id="cb137-2"><a href="wrangling-data-with-tidyverse.html#cb137-2" tabindex="-1"></a>  <span class="fu">filter</span>(berry <span class="sc">==</span> <span class="st">&quot;blackberry&quot;</span>) <span class="sc">%&gt;%</span>        <span class="co"># AND THEN filter to blackberries</span></span>
+<span id="cb137-3"><a href="wrangling-data-with-tidyverse.html#cb137-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>,                    <span class="co"># AND THEN select sample name, overall liking...</span></span>
+<span id="cb137-4"><a href="wrangling-data-with-tidyverse.html#cb137-4" tabindex="-1"></a>         <span class="fu">contains</span>(<span class="st">&quot;_overall&quot;</span>), <span class="fu">contains</span>(<span class="st">&quot;cata_&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 1,495 × 40
+##    `Sample Name` `9pt_overall` us_overall lms_overall cata_appearance_unevenco…¹
+##    &lt;chr&gt;                 &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;                      &lt;dbl&gt;
+##  1 Blackberry 4              2         NA          NA                          0
+##  2 Blackberry 2              5         NA          NA                          0
+##  3 Blackberry 1              8         NA          NA                          0
+##  4 Blackberry 3              6         NA          NA                          0
+##  5 Blackberry 5              8         NA          NA                          0
+##  6 Blackberry 4              6         NA          NA                          0
+##  7 Blackberry 2              1         NA          NA                          0
+##  8 Blackberry 1              8         NA          NA                          0
+##  9 Blackberry 3              8         NA          NA                          0
+## 10 Blackberry 5              8         NA          NA                          0
+## # ℹ 1,485 more rows
+## # ℹ abbreviated name: ¹​cata_appearance_unevencolor
+## # ℹ 35 more variables: cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;,
+## #   cata_appearance_fresh &lt;dbl&gt;, cata_appearance_goodshape &lt;dbl&gt;,
+## #   cata_appearance_goodquality &lt;dbl&gt;, cata_appearance_none &lt;dbl&gt;, …</code></pre>
 <p>In this example, each place there is a <code>%&gt;%</code> I’ve added a comment saying “AND THEN”. This is because that’s exactly what the pipe does: it passes whatever happened in the previous step to the next function. Specifically, <code>%&gt;%</code> passes the <strong>results</strong> of the previous line to the <strong>first argument</strong> of the next line.</p>
 <div id="pipes-require-that-the-lefthand-side-be-a-single-functional-command" class="section level3 hasAnchor" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> Pipes require that the lefthand side be a single functional command<a href="wrangling-data-with-tidyverse.html#pipes-require-that-the-lefthand-side-be-a-single-functional-command" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This means that we can’t directly do something like rewrite <code>sqrt(1 + 2)</code> with <code>%&gt;%</code>:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="wrangling-data-with-tidyverse.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">%&gt;%</span> sqrt <span class="co"># this is instead computing 1 + sqrt(2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="wrangling-data-with-tidyverse.html#cb139-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">%&gt;%</span> sqrt <span class="co"># this is instead computing 1 + sqrt(2)</span></span></code></pre></div>
 <pre><code>## [1] 2.414214</code></pre>
 <p>Instead, if we want to pass binary operationse in a pipe, we need to enclose them in <code>()</code> on the line they are in:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="wrangling-data-with-tidyverse.html#cb126-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>() <span class="co"># Now this computes sqrt(1 + 2) = sqrt(3)</span></span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="wrangling-data-with-tidyverse.html#cb141-1" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>() <span class="co"># Now this computes sqrt(1 + 2) = sqrt(3)</span></span></code></pre></div>
 <pre><code>## [1] 1.732051</code></pre>
 <p>More complex piping is possible using the curly braces (<code>{}</code>), which create new R environments, but this is more advanced than you will generally need to be.</p>
 </div>
 <div id="pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side" class="section level3 hasAnchor" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Pipes always pass the result of the lefthand side to the <em>first</em> argument of the righthand side<a href="wrangling-data-with-tidyverse.html#pipes-always-pass-the-result-of-the-lefthand-side-to-the-first-argument-of-the-righthand-side" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This sounds like a weird logic puzzle, but it’s not, as we can see if we look at some simple math. Let’s define a function for use in a pipe that computes the difference between two numbers:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="wrangling-data-with-tidyverse.html#cb128-1" aria-hidden="true" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) a <span class="sc">-</span> b</span>
-<span id="cb128-2"><a href="wrangling-data-with-tidyverse.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subtract</span>(<span class="dv">5</span>, <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="wrangling-data-with-tidyverse.html#cb143-1" tabindex="-1"></a>subtract <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) a <span class="sc">-</span> b</span>
+<span id="cb143-2"><a href="wrangling-data-with-tidyverse.html#cb143-2" tabindex="-1"></a><span class="fu">subtract</span>(<span class="dv">5</span>, <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>If we want to rewrite that as a pipe, we can write:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="wrangling-data-with-tidyverse.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="wrangling-data-with-tidyverse.html#cb145-1" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>But we can’t write</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="wrangling-data-with-tidyverse.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>) <span class="co"># this is actually making subtract(4, 5)</span></span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="wrangling-data-with-tidyverse.html#cb147-1" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>) <span class="co"># this is actually making subtract(4, 5)</span></span></code></pre></div>
 <pre><code>## [1] -1</code></pre>
 <p>We can explicitly force the pipe to work the way we want it to by using <code>.</code> <strong>as the placeholder for the result of the lefthand side</strong>:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="wrangling-data-with-tidyverse.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>, .) <span class="co"># now this properly computes subtract(5, 4)</span></span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="wrangling-data-with-tidyverse.html#cb149-1" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">subtract</span>(<span class="dv">5</span>, .) <span class="co"># now this properly computes subtract(5, 4)</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>So, when you’re using pipes, make sure that the output of the lefthand side <em>should</em> be going into the first argument of the righthand side–this is often but not always the case, especially with non-<code>tidyverse</code> functions.</p>
 </div>
@@ -587,76 +877,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.3</span> Make new columns: <code>mutate()</code><a href="wrangling-data-with-tidyverse.html#make-new-columns-mutate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You hopefully are starting to be excited by the relative ease of doing some things in R with <code>tidyverse</code> that are otherwise a little bit abstruse. Here’s where I think things get really, really cool. The <code>mutate()</code> function <em>creates a new column in the existing dataset</em>.</p>
 <p>We can do this easily in base R by setting a new name for a column and using the assign (<code>&lt;-</code>) operator, but this is clumsy. Often, we want to create a new column temporarily, or to combine several existing columns. We can do this using the <code>mutate()</code> function.</p>
-<p>Let’s say that we want to create a quick categorical variable that tells us whether a beer was rated as more than the central value (2.5) in the 5-pt rating scale. This is kind of like doing a median split, which we’ll get to in a moment.</p>
-<p>We know that we can use <code>filter()</code> to get just the beers with <code>rating &gt; 2.5</code>:</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="wrangling-data-with-tidyverse.html#cb136-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb136-2"><a href="wrangling-data-with-tidyverse.html#cb136-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rating <span class="sc">&gt;</span> <span class="fl">2.5</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 18,782 × 14
-##    reviews         beer_name beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 This is a very… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 jisurf…
-##  2 Great head cre… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 allbou…
-##  3 Wow what a dif… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 frank4…
-##  4 Tried this one… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 beergl…
-##  5 Caffrey&#39;s on-t… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 proc.1…
-##  6 The nitro can … Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 zerk.4…
-##  7 Nitro can...Ty… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 adr.263
-##  8 Excellent pour… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 dogbri…
-##  9 A very good Ir… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 goindo…
-## 10 Looks very nic… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 irishr…
-## # ℹ 18,772 more rows
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
+<p>Let’s say that we want to create a quick categorical variable that tells us whether a berry was rated higher after the actual tasting event than the pre-tasting expectation.</p>
+<p>We know that we can use <code>filter()</code> to get just the berries with <code>post_expectation &gt; pre_expectation</code>:</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="wrangling-data-with-tidyverse.html#cb151-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb151-2"><a href="wrangling-data-with-tidyverse.html#cb151-2" tabindex="-1"></a>  <span class="fu">filter</span>(post_expectation <span class="sc">&gt;</span> pre_expectation)</span></code></pre></div>
+<pre><code>## # A tibble: 1,612 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 20:55   
+##  2           1002               1002 NA     NA    6/13/2019 20:03   
+##  3           1004               1004 NA     NA    6/13/2019 20:54   
+##  4           1005               1005 NA     NA    6/13/2019 20:08   
+##  5           1005               1005 NA     NA    6/13/2019 19:54   
+##  6           1006               1006 NA     NA    6/13/2019 18:49   
+##  7           1007               1007 NA     NA    6/13/2019 18:52   
+##  8           1009               1009 NA     NA    6/13/2019 20:39   
+##  9           1010               1010 NA     NA    6/13/2019 20:02   
+## 10           1010               1010 NA     NA    6/13/2019 20:14   
+## # ℹ 1,602 more rows
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
 <p>But what if we want to be able to just see this?</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="wrangling-data-with-tidyverse.html#cb138-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb138-2"><a href="wrangling-data-with-tidyverse.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">better_than_2.5 =</span> rating <span class="sc">&gt;</span> <span class="fl">2.5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb138-3"><a href="wrangling-data-with-tidyverse.html#cb138-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We&#39;ll select just a few columns to help us see the result</span></span>
-<span id="cb138-4"><a href="wrangling-data-with-tidyverse.html#cb138-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, better_than_2<span class="fl">.5</span>) </span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 3
-##    beer_name           rating better_than_2.5
-##    &lt;chr&gt;                &lt;dbl&gt; &lt;lgl&gt;          
-##  1 Caffrey&#39;s Irish Ale   4.46 TRUE           
-##  2 Caffrey&#39;s Irish Ale   3.74 TRUE           
-##  3 Caffrey&#39;s Irish Ale   3.26 TRUE           
-##  4 Caffrey&#39;s Irish Ale   3.5  TRUE           
-##  5 Caffrey&#39;s Irish Ale   3.86 TRUE           
-##  6 Caffrey&#39;s Irish Ale   3.11 TRUE           
-##  7 Caffrey&#39;s Irish Ale   3.55 TRUE           
-##  8 Caffrey&#39;s Irish Ale   3.06 TRUE           
-##  9 Caffrey&#39;s Irish Ale   4    TRUE           
-## 10 Caffrey&#39;s Irish Ale   3.21 TRUE           
-## # ℹ 20,349 more rows</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="wrangling-data-with-tidyverse.html#cb153-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb153-2"><a href="wrangling-data-with-tidyverse.html#cb153-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">improved =</span> post_expectation <span class="sc">&gt;</span> pre_expectation) <span class="sc">%&gt;%</span></span>
+<span id="cb153-3"><a href="wrangling-data-with-tidyverse.html#cb153-3" tabindex="-1"></a>  <span class="co"># We&#39;ll select just a few columns to help us see the result</span></span>
+<span id="cb153-4"><a href="wrangling-data-with-tidyverse.html#cb153-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Participant Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, pre_expectation, post_expectation, improved)</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 5
+##    `Participant Name` `Sample Name` pre_expectation post_expectation improved
+##                 &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt;            &lt;dbl&gt; &lt;lgl&gt;   
+##  1               1001 raspberry 6                 2                1 FALSE   
+##  2               1001 raspberry 5                 4                5 TRUE    
+##  3               1001 raspberry 2                 2                2 FALSE   
+##  4               1001 raspberry 3                 4                4 FALSE   
+##  5               1001 raspberry 4                 3                2 FALSE   
+##  6               1001 raspberry 1                 4                2 FALSE   
+##  7               1002 raspberry 6                 2                2 FALSE   
+##  8               1002 raspberry 5                 3                2 FALSE   
+##  9               1002 raspberry 2                 5                2 FALSE   
+## 10               1002 raspberry 3                 3                5 TRUE    
+## # ℹ 7,497 more rows</code></pre>
 <p>What does the above function do?</p>
 <p><code>mutate()</code> is a very easy way to edit your data mid-pipe. So we might want to do some calculations, create a temporary variable using <code>mutate()</code>, and then continue our pipe. <strong>Unless we use <code>&lt;-</code> to store our <code>mutate()</code>d data, the results will be only temporary.</strong></p>
-<p>We can use the same kind of functional logic we’ve been using in other <code>tidyverse</code> commands in <code>mutate()</code> to get real, powerful results. For example, we might want to know if a beer is rated better than the <code>mean()</code> of the ratings. We can do this easily using <code>mutate()</code>:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="wrangling-data-with-tidyverse.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s find out the average (mean) rating for these beers</span></span>
-<span id="cb140-2"><a href="wrangling-data-with-tidyverse.html#cb140-2" aria-hidden="true" tabindex="-1"></a>beer_data<span class="sc">$</span>rating <span class="sc">%&gt;%</span> </span>
-<span id="cb140-3"><a href="wrangling-data-with-tidyverse.html#cb140-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>() </span></code></pre></div>
-<pre><code>## [1] 3.719406</code></pre>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="wrangling-data-with-tidyverse.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, let&#39;s create a column that tells us if a beer is rated &gt; average</span></span>
-<span id="cb142-2"><a href="wrangling-data-with-tidyverse.html#cb142-2" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb142-3"><a href="wrangling-data-with-tidyverse.html#cb142-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">better_than_average =</span> rating <span class="sc">&gt;</span> <span class="fu">mean</span>(rating)) <span class="sc">%&gt;%</span></span>
-<span id="cb142-4"><a href="wrangling-data-with-tidyverse.html#cb142-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Again, let&#39;s select just a few columns</span></span>
-<span id="cb142-5"><a href="wrangling-data-with-tidyverse.html#cb142-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating, better_than_average)</span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 3
-##    beer_name           rating better_than_average
-##    &lt;chr&gt;                &lt;dbl&gt; &lt;lgl&gt;              
-##  1 Caffrey&#39;s Irish Ale   4.46 TRUE               
-##  2 Caffrey&#39;s Irish Ale   3.74 TRUE               
-##  3 Caffrey&#39;s Irish Ale   3.26 FALSE              
-##  4 Caffrey&#39;s Irish Ale   3.5  FALSE              
-##  5 Caffrey&#39;s Irish Ale   3.86 TRUE               
-##  6 Caffrey&#39;s Irish Ale   3.11 FALSE              
-##  7 Caffrey&#39;s Irish Ale   3.55 FALSE              
-##  8 Caffrey&#39;s Irish Ale   3.06 FALSE              
-##  9 Caffrey&#39;s Irish Ale   4    TRUE               
-## 10 Caffrey&#39;s Irish Ale   3.21 FALSE              
-## # ℹ 20,349 more rows</code></pre>
+<p>We can use the same kind of functional logic we’ve been using in other <code>tidyverse</code> commands in <code>mutate()</code> to get real, powerful results. For example, it might be easier to interpret the individual ratings on the 9-point scale if we can compare them to the <code>mean()</code> of all berry ratings. We can do this easily using <code>mutate()</code>:</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="wrangling-data-with-tidyverse.html#cb155-1" tabindex="-1"></a><span class="co"># Let&#39;s find out the average (mean) rating for the berries on the 9-point scale</span></span>
+<span id="cb155-2"><a href="wrangling-data-with-tidyverse.html#cb155-2" tabindex="-1"></a>berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="sc">%&gt;%</span> <span class="co">#we need the backticks for $ subsetting whenever we&#39;d need them for tidy-selecting </span></span>
+<span id="cb155-3"><a href="wrangling-data-with-tidyverse.html#cb155-3" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 5.679346</code></pre>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="wrangling-data-with-tidyverse.html#cb157-1" tabindex="-1"></a><span class="co"># Now, let&#39;s create a column that tells us how far each rating is from to the average</span></span>
+<span id="cb157-2"><a href="wrangling-data-with-tidyverse.html#cb157-2" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb157-3"><a href="wrangling-data-with-tidyverse.html#cb157-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference_from_average =</span> <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="sc">-</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb157-4"><a href="wrangling-data-with-tidyverse.html#cb157-4" tabindex="-1"></a>  <span class="co"># Again, let&#39;s select just a few columns</span></span>
+<span id="cb157-5"><a href="wrangling-data-with-tidyverse.html#cb157-5" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, difference_from_average)</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 3
+##    `Sample Name` `9pt_overall` difference_from_average
+##    &lt;chr&gt;                 &lt;dbl&gt;                   &lt;dbl&gt;
+##  1 raspberry 6               4                   -1.68
+##  2 raspberry 5               9                    3.32
+##  3 raspberry 2               3                   -2.68
+##  4 raspberry 3               7                    1.32
+##  5 raspberry 4               4                   -1.68
+##  6 raspberry 1               4                   -1.68
+##  7 raspberry 6               4                   -1.68
+##  8 raspberry 5               7                    1.32
+##  9 raspberry 2               7                    1.32
+## 10 raspberry 3               9                    3.32
+## # ℹ 7,497 more rows</code></pre>
 </div>
-<div id="split-apply-combine-analyses-with-group_by-and-summarize" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> Split-apply-combine analyses with <code>group_by()</code> and <code>summarize()</code><a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses-with-group_by-and-summarize" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="split-apply-combine-analyses" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Split-apply-combine analyses<a href="wrangling-data-with-tidyverse.html#split-apply-combine-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Many basic data analyses can be described as <em>split-apply-combine</em>: <em>split</em> the data into groups, <em>apply</em> some analysis into groups, and then <em>combine</em> the results.</p>
-<p>For example, in our <code>beer_data</code> we might want to split the data into beer styles, calculate the average overall rating and standard deviation of the rating for each beer style, and the generate a summary table telling us these results. Using the <code>filter()</code> and <code>select()</code> commands we’ve learned so far, you could probably cobble together this analysis without further tools.</p>
+<p>For example, in our <code>berry_data</code> we might want to split the data by each berry sample, calculate the average overall rating and standard deviation of the rating for each, and the generate a summary table telling us these results. Using the <code>filter()</code> and <code>select()</code> commands we’ve learned so far, you could probably cobble together this analysis without further tools.</p>
 <p>However, <code>tidyverse</code> provides two powerful tools to do this kind of analysis:</p>
 <ol style="list-style-type: decimal">
 <li>The <code>group_by()</code> function takes a data table and groups it by <strong>categorical</strong> values of any column (generally don’t try to use <code>group_by()</code> on a numeric variable)</li>
@@ -664,214 +958,127 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>First, you specify 1 or more new columns you want to calculate for each group</li>
 <li>Second, the function produces 1 value for each group for each new column</li>
 </ol>
+<div id="groups-of-data-split-apply" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Groups of data: Split-apply<a href="wrangling-data-with-tidyverse.html#groups-of-data-split-apply" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The first of these tools is <code>group_by()</code>, which you <em>can</em> use with <code>mutate()</code> if you want to use both individual observed values (one per row) and groupwise summary statistics to calculate a new column.</p>
+<p>If we wanted to make a column that shows how each individual person’s rating differs from the mean of <em>that specific berry sample</em>:</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="wrangling-data-with-tidyverse.html#cb159-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb159-2"><a href="wrangling-data-with-tidyverse.html#cb159-2" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb159-3"><a href="wrangling-data-with-tidyverse.html#cb159-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference_from_average =</span> <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="sc">-</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb159-4"><a href="wrangling-data-with-tidyverse.html#cb159-4" tabindex="-1"></a>  <span class="co"># Again, let&#39;s select just a few columns</span></span>
+<span id="cb159-5"><a href="wrangling-data-with-tidyverse.html#cb159-5" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, difference_from_average)</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 3
+## # Groups:   Sample Name [23]
+##    `Sample Name` `9pt_overall` difference_from_average
+##    &lt;chr&gt;                 &lt;dbl&gt;                   &lt;dbl&gt;
+##  1 raspberry 6               4                  -2.30 
+##  2 raspberry 5               9                   3.04 
+##  3 raspberry 2               3                  -2.86 
+##  4 raspberry 3               7                   0.832
+##  5 raspberry 4               4                  -1.82 
+##  6 raspberry 1               4                  -0.968
+##  7 raspberry 6               4                  -2.30 
+##  8 raspberry 5               7                   1.04 
+##  9 raspberry 2               7                   1.14 
+## 10 raspberry 3               9                   2.83 
+## # ℹ 7,497 more rows</code></pre>
+<p>You might notice that the <code>mutate()</code> call hasn’t been changed at all from when we did this in the last code chunk using the global average, but that the numbers are in fact different. The tibble also now tells us that it has <code>Groups: Sample Name[23]</code>, because of our group_by() call.</p>
+<p>It’s good practice to <code>ungroup()</code> as soon as you’re done calculating groupwise statistics, so you don’t cause unexpected problems later in the analysis.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="wrangling-data-with-tidyverse.html#cb161-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb161-2"><a href="wrangling-data-with-tidyverse.html#cb161-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb161-3"><a href="wrangling-data-with-tidyverse.html#cb161-3" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb161-4"><a href="wrangling-data-with-tidyverse.html#cb161-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group_average =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb161-5"><a href="wrangling-data-with-tidyverse.html#cb161-5" tabindex="-1"></a>         <span class="at">difference_from_average =</span> <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="sc">-</span> group_average) <span class="sc">%&gt;%</span></span>
+<span id="cb161-6"><a href="wrangling-data-with-tidyverse.html#cb161-6" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb161-7"><a href="wrangling-data-with-tidyverse.html#cb161-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">grand_average =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 5
+##    `Sample Name` `9pt_overall` group_average difference_from_average
+##    &lt;chr&gt;                 &lt;dbl&gt;         &lt;dbl&gt;                   &lt;dbl&gt;
+##  1 raspberry 6               4          6.30                  -2.30 
+##  2 raspberry 5               9          5.96                   3.04 
+##  3 raspberry 2               3          5.86                  -2.86 
+##  4 raspberry 3               7          6.17                   0.832
+##  5 raspberry 4               4          5.82                  -1.82 
+##  6 raspberry 1               4          4.97                  -0.968
+##  7 raspberry 6               4          6.30                  -2.30 
+##  8 raspberry 5               7          5.96                   1.04 
+##  9 raspberry 2               7          5.86                   1.14 
+## 10 raspberry 3               9          6.17                   2.83 
+## # ℹ 7,497 more rows
+## # ℹ 1 more variable: grand_average &lt;dbl&gt;</code></pre>
+<p>You’ll see that the <code>Groups</code> info at the top of the tibble is gone, and that thanks to <code>ungroup()</code> every single row has the same grand average.</p>
+</div>
+<div id="split-apply-combine-in-fewer-steps-with-summarize" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Split-apply-combine in fewer steps with <code>summarize()</code><a href="wrangling-data-with-tidyverse.html#split-apply-combine-in-fewer-steps-with-summarize" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So why would we want to use <code>summarize()</code>? Well, it’s not very convenient to have repeated data if we just want the average rating of each group (or any other groupwise <strong>summary</strong>).</p>
+<p>Use <code>mutate()</code> when you want to add a <strong>new column with one number for each current row</strong>. Use <code>summarize()</code> when you need to use data from <strong>multiple rows to create a summary</strong>.</p>
 <p>To accomplish the example above, we’d do the following:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="wrangling-data-with-tidyverse.html#cb144-1" aria-hidden="true" tabindex="-1"></a>beer_summary <span class="ot">&lt;-</span> </span>
-<span id="cb144-2"><a href="wrangling-data-with-tidyverse.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb144-3"><a href="wrangling-data-with-tidyverse.html#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(style) <span class="sc">%&gt;%</span>                           <span class="co"># we will create a group for each unique style</span></span>
-<span id="cb144-4"><a href="wrangling-data-with-tidyverse.html#cb144-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_beers =</span> <span class="fu">n</span>(),                      <span class="co"># n() counts rows in each style</span></span>
-<span id="cb144-5"><a href="wrangling-data-with-tidyverse.html#cb144-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_rating =</span> <span class="fu">mean</span>(rating),         <span class="co"># the mean rating for each style</span></span>
-<span id="cb144-6"><a href="wrangling-data-with-tidyverse.html#cb144-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_rating =</span> <span class="fu">sd</span>(rating),             <span class="co"># the standard deviation in rating</span></span>
-<span id="cb144-7"><a href="wrangling-data-with-tidyverse.html#cb144-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">se_rating =</span> <span class="fu">sd</span>(rating) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="co"># multiple functions in 1 row</span></span>
-<span id="cb144-8"><a href="wrangling-data-with-tidyverse.html#cb144-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-9"><a href="wrangling-data-with-tidyverse.html#cb144-9" aria-hidden="true" tabindex="-1"></a>beer_summary</span></code></pre></div>
-<pre><code>## # A tibble: 99 × 5
-##    style                          n_beers mean_rating sd_rating se_rating
-##    &lt;chr&gt;                            &lt;int&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-##  1 Altbier                            186        3.87     0.499    0.0366
-##  2 American Adjunct Lager             961        2.55     0.752    0.0243
-##  3 American Amber / Red Ale           653        3.74     0.563    0.0220
-##  4 American Amber / Red Lager         235        3.29     0.698    0.0455
-##  5 American Barleywine                187        4.25     0.478    0.0349
-##  6 American Black Ale                  10        3.98     0.490    0.155 
-##  7 American Blonde Ale                251        3.52     0.608    0.0383
-##  8 American Brown Ale                 166        3.95     0.503    0.0391
-##  9 American Dark Wheat Ale             11        3.67     0.453    0.136 
-## 10 American Double / Imperial IPA     151        4.34     0.479    0.0390
-## # ℹ 89 more rows</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="wrangling-data-with-tidyverse.html#cb163-1" tabindex="-1"></a>berry_summary <span class="ot">&lt;-</span> </span>
+<span id="cb163-2"><a href="wrangling-data-with-tidyverse.html#cb163-2" tabindex="-1"></a>  berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb163-3"><a href="wrangling-data-with-tidyverse.html#cb163-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>)) <span class="sc">%&gt;%</span>                    <span class="co"># only rows with 9-point ratings</span></span>
+<span id="cb163-4"><a href="wrangling-data-with-tidyverse.html#cb163-4" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span>                          <span class="co"># we will create a group for each berry sample</span></span>
+<span id="cb163-5"><a href="wrangling-data-with-tidyverse.html#cb163-5" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_responses =</span> <span class="fu">n</span>(),                         <span class="co"># n() counts number of ratings for each berry</span></span>
+<span id="cb163-6"><a href="wrangling-data-with-tidyverse.html#cb163-6" tabindex="-1"></a>            <span class="at">mean_rating =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>),         <span class="co"># the mean rating for each species</span></span>
+<span id="cb163-7"><a href="wrangling-data-with-tidyverse.html#cb163-7" tabindex="-1"></a>            <span class="at">sd_rating =</span> <span class="fu">sd</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>),             <span class="co"># the standard deviation in rating</span></span>
+<span id="cb163-8"><a href="wrangling-data-with-tidyverse.html#cb163-8" tabindex="-1"></a>            <span class="at">se_rating =</span> <span class="fu">sd</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())) <span class="co"># multiple functions in 1 row</span></span>
+<span id="cb163-9"><a href="wrangling-data-with-tidyverse.html#cb163-9" tabindex="-1"></a></span>
+<span id="cb163-10"><a href="wrangling-data-with-tidyverse.html#cb163-10" tabindex="-1"></a><span class="co">#Equivalent to:</span></span>
+<span id="cb163-11"><a href="wrangling-data-with-tidyverse.html#cb163-11" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb163-12"><a href="wrangling-data-with-tidyverse.html#cb163-12" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb163-13"><a href="wrangling-data-with-tidyverse.html#cb163-13" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_responses =</span> <span class="fu">n</span>(),                         <span class="co"># n() counts number of ratings for each berry</span></span>
+<span id="cb163-14"><a href="wrangling-data-with-tidyverse.html#cb163-14" tabindex="-1"></a>            <span class="at">mean_rating =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>),         <span class="co"># the mean rating for each species</span></span>
+<span id="cb163-15"><a href="wrangling-data-with-tidyverse.html#cb163-15" tabindex="-1"></a>            <span class="at">sd_rating =</span> <span class="fu">sd</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>),             <span class="co"># the standard deviation in rating</span></span>
+<span id="cb163-16"><a href="wrangling-data-with-tidyverse.html#cb163-16" tabindex="-1"></a>            <span class="at">se_rating =</span> <span class="fu">sd</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb163-17"><a href="wrangling-data-with-tidyverse.html#cb163-17" tabindex="-1"></a>            <span class="at">.by =</span> <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 23 × 5
+##    `Sample Name` n_responses mean_rating sd_rating se_rating
+##    &lt;chr&gt;               &lt;int&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 raspberry 6           125        6.30      1.94     0.173
+##  2 raspberry 5           125        5.96      2.00     0.179
+##  3 raspberry 2           125        5.86      2.05     0.183
+##  4 raspberry 3           125        6.17      2.03     0.182
+##  5 raspberry 4           125        5.82      2.13     0.191
+##  6 raspberry 1           125        4.97      2.32     0.208
+##  7 Blackberry 4           93        5.82      2.10     0.217
+##  8 Blackberry 2           93        4.66      2.24     0.232
+##  9 Blackberry 1           93        5.12      2.23     0.231
+## 10 Blackberry 3           93        5.65      2.14     0.222
+## # ℹ 13 more rows</code></pre>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="wrangling-data-with-tidyverse.html#cb165-1" tabindex="-1"></a>berry_summary</span></code></pre></div>
+<pre><code>## # A tibble: 23 × 5
+##    `Sample Name` n_responses mean_rating sd_rating se_rating
+##    &lt;chr&gt;               &lt;int&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 Blackberry 1           93        5.12      2.23     0.231
+##  2 Blackberry 2           93        4.66      2.24     0.232
+##  3 Blackberry 3           93        5.65      2.14     0.222
+##  4 Blackberry 4           93        5.82      2.10     0.217
+##  5 Blackberry 5           93        5.94      1.99     0.207
+##  6 Blueberry 1           105        5.75      1.91     0.186
+##  7 Blueberry 2           105        5.85      1.93     0.188
+##  8 Blueberry 3           105        5.61      1.92     0.188
+##  9 Blueberry 4           105        5.70      2.08     0.203
+## 10 Blueberry 5           105        5.38      2.17     0.212
+## # ℹ 13 more rows</code></pre>
 <p>We can use this approach to even get a summary stats table - for example, confidence limits according to the normal distribution:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="wrangling-data-with-tidyverse.html#cb146-1" aria-hidden="true" tabindex="-1"></a>beer_summary <span class="sc">%&gt;%</span></span>
-<span id="cb146-2"><a href="wrangling-data-with-tidyverse.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower_limit =</span> mean_rating <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rating,</span>
-<span id="cb146-3"><a href="wrangling-data-with-tidyverse.html#cb146-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">upper_limit =</span> mean_rating <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rating)</span></code></pre></div>
-<pre><code>## # A tibble: 99 × 7
-##    style         n_beers mean_rating sd_rating se_rating lower_limit upper_limit
-##    &lt;chr&gt;           &lt;int&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-##  1 Altbier           186        3.87     0.499    0.0366        3.79        3.94
-##  2 American Adj…     961        2.55     0.752    0.0243        2.50        2.60
-##  3 American Amb…     653        3.74     0.563    0.0220        3.70        3.79
-##  4 American Amb…     235        3.29     0.698    0.0455        3.20        3.38
-##  5 American Bar…     187        4.25     0.478    0.0349        4.19        4.32
-##  6 American Bla…      10        3.98     0.490    0.155         3.67        4.28
-##  7 American Blo…     251        3.52     0.608    0.0383        3.45        3.60
-##  8 American Bro…     166        3.95     0.503    0.0391        3.88        4.03
-##  9 American Dar…      11        3.67     0.453    0.136         3.40        3.94
-## 10 American Dou…     151        4.34     0.479    0.0390        4.27        4.42
-## # ℹ 89 more rows</code></pre>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="wrangling-data-with-tidyverse.html#cb167-1" tabindex="-1"></a>berry_summary <span class="sc">%&gt;%</span></span>
+<span id="cb167-2"><a href="wrangling-data-with-tidyverse.html#cb167-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower_limit =</span> mean_rating <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rating,</span>
+<span id="cb167-3"><a href="wrangling-data-with-tidyverse.html#cb167-3" tabindex="-1"></a>         <span class="at">upper_limit =</span> mean_rating <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_rating)</span></code></pre></div>
+<pre><code>## # A tibble: 23 × 7
+##    `Sample Name` n_responses mean_rating sd_rating se_rating lower_limit
+##    &lt;chr&gt;               &lt;int&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Blackberry 1           93        5.12      2.23     0.231        4.67
+##  2 Blackberry 2           93        4.66      2.24     0.232        4.20
+##  3 Blackberry 3           93        5.65      2.14     0.222        5.21
+##  4 Blackberry 4           93        5.82      2.10     0.217        5.39
+##  5 Blackberry 5           93        5.94      1.99     0.207        5.53
+##  6 Blueberry 1           105        5.75      1.91     0.186        5.39
+##  7 Blueberry 2           105        5.85      1.93     0.188        5.48
+##  8 Blueberry 3           105        5.61      1.92     0.188        5.24
+##  9 Blueberry 4           105        5.70      2.08     0.203        5.31
+## 10 Blueberry 5           105        5.38      2.17     0.212        4.97
+## # ℹ 13 more rows
+## # ℹ 1 more variable: upper_limit &lt;dbl&gt;</code></pre>
 <p>Note that in the above example we use <code>mutate()</code>, <em>not</em> <code>summarize()</code>, because we had saved our summarized data. We could also have calculated <code>lower_limit</code> and <code>upper_limit</code> directly as part of the <code>summarize()</code> statement if we hadn’t saved the intermediate.</p>
-</div>
-<div id="utilities-for-data-management" class="section level2 hasAnchor" number="3.5">
-<h2><span class="header-section-number">3.5</span> Utilities for data management<a href="wrangling-data-with-tidyverse.html#utilities-for-data-management" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Honestly, the amount of power in <code>tidyverse</code> is way more than we can cover today, and is covered more comprehensively (obviously) by <a href="https://r4ds.had.co.nz/">Wickham and Grolemund</a>. However, I want to name 4 more utilities we will make a lot of use of today (and you will want to know about for your own work).</p>
-<div id="rename-your-columns" class="section level3 hasAnchor" number="3.5.1">
-<h3><span class="header-section-number">3.5.1</span> Rename your columns<a href="wrangling-data-with-tidyverse.html#rename-your-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Often you will import data with bad column names or you’ll realize you need to rename variables during your workflow. For this, you can use the <code>rename()</code> function:</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="wrangling-data-with-tidyverse.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(beer_data)</span></code></pre></div>
-<pre><code>##  [1] &quot;reviews&quot;      &quot;beer_name&quot;    &quot;beer_id&quot;      &quot;brewery_name&quot; &quot;brewery_id&quot;  
-##  [6] &quot;style&quot;        &quot;abv&quot;          &quot;user_id&quot;      &quot;appearance&quot;   &quot;aroma&quot;       
-## [11] &quot;palate&quot;       &quot;taste&quot;        &quot;overall&quot;      &quot;rating&quot;</code></pre>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="wrangling-data-with-tidyverse.html#cb150-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb150-2"><a href="wrangling-data-with-tidyverse.html#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">review_text =</span> reviews)</span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 14
-##    review_text     beer_name beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 This is a very… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 jisurf…
-##  2 Great head cre… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 allbou…
-##  3 Wow what a dif… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 frank4…
-##  4 Tried this one… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 beergl…
-##  5 Caffrey&#39;s on-t… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 proc.1…
-##  6 The nitro can … Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 zerk.4…
-##  7 Nitro can...Ty… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 adr.263
-##  8 Excellent pour… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 dogbri…
-##  9 A very good Ir… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 goindo…
-## 10 Looks very nic… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 irishr…
-## # ℹ 20,349 more rows
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
-<p>You can also rename by position, which is helpful for quick changes:</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="wrangling-data-with-tidyverse.html#cb152-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb152-2"><a href="wrangling-data-with-tidyverse.html#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">review_text =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 14
-##    review_text     beer_name beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;           &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 This is a very… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 jisurf…
-##  2 Great head cre… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 allbou…
-##  3 Wow what a dif… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 frank4…
-##  4 Tried this one… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 beergl…
-##  5 Caffrey&#39;s on-t… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 proc.1…
-##  6 The nitro can … Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 zerk.4…
-##  7 Nitro can...Ty… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 adr.263
-##  8 Excellent pour… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 dogbri…
-##  9 A very good Ir… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 goindo…
-## 10 Looks very nic… Caffrey&#39;…     825 Thomas Caff…        297 Iris…   3.8 irishr…
-## # ℹ 20,349 more rows
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
-</div>
-<div id="relocate-your-columns" class="section level3 hasAnchor" number="3.5.2">
-<h3><span class="header-section-number">3.5.2</span> Relocate your columns<a href="wrangling-data-with-tidyverse.html#relocate-your-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If you <code>mutate()</code> columns or just have a big data set with a lot of variables, often you want to move columns around. This is a pain to do with <code>[]</code>, but again <code>tidyverse</code> has a utility to move things around easily: <code>relocate()</code>.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="wrangling-data-with-tidyverse.html#cb154-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb154-2"><a href="wrangling-data-with-tidyverse.html#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(beer_name) <span class="co"># giving no other arguments will move to front</span></span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 14
-##    beer_name         reviews beer_id brewery_name brewery_id style   abv user_id
-##    &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  
-##  1 Caffrey&#39;s Irish … This i…     825 Thomas Caff…        297 Iris…   3.8 jisurf…
-##  2 Caffrey&#39;s Irish … Great …     825 Thomas Caff…        297 Iris…   3.8 allbou…
-##  3 Caffrey&#39;s Irish … Wow wh…     825 Thomas Caff…        297 Iris…   3.8 frank4…
-##  4 Caffrey&#39;s Irish … Tried …     825 Thomas Caff…        297 Iris…   3.8 beergl…
-##  5 Caffrey&#39;s Irish … Caffre…     825 Thomas Caff…        297 Iris…   3.8 proc.1…
-##  6 Caffrey&#39;s Irish … The ni…     825 Thomas Caff…        297 Iris…   3.8 zerk.4…
-##  7 Caffrey&#39;s Irish … Nitro …     825 Thomas Caff…        297 Iris…   3.8 adr.263
-##  8 Caffrey&#39;s Irish … Excell…     825 Thomas Caff…        297 Iris…   3.8 dogbri…
-##  9 Caffrey&#39;s Irish … A very…     825 Thomas Caff…        297 Iris…   3.8 goindo…
-## 10 Caffrey&#39;s Irish … Looks …     825 Thomas Caff…        297 Iris…   3.8 irishr…
-## # ℹ 20,349 more rows
-## # ℹ 6 more variables: appearance &lt;dbl&gt;, aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;,
-## #   overall &lt;dbl&gt;, rating &lt;dbl&gt;</code></pre>
-<p>You can also use <code>relocate()</code> to specify positions</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="wrangling-data-with-tidyverse.html#cb156-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb156-2"><a href="wrangling-data-with-tidyverse.html#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(reviews, <span class="at">.after =</span> rating) <span class="co"># move the long text to the end</span></span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 14
-##    beer_name      beer_id brewery_name brewery_id style   abv user_id appearance
-##    &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
-##  1 Caffrey&#39;s Iri…     825 Thomas Caff…        297 Iris…   3.8 jisurf…        5  
-##  2 Caffrey&#39;s Iri…     825 Thomas Caff…        297 Iris…   3.8 allbou…        5  
-##  3 Caffrey&#39;s Iri…     825 Thomas Caff…        297 Iris…   3.8 frank4…        4  
-##  4 Caffrey&#39;s Iri…     825 Thomas Caff…        297 Iris…   3.8 beergl…        3.5
-##  5 Caffrey&#39;s Iri…     825 Thomas Caff…        297 Iris…   3.8 proc.1…        4  
-##  6 Caffrey&#39;s Iri…     825 Thomas Caff…        297 Iris…   3.8 zerk.4…        4  
-##  7 Caffrey&#39;s Iri…     825 Thomas Caff…        297 Iris…   3.8 adr.263        3.5
-##  8 Caffrey&#39;s Iri…     825 Thomas Caff…        297 Iris…   3.8 dogbri…        4  
-##  9 Caffrey&#39;s Iri…     825 Thomas Caff…        297 Iris…   3.8 goindo…        4  
-## 10 Caffrey&#39;s Iri…     825 Thomas Caff…        297 Iris…   3.8 irishr…        4  
-## # ℹ 20,349 more rows
-## # ℹ 6 more variables: aroma &lt;dbl&gt;, palate &lt;dbl&gt;, taste &lt;dbl&gt;, overall &lt;dbl&gt;,
-## #   rating &lt;dbl&gt;, reviews &lt;chr&gt;</code></pre>
-</div>
-<div id="sort-your-data" class="section level3 hasAnchor" number="3.5.3">
-<h3><span class="header-section-number">3.5.3</span> Sort your data<a href="wrangling-data-with-tidyverse.html#sort-your-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>More frequently, we will want to rearrange our rows, which can be done with <code>arrange()</code>. All you have to do is give <code>arrange()</code> one or more columns to sort the data by. You can use either the <code>desc()</code> or the <code>-</code> shortcut to sort in reverse order.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="wrangling-data-with-tidyverse.html#cb158-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb158-2"><a href="wrangling-data-with-tidyverse.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(rating)) <span class="sc">%&gt;%</span> <span class="co"># what are the highest rated beers?</span></span>
-<span id="cb158-3"><a href="wrangling-data-with-tidyverse.html#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, rating)</span></code></pre></div>
-<pre><code>## # A tibble: 20,359 × 2
-##    beer_name                     rating
-##    &lt;chr&gt;                          &lt;dbl&gt;
-##  1 McEwan&#39;s India Pale Ale            5
-##  2 Samuel Smith&#39;s Imperial Stout      5
-##  3 Samuel Smith&#39;s Imperial Stout      5
-##  4 Samuel Smith&#39;s Imperial Stout      5
-##  5 Samuel Smith&#39;s Oatmeal Stout       5
-##  6 Samuel Smith&#39;s Oatmeal Stout       5
-##  7 Samuel Smith&#39;s Oatmeal Stout       5
-##  8 Young&#39;s Ram Rod                    5
-##  9 Fuller&#39;s 1845                      5
-## 10 Mackeson Triple XXX Stout          5
-## # ℹ 20,349 more rows</code></pre>
-<p>You can sort alphabetically as well:</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="wrangling-data-with-tidyverse.html#cb160-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb160-2"><a href="wrangling-data-with-tidyverse.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(brewery_name, beer_name) <span class="sc">%&gt;%</span> <span class="co"># get beers sorted within breweries</span></span>
-<span id="cb160-3"><a href="wrangling-data-with-tidyverse.html#cb160-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(brewery_name, beer_name) <span class="sc">%&gt;%</span>  <span class="co"># show only relevant columns</span></span>
-<span id="cb160-4"><a href="wrangling-data-with-tidyverse.html#cb160-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()                           <span class="co"># discard duplicate rows</span></span></code></pre></div>
-<pre><code>## # A tibble: 4,734 × 2
-##    brewery_name           beer_name                          
-##    &lt;chr&gt;                  &lt;chr&gt;                              
-##  1 21st Amendment Brewery Hell Or High Watermelon Wheat Beer 
-##  2 3 Floyds Brewing Co.   Alpha King                         
-##  3 3 Floyds Brewing Co.   Alpha Klaus Christmas (Xmas) Porter
-##  4 3 Floyds Brewing Co.   Behemoth Blonde Barleywine         
-##  5 3 Floyds Brewing Co.   Black Sun Stout                    
-##  6 3 Floyds Brewing Co.   Burnham Pilsner                    
-##  7 3 Floyds Brewing Co.   Calumet Queen                      
-##  8 3 Floyds Brewing Co.   Dark Lord Imperial Stout           
-##  9 3 Floyds Brewing Co.   Dreadnaught IPA                    
-## 10 3 Floyds Brewing Co.   Extra Pale Ale                     
-## # ℹ 4,724 more rows</code></pre>
-</div>
-<div id="pivot-tables" class="section level3 hasAnchor" number="3.5.4">
-<h3><span class="header-section-number">3.5.4</span> Pivot tables<a href="wrangling-data-with-tidyverse.html#pivot-tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Users of Excel may be familiar with the idea of pivot tables. These are functions that let us make our data tidier. To quote Wickham and Grolemund:</p>
-<blockquote>
-<p>here are three interrelated rules which make a dataset tidy:</p>
-<ol style="list-style-type: decimal">
-<li>Each variable must have its own column.</li>
-<li>Each observation must have its own row.</li>
-<li>Each value must have its own cell.</li>
-</ol>
-</blockquote>
-<p>While these authors present “tidiness” of data as an objective property, I’d argue that data is always tidy <strong>for a specific purpose</strong>. For example, our data is relatively tidy here, except our numerical ratings: we have 6 different ratings for each beer, which means we have encoded an <strong>implicit variable</strong> in the column names: <code>rating type</code>. If we want to use our data for summarization, the form we have is fine. But if we want to make plots and do some other modeling, this form may be no good to us.</p>
-<p>We can use the <code>pivot_longer()</code> function to change our data to make the implicit variable explicit and to make our data tidier.</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="wrangling-data-with-tidyverse.html#cb162-1" aria-hidden="true" tabindex="-1"></a>beer_data <span class="sc">%&gt;%</span></span>
-<span id="cb162-2"><a href="wrangling-data-with-tidyverse.html#cb162-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_name, user_id, appearance<span class="sc">:</span>rating) <span class="sc">%&gt;%</span> <span class="co"># for clarity</span></span>
-<span id="cb162-3"><a href="wrangling-data-with-tidyverse.html#cb162-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> appearance<span class="sc">:</span>rating,</span>
-<span id="cb162-4"><a href="wrangling-data-with-tidyverse.html#cb162-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;rating_type&quot;</span>,</span>
-<span id="cb162-5"><a href="wrangling-data-with-tidyverse.html#cb162-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;rating&quot;</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 122,154 × 4
-##    beer_name           user_id           rating_type rating
-##    &lt;chr&gt;               &lt;chr&gt;             &lt;chr&gt;        &lt;dbl&gt;
-##  1 Caffrey&#39;s Irish Ale jisurfer.1152     appearance    5   
-##  2 Caffrey&#39;s Irish Ale jisurfer.1152     aroma         4   
-##  3 Caffrey&#39;s Irish Ale jisurfer.1152     palate        4   
-##  4 Caffrey&#39;s Irish Ale jisurfer.1152     taste         4.5 
-##  5 Caffrey&#39;s Irish Ale jisurfer.1152     overall       5   
-##  6 Caffrey&#39;s Irish Ale jisurfer.1152     rating        4.46
-##  7 Caffrey&#39;s Irish Ale allboutbierge.746 appearance    5   
-##  8 Caffrey&#39;s Irish Ale allboutbierge.746 aroma         3.5 
-##  9 Caffrey&#39;s Irish Ale allboutbierge.746 palate        4   
-## 10 Caffrey&#39;s Irish Ale allboutbierge.746 taste         3.5 
-## # ℹ 122,144 more rows</code></pre>
-<p>Now for each unique combination of <code>beer_name</code> and <code>user_id</code>, we have 6 rows, one for each type of rating they can generate.</p>
-<p>Sometimes we want to have “wider” or “untidy” data. We can use <code>pivot_wider()</code> to reverse the effects of <code>pivot_longer()</code>.</p>
-<p>While the ideas of pivoting can seem simple, they are both powerful and subtly confusing. We’ll be using these tools throughout the rest of the tutorial, so I wanted to give exposure, but mastering them takes trial and error. I recommend taking a look at the <a href="https://r4ds.had.co.nz/tidy-data.html">relevant chapter in Wickham and Grolemund</a> for details.</p>
 
 </div>
 </div>
@@ -882,7 +1089,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="how-to-work-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-visualization-basics-with-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="wrangling-data-with-tidyverse-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -936,20 +1143,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

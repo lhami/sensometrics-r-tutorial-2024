@@ -2,17 +2,16 @@
 
 ```{r setup, include = FALSE}
 library(tidyverse)
-library(tidytext)
-beer_data <- read_csv("data/ba_2002.csv")
+berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
 Let's look back at what we were aiming to do today:
 
-> In this tutorial, we will introduce the audience to the R statistical programming environment and the RStudio Interactive Development Environment (IDE) with the aim of developing sufficient basic skills to conduct a text analysis on sensory-relevant text data. We will provide a learning dataset of text data for the analysis—a set of food-product free-comment reviews that are associated with overall liking scores. This will allow us to demonstrate connections between text analysis methods and basic sensory and consumer science approaches. We will also provide an R script that walks through all steps of importing, manipulating, and analysing the test dataset.
->
-> The tutorial will have 2 sections. In the first section of the tutorial, we will introduce R and RStudio, we will cover the basic commands of R, and we will cover key, user-friendly conventions of ”tidy” R programming for importing, manipulating, and plotting data using the “tidyverse” packages. In the second section we will use the “tidytext” package to conduct basic text analysis, including text tokenization, text modeling using TF-IDF, and basic lexicon-based sentiment analysis.
+> In this tutorial, we will introduce the audience to the R statistical programming environment and the RStudio Interactive Development Environment (IDE) with the aim of developing sufficient basic skills to conduct multivariate analyses (like Correspondence Analysis) on sensory and consumer datasets. We will provide a learning dataset for the analysis—a set of free response comments and overall liking scores from a central location test on berries. We will teach participants how to import, manipulate, and plot data using user-friendly, “tidy” R programming. All resources used in the tutorial are open-source and will remain available to attendees, including an R script covering the full workflow.
+> 
+> At the end of the tutorial, attendees will be able to prepare raw sensory data for common multivariate analyses or visual representations in R.
 
-We have managed to touch on all of these topics, but of course we have taken the most cursory look at each.  I hope what we've gone over today has inspired you, sure, but I mostly hope it has shown you **how much you can do with just a little knowledge**.  My journey in terms of learning data science with `R`, and text analysis in particular, has been all about building my coding ability incrementally.  My code looks more like this than anything else, but I am able to get so much done:
+We have managed to touch on all of these topics, but of course we have taken the most cursory look at each.  I hope what we've gone over today has inspired you, sure, but I mostly hope it has shown you **how much you can do with just a little knowledge**.  My journey in terms of learning data science with `R` has been all about building my coding ability incrementally.  My code looks more like this than anything else, but I am able to get so much done:
 
 <center>
 
@@ -35,19 +34,17 @@ I want to emphasize that **looking up help is normal**. I do it all the time. Le
 
 ## Learning more with Sensometrics Society
 
-This workshop was organized and sponsored by the Sensometrics Society.  Want to learn more?  We are hosting our biennial conference **online 15-17 November, 2022**:
+This workshop was organized and sponsored by the Sensometrics Society.  Want to learn more?  We are hosting our biennial conference **in Paris 3-6 June, 2024**:
 
 <center>
 
-![Sensometrics Society biannual conference banner](img/sensometrics-logo-2022.png)
+![Sensometrics Society biannual conference banner](img/sensometrics-logo-2024.png)
 
 </center>
 
 In general, Sensometrics has a focus on methods and skills for the analysis of sensory data.  If you're interested in contributing to this focus (or just participating), please see our call for papers:
 
-> Please submit an abstract for either an oral or poster presentation on the conference website at [www.sensometrics2022.com](http://sensometric.org/2022). All submissions need to be received by **October 17, 2022**. Notification about acceptance will be made by October 24, 2022. All accepted contributions are invited to submit a full paper for inclusion in a virtual special issue of Food Quality and Preference (FQAP). 
-
-You can contact us for more information or with questions at [sensometrics2022@gmail.com](mailto:sensometrics2022@gmail.com).
+> Please submit an abstract for either an oral or poster presentation [by following the instructions on the conference website through](https://sensometric.org/Abstract-submission). All submissions need to be received by **December 15, 2023**. All accepted contributions are invited to submit a full paper for inclusion in a virtual special issue of Food Quality and Preference (FQAP).
 
 ## Further reading/resources
 
@@ -61,7 +58,9 @@ You can contact us for more information or with questions at [sensometrics2022@g
     1.  [Jurafsky & Martin's seminal textbook, *Speech & Language Processing*](https://web.stanford.edu/~jurafsky/slp3/)
     2.  [Silge & Robinson's *Text Mining with R*](https://www.tidytextmining.com/)
     3.  [Chollet et al.'s *Deep Learning with R*](https://www.manning.com/books/deep-learning-with-r-second-edition)
+
+We will also be presenting more coding demonstrations in R this week, as part of the "Applying Natural Language Processing tools for sensory and consumer data" workshop from 15:45-17:15 on August 23rd in Room 200! We'd love to see you there if you're at all interested in working with text data (like the free response comments in the `berry_data`).
   
 ## Questions/Comments
 
-If you end up being confused, come talk to me, or email me at **jlahne at vt dot edu**.  I'd love to learn about what you're working on! 
+If you get stuck, feel free to find us during the conference, or email us at **jlahne at vt dot edu** and **lhamilton at vsu dot edu**.  I'd love to learn about what you're working on! 

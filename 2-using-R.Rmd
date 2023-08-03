@@ -262,7 +262,7 @@ We have now moved from 1-dimensional vectors to 2-dimensional data tables, which
 ```{r data frame properties}
 nrow(berry_data)
 ncol(berry_data)
-length(bery_data) # Note that length() of a data.frame is the same as ncol()
+length(berry_data) # Note that length() of a data.frame is the same as ncol()
 ```
 
 We already tried running `str(berry_data)`, which gives us the data types of each column and an example.  Some other ways to examine the data include the following:

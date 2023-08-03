@@ -15,7 +15,7 @@ In this workshop we are going to be learning the basics of coding for text analy
 1.  `R` is constantly being extended to do new, useful things because there is a vibrant community of analysts developing tools for it, and the barrier to entry is very low.  
 2.  `R` doesn't have a fixed set of tasks that it can accomplish, and, in fact, I generally haven't found a data-analysis task I needed to do that I *couldn't* in `R`.
 
-Because it's a programming **language**, `R` isn't point-and-click--today we're going to be typing commands into the console, hitting, enter, making errors, and repeating.  But this is a good thing!  The power and flexibility of `R` (and it's ability to do most of the things we want) come from the fact that it is a programming language.  While learning to use `R` can *seem* intimidating, the effort to do so will give you a much more powerful suite of tools than the more limited point-and-click alternatives. `R` is built for research programming (data analysis), rather than for production programming. The only other alternative that is as widely supported in the research community is Python, but--honesty time here--I have never learned Python very well, and so we are learning `R`. And, in addition, Python doesn't have as good an Interactive Development Environment (IDE, explained further below) as RStudio!
+Because it's a programming **language**, `R` isn't point-and-click--today we're going to be typing commands into the console, hitting, enter, making errors, and repeating.  But this is a good thing!  The power and flexibility of `R` (and its ability to do most of the things we want) come from the fact that it is a programming language.  While learning to use `R` can *seem* intimidating, the effort to do so will give you a much more powerful suite of tools than the more limited point-and-click alternatives. `R` is built for research programming (data analysis), rather than for production programming. The only other alternative that is as widely supported in the research community is Python, but--honesty time here--I have never learned Python very well, and so we are learning `R`. And, in addition, Python doesn't have as good an Interactive Development Environment (IDE, explained further below) as RStudio!
 
 If you open your `R.exe`/`R` application, you'll see something like this:
 
@@ -88,7 +88,7 @@ getwd() # will print the current working directory
 ```
 
 ```
-## [1] "C:/Users/Leah/Documents/R/pangborn-r-tutorial-2023"
+## [1] "C:/Users/lhamilton/Documents/pangborn-r-tutorial-2023"
 ```
 
 And we can manually change the working directory by using 
@@ -116,7 +116,7 @@ You'll note that hitting `Install` made a line of code appear in your console, s
 
 
 ```r
-install.packages("tidytext")
+install.packages("ca")
 ```
 
 This is the "true" `R` way to install packages--the function `install.packages()` can be run on the `Console` to install whatever package is quoted inside the parentheses.  
@@ -137,7 +137,7 @@ You need to use multiple `library()` commands to load multiple packages, e.g.,
 
 ```r
 library(tidyverse)
-library(tidytext)
+library(ca)
 ```
 
 If you want to know what packages you have loaded, you can run the `sessionInfo()` function, which will tell you a bunch of stuff, including the "attached" packages:
@@ -148,9 +148,9 @@ sessionInfo()
 ```
 
 ```
-## R version 4.3.0 (2023-04-21 ucrt)
+## R version 4.3.1 (2023-06-16 ucrt)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 19044)
+## Running under: Windows 10 x64 (build 19045)
 ## 
 ## Matrix products: default
 ## 
@@ -162,31 +162,30 @@ sessionInfo()
 ## [4] LC_NUMERIC=C                          
 ## [5] LC_TIME=English_United States.utf8    
 ## 
-## time zone: America/Los_Angeles
+## time zone: America/New_York
 ## tzcode source: internal
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] tidytext_0.4.1  lubridate_1.9.2 forcats_1.0.0   stringr_1.5.0  
+##  [1] ca_0.71.1       lubridate_1.9.2 forcats_1.0.0   stringr_1.5.0  
 ##  [5] dplyr_1.1.2     purrr_1.0.1     readr_2.1.4     tidyr_1.3.0    
 ##  [9] tibble_3.2.1    ggplot2_3.4.2   tidyverse_2.0.0
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] janeaustenr_1.0.0 sass_0.4.6        utf8_1.2.3        generics_0.1.3   
-##  [5] stringi_1.7.12    lattice_0.21-8    hms_1.1.3         digest_0.6.31    
-##  [9] magrittr_2.0.3    evaluate_0.21     grid_4.3.0        timechange_0.2.0 
-## [13] bookdown_0.34     fastmap_1.1.1     jsonlite_1.8.4    Matrix_1.5-4     
-## [17] fansi_1.0.4       scales_1.2.1      jquerylib_0.1.4   cli_3.6.1        
-## [21] crayon_1.5.2      rlang_1.1.1       tokenizers_0.3.0  bit64_4.0.5      
-## [25] munsell_0.5.0     withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
-## [29] parallel_4.3.0    tools_4.3.0       tzdb_0.3.0        colorspace_2.1-0 
-## [33] vctrs_0.6.2       R6_2.5.1          lifecycle_1.0.3   bit_4.0.5        
-## [37] vroom_1.6.3       pkgconfig_2.0.3   pillar_1.9.0      bslib_0.4.2      
-## [41] gtable_0.3.3      glue_1.6.2        Rcpp_1.0.10       xfun_0.39        
-## [45] tidyselect_1.2.0  rstudioapi_0.14   knitr_1.42        htmltools_0.5.5  
-## [49] SnowballC_0.7.1   rmarkdown_2.21    compiler_4.3.0
+##  [1] bit_4.0.5         gtable_0.3.3      jsonlite_1.8.7    crayon_1.5.2     
+##  [5] compiler_4.3.1    tidyselect_1.2.0  parallel_4.3.1    jquerylib_0.1.4  
+##  [9] scales_1.2.1      yaml_2.3.7        fastmap_1.1.1     R6_2.5.1         
+## [13] generics_0.1.3    knitr_1.43        bookdown_0.34     munsell_0.5.0    
+## [17] bslib_0.5.0       pillar_1.9.0      tzdb_0.4.0        rlang_1.1.1      
+## [21] utf8_1.2.3        stringi_1.7.12    cachem_1.0.8      xfun_0.39        
+## [25] sass_0.4.7        bit64_4.0.5       timechange_0.2.0  cli_3.6.1        
+## [29] withr_2.5.0       magrittr_2.0.3    digest_0.6.33     grid_4.3.1       
+## [33] vroom_1.6.3       rstudioapi_0.15.0 hms_1.1.3         lifecycle_1.0.3  
+## [37] vctrs_0.6.3       evaluate_0.21     glue_1.6.2        fansi_1.0.4      
+## [41] colorspace_2.1-0  rmarkdown_2.23    tools_4.3.1       pkgconfig_2.0.3  
+## [45] htmltools_0.5.5
 ```
 
 Finally, you can also load (and unload) packages using the `Packages` tab, by clciking the checkbox next to the name of the package you want to load (or unload).
