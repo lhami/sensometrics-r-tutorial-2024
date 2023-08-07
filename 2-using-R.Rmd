@@ -1,6 +1,6 @@
 # How to work with R
 
-```{r setup, include = FALSE}
+```{r setup, include = FALSE, purl = FALSE}
 library(tidyverse)
 library(tidytext)
 berry_data <- read_csv("data/clt-berry-data.csv")

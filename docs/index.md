@@ -42,11 +42,11 @@ Today's workshop is going to take ~3 hours, with a break for lunch, and we'll be
     3. Chaining steps together
     4. Making new variables
     5. Groups of rows and split-apply-combine
-4. Tidy Data Analysis: Reshaping tidy data
-    1. Groups of columns
+    6. Groups of columns
+4. Tidy Data Analysis: Reshaping and combining tables
+    1. Wider and longer data
     2. Combining data frames
-    3. Wider and longer data
-    4. Other data-wrangling utilities
+    3. Other data-wrangling utilities
 5.  Data analysis outside the `tidyverse`
     1. Correspondence Analysis overview
     2. Working with binary, count, and character data

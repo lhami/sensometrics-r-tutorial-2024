@@ -1,6 +1,6 @@
 # Wrap-up and further resources
 
-```{r setup, include = FALSE}
+```{r setup, include = FALSE, purl = FALSE}
 library(tidyverse)
 berry_data <- read_csv("data/clt-berry-data.csv")
 ```

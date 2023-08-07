@@ -20,7 +20,7 @@ In order to be prepared to participate for this tutorial, you should bring a lap
         1.  `.R` Script
         2.  Data
         3.  An `.Rproj` file that will help setup default options in RStudio
-        4. (If you want to duplicate the exact files in this tutorial, you can also **clone** the github repo here, but this is more advanced than we will cover in this tutorial.)
+    2. We may cut some small sections for time between now and August 20. If you want to make sure you have the exact code file we'll be using, you can check back on August 18.
 4.  Test that your install of R/Rstudio is working by installing a "package" (code that extends R's functionality).  We recommend that you install the `tidyverse` package, which will be used in this tutorial.  To do so:
     1.  Open RStudio (if you've already closed it).
     2.  In the **Console** section of RStudio, type (or copy and paste) the following line of code: `install.packages("tidyverse")`.
@@ -38,7 +38,11 @@ At this point, you should be all set for the workshop!  Thanks so much for getti
 
 # What you should already know
 
-We are trying to make this tutorial accessible to a broad audience, so while some familiarity with statistics and data-analysis for sensory science (i.e., sensometrics) will be helpful, it isn't strictly required.  You do not need any experience with R or RStudio, but you **do need to have RStudio pre-installed**. In order to cover our planned material, we will be moving relatively quickly through basic R usage and data wrangling within about 90 minutes, so we can spend the rest of the tutorial on data analysis and visualization workflows.  That's a lot to get through, so if you find that idea intimidating you might benefit from taking a look at some of the [sources below](#how-can-you-get-ahead-or-learn-more).  These range from self-paced tutorials to full how-to books.
+The main prerequisite for this tutorial is that you **need to have RStudio pre-installed**.
+
+We are trying to make this tutorial accessible to a broad audience, so while some familiarity with statistics and data-analysis for sensory science (i.e., sensometrics) will be helpful, it isn't strictly required.
+
+In order to cover our planned material, we will be moving relatively quickly through basic R usage and data wrangling within about 90 minutes, so we can spend the rest of the tutorial on data analysis and visualization workflows.  That's a lot to get through, so if you find that idea intimidating you might benefit from taking a look at some of the [sources below](#how-can-you-get-ahead-or-learn-more).  These range from self-paced tutorials to full how-to books.
 
 # What we will *not* be covering:
 
@@ -55,6 +59,7 @@ Much of the material we have used to develop this workshop came from the fantast
 *  [Software Carpentry's R for Social Scientists](https://datacarpentry.org/r-socialsci/)
 *  [R for Data Science](https://r4ds.had.co.nz/)
 *  [Stat 545](https://stat545.com/)
+*  [Correspondence Analysis in Practice](https://doi.org/10.1201/9781315369983/)
 *  [Text Mining with R](https://www.tidytextmining.com/)
 *  [Data Visualization: A Practical Introduction](https://socviz.co/)
 

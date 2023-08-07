@@ -1,157 +1,6 @@
-# Wrangling data with `tidyverse`
+# Wrangling data with `tidyverse`: Reshaping and combining tables
 
 
-
-## Groups of columns and across()
-
-It's more common to have groups of **observations** in tidy data, reflected by categorical variables--each `Subject Code` is a group, each `berry` type is a group, each `testing_day` is a group, etc. But we can also have groups of **variables**, as we do in the `berry_data` we've been using!
-
-We have a group of `cata_` variables, a group of liking data with subtypes `9_pt`, `lms_`, `us_`, `_overall`, `_appearance`, etc...
-
-What if we want to count the total number of times each `cata_` attribute was used for one of the berries?
-
-Well, we *can* do this with `summarize()`, but we'd have to type out the names of all 36 columns manually. This is what `select()` helpers are for, and we *can* use them in functions that operate on rows or groups like `filter()`, `mutate()`, and `summarize()` if we use the new `across()` function.
-
-
-```r
-berry_data %>%
-  group_by(`Sample Name`) %>%
-  summarize(across(.cols = starts_with("cata_"),
-                   .fns = sum))
-```
-
-```
-## # A tibble: 23 × 37
-##    `Sample Name` cata_appearance_unevencolor cata_appearance_misshapen
-##    <chr>                               <dbl>                     <dbl>
-##  1 Blackberry 1                           28                        67
-##  2 Blackberry 2                           32                        72
-##  3 Blackberry 3                           25                        50
-##  4 Blackberry 4                           46                       114
-##  5 Blackberry 5                           32                       144
-##  6 Blueberry 1                            46                        13
-##  7 Blueberry 2                            48                        25
-##  8 Blueberry 3                            34                        37
-##  9 Blueberry 4                            29                        26
-## 10 Blueberry 5                            22                        35
-## # ℹ 13 more rows
-## # ℹ 34 more variables: cata_appearance_creased <dbl>,
-## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>,
-## #   cata_appearance_notfresh <dbl>, cata_appearance_fresh <dbl>,
-## #   cata_appearance_goodshape <dbl>, cata_appearance_goodquality <dbl>,
-## #   cata_appearance_none <dbl>, cata_taste_floral <dbl>,
-## #   cata_taste_berry <dbl>, cata_taste_green <dbl>, cata_taste_grassy <dbl>, …
-```
-
-You might read this as: `summarize()` `across()` every `.col` that `starts_with("cata_")` by taking the `sum()`. 
-
-We can easily expand this to take multiple kinds of summaries for each column, in which case it helps to **name** the functions. `across()` uses **lists** to work with more than one function, so it will look at the **list names** (lefthand-side of the arguments in `list()`) to name the output columns:
-
-
-```r
-berry_data %>%
-  group_by(`Sample Name`) %>%
-  summarize(across(.cols = starts_with("cata_"),
-                   .fns = list(frequency = sum,
-                               #the sum of binary cata data gives the citation frequency
-                               percentage = mean)))
-```
-
-```
-## # A tibble: 23 × 73
-##    `Sample Name` cata_appearance_unevencolor_frequency cata_appearance_unevenc…¹
-##    <chr>                                         <dbl>                     <dbl>
-##  1 Blackberry 1                                     28                    0.0936
-##  2 Blackberry 2                                     32                    0.107 
-##  3 Blackberry 3                                     25                    0.0836
-##  4 Blackberry 4                                     46                    0.154 
-##  5 Blackberry 5                                     32                    0.107 
-##  6 Blueberry 1                                      46                    0.147 
-##  7 Blueberry 2                                      48                    0.153 
-##  8 Blueberry 3                                      34                    0.109 
-##  9 Blueberry 4                                      29                    0.0927
-## 10 Blueberry 5                                      22                    0.0703
-## # ℹ 13 more rows
-## # ℹ abbreviated name: ¹​cata_appearance_unevencolor_percentage
-## # ℹ 70 more variables: cata_appearance_misshapen_frequency <dbl>,
-## #   cata_appearance_misshapen_percentage <dbl>,
-## #   cata_appearance_creased_frequency <dbl>,
-## #   cata_appearance_creased_percentage <dbl>,
-## #   cata_appearance_seedy_frequency <dbl>, …
-```
-
-```r
-                               #meanwhile, the mean gives the percentage.
-```
-
-`across()` is capable of taking arbitrarily complicated functions, but you'll notice that we didn't include the parentheses we usually see after a function name for `sum()` and `mean()`. `across()` will just pipe in each column to the `.fns` as the first argument. That means, however, that there's nowhere for us to put additional arguments like `na.rm`.
-
-We can use **lambda functions** to . This basically just means starting each function off with a tilde (~) and telling `across()` where we want our `.cols` to go manually using `.x`.
-
-Remember, the tilde is usually above the backtick on QWERTY keyboards. Try the instructions [here](https://apple.stackexchange.com/questions/286197/typing-the-tilde-character-on-a-pc-keyboard) and [here](https://www.liquisearch.com/tilde/keyboards) to type a tilde if you have a non-QWERTY keyboard. If those methods don't work, try [this guide for Italian keyboards](https://superuser.com/questions/667622/italian-keyboard-entering-tilde-and-backtick-characters-without-changin), [this guide for Spanish keyboards](https://apple.stackexchange.com/q/219603/5472), [this guide for German](https://apple.stackexchange.com/q/395677/5472), [this guide for Norwegian](https://apple.stackexchange.com/q/141066/5472), or [this guide for Swedish](https://apple.stackexchange.com/q/329085/5472) keyboards.
-
-This will be necessary if we want to take the average of our various liking columns without those pesky `NA`s propogating.
-
-
-```r
-berry_data %>%
-  group_by(`Sample Name`) %>%
-  summarize(across(.cols = starts_with("9pt_"),
-                   .fns = list(mean = mean,
-                               sd = sd))) #All NA
-```
-
-```
-## # A tibble: 23 × 11
-##    `Sample Name` `9pt_appearance_mean` `9pt_appearance_sd` `9pt_overall_mean`
-##    <chr>                         <dbl>               <dbl>              <dbl>
-##  1 Blackberry 1                     NA                  NA                 NA
-##  2 Blackberry 2                     NA                  NA                 NA
-##  3 Blackberry 3                     NA                  NA                 NA
-##  4 Blackberry 4                     NA                  NA                 NA
-##  5 Blackberry 5                     NA                  NA                 NA
-##  6 Blueberry 1                      NA                  NA                 NA
-##  7 Blueberry 2                      NA                  NA                 NA
-##  8 Blueberry 3                      NA                  NA                 NA
-##  9 Blueberry 4                      NA                  NA                 NA
-## 10 Blueberry 5                      NA                  NA                 NA
-## # ℹ 13 more rows
-## # ℹ 7 more variables: `9pt_overall_sd` <dbl>, `9pt_taste_mean` <dbl>,
-## #   `9pt_taste_sd` <dbl>, `9pt_texture_mean` <dbl>, `9pt_texture_sd` <dbl>,
-## #   `9pt_aroma_mean` <dbl>, `9pt_aroma_sd` <dbl>
-```
-
-```r
-berry_data %>%
-  group_by(`Sample Name`) %>%
-  summarize(across(.cols = starts_with("9pt_"),
-                   .fns = list(mean = ~ mean(.x, na.rm = TRUE),
-                               sd = ~ sd(.x, na.rm = TRUE))))
-```
-
-```
-## # A tibble: 23 × 11
-##    `Sample Name` `9pt_appearance_mean` `9pt_appearance_sd` `9pt_overall_mean`
-##    <chr>                         <dbl>               <dbl>              <dbl>
-##  1 Blackberry 1                   6.57                1.64               5.12
-##  2 Blackberry 2                   6.43                1.61               4.66
-##  3 Blackberry 3                   6.96                1.37               5.65
-##  4 Blackberry 4                   5.90                1.97               5.82
-##  5 Blackberry 5                   5.99                1.82               5.94
-##  6 Blueberry 1                    6.75                1.55               5.75
-##  7 Blueberry 2                    6.61                1.53               5.85
-##  8 Blueberry 3                    6.4                 1.68               5.61
-##  9 Blueberry 4                    6.45                1.72               5.70
-## 10 Blueberry 5                    6.39                1.74               5.38
-## # ℹ 13 more rows
-## # ℹ 7 more variables: `9pt_overall_sd` <dbl>, `9pt_taste_mean` <dbl>,
-## #   `9pt_taste_sd` <dbl>, `9pt_texture_mean` <dbl>, `9pt_texture_sd` <dbl>,
-## #   `9pt_aroma_mean` <dbl>, `9pt_aroma_sd` <dbl>
-```
-
-The `across()` function is very powerful and also pretty new to the tidyverse. It's probably the least intuitive thing we're covering today other than graphs, in my opinion, but it's also leagues better than the `summarize_at()`, `summarize_if()`, and `summarize_all()` functions that came before.
-
-You can also use `across()` to `filter()` rows based on multiple columns or `mutate()` multiple columns at once, but you don't need to worry about `across()` at all if you know exactly what columns you're working with and don't mind typing them all out!
 
 ## Pivot tables- wider and longer data
 
@@ -292,11 +141,167 @@ While pivoting may seem simple at first, it can also get pretty confusing! That 
 
 ## Combining data
 
-`bind_rows()`
+While we've been using a single dataset read in from one `.csv` file, this will not always be the way your data is stored when you start working with it. There may be several surveys you're combining, or a separate file with survey responses, another with your blinding code key, and still another with data from a collaborator.
+
+The `tidyverse` verb that you use for this combination depends on whether your datasets have matching columns/variables (say, data from two different years or locations of a project) or matching rows/observations (say, sensory and chemical data).
+
+The "matching variables" case can also happen if we want to stack the outputs of multiple independent `summarize()` calls, such as making a stacked demographic table. Since our data doesn't have demographic data removed, let's instead try to make a table that reports our sample size for each `berry` type and each of the three kinds of liking scales.
+
+If we wanted the combinations of these levels (e.g., the sample size of 9-pt scale ratings of strawberries), we could use one `summarize()` or `count()` call, but we need to do a little extra work if we want to `summarize()` the whole dataset more than one different way.
+
+
+```r
+berry_type_counts <-
+  berry_data %>%
+  group_by(berry) %>%
+  summarize(n = n_distinct(`Subject Code`, test_day)) %>%
+  rename(Level = berry)
+
+berry_scale_counts <-
+  berry_data %>%
+  pivot_longer(ends_with("_overall"),
+               names_sep = "_", names_to = c("Scale", NA),
+               values_to = "Used", values_drop_na = TRUE) %>%
+  group_by(Scale) %>%
+  summarize(n = n_distinct(`Subject Code`, test_day)) %>%
+  rename(Level = Scale)
+
+#These are both summarizing the same set of observations into different groups:
+sum(berry_scale_counts$n)
+```
+
+```
+## [1] 1301
+```
+
+```r
+sum(berry_type_counts$n)
+```
+
+```
+## [1] 1301
+```
+
+```r
+#Hence needing two summarize() calls
+
+bind_rows(Berry = berry_type_counts,
+          Scale = berry_scale_counts,
+          .id = "Variable") #This makes a new column called "Variable" which will
+```
+
+```
+## # A tibble: 7 × 3
+##   Variable Level          n
+##   <chr>    <chr>      <int>
+## 1 Berry    blackberry   299
+## 2 Berry    blueberry    313
+## 3 Berry    raspberry    358
+## 4 Berry    strawberry   331
+## 5 Scale    9pt          423
+## 6 Scale    lms          435
+## 7 Scale    us           443
+```
+
+```r
+                            #specify which of the two tables each row came from
+```
+
+For multiple tables that share the same observations, we could want to add follow-up survey data using the same participants or genetic information about the berries. In the latter case, our table of berry genetics would have less rows, but the `tidyverse` actually handles them with the same verbs.
 
 There *is* a `bind_cols()` function, but it's easy to accidentally have the raspberries on the top in one table and the blueberries on the top in another, or to have one table sorted alphabetically and another by blinding code or participant ID, so it's safer to use the `*_join()` functions if you're adding columns instead of rows. `left_join()` is the most common.
 
+We'll make up some demographic data to join to our existing table.
+
+
+```r
+demographics <-
+  berry_data %>%
+  distinct(`Subject Code`) %>%
+  mutate(Age = round(rnorm(n(), 45, 6)),
+         Gender = ifelse(rbinom(n(), 1, 0.6), "F", "M"),
+         Location = sample(state.name, n(), replace = TRUE)) %>%
+  rename(ID = `Subject Code`) #To demonstrate how you can manually configure
+                              #the columns used to align the datasets
+
+#And now we can join it:
+berry_data %>%
+  select(-Age, -Gender) %>% #Getting rid of the empty demographic columns first
+  left_join(demographics, by = c("Subject Code" = "ID"))
+```
+
+```
+## # A tibble: 7,507 × 93
+##    `Subject Code` `Participant Name` `Start Time (UTC)` `End Time (UTC)`
+##             <dbl>              <dbl> <chr>              <chr>           
+##  1           1001               1001 6/13/2019 21:05    6/13/2019 21:09 
+##  2           1001               1001 6/13/2019 20:55    6/13/2019 20:59 
+##  3           1001               1001 6/13/2019 20:49    6/13/2019 20:53 
+##  4           1001               1001 6/13/2019 20:45    6/13/2019 20:48 
+##  5           1001               1001 6/13/2019 21:00    6/13/2019 21:03 
+##  6           1001               1001 6/13/2019 21:10    6/13/2019 21:13 
+##  7           1002               1002 6/13/2019 20:08    6/13/2019 20:11 
+##  8           1002               1002 6/13/2019 19:57    6/13/2019 20:01 
+##  9           1002               1002 6/13/2019 20:13    6/13/2019 20:17 
+## 10           1002               1002 6/13/2019 20:03    6/13/2019 20:07 
+## # ℹ 7,497 more rows
+## # ℹ 89 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
+## #   `Sample Name` <chr>, `9pt_appearance` <dbl>, pre_expectation <dbl>,
+## #   jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
+## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
+## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+```
+
 `anti_join()` can be used to *remove* data. If you have a list of participants whose responses had data quality issues, you can put it in the second argument of `anti_join()` to return the lefthand table with those entries removed.
+
+We do have some repeat participants in the berry tests, because they were allowed to participate for each berry type once. But in online surveys, repeat answers could be a problem necessitating all data removal. Let's demonstrate how we'd do that with `anti_join()`:
+
+
+```r
+problem_participants <-
+  berry_data %>%
+  group_by(`Participant Name`) %>%
+  summarize(sessions = n_distinct(test_day)) %>%
+  filter(sessions > 1)
+
+berry_data %>%
+  anti_join(problem_participants)
+```
+
+```
+## Joining with `by = join_by(`Participant Name`)`
+```
+
+```
+## # A tibble: 3,755 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
+##  1           1001               1001 NA     NA    6/13/2019 21:05   
+##  2           1001               1001 NA     NA    6/13/2019 20:55   
+##  3           1001               1001 NA     NA    6/13/2019 20:49   
+##  4           1001               1001 NA     NA    6/13/2019 20:45   
+##  5           1001               1001 NA     NA    6/13/2019 21:00   
+##  6           1001               1001 NA     NA    6/13/2019 21:10   
+##  7           1002               1002 NA     NA    6/13/2019 20:08   
+##  8           1002               1002 NA     NA    6/13/2019 19:57   
+##  9           1002               1002 NA     NA    6/13/2019 20:13   
+## 10           1002               1002 NA     NA    6/13/2019 20:03   
+## # ℹ 3,745 more rows
+## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
+## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
+## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
+## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+```
+
+```r
+#We don't need to specify by if they share the column name they're joining on
+#and NO OTHERS
+```
+
+`anti_join()` also gives priority to the first/lefthand argument, usually the one you're piping in with `%>%`. It returns the rows in your left tibble that don't have corresponding entries in the righthand one. It also does *not* add the columns that are unique to your right table. There is no `n` column in the output.
 
 ## Utilities for data management
 

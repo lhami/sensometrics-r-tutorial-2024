@@ -1,4 +1,4 @@
-# Wrangling data with `tidyverse`
+# Wrangling data with `tidyverse`: Rows, Columns, and Groups
 
 
 
@@ -1131,4 +1131,155 @@ berry_summary %>%
 ```
 
 Note that in the above example we use `mutate()`, *not* `summarize()`, because we had saved our summarized data.  We could also have calculated `lower_limit` and `upper_limit` directly as part of the `summarize()` statement if we hadn't saved the intermediate.
+
+## Groups of columns and across()
+
+It's more common to have groups of **observations** in tidy data, reflected by categorical variables--each `Subject Code` is a group, each `berry` type is a group, each `testing_day` is a group, etc. But we can also have groups of **variables**, as we do in the `berry_data` we've been using!
+
+We have a group of `cata_` variables, a group of liking data with subtypes `9_pt`, `lms_`, `us_`, `_overall`, `_appearance`, etc...
+
+What if we want to count the total number of times each `cata_` attribute was used for one of the berries?
+
+Well, we *can* do this with `summarize()`, but we'd have to type out the names of all 36 columns manually. This is what `select()` helpers are for, and we *can* use them in functions that operate on rows or groups like `filter()`, `mutate()`, and `summarize()` if we use the new `across()` function.
+
+
+```r
+berry_data %>%
+  group_by(`Sample Name`) %>%
+  summarize(across(.cols = starts_with("cata_"),
+                   .fns = sum))
+```
+
+```
+## # A tibble: 23 × 37
+##    `Sample Name` cata_appearance_unevencolor cata_appearance_misshapen
+##    <chr>                               <dbl>                     <dbl>
+##  1 Blackberry 1                           28                        67
+##  2 Blackberry 2                           32                        72
+##  3 Blackberry 3                           25                        50
+##  4 Blackberry 4                           46                       114
+##  5 Blackberry 5                           32                       144
+##  6 Blueberry 1                            46                        13
+##  7 Blueberry 2                            48                        25
+##  8 Blueberry 3                            34                        37
+##  9 Blueberry 4                            29                        26
+## 10 Blueberry 5                            22                        35
+## # ℹ 13 more rows
+## # ℹ 34 more variables: cata_appearance_creased <dbl>,
+## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>,
+## #   cata_appearance_notfresh <dbl>, cata_appearance_fresh <dbl>,
+## #   cata_appearance_goodshape <dbl>, cata_appearance_goodquality <dbl>,
+## #   cata_appearance_none <dbl>, cata_taste_floral <dbl>,
+## #   cata_taste_berry <dbl>, cata_taste_green <dbl>, cata_taste_grassy <dbl>, …
+```
+
+You might read this as: `summarize()` `across()` every `.col` that `starts_with("cata_")` by taking the `sum()`. 
+
+We can easily expand this to take multiple kinds of summaries for each column, in which case it helps to **name** the functions. `across()` uses **lists** to work with more than one function, so it will look at the **list names** (lefthand-side of the arguments in `list()`) to name the output columns:
+
+
+```r
+berry_data %>%
+  group_by(`Sample Name`) %>%
+  summarize(across(.cols = starts_with("cata_"),
+                   .fns = list(frequency = sum,
+                               #the sum of binary cata data gives the citation frequency
+                               percentage = mean)))
+```
+
+```
+## # A tibble: 23 × 73
+##    `Sample Name` cata_appearance_unevencolor_frequency cata_appearance_unevenc…¹
+##    <chr>                                         <dbl>                     <dbl>
+##  1 Blackberry 1                                     28                    0.0936
+##  2 Blackberry 2                                     32                    0.107 
+##  3 Blackberry 3                                     25                    0.0836
+##  4 Blackberry 4                                     46                    0.154 
+##  5 Blackberry 5                                     32                    0.107 
+##  6 Blueberry 1                                      46                    0.147 
+##  7 Blueberry 2                                      48                    0.153 
+##  8 Blueberry 3                                      34                    0.109 
+##  9 Blueberry 4                                      29                    0.0927
+## 10 Blueberry 5                                      22                    0.0703
+## # ℹ 13 more rows
+## # ℹ abbreviated name: ¹​cata_appearance_unevencolor_percentage
+## # ℹ 70 more variables: cata_appearance_misshapen_frequency <dbl>,
+## #   cata_appearance_misshapen_percentage <dbl>,
+## #   cata_appearance_creased_frequency <dbl>,
+## #   cata_appearance_creased_percentage <dbl>,
+## #   cata_appearance_seedy_frequency <dbl>, …
+```
+
+```r
+                               #meanwhile, the mean gives the percentage.
+```
+
+`across()` is capable of taking arbitrarily complicated functions, but you'll notice that we didn't include the parentheses we usually see after a function name for `sum()` and `mean()`. `across()` will just pipe in each column to the `.fns` as the first argument. That means, however, that there's nowhere for us to put additional arguments like `na.rm`.
+
+We can use **lambda functions** to . This basically just means starting each function off with a tilde (~) and telling `across()` where we want our `.cols` to go manually using `.x`.
+
+Remember, the tilde is usually above the backtick on QWERTY keyboards. Try the instructions [here](https://apple.stackexchange.com/questions/286197/typing-the-tilde-character-on-a-pc-keyboard) and [here](https://www.liquisearch.com/tilde/keyboards) to type a tilde if you have a non-QWERTY keyboard. If those methods don't work, try [this guide for Italian keyboards](https://superuser.com/questions/667622/italian-keyboard-entering-tilde-and-backtick-characters-without-changin), [this guide for Spanish keyboards](https://apple.stackexchange.com/q/219603/5472), [this guide for German](https://apple.stackexchange.com/q/395677/5472), [this guide for Norwegian](https://apple.stackexchange.com/q/141066/5472), or [this guide for Swedish](https://apple.stackexchange.com/q/329085/5472) keyboards.
+
+This will be necessary if we want to take the average of our various liking columns without those pesky `NA`s propogating.
+
+
+```r
+berry_data %>%
+  group_by(`Sample Name`) %>%
+  summarize(across(.cols = starts_with("9pt_"),
+                   .fns = list(mean = mean,
+                               sd = sd))) #All NA
+```
+
+```
+## # A tibble: 23 × 11
+##    `Sample Name` `9pt_appearance_mean` `9pt_appearance_sd` `9pt_overall_mean`
+##    <chr>                         <dbl>               <dbl>              <dbl>
+##  1 Blackberry 1                     NA                  NA                 NA
+##  2 Blackberry 2                     NA                  NA                 NA
+##  3 Blackberry 3                     NA                  NA                 NA
+##  4 Blackberry 4                     NA                  NA                 NA
+##  5 Blackberry 5                     NA                  NA                 NA
+##  6 Blueberry 1                      NA                  NA                 NA
+##  7 Blueberry 2                      NA                  NA                 NA
+##  8 Blueberry 3                      NA                  NA                 NA
+##  9 Blueberry 4                      NA                  NA                 NA
+## 10 Blueberry 5                      NA                  NA                 NA
+## # ℹ 13 more rows
+## # ℹ 7 more variables: `9pt_overall_sd` <dbl>, `9pt_taste_mean` <dbl>,
+## #   `9pt_taste_sd` <dbl>, `9pt_texture_mean` <dbl>, `9pt_texture_sd` <dbl>,
+## #   `9pt_aroma_mean` <dbl>, `9pt_aroma_sd` <dbl>
+```
+
+```r
+berry_data %>%
+  group_by(`Sample Name`) %>%
+  summarize(across(.cols = starts_with("9pt_"),
+                   .fns = list(mean = ~ mean(.x, na.rm = TRUE),
+                               sd = ~ sd(.x, na.rm = TRUE))))
+```
+
+```
+## # A tibble: 23 × 11
+##    `Sample Name` `9pt_appearance_mean` `9pt_appearance_sd` `9pt_overall_mean`
+##    <chr>                         <dbl>               <dbl>              <dbl>
+##  1 Blackberry 1                   6.57                1.64               5.12
+##  2 Blackberry 2                   6.43                1.61               4.66
+##  3 Blackberry 3                   6.96                1.37               5.65
+##  4 Blackberry 4                   5.90                1.97               5.82
+##  5 Blackberry 5                   5.99                1.82               5.94
+##  6 Blueberry 1                    6.75                1.55               5.75
+##  7 Blueberry 2                    6.61                1.53               5.85
+##  8 Blueberry 3                    6.4                 1.68               5.61
+##  9 Blueberry 4                    6.45                1.72               5.70
+## 10 Blueberry 5                    6.39                1.74               5.38
+## # ℹ 13 more rows
+## # ℹ 7 more variables: `9pt_overall_sd` <dbl>, `9pt_taste_mean` <dbl>,
+## #   `9pt_taste_sd` <dbl>, `9pt_texture_mean` <dbl>, `9pt_texture_sd` <dbl>,
+## #   `9pt_aroma_mean` <dbl>, `9pt_aroma_sd` <dbl>
+```
+
+The `across()` function is very powerful and also pretty new to the tidyverse. It's probably the least intuitive thing we're covering today other than graphs, in my opinion, but it's also leagues better than the `summarize_at()`, `summarize_if()`, and `summarize_all()` functions that came before.
+
+You can also use `across()` to `filter()` rows based on multiple columns or `mutate()` multiple columns at once, but you don't need to worry about `across()` at all if you know exactly what columns you're working with and don't mind typing them all out!
 

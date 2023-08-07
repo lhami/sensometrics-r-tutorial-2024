@@ -20,7 +20,7 @@ subsetting-data
 complex-vectorslists-data.frame-and-tibble
 subsetting-and-wrangling-data-tables
 psa-not-knowing-is-normal
-wrangling-data-with-tidyverse
+wrangling-data-with-tidyverse-rows-columns-and-groups
 subsetting-data-1
 select-for-columns
 filter-for-rows
@@ -32,8 +32,8 @@ make-new-columns-mutate
 split-apply-combine-analyses
 groups-of-data-split-apply
 split-apply-combine-in-fewer-steps-with-summarize
-wrangling-data-with-tidyverse-1
 groups-of-columns-and-across
+wrangling-data-with-tidyverse-reshaping-and-combining-tables
 pivot-tables--wider-and-longer-data
 combining-data
 utilities-for-data-management

@@ -1,6 +1,6 @@
 # Untidy Data Analysis
 
-```{r setup, include = FALSE}
+```{r setup, include = FALSE, purl = FALSE}
 library(tidyverse)
 library(ca)
 berry_data <- read_csv("data/clt-berry-data.csv")

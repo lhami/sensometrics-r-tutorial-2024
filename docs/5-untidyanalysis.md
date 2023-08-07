@@ -21,10 +21,6 @@ library(ca)
 ?ca
 ```
 
-```
-## starting httpd help server ... done
-```
-
 The first thing you'll see is that it wants, specifically, a data frame or matrix as `obj`. We'll be ignoring the `formula` option, because a frequency table stored as a matrix is more flexible: you can use it in other functions like those in the `FactoMineR` package.
 
 A **frequency table** or **contingency table** is one way of numerically representing multiple categorical variables measured on the same set of observations. Each row represents one group of observations, each column represents one level of a given categorical variable, and the cells are filled with the number of observations in that group that fall into that level of the categorical variable.
