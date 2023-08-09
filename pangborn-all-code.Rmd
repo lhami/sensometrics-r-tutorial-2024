@@ -5,5 +5,5 @@ library(ggrepel)
 berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
-```{r workshop code, child = c("1-intro-to-R.Rmd", "2-using-R.Rmd", "3-tidyverse.Rmd", "4-tidyreshape.Rmd", "5-untidyanalysis.Rmd", "6-dataviz.Rmd")}
+```{r workshop-code, child = c("1-intro-to-R.Rmd", "2-using-R.Rmd", "3-tidyverse.Rmd", "4-tidyreshape.Rmd", "5-untidyanalysis.Rmd", "6-dataviz.Rmd")}
 ```
