@@ -1,6 +1,6 @@
 # Tutorial for Pangborn 2023: "An introduction to R for sensory and consumer scientists"
 
-This repository contains code and markdown files for the tutorial presented at Pangborn 2023.  If you like, you can download the materials by using the "..." menu at the top right of the repository menu.  You can also see the rendered version of this material by going to the :point_right: [**workshop bookdown page**](https://lhami.github.io/pangborn-r-tutorial-2023/). :point_left:
+This repository contains code and markdown files for the tutorial presented at Pangborn 2023.  If you like, you can download the materials by using the "..." menu at the top right of the repository menu.  You can also see the rendered version of this material by going to the :point_right: [**workshop bookdown page**](https://lhami.github.io/pangborn-r-tutorial-2023/) :point_left:.
 
 # Setup for this tutorial (Do this before you travel!)
 
