@@ -53,8 +53,10 @@ By default, the scatterplot function needs one row per point with one column of 
 
 ```{r a first ggplot}
 berry_data %>%
-  ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + # Here we set up the base plot
-  geom_point()                           # Here we tell our base plot to add points
+  # Here we set up the base plot
+  ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
+   # Here we tell our base plot to add points
+  geom_point()                          
 ```
 
 This doesn't look all that impressive--partly because the data being plotted itself isn't that sensible, and partly because we haven't made many changes. If we want to plot some **summary** data, maybe one point per berry sample, we can use the familiar `tidyverse` functions to reshape our data and pipe it into `ggplot()`.
@@ -62,14 +64,16 @@ This doesn't look all that impressive--partly because the data being plotted its
 ``` {r basic ggplot2 scatterplot}
 berry_data %>%
   select(`Sample Name`, contains(c("9pt_","lms_","us_"))) %>%
-  summarize(across(everything(), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) -> berry_average_likings
+  summarize(across(everything(), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) -> 
+  berry_average_likings
 
 berry_average_likings %>%
   nrow()
 
 berry_average_likings %>%
   ggplot(aes(x = `9pt_overall`, y = `lms_overall`)) +
-  geom_point() #23 points, one per row
+   #23 points, one per row
+  geom_point()
 ```
 
 This plot has fewer overlapping points and less noise, so it's a lot more informative. But it still doesn't look that good, with the underscores in the axis labels, the printer-unfriendly grey background, etc. Let's start looking at the pieces that make up a `ggplot` so we can change them.
@@ -100,12 +104,13 @@ berry_data %>%
   ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
   geom_smooth()
 ```
+
 `geom_smooth()` fits a smoothed line to our data. By default, it will use either Local Polynomial Regression or the Generalized Additive Model, depending on the size of your data (here, you can see that it chose `gam`, the Generalized Additive Model). You can specify models manually, using the `method` argument of `geom_smooth()`:
 
 ```{r linear regression with geom_smooth, fig.cap = 'linear regression with geom_smooth()'}
 berry_data %>%
   ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
-  geom_smooth(method = )
+  geom_smooth(method = "lm")
 ```
 
 We can also combine layers, as the term implies:
@@ -116,9 +121,10 @@ berry_data %>%
   geom_point() +
   geom_smooth()
 ```
+
 Note that we don't need to tell *either* `geom_smooth()` or `geom_point()` what `x` and `y` are--they "inherit" them from the `ggplot()` function to which they are added (`+`), which defines the plot itself.
 
-What other arguments can be set to aesthetics?  Well, we can set other visual properties like **color**, **size**, **transparency** (called "alpha"), and so on.  For example, let's try to look at whether there is a relationship between berry type and overall liking.
+What other arguments can be set to aesthetics?  Well, we can set other visual properties like **color**, **size**, **transparency** (called "alpha"), and so on.  For example, let's try to look at whether there is a relationship between berry condition (proxied here by `cata_appearance_bruised`) and overall liking.
 
 ```{r here are some other parts of the plot we can control with data}
 berry_data %>%
@@ -230,7 +236,8 @@ Scale functions work by telling `ggplot()` *how* to map aesthetic variables to v
 # To effectively plot all of the cata attributes on a bar chart, the data
 # needs to be longer (one geom_bar() per group, not per column!)
 # and we'll remove columns with NAs for now.
-berry_cata_long <- berry_data %>%
+berry_cata_long <- 
+  berry_data %>%
   select(where(~none(.x, is.na))) %>%
   pivot_longer(starts_with("cata_"),
                names_to = c(NA, "Modality", "Attribute"), names_sep = "_",
@@ -270,7 +277,7 @@ p +
 
 ### Finally, `facet_*()`
 
-The last powerful tool I want to show off is the ability of `ggplot2` to make what[ Edward Tufte called "small multiples"](https://socviz.co/groupfacettx.html#facet-to-make-small-multiples): breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.
+The last powerful tool I want to show off is the ability of `ggplot2` to make what [Edward Tufte called "small multiples"](https://socviz.co/groupfacettx.html#facet-to-make-small-multiples): breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.
 
 The bar plot we were just looking at is quite busy, even without displaying all 36 CATA questions. Instead, let's see how we can break out separate plots, for example, different CATA attributes into "small multiple" facet plots to get a look at trends between berries one attribute at a time.
 
