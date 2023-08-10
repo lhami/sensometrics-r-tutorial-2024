@@ -49,8 +49,10 @@ By default, the scatterplot function needs one row per point with one column of 
 
 ```r
 berry_data %>%
-  ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + # Here we set up the base plot
-  geom_point()                           # Here we tell our base plot to add points
+  # Here we set up the base plot
+  ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
+   # Here we tell our base plot to add points
+  geom_point()                          
 ```
 
 ```
@@ -65,7 +67,8 @@ This doesn't look all that impressive--partly because the data being plotted its
 ```r
 berry_data %>%
   select(`Sample Name`, contains(c("9pt_","lms_","us_"))) %>%
-  summarize(across(everything(), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) -> berry_average_likings
+  summarize(across(everything(), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) -> 
+  berry_average_likings
 
 berry_average_likings %>%
   nrow()
@@ -78,7 +81,8 @@ berry_average_likings %>%
 ```r
 berry_average_likings %>%
   ggplot(aes(x = `9pt_overall`, y = `lms_overall`)) +
-  geom_point() #23 points, one per row
+   #23 points, one per row
+  geom_point()
 ```
 
 <img src="6-dataviz_files/figure-html/basic ggplot2 scatterplot-1.png" width="672" />
@@ -139,31 +143,26 @@ berry_data %>%
 ## Warning: Removed 5005 rows containing non-finite values (`stat_smooth()`).
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/changing the geom changes the way the data map-1.png" alt="switching geom_() switches the way the data map" width="672" />
-<p class="caption">(\#fig:changing the geom changes the way the data map)switching geom_() switches the way the data map</p>
-</div>
+<img src="6-dataviz_files/figure-html/changing the geom changes the way the data map-1.png" width="672" />
+
 `geom_smooth()` fits a smoothed line to our data. By default, it will use either Local Polynomial Regression or the Generalized Additive Model, depending on the size of your data (here, you can see that it chose `gam`, the Generalized Additive Model). You can specify models manually, using the `method` argument of `geom_smooth()`:
 
 
 ```r
 berry_data %>%
   ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
-  geom_smooth(method = )
+  geom_smooth(method = "lm")
 ```
 
 ```
-## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+## `geom_smooth()` using formula = 'y ~ x'
 ```
 
 ```
 ## Warning: Removed 5005 rows containing non-finite values (`stat_smooth()`).
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/linear regression with geom_smooth-1.png" alt="linear regression with geom_smooth()" width="672" />
-<p class="caption">(\#fig:linear regression with geom_smooth)linear regression with geom_smooth()</p>
-</div>
+<img src="6-dataviz_files/figure-html/linear regression with geom_smooth-1.png" width="672" />
 
 We can also combine layers, as the term implies:
 
@@ -187,13 +186,11 @@ berry_data %>%
 ## Warning: Removed 5005 rows containing missing values (`geom_point()`).
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/geoms are layers in a plot-1.png" alt="geom_()s are layers in a plot" width="672" />
-<p class="caption">(\#fig:geoms are layers in a plot)geom_()s are layers in a plot</p>
-</div>
+<img src="6-dataviz_files/figure-html/geoms are layers in a plot-1.png" width="672" />
+
 Note that we don't need to tell *either* `geom_smooth()` or `geom_point()` what `x` and `y` are--they "inherit" them from the `ggplot()` function to which they are added (`+`), which defines the plot itself.
 
-What other arguments can be set to aesthetics?  Well, we can set other visual properties like **color**, **size**, **transparency** (called "alpha"), and so on.  For example, let's try to look at whether there is a relationship between berry type and overall liking.
+What other arguments can be set to aesthetics?  Well, we can set other visual properties like **color**, **size**, **transparency** (called "alpha"), and so on.  For example, let's try to look at whether there is a relationship between berry condition (proxied here by `cata_appearance_bruised`) and overall liking.
 
 
 ```r
@@ -273,10 +270,7 @@ berry_data %>%
 ## Warning: Removed 5062 rows containing missing values (`geom_point()`).
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/using geom_jitter for overlapping points-1.png" alt="using geom_jitter() for overlapping points" width="672" />
-<p class="caption">(\#fig:using geom_jitter for overlapping points)using geom_jitter() for overlapping points</p>
-</div>
+<img src="6-dataviz_files/figure-html/using geom_jitter for overlapping points-1.png" width="672" />
 
 You can see there are some overlapping points left, but this gives us a much better idea of the shape, along with the summarizing `geom_smooth()`. Since there are only 9 possible values on the hedonic scale while the continuous Labeled Magnitude Scale allows people to select numbers in-between scale labels, `geom_jitter()` can be thought of as simulating this random human scale usage after the fact.
 
@@ -292,10 +286,7 @@ berry_data %>%
   geom_bar()
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/geom_bar and geom_histogram-1.png" alt="geom_bar() and geom_histogram()" width="672" />
-<p class="caption">(\#fig:geom_bar and geom_histogram-1)geom_bar() and geom_histogram()</p>
-</div>
+<img src="6-dataviz_files/figure-html/geom_bar and geom_histogram-1.png" width="672" />
 
 ```r
 berry_data %>%
@@ -307,10 +298,7 @@ berry_data %>%
 ## Warning: Removed 5062 rows containing non-finite values (`stat_count()`).
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/geom_bar and geom_histogram-2.png" alt="geom_bar() and geom_histogram()" width="672" />
-<p class="caption">(\#fig:geom_bar and geom_histogram-2)geom_bar() and geom_histogram()</p>
-</div>
+<img src="6-dataviz_files/figure-html/geom_bar and geom_histogram-2.png" width="672" />
 
 ```r
 #and geom_histogram() is for continuous data, it counts and bins:
@@ -327,10 +315,7 @@ berry_data %>%
 ## Warning: Removed 5005 rows containing non-finite values (`stat_bin()`).
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/geom_bar and geom_histogram-3.png" alt="geom_bar() and geom_histogram()" width="672" />
-<p class="caption">(\#fig:geom_bar and geom_histogram-3)geom_bar() and geom_histogram()</p>
-</div>
+<img src="6-dataviz_files/figure-html/geom_bar and geom_histogram-3.png" width="672" />
 
 ### Arguments inside and outside of `aes()`
 
@@ -349,10 +334,7 @@ berry_data %>%
   theme_bw()
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/using the aes function-1.png" alt="using the aes() function" width="672" />
-<p class="caption">(\#fig:using the aes function)using the aes() function</p>
-</div>
+<img src="6-dataviz_files/figure-html/using the aes function-1.png" width="672" />
 
 Color would be a better way to represent this relationship, however, as semitransparent points can overlap and appear indistinguishable from a single, darker point.
 
@@ -369,10 +351,7 @@ berry_data %>%
   theme_void()
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/using the theme functions-1.png" alt="using the theme_*() functions" width="672" />
-<p class="caption">(\#fig:using the theme functions)using the theme_*() functions</p>
-</div>
+<img src="6-dataviz_files/figure-html/using the theme functions-1.png" width="672" />
 
 You can also edit every last element of the plot's theme using the base `theme()` function, which is powerful but a little bit tricky to use.
 
@@ -389,7 +368,8 @@ Scale functions work by telling `ggplot()` *how* to map aesthetic variables to v
 # To effectively plot all of the cata attributes on a bar chart, the data
 # needs to be longer (one geom_bar() per group, not per column!)
 # and we'll remove columns with NAs for now.
-berry_cata_long <- berry_data %>%
+berry_cata_long <- 
+  berry_data %>%
   select(where(~none(.x, is.na))) %>%
   pivot_longer(starts_with("cata_"),
                names_to = c(NA, "Modality", "Attribute"), names_sep = "_",
@@ -429,8 +409,9 @@ random_colors <- print(colors()[sample(x = 1:length(colors()), size = 10)])
 ```
 
 ```
-##  [1] "coral4"     "rosybrown1" "grey86"     "orangered1" "blueviolet"
-##  [6] "khaki1"     "grey2"      "gray57"     "seagreen2"  "brown2"
+##  [1] "yellow1"        "purple1"        "red2"           "lightcyan4"    
+##  [5] "rosybrown4"     "violet"         "wheat"          "palevioletred1"
+##  [9] "gray25"         "grey73"
 ```
 
 ```r
@@ -444,7 +425,7 @@ p +
 
 ### Finally, `facet_*()`
 
-The last powerful tool I want to show off is the ability of `ggplot2` to make what[ Edward Tufte called "small multiples"](https://socviz.co/groupfacettx.html#facet-to-make-small-multiples): breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.
+The last powerful tool I want to show off is the ability of `ggplot2` to make what [Edward Tufte called "small multiples"](https://socviz.co/groupfacettx.html#facet-to-make-small-multiples): breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.
 
 The bar plot we were just looking at is quite busy, even without displaying all 36 CATA questions. Instead, let's see how we can break out separate plots, for example, different CATA attributes into "small multiple" facet plots to get a look at trends between berries one attribute at a time.
 
@@ -459,10 +440,7 @@ berry_cata_long %>%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/splitting the plot into 12 small multiples-1.png" alt="now we split the plot into 12 &quot;small multiples&quot; with facet_wrap()" width="672" />
-<p class="caption">(\#fig:splitting the plot into 12 small multiples)now we split the plot into 12 "small multiples" with facet_wrap()</p>
-</div>
+<img src="6-dataviz_files/figure-html/splitting the plot into 12 small multiples-1.png" width="672" />
 
 We can still compare the facets in this case, because they all share X and Y axes. The "none" attribute was checked much less often than the other attributes, for example. We can also see that uneven color was a more common problem among the raspberries and strawberries than the blueberries and blackberries, and that strawberries and blackberries more commonly had fermented flavor.
 
@@ -485,10 +463,7 @@ berry_cata_long %>%
 ## using the `.groups` argument.
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/more control over bar plots with geom_col-1.png" alt="more control over bar plots with geom_col()" width="672" />
-<p class="caption">(\#fig:more control over bar plots with geom_col)more control over bar plots with geom_col()</p>
-</div>
+<img src="6-dataviz_files/figure-html/more control over bar plots with geom_col-1.png" width="672" />
 
 Both plots show that blueberries and raspberries are more commonly described by "berry flavor", but looking at the proportions instead of the raw counts reveals that there aren't strong differences in floral flavor across the berry types.
 
@@ -579,10 +554,7 @@ berry_ca_coords %>%
   ylab("Dimension 2")
 ```
 
-<div class="figure">
-<img src="6-dataviz_files/figure-html/a basic ca map with geom_repel-1.png" alt="a basic ca map with geom_repel()" width="672" />
-<p class="caption">(\#fig:a basic ca map with geom_repel)a basic ca map with geom_repel()</p>
-</div>
+<img src="6-dataviz_files/figure-html/a basic ca map with geom_repel-1.png" width="672" />
 
 With a little bit of extra work, we can also add the % inertia to each dimension label, tweak the colors with `color_scale_manual`, and make the text a bit bigger.
 

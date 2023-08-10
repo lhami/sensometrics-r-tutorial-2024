@@ -320,51 +320,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 10.04988</code></pre>
 <p>In fact, we can ask R to do lots of neat stuff, like generate random numbers for us. For example, here are 100 random numbers from a normal distribution with mean of 0 and standard deviation of 1.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="how-to-work-with-r.html#cb26-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>##   [1] -0.830052951  0.086223105 -0.034499405 -0.415040066 -1.715379023
-##   [6]  0.473291474  0.336464783 -1.017468599  1.293096005  0.095291766
-##  [11]  0.631812098  1.171651316  1.369545962  0.961971073  0.894518421
-##  [16] -0.277674505 -0.872533323 -1.159654910  1.160980226 -0.977647337
-##  [21] -1.171743169  0.029460092  0.259456392 -1.456275660 -0.833332447
-##  [26]  0.451872756 -0.152309909 -1.079407784  0.497071411 -0.494979972
-##  [31] -0.785862566  1.171509394 -1.092774782 -2.480016153  0.003059999
-##  [36] -2.065579204 -0.250105253 -0.352908054  1.250393710 -1.756679640
-##  [41]  0.229803813 -0.331243386 -0.155646655  1.149024322 -1.222330779
-##  [46]  0.604815538 -0.127199442 -0.487822899 -0.585638726 -0.708587513
-##  [51] -2.330916933 -0.623067346 -0.736108885  0.257169457 -0.424303428
-##  [56] -0.162741837  0.037779873  0.079731072 -1.191384543 -1.039654221
-##  [61] -0.777378540 -0.251792578 -1.090811952  0.185447633 -0.420982761
-##  [66]  0.800741129 -0.129387538  0.975463318 -0.817857063  0.180798290
-##  [71]  0.245289416  0.411219888 -0.644105211 -0.800622221  2.146842369
-##  [76] -0.302017853 -1.627468468  1.075629473  0.870209985  0.365568857
-##  [81] -0.004893544  1.111648250 -1.238354820  0.538061354 -0.960978882
-##  [86]  0.881502281 -0.935564764 -1.358967221  0.518552126  1.266144263
-##  [91]  0.358526845 -0.778199212  0.145946789 -1.534546418 -0.864668590
-##  [96]  1.219342791  0.816616983 -0.117871595 -0.238210497 -2.081271960</code></pre>
+<pre><code>##   [1] -1.10982524  0.62598666 -0.70598255 -0.84666636 -0.24249135  0.80139437
+##   [7] -0.42847301 -1.23731422 -2.07635304 -0.65134229  0.72567794  0.57762117
+##  [13] -0.23440485 -1.66647681  0.33006612  0.76286508  0.54726533 -0.55251936
+##  [19]  2.06131440  1.87146999  0.49737392  0.78924996 -0.87004685 -0.20523821
+##  [25]  0.40379948  0.32390310 -0.85334002 -0.64029384  0.72281404 -0.02175818
+##  [31] -0.31905096  1.44028820 -0.03411407  1.13599317 -1.01741673 -0.94109109
+##  [37] -0.46318357 -0.03623454  0.07567709 -1.95938801 -0.74530902 -0.18924204
+##  [43] -0.13732560 -0.25474166 -0.84872782 -1.55260104 -0.94653166  0.55876817
+##  [49] -0.75894489  1.56773229 -0.63273357  0.39612423  1.19419073  0.71918319
+##  [55]  0.61344689  0.52544360  0.39879112  1.06103544  0.41211652 -0.34162393
+##  [61] -0.74918883  0.39009750  0.31527586 -0.31041923 -0.46266004 -0.04624143
+##  [67] -0.21901302  1.01290471 -0.51134168 -0.02246180 -1.10114719  0.87726030
+##  [73]  0.34868628  0.71525765 -0.78132436 -1.19891008  0.60054896  0.39985926
+##  [79] -2.02337165  1.56864896 -2.42479296 -0.58367289 -0.14415650 -0.10425894
+##  [85] -0.07579150 -0.93005187  1.88459396 -1.15644184 -0.32446123  1.00655701
+##  [91] -1.54309012  0.43763595  0.41617608  1.87412722  0.13094228 -0.38811889
+##  [97] -0.69248596  1.07745488  1.78882952 -1.36793665</code></pre>
 <p>These forms are called a <strong>function</strong> in R. Functions lie at the heart of <code>R</code>’s power: they are pre-written scripts that are included with base <code>R</code> or added in packages, like the ones we installed. In general, an <code>R</code> function will have a form like <code>&lt;name&gt;(&lt;argument&gt;, &lt;argument&gt;, ...)</code>. In other words, the function will have a name (that lets <code>R</code> know what you’re trying to do) followed by an open parenthesis, and inside that a list of arguments, which are variables, objects, values, etc that you “pass” to the function, finally followed by a close parenthesis. In the case of our <code>sqrt()</code> function, there is only a single argument: a variable to which the square-root operation will be applied. In the case of the <code>rnorm()</code> function there are 3 arguments: the number of values we want, <code>n</code>, and the <code>mean</code> and standard deviation <code>sd</code> of the normal distribution we wish to sample from.</p>
 <p>Functions are the <code>R</code> tools for which you can make the most use of the help operator: <code>?</code>. Try typing <code>?rnorm</code> into your console, and when you hit <code>return</code> you’ll see the help page for the function.</p>
 <p>Notice that in the <code>rnorm()</code> example we <em>named</em> the arguments–we told <code>R</code> which was the <code>n</code>, <code>mean</code>, and <code>sd</code>. This is because if we name arguments, we can give them in any order. Otherwise, <code>R</code> will try to match the provided values to the arguments <strong>in the order in which they are given in the help file</strong>. This is a major source of errors for newer <code>R</code> users!</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="how-to-work-with-r.html#cb28-1" tabindex="-1"></a><span class="co"># This will give us 1 value from the normal distribution with mean = 0 and sd = 100</span></span>
 <span id="cb28-2"><a href="how-to-work-with-r.html#cb28-2" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div>
-<pre><code>## [1] -11.53157</code></pre>
+<pre><code>## [1] -37.93169</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="how-to-work-with-r.html#cb30-1" tabindex="-1"></a><span class="co"># But we can also use named arguments to provide them in any order we wish!</span></span>
 <span id="cb30-2"><a href="how-to-work-with-r.html#cb30-2" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">sd =</span> <span class="dv">1</span>, <span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>)</span></code></pre></div>
-<pre><code>##   [1] -0.50621492  0.43587457  0.32264504  0.57482118  0.75568152  1.21732384
-##   [7] -0.82642693 -0.28078144  0.51590140 -2.23904393  1.76485494  0.91657241
-##  [13] -0.86020931  0.85334058 -0.13625165  1.42231724  0.34349677 -0.39881757
-##  [19]  0.74212165  0.78099337 -0.17469089  0.20513488 -2.39042785 -0.15065930
-##  [25]  0.85851952 -0.68866432  1.68395990 -0.22446500  1.22658915 -1.19875185
-##  [31]  0.56970951  1.14517573  0.20724458  1.31519317 -1.68588806  0.32373125
-##  [37]  0.49416155 -0.35977906 -0.25019738 -0.14003931  0.45020984  1.79396542
-##  [43]  0.52330193  0.47769810 -1.51158617 -0.56777309 -0.29117316 -0.31933817
-##  [49]  0.73884863  0.44080144 -0.02715472 -0.16041618 -1.61427380 -0.13431922
-##  [55] -2.34428595 -0.62929825 -1.18798141  1.52264022 -0.69915210  0.35382983
-##  [61]  1.22094919 -0.66585828  0.57585435 -0.23124017 -0.49176360  1.70097683
-##  [67]  0.82940623  0.90740813 -0.14454962  0.11869829 -0.14626819 -0.37291238
-##  [73] -0.78863953  0.68432429  1.01513654  1.05296223 -1.06795068  1.87700698
-##  [79] -1.15854744  0.40297162 -0.32456855  0.20265094  0.89689898 -1.59113053
-##  [85] -0.27997420  0.38413823  0.18249598 -0.04944237  1.78077852  0.05543211
-##  [91]  0.67897270 -0.83360173 -0.02219944  0.65702736  0.05791425 -0.72678150
-##  [97] -1.10864869  0.73662691 -1.55285937 -1.19090080</code></pre>
+<pre><code>##   [1] -0.20966457  0.13156866 -0.77957640  0.69922814 -0.03310655  0.24852562
+##   [7] -0.74115247 -1.91299996  0.62558528 -0.34142557 -0.62553254  1.59990401
+##  [13] -0.55465633  0.76774201 -0.34425188  0.45000215 -1.30040963  0.78310778
+##  [19]  0.09208788 -0.51662932  0.60477372 -0.84545735  1.12018036  0.23235887
+##  [25] -0.86110410 -0.24878670 -1.55235571 -1.32822876  3.54690917 -0.59260726
+##  [31]  1.03925932 -0.26639986 -1.22625469  0.24967989  0.46053654 -0.35999928
+##  [37]  0.45952400  1.56774749 -1.30996297 -0.92772536  0.11229218  0.53032946
+##  [43]  0.99557167 -0.27825596  0.10948463 -0.19925722  1.09383740  0.27596569
+##  [49]  0.37037990  1.43553177 -0.99296987  0.19805828 -2.00120393 -0.95264786
+##  [55] -0.31720797  0.60767276 -0.46556537  0.03332519 -0.88057924  0.34241222
+##  [61] -0.69693215  0.35048452 -1.84769773  0.14423399  0.03124764 -0.57713899
+##  [67] -1.84426283 -0.60210427  0.41452469 -1.20323384  0.81478973  0.08377777
+##  [73]  0.52867797  0.25902345  0.27291143 -0.02257192 -0.34266347 -0.75405618
+##  [79]  2.57010024  0.52968244 -2.77606235 -0.89332550 -1.72788115 -0.13215960
+##  [85]  0.81324873  1.10774590  1.05180389  0.08303284 -1.53025239  1.31447923
+##  [91]  0.43327629 -0.18177443 -0.18899098  1.50772826 -0.09230455  0.79318401
+##  [97] -1.75762802  0.40503184  0.45448185 -0.54877085</code></pre>
 <p>Programming languages like <code>R</code> are very literal, and we need to be as literal as we can to make them work the way we want them to.</p>
 </div>
 <div id="reading-data-into-r" class="section level2 hasAnchor" number="2.3">
@@ -373,12 +370,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>First off, make sure you have the <code>tidyverse</code> package loaded by using the <code>library()</code> function.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="how-to-work-with-r.html#cb32-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>Now, we’re going to read in the data we’re going to use for this workshop using the function <code>read_csv()</code>. If you want to learn about this function, use the <code>?read_csv</code> command to get some details.</p>
-<p>In the workshop archive you downloaded, the <code>data/</code> directory has a file called <code>clt-berry-data.csv</code>. If you double-click this in your file browser, it will (most likely) open in Excel, and you can take a look at it. The data describe the attributes and liking scores reported by consumers for a variety of berries across multiple CLTs. A total of 969 unique participants (<code>Subject Code</code>) and 23 berries (<code>Sample Name</code>) were involved in these tests, with only one species of berry (blackberry, blueberry, raspberry, or strawberry) presented during each CLT.</p>
+<p>In the workshop archive you downloaded, the <code>data/</code> directory has a file called <code>clt-berry-data.csv</code>. If you double-click this in your file browser, it will (most likely) open in Excel, and you can take a look at it. The data describe the attributes and liking scores reported by consumers for a variety of berries across multiple CLTs. A total of 969 participants (<code>Subject Code</code>) and 23 berries (<code>Sample Name</code>) were involved in these tests, with only one species of berry (blackberry, blueberry, raspberry, or strawberry) presented during each CLT. In the actual experimental design, subjects got multiple sample sets (so there are <em>not</em> 969 unique subjects), but here we will treat them as unique for ease of description.</p>
 <p>As for the survey, panelists were asked JAR, CATA, and free response questions, as well as liking on the Unlabeled Line Scale (<code>us_*</code>), 9-point scale (<code>9pt_*</code>), or labeled magnitude scale (<code>lms_*</code>).</p>
 <p>To get this data into <code>R</code>, we have to tell <code>R</code> where it lives on your computer, and what kind of data it is.</p>
 <div id="where-the-data-lives" class="section level3 hasAnchor" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Where the data lives<a href="how-to-work-with-r.html#where-the-data-lives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We touched on <strong>working directories</strong> because this is how <code>R</code> “sees” your computer. It will look first in the working directory, and then you will have to tell it where the file is <em>relative</em> to that directory. If you have been following along and opened up the <code>.Rproj</code> file in the downloaded archive, your working directory should be the archive’s top level, which will mean that we only need to point <code>R</code> towards the <code>data/</code> folder and then the <code>ba_2002.csv</code> file. We can check the working directory with the <code>getwd()</code> function.</p>
+<p>We touched on <strong>working directories</strong> because this is how <code>R</code> “sees” your computer. It will look first in the working directory, and then you will have to tell it where the file is <em>relative</em> to that directory. If you have been following along and opened up the <code>.Rproj</code> file in the downloaded archive, your working directory should be the archive’s top level, which will mean that we only need to point <code>R</code> towards the <code>data/</code> folder and then the <code>clt-berry-data.csv</code> file. We can check the working directory with the <code>getwd()</code> function.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="how-to-work-with-r.html#cb33-1" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;C:/Users/lhamilton/Documents/pangborn-r-tutorial-2023&quot;</code></pre>
 <p>Therefore, <strong>relative to the working directory</strong>, the file path to this data is <code>data/clt-berry-data.csv</code>. Please note that this is the UNIX convention for file paths: in Windows, the backslash <code>\</code> is used to separate directories. Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention in this workshop.</p>
@@ -434,7 +431,7 @@ cat_acquisition_order,name,weight\n
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<p>As a note, in many countries the separator (delimiter) will be the semi-colon (<code>;</code>), since the comma is used as the decimal marker. To read files formatted this way, you can use the <code>read_csv2()</code> function. If you encounter tab-separated values files (<code>.tsv</code>) you can use the <code>read_tsv()</code> function. If you have more non-standard delimiters, you can use the <code>read_delim()</code> function, which will allow you to specify your own delimiter characters. You can also read many other formats of tabular data using the <code>rio</code> package (“read input/output”), which can be installed from CRAN.</p>
+<p>As a note, in many countries the separator (delimiter) will be the semi-colon (<code>;</code>), since the comma is used as the decimal marker. To read files formatted this way, you can use the <code>read_csv2()</code> function. If you encounter tab-separated values files (<code>.tsv</code>) you can use the <code>read_tsv()</code> function. If you have more non-standard delimiters, you can use the <code>read_delim()</code> function, which will allow you to specify your own delimiter characters. You can also read many other formats of tabular data using the <code>rio</code> package (“read input/output”), which can be installed from CRAN (using, as you have learned, <code>install.packages("rio")</code>).</p>
 </div>
 </div>
 <div id="data-in-r" class="section level2 hasAnchor" number="2.4">

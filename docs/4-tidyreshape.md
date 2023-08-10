@@ -25,7 +25,8 @@ berry_data %>%
   pivot_longer(cols = starts_with("cata_"),
                names_prefix = "cata_",
                names_to = "attribute",
-               values_to = "presence") -> berry_data_cata_long
+               values_to = "presence") -> 
+  berry_data_cata_long
 #The names_prefix will be *removed* from the start of every column name
 #before putting the rest of the name in the `names_to` column
 
@@ -255,7 +256,7 @@ berry_data %>%
 
 `anti_join()` can be used to *remove* data. If you have a list of participants whose responses had data quality issues, you can put it in the second argument of `anti_join()` to return the lefthand table with those entries removed.
 
-We do have some repeat participants in the berry tests, because they were allowed to participate for each berry type once. But in online surveys, repeat answers could be a problem necessitating all data removal. Let's demonstrate how we'd do that with `anti_join()`:
+We do have some repeat participants in the berry tests, because the actual study involved repeated measures. But in online surveys, repeat answers could be a problem necessitating all data removal. Let's demonstrate how we'd do that with `anti_join()`:
 
 
 ```r
@@ -265,6 +266,8 @@ problem_participants <-
   summarize(sessions = n_distinct(test_day)) %>%
   filter(sessions > 1)
 
+#We don't need to specify by if they share the column name they're joining on
+#and NO OTHERS
 berry_data %>%
   anti_join(problem_participants)
 ```
@@ -294,11 +297,6 @@ berry_data %>%
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
 ## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
-```
-
-```r
-#We don't need to specify by if they share the column name they're joining on
-#and NO OTHERS
 ```
 
 `anti_join()` also gives priority to the first/lefthand argument, usually the one you're piping in with `%>%`. It returns the rows in your left tibble that don't have corresponding entries in the righthand one. It also does *not* add the columns that are unique to your right table. There is no `n` column in the output.
@@ -464,7 +462,10 @@ You can also use `relocate()` to specify positions
 
 ```r
 berry_data %>%
-  relocate(Gender, Age, `Subject Code`, `Start Time (UTC)`, `End Time (UTC)`, `Sample Identifier`, .after = berry) # move repetitive and empty columns to the end
+  relocate(Gender, Age, `Subject Code`, `Start Time (UTC)`, 
+           `End Time (UTC)`, `Sample Identifier`, 
+           # move repetitive and empty columns to the end
+           .after = berry) 
 ```
 
 ```
@@ -581,12 +582,45 @@ berry_data %>%
 ## # ℹ 2 more variables: `9pt_texture` <dbl>, `9pt_aroma` <dbl>
 ```
 
-Or you may want to remove any columns/variables that have some missing data, which is one of the most common uses of `where()`:
+You can also use `drop_na()` with specific columns, which is useful to avoid losing all of your data!
 
 
 ```r
 berry_data %>%
-  select(where(~none(.x, is.na))) #Only 38 columns with absolutely no missing values.
+  drop_na(`9pt_overall`)
+```
+
+```
+## # A tibble: 2,445 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
+##  1           1001               1001 NA     NA    6/13/2019 21:05   
+##  2           1001               1001 NA     NA    6/13/2019 20:55   
+##  3           1001               1001 NA     NA    6/13/2019 20:49   
+##  4           1001               1001 NA     NA    6/13/2019 20:45   
+##  5           1001               1001 NA     NA    6/13/2019 21:00   
+##  6           1001               1001 NA     NA    6/13/2019 21:10   
+##  7           1002               1002 NA     NA    6/13/2019 20:08   
+##  8           1002               1002 NA     NA    6/13/2019 19:57   
+##  9           1002               1002 NA     NA    6/13/2019 20:13   
+## 10           1002               1002 NA     NA    6/13/2019 20:03   
+## # ℹ 2,435 more rows
+## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
+## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
+## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
+## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+```
+
+Or you may want to remove any columns/variables that have some missing data, which is one of the most common uses of `where()`:
+
+
+```r
+#Only 38 columns with absolutely no missing values.
+#This loses all of the liking data.
+berry_data %>%
+  select(where(~none(.x, is.na))) 
 ```
 
 ```
@@ -612,14 +646,11 @@ berry_data %>%
 ## #   cata_appearance_none <dbl>, grid_sweetness <dbl>, grid_tartness <dbl>, …
 ```
 
-```r
-#This loses all of the liking data.
-```
-
 Both of the above methods guarantee that you will have an output with absolutely no missing data, but may be over-zealous if, say, everyone answered overall liking on one of the three scales and we want to do some work to combine those later. `filter()` and `select()` can be combined to do infinitely complex missing value removal.
 
 
 ```r
+#You'll notice that only strawberries have any non-NA liking values, actually
 berry_data %>%
   select(where(~!every(.x, is.na))) %>% #remove columns with no data
   filter(!(is.na(`9pt_aroma`) & is.na(lms_aroma) & is.na(us_aroma)))
@@ -646,10 +677,6 @@ berry_data %>%
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
 ## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
-```
-
-```r
-#You'll notice that only strawberries have any non-NA liking values, actually
 ```
 
 ### Counting categorical variables
@@ -686,8 +713,9 @@ We can also do this with a little less typing using `count()`, which is handy if
 
 
 ```r
+#Counts the number of observations (rows) of each berry
 berry_data %>%
-  count(`Sample Name`) #Counts the number of observations (rows) of each berry
+  count(`Sample Name`) 
 ```
 
 ```
@@ -708,8 +736,9 @@ berry_data %>%
 ```
 
 ```r
+#Number of observations, *not necessarily* the number of participants!
 berry_data %>%
-  count(berry) #Number of observations, *not necessarily* the number of participants!
+  count(berry) 
 ```
 
 ```
@@ -728,6 +757,8 @@ We could use `pivot_wider()` to reshape our data first, so we have one row per *
 
 
 ```r
+#Two columns, with one row for each completed tasting session
+#(each reflects 5-6 rows in the initial data)
 berry_data %>%
   distinct(test_day, `Subject Code`)
 ```
@@ -750,9 +781,7 @@ berry_data %>%
 ```
 
 ```r
-#Two columns, with one row for each completed tasting session
-#(each reflects 5-6 rows in the initial data)
-
+#Counts the number of participants per testing day
 berry_data %>%
   distinct(test_day, `Subject Code`) %>%
   count(test_day)
@@ -776,10 +805,6 @@ berry_data %>%
 ## 12 Strawberry Day 3   117
 ```
 
-```r
-#Counts the number of participants per testing day
-```
-
 ### Sort your data
 
 More frequently, we will want to rearrange our rows, which can be done with `arrange()`.  All you have to do is give `arrange()` one or more columns to sort the data by.  You can use either the `desc()` or the `-` shortcut to sort in reverse order. Whether ascending or descending, `arrange()` places missing values at the bottom.
@@ -787,7 +812,8 @@ More frequently, we will want to rearrange our rows, which can be done with `arr
 
 ```r
 berry_data %>%
-  arrange(desc(lms_overall)) %>% # which berries had the highest liking on the lms?
+  arrange(desc(lms_overall)) %>% 
+  # which berries had the highest liking on the lms?
   select(`Sample Name`, `Participant Name`, lms_overall)
 ```
 
@@ -812,8 +838,10 @@ You can sort alphabetically as well:
 
 
 ```r
-tibble(state_name = state.name, area = state.area) %>% # using a dataset of US States for demonstration
-  arrange(desc(state_name))                            # sort states reverse-alphabetically
+# using a dataset of US States for demonstration
+tibble(state_name = state.name, area = state.area) %>% 
+  # sort states reverse-alphabetically
+  arrange(desc(state_name))                            
 ```
 
 ```

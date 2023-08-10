@@ -517,7 +517,7 @@ dimnames(berry_contingency_df)
 ## [11] "cata_taste_fruity"           "cata_taste_earthy"          
 ## [13] "cata_taste_none"
 ```
-Note that you have to dobule-quote ("") column names for `column_to_rownames()`. No idea why. I just do what `?column_to_rownames` tells me.
+Note that you have to double-quote ("") column names for `column_to_rownames()`. No idea why. I just do what `?column_to_rownames` tells me.
 
 `berry_contingency_df` is all set for the `ca()` function now, but if you run into any functions (like many of those in `FactoMineR` and other packages) that need matrices, you can always use `as.matrix()` on the results of `column_to_rownames()`.
 
@@ -531,8 +531,10 @@ berry_data %>%
                values_to = "presence") %>%
   filter(presence == 1) %>%
   count(attribute) %>%
-  arrange(desc(n)) %>% #Arranges the highest-cited CATA terms first
-  pull(attribute)      #Pulls the attribute names as a vector, in the order above
+  #Arranges the highest-cited CATA terms first
+  arrange(desc(n)) %>% 
+  #Pulls the attribute names as a vector, in the order above
+  pull(attribute)      
 ```
 
 ```
@@ -589,7 +591,8 @@ berry_data %>%
   summarize(across(contains("cata_"), ~ sum(.x, na.rm = TRUE)),
             across(contains(c("9pt_","lms_","us_")), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) %>%
   column_to_rownames("Sample Name") %>%
-  ca(supcol = 37:51) #You have to know the NUMERIC indices to do it this way.
+  #You have to know the NUMERIC indices to do it this way.
+  ca(supcol = 37:51) 
 ```
 
 ```
@@ -935,7 +938,9 @@ berry_ca_res$sv %>%   #which are useful in calculating the % inertia of each dim
 ```r
 #The column and row masses (in case you want to add your own supplementary variables
 #after the fact):
-berry_ca_res$rowmass  #the row masses
+
+#the row masses
+berry_ca_res$rowmass  
 ```
 
 ```
@@ -946,7 +951,8 @@ berry_ca_res$rowmass  #the row masses
 ```
 
 ```r
-berry_ca_res$colmass  #the column masses
+#the column masses
+berry_ca_res$colmass  
 ```
 
 ```
@@ -955,21 +961,19 @@ berry_ca_res$colmass  #the column masses
 ## [13] 0.016399163
 ```
 
-```r
-                      #(in case you want to add your own supplementary variables
-                      #after the analysis)
-```
-
 The *main* results of CA are the row and column coordinates, which are in two matrices with the same columns. We can tidy them with the reverse of `column_to_rownames()`, `rownames_to_column()`, and then we can use `bind_rows()` to combine them.
 
 
 ```r
 berry_row_coords <- berry_ca_res$rowcoord %>%
-  as.data.frame() %>% #rownames_to_column() works on data.frames, not matrices
-  rownames_to_column("Variable") #This has to be the same for both to use bind_rows()!
+  #rownames_to_column() works on data.frames, not matrices
+  as.data.frame() %>% 
+  #This has to be the same for both to use bind_rows()!
+  rownames_to_column("Variable") 
 
+#Equivalent to the above, and works on matrices
 berry_col_coords <- berry_ca_res$colcoord %>%
-  as_tibble(rownames = "Variable") #Equivalent to the above, and works on matrices.
+  as_tibble(rownames = "Variable")
 
 berry_ca_coords <- bind_rows(Berry = berry_row_coords,
                              Attribute = berry_col_coords,

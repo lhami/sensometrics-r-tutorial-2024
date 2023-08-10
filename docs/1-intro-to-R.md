@@ -100,7 +100,7 @@ setwd("Enter/Your/Desired/Directory/Here")
 
 Notice that I am not running the second command, because it would cause an error!
 
-When we use `R` to navigate directories, I recommend **always** using the forward slash: `/`, even thouhg on Windows systems the typical slash is the backslash: `\`.  `R` will properly interpret the `/` for you in the context of your operating system, and this is more consistent with most modern code environments.
+When we use `R` to navigate directories, I recommend **always** using the forward slash: `/`, even though on Windows systems the typical slash is the backslash: `\`.  `R` will properly interpret the `/` for you in the context of your operating system, and this is more consistent with most modern code environments.
 
 ## Extending `R` with packages
 
@@ -188,7 +188,7 @@ sessionInfo()
 ## [45] htmltools_0.5.5
 ```
 
-Finally, you can also load (and unload) packages using the `Packages` tab, by clciking the checkbox next to the name of the package you want to load (or unload).
+Finally, you can also load (and unload) packages using the `Packages` tab, by clicking the checkbox next to the name of the package you want to load (or unload).
 
 ## Getting help
 
@@ -209,7 +209,7 @@ You will notice that there are two types of results in the help list for install
 
 Vignettes are formatted, conversational walkthroughs that are increasingly common (and helpful!) for R packages.  Rather than explaining a single function they usually explain some aspect of a package, and how to use it.  And, even better for our purposes, they are written in R Markdown.  Click the "source" link next to the vignette name in order to see how the author wrote it in R Markdown.  This is a great way to learn new tricks.
 
-While you can find vignettes as we just did, a better way is to use the function `browseVignettes()`.  This opens a web browser window that lists **all** vignettes installed on your computer.  You can then use cmd/ctrl + F to search using terms in the web browser and quickly find package names, function names, or topics you are looking for.
+While you can find vignettes as we just did, a better way is to use the function `browseVignettes()`.  This opens a web browser window that lists **all** vignettes installed on your computer.  You can then use `cmd`/`ctrl + F` to search using terms in the web browser and quickly find package names, function names, or topics you are looking for.
 
 ## Livecoding along
 

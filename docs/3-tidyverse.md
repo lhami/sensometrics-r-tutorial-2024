@@ -244,18 +244,19 @@ Getting rid of the double quotes we previously saw around `"column names"` can h
 
 
 ```r
+ # this will cause an error
 select(berry_data, berry, test_day,
-       9pt_aroma, 9pt_overall, 9pt_taste, 9pt_texture, 9pt_appearance) # this will cause an error
+       9pt_aroma, 9pt_overall, 9pt_taste, 9pt_texture, 9pt_appearance)
 ```
 
 You'll run into an error. The solution to this is a different kind of quote called a backtick (`) which is usually next to the number 1 key in the very top left of QWERTY (US and UK) keyboards. On QWERTZ and AZERTY keyboards, it may be next to the backspace key or one of the alternate characters made by the 7 key. Look [at this guide](https://superuser.com/questions/254076/how-do-i-type-the-tick-and-backtick-characters-on-windows) for help finding it in common international keyboard layouts.
 
 
 ```r
-select(berry_data, berry, test_day, #these ruly column names don't need escaping
-       `9pt_aroma`, #only ones starting with numbers...
+select(berry_data, berry, test_day, # these "syntactic" column names don't need escaping
+       `9pt_aroma`, # only ones starting with numbers...
        `9pt_overall`, `9pt_taste`, `9pt_texture`, `9pt_appearance`,
-       `Sample Name`) #or containing spaces
+       `Sample Name`) # or containing spaces
 ```
 
 ```
@@ -416,11 +417,72 @@ select(berry_data, berry, contains("_overall"),
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>, …
 ```
 
+`everything()` can be very useful for programming, but if you just need to rearrange an even easier function is `relocate()`, which moves whatever columns you specify to the "left" or "right" of the `data.frame`; you can even get more specific and move to the left or right of specific columns:
+
+
+```r
+# By default relocate() moves the selected column(s) to the left of the data.frame
+relocate(berry_data, us_overall)
+```
+
+```
+## # A tibble: 7,507 × 92
+##    us_overall `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##         <dbl>          <dbl>              <dbl> <lgl>  <lgl> <chr>             
+##  1         NA           1001               1001 NA     NA    6/13/2019 21:05   
+##  2         NA           1001               1001 NA     NA    6/13/2019 20:55   
+##  3         NA           1001               1001 NA     NA    6/13/2019 20:49   
+##  4         NA           1001               1001 NA     NA    6/13/2019 20:45   
+##  5         NA           1001               1001 NA     NA    6/13/2019 21:00   
+##  6         NA           1001               1001 NA     NA    6/13/2019 21:10   
+##  7         NA           1002               1002 NA     NA    6/13/2019 20:08   
+##  8         NA           1002               1002 NA     NA    6/13/2019 19:57   
+##  9         NA           1002               1002 NA     NA    6/13/2019 20:13   
+## 10         NA           1002               1002 NA     NA    6/13/2019 20:03   
+## # ℹ 7,497 more rows
+## # ℹ 86 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
+## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
+## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
+## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+```
+
+```r
+# ".before/.after = " specify a position relative to another column
+relocate(berry_data, `Subject Code`, .before = Gender)
+```
+
+```
+## # A tibble: 7,507 × 92
+##    `Participant Name` `Subject Code` Gender Age   `Start Time (UTC)`
+##                 <dbl>          <dbl> <lgl>  <lgl> <chr>             
+##  1               1001           1001 NA     NA    6/13/2019 21:05   
+##  2               1001           1001 NA     NA    6/13/2019 20:55   
+##  3               1001           1001 NA     NA    6/13/2019 20:49   
+##  4               1001           1001 NA     NA    6/13/2019 20:45   
+##  5               1001           1001 NA     NA    6/13/2019 21:00   
+##  6               1001           1001 NA     NA    6/13/2019 21:10   
+##  7               1002           1002 NA     NA    6/13/2019 20:08   
+##  8               1002           1002 NA     NA    6/13/2019 19:57   
+##  9               1002           1002 NA     NA    6/13/2019 20:13   
+## 10               1002           1002 NA     NA    6/13/2019 20:03   
+## # ℹ 7,497 more rows
+## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
+## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
+## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
+## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+```
+
+
 You may sometimes want to select columns where the data meets some criteria, rather than the column name or position. The `where()` helper function allows you to insert this kind of programmatic logic into `select()` statements, which gives you the ability to specify columns using any arbitrary function.
 
 
 ```r
-select(berry_data, where(is.numeric)) #a few functions return one logical value per vector
+ #a few functions return one logical value per vector
+select(berry_data, where(is.numeric))
 ```
 
 ```
@@ -447,7 +509,8 @@ select(berry_data, where(is.numeric)) #a few functions return one logical value 
 ```
 
 ```r
-select(berry_data, where(~!any(is.na(.)))) #otherwise we can use "lambda" functions
+ #otherwise we can use "lambda" functions
+select(berry_data, where(~!any(is.na(.))))
 ```
 
 ```
@@ -473,7 +536,7 @@ select(berry_data, where(~!any(is.na(.)))) #otherwise we can use "lambda" functi
 ## #   cata_appearance_none <dbl>, grid_sweetness <dbl>, grid_tartness <dbl>, …
 ```
 
-The little squiggly symbol, called a tilde (~), is above the backtick on QWERTY keyboards, and it turns everything that comes after it into a "lambda function". We'll talk more about lambda functions later, when we talk about `across()`. You can read it the above as "`select()` the columns from `berry_data` `where()` there are not (`!`) `any()` NA values (`is.na(.)`)".
+The little squiggly symbol, called a tilde (`~`), is above the backtick on QWERTY keyboards, and it turns everything that comes after it into a "lambda function". We'll talk more about lambda functions later, when we talk about `across()`. You can read it the above as "`select()` the columns from `berry_data` `where()` there are not (`!`) `any()` NA values (`is.na(.)`)".
 
 Besides being easier to write conditions for than indexing with `[]`, `select()` is code that is much closer to how you or I think about what we're actually doing, making code that is more human readable.
 
@@ -515,7 +578,8 @@ Again, this is not very human readable, and if we reorganize our rows this won't
 
 
 ```r
-filter(berry_data, pre_expectation > 3) # let's get survey responses with had a higher-than-average expectation
+# let's get survey responses with had a higher-than-average expectation
+filter(berry_data, pre_expectation > 3)
 ```
 
 ```
@@ -689,7 +753,7 @@ select(filter(berry_data, berry == "blackberry"), `Sample Name`, contains("_over
 ## #   cata_appearance_goodquality <dbl>, cata_appearance_none <dbl>, …
 ```
 
-The problem with this approach is that we have to read it "inside out".  First, `filter()` will happen and get us only berries whose `berry` is exactly "blackberry".  Then `select()` will get `Sample Name` along with columns that match "_overall" or "cata_ in their names.  Especially as your code gets complicated, this can be very hard to read.
+The problem with this approach is that we have to read it "inside out".  First, `filter()` will happen and get us only berries whose `berry` is exactly "blackberry".  Then `select()` will get `Sample Name` along with columns that match "_overall" or "cata_ in their names.  Especially as your code gets complicated, this can be very hard to read (and in the bookdown, doesn't even fit on one line!).
 
 So we might take the second approach: creating intermediates.  We might first `filter()`, store that step somewhere, then `select()`:
 
@@ -740,7 +804,8 @@ OK, enough background, what the heck _is_ a pipe?  The term "pipe" comes from wh
 berry_data %>%                             # Start with the berry_data
   filter(berry == "blackberry") %>%        # AND THEN filter to blackberries
   select(`Sample Name`,                    # AND THEN select sample name, overall liking...
-         contains("_overall"), contains("cata_"))
+         contains("_overall"), 
+         contains("cata_"))
 ```
 
 ```
@@ -781,7 +846,7 @@ This means that we can't directly do something like rewrite `sqrt(1 + 2)` with `
 ## [1] 2.414214
 ```
 
-Instead, if we want to pass binary operationse in a pipe, we need to enclose them in `()` on the line they are in:
+Instead, if we want to pass binary operators in a pipe, we need to enclose them in `()` on the line they are in:
 
 
 ```r
@@ -851,7 +916,7 @@ Typing `%>%` is no fun.  But, happily, RStudio builds in a shortcut for you: mac
 
 You hopefully are starting to be excited by the relative ease of doing some things in R with `tidyverse` that are otherwise a little bit abstruse.  Here's where I think things get really, really cool.  The `mutate()` function *creates a new column in the existing dataset*. 
 
-We can do this easily in base R by setting a new name for a column and using the assign (`<-`) operator, but this is clumsy. Often, we want to create a new column temporarily, or to combine several existing columns.  We can do this using the `mutate()` function.
+We can do this in base R by setting a new name for a column and using the assign (`<-`) operator, but this is clumsy and often requires care to maintain the proper ordering of rows. Often, we want to create a new column temporarily, or to combine several existing columns.  We can do this using the `mutate()` function.
 
 Let's say that we want to create a quick categorical variable that tells us whether a berry was rated higher after the actual tasting event than the pre-tasting expectation.
 
@@ -916,7 +981,7 @@ berry_data %>%
 
 What does the above function do?
 
-`mutate()` is a very easy way to edit your data mid-pipe.  So we might want to do some calculations, create a temporary variable using `mutate()`, and then continue our pipe.  **Unless we use `<-` to store our `mutate()`d data, the results will be only temporary.**
+`mutate()` is a very easy way to edit your data mid-pipe.  So we might want to do some calculations, create a temporary variable using `mutate()`, and then continue our pipe.  **Unless we use `<-` to store our `mutate()`'d data, the results will be only temporary.**
 
 We can use the same kind of functional logic we've been using in other `tidyverse` commands in `mutate()` to get real, powerful results.  For example, it might be easier to interpret the individual ratings on the 9-point scale if we can compare them to the `mean()` of all berry ratings.  We can do this easily using `mutate()`:
 
@@ -963,10 +1028,10 @@ For example, in our `berry_data` we might want to split the data by each berry s
 
 However, `tidyverse` provides two powerful tools to do this kind of analysis:
 
-1.  The `group_by()` function takes a data table and groups it by **categorical** values of any column (generally don't try to use `group_by()` on a numeric variable)
-2.  The `summarize()` function is like `mutate()` for groups created with `group_by()`: 
-  1.  First, you specify 1 or more new columns you want to calculate for each group
-  2.  Second, the function produces 1 value for each group for each new column
+    1.  The `group_by()` function takes a data table and groups it by **categorical** values of any column (generally don't try to use `group_by()` on a numeric variable)
+    2.  The `summarize()` function is like `mutate()` for groups created with `group_by()`: 
+        1.  First, you specify 1 or more new columns you want to calculate for each group
+        2.  Second, the function produces 1 value for each group for each new column
 
 ### Groups of data: Split-apply
 
@@ -1055,34 +1120,6 @@ berry_summary <-
             sd_rating = sd(`9pt_overall`),             # the standard deviation in rating
             se_rating = sd(`9pt_overall`) / sqrt(n())) # multiple functions in 1 row
 
-#Equivalent to:
-berry_data %>%
-  filter(!is.na(`9pt_overall`)) %>%
-  summarize(n_responses = n(),                         # n() counts number of ratings for each berry
-            mean_rating = mean(`9pt_overall`),         # the mean rating for each species
-            sd_rating = sd(`9pt_overall`),             # the standard deviation in rating
-            se_rating = sd(`9pt_overall`) / sqrt(n()),
-            .by = `Sample Name`)
-```
-
-```
-## # A tibble: 23 × 5
-##    `Sample Name` n_responses mean_rating sd_rating se_rating
-##    <chr>               <int>       <dbl>     <dbl>     <dbl>
-##  1 raspberry 6           125        6.30      1.94     0.173
-##  2 raspberry 5           125        5.96      2.00     0.179
-##  3 raspberry 2           125        5.86      2.05     0.183
-##  4 raspberry 3           125        6.17      2.03     0.182
-##  5 raspberry 4           125        5.82      2.13     0.191
-##  6 raspberry 1           125        4.97      2.32     0.208
-##  7 Blackberry 4           93        5.82      2.10     0.217
-##  8 Blackberry 2           93        4.66      2.24     0.232
-##  9 Blackberry 1           93        5.12      2.23     0.231
-## 10 Blackberry 3           93        5.65      2.14     0.222
-## # ℹ 13 more rows
-```
-
-```r
 berry_summary
 ```
 
@@ -1182,8 +1219,9 @@ We can easily expand this to take multiple kinds of summaries for each column, i
 berry_data %>%
   group_by(`Sample Name`) %>%
   summarize(across(.cols = starts_with("cata_"),
+                              #the sum of binary cata data gives the citation frequency
                    .fns = list(frequency = sum,
-                               #the sum of binary cata data gives the citation frequency
+                              #meanwhile, the mean gives the percentage.
                                percentage = mean)))
 ```
 
@@ -1208,10 +1246,6 @@ berry_data %>%
 ## #   cata_appearance_creased_frequency <dbl>,
 ## #   cata_appearance_creased_percentage <dbl>,
 ## #   cata_appearance_seedy_frequency <dbl>, …
-```
-
-```r
-                               #meanwhile, the mean gives the percentage.
 ```
 
 `across()` is capable of taking arbitrarily complicated functions, but you'll notice that we didn't include the parentheses we usually see after a function name for `sum()` and `mean()`. `across()` will just pipe in each column to the `.fns` as the first argument. That means, however, that there's nowhere for us to put additional arguments like `na.rm`.

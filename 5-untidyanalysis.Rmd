@@ -255,7 +255,7 @@ berry_row_coords <- berry_ca_res$rowcoord %>%
 
 #Equivalent to the above, and works on matrices
 berry_col_coords <- berry_ca_res$colcoord %>%
-  as_tibble(rownames = "Variable") .
+  as_tibble(rownames = "Variable")
 
 berry_ca_coords <- bind_rows(Berry = berry_row_coords,
                              Attribute = berry_col_coords,

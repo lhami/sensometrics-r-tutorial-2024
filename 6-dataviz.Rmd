@@ -99,7 +99,7 @@ There are many `geom_*()` functions in `ggplot2`, and many others defined in oth
 
 We can see this by swapping out the `geom_*()` in our initial scatterplot on the Labeled Magnitude Scale liking data:
 
-```{r changing the geom changes the way the data map, fig.cap = 'switching geom_() switches the way the data map'}
+```{r changing the geom changes the way the data map}
 berry_data %>%
   ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
   geom_smooth()
@@ -107,7 +107,7 @@ berry_data %>%
 
 `geom_smooth()` fits a smoothed line to our data. By default, it will use either Local Polynomial Regression or the Generalized Additive Model, depending on the size of your data (here, you can see that it chose `gam`, the Generalized Additive Model). You can specify models manually, using the `method` argument of `geom_smooth()`:
 
-```{r linear regression with geom_smooth, fig.cap = 'linear regression with geom_smooth()'}
+```{r linear regression with geom_smooth}
 berry_data %>%
   ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
   geom_smooth(method = "lm")
@@ -115,7 +115,7 @@ berry_data %>%
 
 We can also combine layers, as the term implies:
 
-```{r geoms are layers in a plot, fig.cap = 'geom_()s are layers in a plot'}
+```{r geoms are layers in a plot}
 berry_data %>%
   ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
   geom_point() +
@@ -163,7 +163,7 @@ berry_data %>%
 
 But the actual solution to this problem, instead of the hacky pseudo-heat map, is `geom_jitter()`, which applies a small random x and y offset to each point:
 
-```{r using geom_jitter for overlapping points, fig.cap = 'using geom_jitter() for overlapping points'}
+```{r using geom_jitter for overlapping points}
 berry_data %>%
   ggplot(mapping = aes(x = `9pt_appearance`, y = `9pt_overall`)) +
   geom_jitter(alpha = 1/4) +
@@ -176,7 +176,7 @@ If you'd like to look at the variation of a single categorical or discrete varia
 
 `geom_histogram()` is the version for numeric data, which will also calculate bins for you.
 
-```{r geom_bar and geom_histogram, fig.cap = 'geom_bar() and geom_histogram()'}
+```{r geom_bar and geom_histogram}
 #geom_bar() is for when you already have discrete data, it just counts:
 berry_data %>%
   ggplot(aes(x = cata_taste_berry)) +
@@ -198,7 +198,7 @@ In some previous plots, we've seen some aesthetic elements specified directly in
 
 Note that we *can* map `alpha` to a variable, just like `color`:
 
-```{r using the aes function, fig.cap = 'using the aes() function'}
+```{r using the aes function}
 berry_data %>%
   drop_na(lms_overall, cata_appearance_bruised) %>%
   ggplot(aes(x = lms_appearance, y = lms_overall)) + 
@@ -214,7 +214,7 @@ Color would be a better way to represent this relationship, however, as semitran
 
 In the last plot, notice that we have changed from the default (and to my mind unattractive) grey background of `ggplot2` to a black and white theme.  This is by adding a `theme_bw()` call to the list of commands.  `ggplot2` includes a number of default `theme_*()` functions, and you can get many more through other `R` packages.  They can have subtle to dramatic effects:
 
-```{r using the theme functions, fig.cap = 'using the theme_*() functions'}
+```{r using the theme functions}
 berry_data %>%
   drop_na(lms_overall, cata_appearance_bruised) %>%
   ggplot(aes(x = lms_appearance, y = lms_overall)) + 
@@ -281,7 +281,7 @@ The last powerful tool I want to show off is the ability of `ggplot2` to make wh
 
 The bar plot we were just looking at is quite busy, even without displaying all 36 CATA questions. Instead, let's see how we can break out separate plots, for example, different CATA attributes into "small multiple" facet plots to get a look at trends between berries one attribute at a time.
 
-```{r splitting the plot into 12 small multiples, fig.cap = 'now we split the plot into 12 "small multiples" with facet_wrap()'}
+```{r splitting the plot into 12 small multiples}
 berry_cata_long %>%
   filter(Presence == 1) %>%
   ggplot(aes(x = berry)) + 
@@ -296,7 +296,7 @@ We can still compare the facets in this case, because they all share X and Y axe
 
 It would be good to go a step further and plot the percentages, rather than the raw counts, since not every berry had the exact same number of participants. We can use `geom_col()` instead of `geom_bar()` to do our own summarizing:
 
-```{r more control over bar plots with geom_col, fig.cap = 'more control over bar plots with geom_col()'}
+```{r more control over bar plots with geom_col}
 berry_cata_long %>%
   group_by(berry, Attribute, Modality) %>%
   summarize(proportion = mean(Presence)) %>%
@@ -359,7 +359,7 @@ berry_ca_coords %>%
 
 `geom_text()` is similar to `geom_point()`, but instead of having a point with a given `shape`, it places **text** on the plot which you can pull directly from your data using the `label` aesthetic. We can make this even more readable using `geom_text_repel()`, a very similar geom out of the `ggrepel` package:
 
-``` {r a basic ca map with geom_repel, fig.cap = 'a basic ca map with geom_repel()'}
+``` {r a basic ca map with geom_repel}
 berry_ca_coords %>%
   mutate(Variable = str_remove(Variable, "cata_")) %>%
   ggplot(aes(x = Dim1, y = Dim2, color = Type, label = Variable)) +

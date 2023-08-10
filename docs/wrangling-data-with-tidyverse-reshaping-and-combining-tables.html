@@ -290,16 +290,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>While these authors present “tidiness” of data as an objective property, I’d argue that data is always tidy <strong>for a specific purpose</strong>. For example, our data is relatively tidy with one row per tasting event (one person tasting one berry), but this data still has an unruly number of variables (92 columns!!). You’ve already learned some tricks for dealing with large numbers of columns at once like <code>across()</code> and other functions using select helpers, but we have to do this <em>every time</em> we use <code>mutate()</code>, <code>summarize()</code>, or a similar function.</p>
 <p>We could also treat the attribute or question as an independent variable affecting the response. If we take this view, then the tidiest dataset actually has one row for each person’s response to a single <code>question</code>. If we want to make plots or do other modelling, this <strong>longer</strong> form is often more tractable and lets us do operations on the whole dataset with less code.</p>
 <p>We can use the <code>pivot_longer()</code> function to change our data to make the implicit variable explicit and to make our data tidier.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb178-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb178-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb178-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, berry, <span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;9pt&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co"># for clarity</span></span>
-<span id="cb178-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb178-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>),</span>
-<span id="cb178-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb178-4" tabindex="-1"></a>               <span class="at">names_prefix =</span> <span class="st">&quot;cata_&quot;</span>,</span>
-<span id="cb178-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb178-5" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;attribute&quot;</span>,</span>
-<span id="cb178-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb178-6" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;presence&quot;</span>) <span class="ot">-&gt;</span> berry_data_cata_long</span>
-<span id="cb178-7"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb178-7" tabindex="-1"></a><span class="co">#The names_prefix will be *removed* from the start of every column name</span></span>
-<span id="cb178-8"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb178-8" tabindex="-1"></a><span class="co">#before putting the rest of the name in the `names_to` column</span></span>
-<span id="cb178-9"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb178-9" tabindex="-1"></a></span>
-<span id="cb178-10"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb178-10" tabindex="-1"></a>berry_data_cata_long</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb180-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, berry, <span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;9pt&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co"># for clarity</span></span>
+<span id="cb180-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>),</span>
+<span id="cb180-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-4" tabindex="-1"></a>               <span class="at">names_prefix =</span> <span class="st">&quot;cata_&quot;</span>,</span>
+<span id="cb180-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-5" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;attribute&quot;</span>,</span>
+<span id="cb180-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-6" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;presence&quot;</span>) <span class="ot">-&gt;</span> </span>
+<span id="cb180-7"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-7" tabindex="-1"></a>  berry_data_cata_long</span>
+<span id="cb180-8"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-8" tabindex="-1"></a><span class="co">#The names_prefix will be *removed* from the start of every column name</span></span>
+<span id="cb180-9"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-9" tabindex="-1"></a><span class="co">#before putting the rest of the name in the `names_to` column</span></span>
+<span id="cb180-10"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-10" tabindex="-1"></a></span>
+<span id="cb180-11"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-11" tabindex="-1"></a>berry_data_cata_long</span></code></pre></div>
 <pre><code>## # A tibble: 270,252 × 10
 ##    `Subject Code` `Sample Name` berry `9pt_appearance` `9pt_overall` `9pt_taste`
 ##             &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;
@@ -319,10 +320,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Remember that <code>tibble</code>s and <code>data.frame</code>s can only have one data type per column (<code>logical &gt; integer &gt; numeric &gt; character</code>), however! If we have one row for each CATA, JAR, hedonic scale, AND free response question, the <code>value</code> column would have a mixture of different data types. This is why we have to tell <code>pivot_longer()</code> which <code>cols</code> to pull the <code>names</code> and <code>values</code> from.</p>
 <p>Now for each unique combination of <code>Sample Name</code> and <code>Subject Code</code>, we have 36 rows, one for each CATA question that was asked. The variables that weren’t listed in the <code>cols</code> argument are just replicated on each of these rows. Each of the 36 rows that represent <code>Subject Code</code> 1001’s CATA responses for <code>raspberry 6</code> has the same <code>Subject Code</code>, <code>Sample Name</code>, <code>berry</code>, and various <code>9pt_</code> ratings as the other 35.</p>
 <p>Sometimes we want to have “wider” or “untidy” data. We can use <code>pivot_wider()</code> to reverse the effects of <code>pivot_longer()</code>.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-1" tabindex="-1"></a>berry_data_cata_long <span class="sc">%&gt;%</span></span>
-<span id="cb180-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&quot;attribute&quot;</span>,</span>
-<span id="cb180-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-3" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="st">&quot;presence&quot;</span>,</span>
-<span id="cb180-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb180-4" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;cata_&quot;</span>) <span class="co">#pivot_wider *adds* the names_prefix</span></span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-1" tabindex="-1"></a>berry_data_cata_long <span class="sc">%&gt;%</span></span>
+<span id="cb182-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&quot;attribute&quot;</span>,</span>
+<span id="cb182-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-3" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="st">&quot;presence&quot;</span>,</span>
+<span id="cb182-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-4" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;cata_&quot;</span>) <span class="co">#pivot_wider *adds* the names_prefix</span></span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 44
 ##    `Subject Code` `Sample Name` berry `9pt_appearance` `9pt_overall` `9pt_taste`
 ##             &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;
@@ -345,18 +346,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   cata_appearance_goodquality &lt;dbl&gt;, cata_appearance_none &lt;dbl&gt;, …</code></pre>
 <p>Pivoting is an incredibly powerful and incredibly common data manipulation technique that will become even more powerful when we need to make complex graphs later. Different functions and analyses may require the data in different longer or wider formats, and you will often find yourself starting with even less tidy data than what we’ve provided.</p>
 <p>For an example of this power, let’s imagine that we want to compare the 3 different liking scales by normalizing each by the <code>mean()</code> and <code>sd()</code> of that particular scale, then comparing average liking for each attribute of each berry across the three scales.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb182-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">&quot;9pt_&quot;</span>,<span class="st">&quot;lms_&quot;</span>,<span class="st">&quot;us_&quot;</span>)),</span>
-<span id="cb182-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-3" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;attribute&quot;</span>),</span>
-<span id="cb182-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-4" tabindex="-1"></a>               <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb182-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-5" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;rating&quot;</span>,</span>
-<span id="cb182-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-6" tabindex="-1"></a>               <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb182-7"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-7" tabindex="-1"></a>  <span class="fu">group_by</span>(scale) <span class="sc">%&gt;%</span></span>
-<span id="cb182-8"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">normalized_rating =</span> (rating <span class="sc">-</span> <span class="fu">mean</span>(rating)) <span class="sc">/</span> <span class="fu">sd</span>(rating)) <span class="sc">%&gt;%</span></span>
-<span id="cb182-9"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-9" tabindex="-1"></a>  <span class="fu">group_by</span>(scale, attribute, berry) <span class="sc">%&gt;%</span></span>
-<span id="cb182-10"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-10" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_liking =</span> <span class="fu">mean</span>(normalized_rating)) <span class="sc">%&gt;%</span></span>
-<span id="cb182-11"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-11" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> scale,</span>
-<span id="cb182-12"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb182-12" tabindex="-1"></a>              <span class="at">values_from =</span> avg_liking)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb184-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">&quot;9pt_&quot;</span>,<span class="st">&quot;lms_&quot;</span>,<span class="st">&quot;us_&quot;</span>)),</span>
+<span id="cb184-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-3" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;attribute&quot;</span>),</span>
+<span id="cb184-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-4" tabindex="-1"></a>               <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb184-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-5" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;rating&quot;</span>,</span>
+<span id="cb184-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-6" tabindex="-1"></a>               <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb184-7"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-7" tabindex="-1"></a>  <span class="fu">group_by</span>(scale) <span class="sc">%&gt;%</span></span>
+<span id="cb184-8"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">normalized_rating =</span> (rating <span class="sc">-</span> <span class="fu">mean</span>(rating)) <span class="sc">/</span> <span class="fu">sd</span>(rating)) <span class="sc">%&gt;%</span></span>
+<span id="cb184-9"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-9" tabindex="-1"></a>  <span class="fu">group_by</span>(scale, attribute, berry) <span class="sc">%&gt;%</span></span>
+<span id="cb184-10"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-10" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_liking =</span> <span class="fu">mean</span>(normalized_rating)) <span class="sc">%&gt;%</span></span>
+<span id="cb184-11"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-11" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> scale,</span>
+<span id="cb184-12"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb184-12" tabindex="-1"></a>              <span class="at">values_from =</span> avg_liking)</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;scale&#39;, &#39;attribute&#39;. You can override
 ## using the `.groups` argument.</code></pre>
 <pre><code>## # A tibble: 17 × 5
@@ -388,31 +389,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>tidyverse</code> verb that you use for this combination depends on whether your datasets have matching columns/variables (say, data from two different years or locations of a project) or matching rows/observations (say, sensory and chemical data).</p>
 <p>The “matching variables” case can also happen if we want to stack the outputs of multiple independent <code>summarize()</code> calls, such as making a stacked demographic table. Since our data doesn’t have demographic data removed, let’s instead try to make a table that reports our sample size for each <code>berry</code> type and each of the three kinds of liking scales.</p>
 <p>If we wanted the combinations of these levels (e.g., the sample size of 9-pt scale ratings of strawberries), we could use one <code>summarize()</code> or <code>count()</code> call, but we need to do a little extra work if we want to <code>summarize()</code> the whole dataset more than one different way.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-1" tabindex="-1"></a>berry_type_counts <span class="ot">&lt;-</span></span>
-<span id="cb185-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-2" tabindex="-1"></a>  berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb185-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-3" tabindex="-1"></a>  <span class="fu">group_by</span>(berry) <span class="sc">%&gt;%</span></span>
-<span id="cb185-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n_distinct</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, test_day)) <span class="sc">%&gt;%</span></span>
-<span id="cb185-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Level =</span> berry)</span>
-<span id="cb185-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-6" tabindex="-1"></a></span>
-<span id="cb185-7"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-7" tabindex="-1"></a>berry_scale_counts <span class="ot">&lt;-</span></span>
-<span id="cb185-8"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-8" tabindex="-1"></a>  berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb185-9"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-9" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">ends_with</span>(<span class="st">&quot;_overall&quot;</span>),</span>
-<span id="cb185-10"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-10" tabindex="-1"></a>               <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;Scale&quot;</span>, <span class="cn">NA</span>),</span>
-<span id="cb185-11"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-11" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;Used&quot;</span>, <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb185-12"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-12" tabindex="-1"></a>  <span class="fu">group_by</span>(Scale) <span class="sc">%&gt;%</span></span>
-<span id="cb185-13"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-13" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n_distinct</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, test_day)) <span class="sc">%&gt;%</span></span>
-<span id="cb185-14"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-14" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Level =</span> Scale)</span>
-<span id="cb185-15"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-15" tabindex="-1"></a></span>
-<span id="cb185-16"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-16" tabindex="-1"></a><span class="co">#These are both summarizing the same set of observations into different groups:</span></span>
-<span id="cb185-17"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb185-17" tabindex="-1"></a><span class="fu">sum</span>(berry_scale_counts<span class="sc">$</span>n)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-1" tabindex="-1"></a>berry_type_counts <span class="ot">&lt;-</span></span>
+<span id="cb187-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-2" tabindex="-1"></a>  berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb187-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-3" tabindex="-1"></a>  <span class="fu">group_by</span>(berry) <span class="sc">%&gt;%</span></span>
+<span id="cb187-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n_distinct</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, test_day)) <span class="sc">%&gt;%</span></span>
+<span id="cb187-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Level =</span> berry)</span>
+<span id="cb187-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-6" tabindex="-1"></a></span>
+<span id="cb187-7"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-7" tabindex="-1"></a>berry_scale_counts <span class="ot">&lt;-</span></span>
+<span id="cb187-8"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-8" tabindex="-1"></a>  berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb187-9"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-9" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">ends_with</span>(<span class="st">&quot;_overall&quot;</span>),</span>
+<span id="cb187-10"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-10" tabindex="-1"></a>               <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;Scale&quot;</span>, <span class="cn">NA</span>),</span>
+<span id="cb187-11"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-11" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;Used&quot;</span>, <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb187-12"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-12" tabindex="-1"></a>  <span class="fu">group_by</span>(Scale) <span class="sc">%&gt;%</span></span>
+<span id="cb187-13"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-13" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n_distinct</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, test_day)) <span class="sc">%&gt;%</span></span>
+<span id="cb187-14"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-14" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Level =</span> Scale)</span>
+<span id="cb187-15"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-15" tabindex="-1"></a></span>
+<span id="cb187-16"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-16" tabindex="-1"></a><span class="co">#These are both summarizing the same set of observations into different groups:</span></span>
+<span id="cb187-17"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-17" tabindex="-1"></a><span class="fu">sum</span>(berry_scale_counts<span class="sc">$</span>n)</span></code></pre></div>
 <pre><code>## [1] 1301</code></pre>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb187-1" tabindex="-1"></a><span class="fu">sum</span>(berry_type_counts<span class="sc">$</span>n)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb189-1" tabindex="-1"></a><span class="fu">sum</span>(berry_type_counts<span class="sc">$</span>n)</span></code></pre></div>
 <pre><code>## [1] 1301</code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb189-1" tabindex="-1"></a><span class="co">#Hence needing two summarize() calls</span></span>
-<span id="cb189-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb189-2" tabindex="-1"></a></span>
-<span id="cb189-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb189-3" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="at">Berry =</span> berry_type_counts,</span>
-<span id="cb189-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb189-4" tabindex="-1"></a>          <span class="at">Scale =</span> berry_scale_counts,</span>
-<span id="cb189-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb189-5" tabindex="-1"></a>          <span class="at">.id =</span> <span class="st">&quot;Variable&quot;</span>) <span class="co">#This makes a new column called &quot;Variable&quot; which will</span></span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb191-1" tabindex="-1"></a><span class="co">#Hence needing two summarize() calls</span></span>
+<span id="cb191-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb191-2" tabindex="-1"></a></span>
+<span id="cb191-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb191-3" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="at">Berry =</span> berry_type_counts,</span>
+<span id="cb191-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb191-4" tabindex="-1"></a>          <span class="at">Scale =</span> berry_scale_counts,</span>
+<span id="cb191-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb191-5" tabindex="-1"></a>          <span class="at">.id =</span> <span class="st">&quot;Variable&quot;</span>) <span class="co">#This makes a new column called &quot;Variable&quot; which will</span></span></code></pre></div>
 <pre><code>## # A tibble: 7 × 3
 ##   Variable Level          n
 ##   &lt;chr&gt;    &lt;chr&gt;      &lt;int&gt;
@@ -423,23 +424,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 Scale    9pt          423
 ## 6 Scale    lms          435
 ## 7 Scale    us           443</code></pre>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb191-1" tabindex="-1"></a>                            <span class="co">#specify which of the two tables each row came from</span></span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb193-1" tabindex="-1"></a>                            <span class="co">#specify which of the two tables each row came from</span></span></code></pre></div>
 <p>For multiple tables that share the same observations, we could want to add follow-up survey data using the same participants or genetic information about the berries. In the latter case, our table of berry genetics would have less rows, but the <code>tidyverse</code> actually handles them with the same verbs.</p>
 <p>There <em>is</em> a <code>bind_cols()</code> function, but it’s easy to accidentally have the raspberries on the top in one table and the blueberries on the top in another, or to have one table sorted alphabetically and another by blinding code or participant ID, so it’s safer to use the <code>*_join()</code> functions if you’re adding columns instead of rows. <code>left_join()</code> is the most common.</p>
 <p>We’ll make up some demographic data to join to our existing table.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-1" tabindex="-1"></a>demographics <span class="ot">&lt;-</span></span>
-<span id="cb192-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-2" tabindex="-1"></a>  berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb192-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-3" tabindex="-1"></a>  <span class="fu">distinct</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb192-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Age =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">45</span>, <span class="dv">6</span>)),</span>
-<span id="cb192-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-5" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">ifelse</span>(<span class="fu">rbinom</span>(<span class="fu">n</span>(), <span class="dv">1</span>, <span class="fl">0.6</span>), <span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>),</span>
-<span id="cb192-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-6" tabindex="-1"></a>         <span class="at">Location =</span> <span class="fu">sample</span>(state.name, <span class="fu">n</span>(), <span class="at">replace =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb192-7"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-7" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">ID =</span> <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>) <span class="co">#To demonstrate how you can manually configure</span></span>
-<span id="cb192-8"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-8" tabindex="-1"></a>                              <span class="co">#the columns used to align the datasets</span></span>
-<span id="cb192-9"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-9" tabindex="-1"></a></span>
-<span id="cb192-10"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-10" tabindex="-1"></a><span class="co">#And now we can join it:</span></span>
-<span id="cb192-11"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-11" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb192-12"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-12" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Age, <span class="sc">-</span>Gender) <span class="sc">%&gt;%</span> <span class="co">#Getting rid of the empty demographic columns first</span></span>
-<span id="cb192-13"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb192-13" tabindex="-1"></a>  <span class="fu">left_join</span>(demographics, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Subject Code&quot;</span> <span class="ot">=</span> <span class="st">&quot;ID&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-1" tabindex="-1"></a>demographics <span class="ot">&lt;-</span></span>
+<span id="cb194-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-2" tabindex="-1"></a>  berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb194-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-3" tabindex="-1"></a>  <span class="fu">distinct</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb194-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Age =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">45</span>, <span class="dv">6</span>)),</span>
+<span id="cb194-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-5" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">ifelse</span>(<span class="fu">rbinom</span>(<span class="fu">n</span>(), <span class="dv">1</span>, <span class="fl">0.6</span>), <span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>),</span>
+<span id="cb194-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-6" tabindex="-1"></a>         <span class="at">Location =</span> <span class="fu">sample</span>(state.name, <span class="fu">n</span>(), <span class="at">replace =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb194-7"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-7" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">ID =</span> <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>) <span class="co">#To demonstrate how you can manually configure</span></span>
+<span id="cb194-8"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-8" tabindex="-1"></a>                              <span class="co">#the columns used to align the datasets</span></span>
+<span id="cb194-9"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-9" tabindex="-1"></a></span>
+<span id="cb194-10"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-10" tabindex="-1"></a><span class="co">#And now we can join it:</span></span>
+<span id="cb194-11"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-11" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb194-12"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-12" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Age, <span class="sc">-</span>Gender) <span class="sc">%&gt;%</span> <span class="co">#Getting rid of the empty demographic columns first</span></span>
+<span id="cb194-13"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-13" tabindex="-1"></a>  <span class="fu">left_join</span>(demographics, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Subject Code&quot;</span> <span class="ot">=</span> <span class="st">&quot;ID&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 93
 ##    `Subject Code` `Participant Name` `Start Time (UTC)` `End Time (UTC)`
 ##             &lt;dbl&gt;              &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;           
@@ -461,15 +462,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
 ## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
 <p><code>anti_join()</code> can be used to <em>remove</em> data. If you have a list of participants whose responses had data quality issues, you can put it in the second argument of <code>anti_join()</code> to return the lefthand table with those entries removed.</p>
-<p>We do have some repeat participants in the berry tests, because they were allowed to participate for each berry type once. But in online surveys, repeat answers could be a problem necessitating all data removal. Let’s demonstrate how we’d do that with <code>anti_join()</code>:</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-1" tabindex="-1"></a>problem_participants <span class="ot">&lt;-</span></span>
-<span id="cb194-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-2" tabindex="-1"></a>  berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb194-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-3" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Participant Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb194-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sessions =</span> <span class="fu">n_distinct</span>(test_day)) <span class="sc">%&gt;%</span></span>
-<span id="cb194-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-5" tabindex="-1"></a>  <span class="fu">filter</span>(sessions <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
-<span id="cb194-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-6" tabindex="-1"></a></span>
-<span id="cb194-7"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-7" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb194-8"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb194-8" tabindex="-1"></a>  <span class="fu">anti_join</span>(problem_participants)</span></code></pre></div>
+<p>We do have some repeat participants in the berry tests, because the actual study involved repeated measures. But in online surveys, repeat answers could be a problem necessitating all data removal. Let’s demonstrate how we’d do that with <code>anti_join()</code>:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb196-1" tabindex="-1"></a>problem_participants <span class="ot">&lt;-</span></span>
+<span id="cb196-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb196-2" tabindex="-1"></a>  berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb196-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb196-3" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Participant Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb196-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb196-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sessions =</span> <span class="fu">n_distinct</span>(test_day)) <span class="sc">%&gt;%</span></span>
+<span id="cb196-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb196-5" tabindex="-1"></a>  <span class="fu">filter</span>(sessions <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb196-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb196-6" tabindex="-1"></a></span>
+<span id="cb196-7"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb196-7" tabindex="-1"></a><span class="co">#We don&#39;t need to specify by if they share the column name they&#39;re joining on</span></span>
+<span id="cb196-8"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb196-8" tabindex="-1"></a><span class="co">#and NO OTHERS</span></span>
+<span id="cb196-9"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb196-9" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb196-10"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb196-10" tabindex="-1"></a>  <span class="fu">anti_join</span>(problem_participants)</span></code></pre></div>
 <pre><code>## Joining with `by = join_by(`Participant Name`)`</code></pre>
 <pre><code>## # A tibble: 3,755 × 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
@@ -491,8 +494,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
 ## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
 ## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb197-1" tabindex="-1"></a><span class="co">#We don&#39;t need to specify by if they share the column name they&#39;re joining on</span></span>
-<span id="cb197-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb197-2" tabindex="-1"></a><span class="co">#and NO OTHERS</span></span></code></pre></div>
 <p><code>anti_join()</code> also gives priority to the first/lefthand argument, usually the one you’re piping in with <code>%&gt;%</code>. It returns the rows in your left tibble that don’t have corresponding entries in the righthand one. It also does <em>not</em> add the columns that are unique to your right table. There is no <code>n</code> column in the output.</p>
 </div>
 <div id="utilities-for-data-management" class="section level2 hasAnchor" number="4.3">
@@ -501,7 +502,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="rename-your-columns" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Rename your columns<a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#rename-your-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Often you will import data with bad column names or you’ll realize you need to rename variables during your workflow. This is one way to get around having to type a bunch of backticks forever. For this, you can use the <code>rename()</code> function:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb198-1" tabindex="-1"></a><span class="fu">names</span>(berry_data)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb199-1" tabindex="-1"></a><span class="fu">names</span>(berry_data)</span></code></pre></div>
 <pre><code>##  [1] &quot;Subject Code&quot;                &quot;Participant Name&quot;           
 ##  [3] &quot;Gender&quot;                      &quot;Age&quot;                        
 ##  [5] &quot;Start Time (UTC)&quot;            &quot;End Time (UTC)&quot;             
@@ -548,10 +549,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [87] &quot;grid_crunchiness&quot;            &quot;jar_crunch&quot;                 
 ## [89] &quot;us_aroma&quot;                    &quot;lms_aroma&quot;                  
 ## [91] &quot;berry&quot;                       &quot;sample&quot;</code></pre>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb200-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb200-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb200-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Sample =</span> <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>,</span>
-<span id="cb200-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb200-3" tabindex="-1"></a>         <span class="at">Subject =</span> <span class="st">`</span><span class="at">Participant Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb200-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb200-4" tabindex="-1"></a>  <span class="fu">select</span>(Subject, Sample, <span class="fu">everything</span>()) <span class="co">#no more backticks!</span></span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb201-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb201-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb201-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Sample =</span> <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>,</span>
+<span id="cb201-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb201-3" tabindex="-1"></a>         <span class="at">Subject =</span> <span class="st">`</span><span class="at">Participant Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb201-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb201-4" tabindex="-1"></a>  <span class="fu">select</span>(Subject, Sample, <span class="fu">everything</span>()) <span class="co">#no more backticks!</span></span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 92
 ##    Subject Sample      `Subject Code` Gender Age   `Start Time (UTC)`
 ##      &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
@@ -573,8 +574,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
 ## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
 <p>You can also rename by position, but be sure you have the right order and don’t change the input data later:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb202-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb202-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb202-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Subject =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb203-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb203-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb203-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Subject =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 92
 ##    Subject `Participant Name` Gender Age   `Start Time (UTC)` `End Time (UTC)`
 ##      &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;              &lt;chr&gt;           
@@ -599,8 +600,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="relocate-your-columns" class="section level3 hasAnchor" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> Relocate your columns<a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#relocate-your-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you <code>mutate()</code> columns or just have a big data set with a lot of variables, often you want to move columns around. This is a pain to do with <code>[]</code>, but again <code>tidyverse</code> has a utility to move things around easily: <code>relocate()</code>.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb204-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb204-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb204-2" tabindex="-1"></a>  <span class="fu">relocate</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="co"># giving no other arguments will move to front</span></span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb205-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb205-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb205-2" tabindex="-1"></a>  <span class="fu">relocate</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="co"># giving no other arguments will move to front</span></span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 92
 ##    `Sample Name` `Subject Code` `Participant Name` Gender Age  
 ##    &lt;chr&gt;                  &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt;
@@ -622,8 +623,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   cata_appearance_misshapen &lt;dbl&gt;, cata_appearance_creased &lt;dbl&gt;,
 ## #   cata_appearance_seedy &lt;dbl&gt;, cata_appearance_bruised &lt;dbl&gt;, …</code></pre>
 <p>You can also use <code>relocate()</code> to specify positions</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb206-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb206-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb206-2" tabindex="-1"></a>  <span class="fu">relocate</span>(Gender, Age, <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, <span class="st">`</span><span class="at">Start Time (UTC)</span><span class="st">`</span>, <span class="st">`</span><span class="at">End Time (UTC)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sample Identifier</span><span class="st">`</span>, <span class="at">.after =</span> berry) <span class="co"># move repetitive and empty columns to the end</span></span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb207-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb207-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb207-2" tabindex="-1"></a>  <span class="fu">relocate</span>(Gender, Age, <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, <span class="st">`</span><span class="at">Start Time (UTC)</span><span class="st">`</span>, </span>
+<span id="cb207-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb207-3" tabindex="-1"></a>           <span class="st">`</span><span class="at">End Time (UTC)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sample Identifier</span><span class="st">`</span>, </span>
+<span id="cb207-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb207-4" tabindex="-1"></a>           <span class="co"># move repetitive and empty columns to the end</span></span>
+<span id="cb207-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb207-5" tabindex="-1"></a>           <span class="at">.after =</span> berry) </span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 92
 ##    `Participant Name` `Serving Position` `Sample Name` `9pt_appearance`
 ##                 &lt;dbl&gt;              &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt;
@@ -648,22 +652,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="remove-missing-values" class="section level3 hasAnchor" number="4.3.3">
 <h3><span class="header-section-number">4.3.3</span> Remove missing values<a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#remove-missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Missing values (the <code>NA</code>s you’ve been seeing so much) can be a huge pain, because they make more of themselves.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb208-1" tabindex="-1"></a><span class="fu">mean</span>(berry_data<span class="sc">$</span>price) <span class="co">#This column had no NAs, so we can take the average</span></span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb209-1" tabindex="-1"></a><span class="fu">mean</span>(berry_data<span class="sc">$</span>price) <span class="co">#This column had no NAs, so we can take the average</span></span></code></pre></div>
 <pre><code>## [1] 2.962896</code></pre>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb210-1" tabindex="-1"></a><span class="fu">mean</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>) <span class="co">#This column has some NAs, so we get NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb211-1" tabindex="-1"></a><span class="fu">mean</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>) <span class="co">#This column has some NAs, so we get NA</span></span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>Many base R functions that take a vector and return some mathematical function (e.g., <code>mean()</code>, <code>sum()</code>, <code>sd()</code>) have an argument called <code>na.rm</code> that can be set to just act as if the values aren’t there at all.</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb212-1" tabindex="-1"></a><span class="fu">mean</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co">#We get the average of only the valid numbers</span></span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb213-1" tabindex="-1"></a><span class="fu">mean</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co">#We get the average of only the valid numbers</span></span></code></pre></div>
 <pre><code>## [1] 5.679346</code></pre>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb214-1" tabindex="-1"></a><span class="fu">sum</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
-<span id="cb214-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb214-2" tabindex="-1"></a>  <span class="fu">length</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>) <span class="co">#The denominator is NOT the same as the total number of values anymore</span></span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb215-1" tabindex="-1"></a><span class="fu">sum</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
+<span id="cb215-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb215-2" tabindex="-1"></a>  <span class="fu">length</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>) <span class="co">#The denominator is NOT the same as the total number of values anymore</span></span></code></pre></div>
 <pre><code>## [1] 1.84974</code></pre>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb216-1" tabindex="-1"></a><span class="fu">sum</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
-<span id="cb216-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb216-2" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>)) <span class="co">#The denominator is the number of non-NA values</span></span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb217-1" tabindex="-1"></a><span class="fu">sum</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
+<span id="cb217-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb217-2" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>)) <span class="co">#The denominator is the number of non-NA values</span></span></code></pre></div>
 <pre><code>## [1] 5.679346</code></pre>
 <p>However, this isn’t always convenient. Sometimes it may be easier to simply get rid of all observations with any missing values, which tidyverse has a handy <code>drop_na()</code> function for:</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb218-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb218-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb218-2" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="co">#All of our rows have *some* NA values, so this returns nothing</span></span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb219-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb219-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb219-2" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="co">#All of our rows have *some* NA values, so this returns nothing</span></span></code></pre></div>
 <pre><code>## # A tibble: 0 × 92
 ## # ℹ 92 variables: Subject Code &lt;dbl&gt;, Participant Name &lt;dbl&gt;, Gender &lt;lgl&gt;,
 ## #   Age &lt;lgl&gt;, Start Time (UTC) &lt;chr&gt;, End Time (UTC) &lt;chr&gt;,
@@ -672,9 +676,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;, cata_appearance_unevencolor &lt;dbl&gt;,
 ## #   cata_appearance_misshapen &lt;dbl&gt;, cata_appearance_creased &lt;dbl&gt;,
 ## #   cata_appearance_seedy &lt;dbl&gt;, cata_appearance_bruised &lt;dbl&gt;, …</code></pre>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb220-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb220-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb220-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Participant Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="fu">contains</span>(<span class="st">&quot;9pt_&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb220-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb220-3" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="co">#Now we get only respondants who answered all 9-point liking questions.</span></span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb221-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb221-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb221-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Participant Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="fu">contains</span>(<span class="st">&quot;9pt_&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb221-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb221-3" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="co">#Now we get only respondants who answered all 9-point liking questions.</span></span></code></pre></div>
 <pre><code>## # A tibble: 600 × 7
 ##    `Participant Name` `Sample Name` `9pt_appearance` `9pt_overall` `9pt_taste`
 ##                 &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;
@@ -690,9 +694,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10               2002 Strawberry6                  7             7           8
 ## # ℹ 590 more rows
 ## # ℹ 2 more variables: `9pt_texture` &lt;dbl&gt;, `9pt_aroma` &lt;dbl&gt;</code></pre>
+<p>You can also use <code>drop_na()</code> with specific columns, which is useful to avoid losing all of your data!</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb223-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb223-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb223-2" tabindex="-1"></a>  <span class="fu">drop_na</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2,445 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 21:05   
+##  2           1001               1001 NA     NA    6/13/2019 20:55   
+##  3           1001               1001 NA     NA    6/13/2019 20:49   
+##  4           1001               1001 NA     NA    6/13/2019 20:45   
+##  5           1001               1001 NA     NA    6/13/2019 21:00   
+##  6           1001               1001 NA     NA    6/13/2019 21:10   
+##  7           1002               1002 NA     NA    6/13/2019 20:08   
+##  8           1002               1002 NA     NA    6/13/2019 19:57   
+##  9           1002               1002 NA     NA    6/13/2019 20:13   
+## 10           1002               1002 NA     NA    6/13/2019 20:03   
+## # ℹ 2,435 more rows
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
 <p>Or you may want to remove any columns/variables that have some missing data, which is one of the most common uses of <code>where()</code>:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb222-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb222-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb222-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span><span class="fu">none</span>(.x, is.na))) <span class="co">#Only 38 columns with absolutely no missing values.</span></span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb225-1" tabindex="-1"></a><span class="co">#Only 38 columns with absolutely no missing values.</span></span>
+<span id="cb225-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb225-2" tabindex="-1"></a><span class="co">#This loses all of the liking data.</span></span>
+<span id="cb225-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb225-3" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb225-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb225-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span><span class="fu">none</span>(.x, is.na))) </span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 38
 ##    `Subject Code` `Participant Name` `Start Time (UTC)` `End Time (UTC)`
 ##             &lt;dbl&gt;              &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;           
@@ -713,11 +742,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   cata_appearance_misshapen &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;,
 ## #   cata_appearance_fresh &lt;dbl&gt;, cata_appearance_goodquality &lt;dbl&gt;,
 ## #   cata_appearance_none &lt;dbl&gt;, grid_sweetness &lt;dbl&gt;, grid_tartness &lt;dbl&gt;, …</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb224-1" tabindex="-1"></a><span class="co">#This loses all of the liking data.</span></span></code></pre></div>
 <p>Both of the above methods guarantee that you will have an output with absolutely no missing data, but may be over-zealous if, say, everyone answered overall liking on one of the three scales and we want to do some work to combine those later. <code>filter()</code> and <code>select()</code> can be combined to do infinitely complex missing value removal.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb225-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb225-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb225-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~!</span><span class="fu">every</span>(.x, is.na))) <span class="sc">%&gt;%</span> <span class="co">#remove columns with no data</span></span>
-<span id="cb225-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb225-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">9pt_aroma</span><span class="st">`</span>) <span class="sc">&amp;</span> <span class="fu">is.na</span>(lms_aroma) <span class="sc">&amp;</span> <span class="fu">is.na</span>(us_aroma)))</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb227-1" tabindex="-1"></a><span class="co">#You&#39;ll notice that only strawberries have any non-NA liking values, actually</span></span>
+<span id="cb227-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb227-2" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb227-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb227-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~!</span><span class="fu">every</span>(.x, is.na))) <span class="sc">%&gt;%</span> <span class="co">#remove columns with no data</span></span>
+<span id="cb227-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb227-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">9pt_aroma</span><span class="st">`</span>) <span class="sc">&amp;</span> <span class="fu">is.na</span>(lms_aroma) <span class="sc">&amp;</span> <span class="fu">is.na</span>(us_aroma)))</span></code></pre></div>
 <pre><code>## # A tibble: 1,986 × 90
 ##    `Subject Code` `Participant Name` `Start Time (UTC)` `End Time (UTC)`
 ##             &lt;dbl&gt;              &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;           
@@ -738,15 +767,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
 ## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
 ## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb227-1" tabindex="-1"></a><span class="co">#You&#39;ll notice that only strawberries have any non-NA liking values, actually</span></span></code></pre></div>
 </div>
 <div id="counting-categorical-variables" class="section level3 hasAnchor" number="4.3.4">
 <h3><span class="header-section-number">4.3.4</span> Counting categorical variables<a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#counting-categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Often, we’ll want to count how many observations are in a group without having to actually count ourselves. Do we have enough observations for each sample? How many people in each demographic category do we have? Is it balanced?</p>
 <p>You’ve already written code to do this, if you’ve been following along! <code>summarize()</code> is incredibly powerful, and it will happily use <em>any</em> function that takes a vector or vectors and returns a single value. This includes categorical or <code>chr</code> data!</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb228-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb228-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb228-2" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb228-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb228-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_responses =</span> <span class="fu">n</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb229-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb229-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb229-2" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb229-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb229-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_responses =</span> <span class="fu">n</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 23 × 2
 ##    `Sample Name` n_responses
 ##    &lt;chr&gt;               &lt;int&gt;
@@ -762,8 +790,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 Blueberry 5           313
 ## # ℹ 13 more rows</code></pre>
 <p>We can also do this with a little less typing using <code>count()</code>, which is handy if we’re repeatedly doing a lot of counting observations in various categories (like for CATA tests and Correspondence Analyses):</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb230-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb230-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb230-2" tabindex="-1"></a>  <span class="fu">count</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="co">#Counts the number of observations (rows) of each berry</span></span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb231-1" tabindex="-1"></a><span class="co">#Counts the number of observations (rows) of each berry</span></span>
+<span id="cb231-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb231-2" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb231-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb231-3" tabindex="-1"></a>  <span class="fu">count</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) </span></code></pre></div>
 <pre><code>## # A tibble: 23 × 2
 ##    `Sample Name`     n
 ##    &lt;chr&gt;         &lt;int&gt;
@@ -778,8 +807,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 Blueberry 4     313
 ## 10 Blueberry 5     313
 ## # ℹ 13 more rows</code></pre>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb232-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb232-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb232-2" tabindex="-1"></a>  <span class="fu">count</span>(berry) <span class="co">#Number of observations, *not necessarily* the number of participants!</span></span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb233-1" tabindex="-1"></a><span class="co">#Number of observations, *not necessarily* the number of participants!</span></span>
+<span id="cb233-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb233-2" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb233-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb233-3" tabindex="-1"></a>  <span class="fu">count</span>(berry) </span></code></pre></div>
 <pre><code>## # A tibble: 4 × 2
 ##   berry          n
 ##   &lt;chr&gt;      &lt;int&gt;
@@ -789,8 +819,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 strawberry  1986</code></pre>
 <p>Depending on the shape of your data, the number of rows may or may not be the count you actually want. Maybe we want to know how many people participated in each day of testing, but we have one row per <em>tasting event</em>.</p>
 <p>We could use <code>pivot_wider()</code> to reshape our data first, so we have one row per <em>completed tasting session</em>, but since <code>count()</code> drops most columns anyways, we only really need one row for each thing we care about. <code>distinct()</code> can be handy here. It keeps one row for each <strong>distinct</strong> combination of the columns you give it, getting rid of all other columns so it doesn’t have to worry about the fact that one person gave multiple different <code>9pt_overall</code> ratings per <code>test_day</code>.</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb234-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb234-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb234-2" tabindex="-1"></a>  <span class="fu">distinct</span>(test_day, <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb235-1" tabindex="-1"></a><span class="co">#Two columns, with one row for each completed tasting session</span></span>
+<span id="cb235-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb235-2" tabindex="-1"></a><span class="co">#(each reflects 5-6 rows in the initial data)</span></span>
+<span id="cb235-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb235-3" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb235-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb235-4" tabindex="-1"></a>  <span class="fu">distinct</span>(test_day, <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1,301 × 2
 ##    test_day        `Subject Code`
 ##    &lt;chr&gt;                    &lt;dbl&gt;
@@ -805,12 +837,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 Raspberry Day 1           1010
 ## 10 Raspberry Day 1           1011
 ## # ℹ 1,291 more rows</code></pre>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb236-1" tabindex="-1"></a><span class="co">#Two columns, with one row for each completed tasting session</span></span>
-<span id="cb236-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb236-2" tabindex="-1"></a><span class="co">#(each reflects 5-6 rows in the initial data)</span></span>
-<span id="cb236-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb236-3" tabindex="-1"></a></span>
-<span id="cb236-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb236-4" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb236-5"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb236-5" tabindex="-1"></a>  <span class="fu">distinct</span>(test_day, <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb236-6"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb236-6" tabindex="-1"></a>  <span class="fu">count</span>(test_day)</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb237-1" tabindex="-1"></a><span class="co">#Counts the number of participants per testing day</span></span>
+<span id="cb237-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb237-2" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb237-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb237-3" tabindex="-1"></a>  <span class="fu">distinct</span>(test_day, <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb237-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb237-4" tabindex="-1"></a>  <span class="fu">count</span>(test_day)</span></code></pre></div>
 <pre><code>## # A tibble: 12 × 2
 ##    test_day             n
 ##    &lt;chr&gt;            &lt;int&gt;
@@ -826,14 +856,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 Strawberry Day 1   108
 ## 11 Strawberry Day 2   106
 ## 12 Strawberry Day 3   117</code></pre>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb238-1" tabindex="-1"></a><span class="co">#Counts the number of participants per testing day</span></span></code></pre></div>
 </div>
 <div id="sort-your-data" class="section level3 hasAnchor" number="4.3.5">
 <h3><span class="header-section-number">4.3.5</span> Sort your data<a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#sort-your-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>More frequently, we will want to rearrange our rows, which can be done with <code>arrange()</code>. All you have to do is give <code>arrange()</code> one or more columns to sort the data by. You can use either the <code>desc()</code> or the <code>-</code> shortcut to sort in reverse order. Whether ascending or descending, <code>arrange()</code> places missing values at the bottom.</p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb239-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb239-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb239-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(lms_overall)) <span class="sc">%&gt;%</span> <span class="co"># which berries had the highest liking on the lms?</span></span>
-<span id="cb239-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb239-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Participant Name</span><span class="st">`</span>, lms_overall)</span></code></pre></div>
+<span id="cb239-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb239-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(lms_overall)) <span class="sc">%&gt;%</span> </span>
+<span id="cb239-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb239-3" tabindex="-1"></a>  <span class="co"># which berries had the highest liking on the lms?</span></span>
+<span id="cb239-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb239-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Participant Name</span><span class="st">`</span>, lms_overall)</span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 3
 ##    `Sample Name` `Participant Name` lms_overall
 ##    &lt;chr&gt;                      &lt;dbl&gt;       &lt;dbl&gt;
@@ -849,8 +879,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 Strawberry1                 1273         100
 ## # ℹ 7,497 more rows</code></pre>
 <p>You can sort alphabetically as well:</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb241-1" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">state_name =</span> state.name, <span class="at">area =</span> state.area) <span class="sc">%&gt;%</span> <span class="co"># using a dataset of US States for demonstration</span></span>
-<span id="cb241-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb241-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(state_name))                            <span class="co"># sort states reverse-alphabetically</span></span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb241-1" tabindex="-1"></a><span class="co"># using a dataset of US States for demonstration</span></span>
+<span id="cb241-2"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb241-2" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">state_name =</span> state.name, <span class="at">area =</span> state.area) <span class="sc">%&gt;%</span> </span>
+<span id="cb241-3"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb241-3" tabindex="-1"></a>  <span class="co"># sort states reverse-alphabetically</span></span>
+<span id="cb241-4"><a href="wrangling-data-with-tidyverse-reshaping-and-combining-tables.html#cb241-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(state_name))                            </span></code></pre></div>
 <pre><code>## # A tibble: 50 × 2
 ##    state_name      area
 ##    &lt;chr&gt;          &lt;dbl&gt;

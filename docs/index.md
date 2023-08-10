@@ -24,7 +24,7 @@ This workshop is going to be conducted not using slides, but through **livecodin
 
 ### Jacob Lahne, PhD {-}
 
-Jacob Lahne is an Assistant Professor of Food Science & Technology at Virginia Tech, in the United States.  He runs the Virginia Tech Sensory Evaluation Laboratory, as well as teaching courses in data analytics and coding for food-science research.  His main research focuses are sensory data-analysis methodologies and investigating the sensory properties of fermented and distilled foods and beverages.
+Jacob Lahne is an Associate Professor of Food Science & Technology at Virginia Tech, in the United States.  He runs the Virginia Tech Sensory Evaluation Laboratory, as well as teaching courses in data analytics and coding for food-science research.  His main research focuses are sensory data-analysis methodologies and investigating the sensory properties of fermented and distilled foods and beverages.
 
 ### Leah Hamilton, PhD {-}
 
@@ -63,7 +63,7 @@ This workshop is going to be run with **livecoding**, as noted above.  This mean
 
 We recommend that you download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/pangborn-tutorial-2023).  This archive, when unzipped, will have a folder structure and a `.Rproj` file.  We recommend that you close out RStudio, unzip the archive, and double click the `.Rproj` file *in that folder*, which will open a new session of RStudio with proper setting (like the home directory) for the files for this workshop.
 
-In that folder, you will find a `data/` folder with the necessary data for the workshop, and a script named `eurosense-workshop-all-code.R`.  This latter file contains all of the code demonstrated in this workshop for your future reference.  You can also follow along with the code at the [workshop's page hosted on github.io](https://lhami.github.io/pangborn-tutorial-2023) (which you're reading right now), and which will remain available after this workshop.
+In that folder, you will find a `data/` folder with the necessary data for the workshop, and a script named `pangborn-all-code.R`.  This latter file contains all of the code demonstrated in this workshop for your future reference.  You can also follow along with the code at the [workshop's page hosted on github.io](https://lhami.github.io/pangborn-tutorial-2023) (which you're reading right now), and which will remain available after this workshop.
 
 Once you're in RStudio, go to the `File > New File > R Script` menu to open a new script.  We'll talk about how these work in a minute, but this is basically a workbook for you to store sequential lines of code to be run in the `Console`.  It is where you can livecode along!  Even though we are giving you all of the code you need right now, you will learn a lot more if you actively follow along, rather than just run that code.
 
