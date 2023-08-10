@@ -27,7 +27,8 @@ berry_data %>%
   pivot_longer(cols = starts_with("cata_"),
                names_prefix = "cata_",
                names_to = "attribute",
-               values_to = "presence") -> berry_data_cata_long
+               values_to = "presence") -> 
+  berry_data_cata_long
 #The names_prefix will be *removed* from the start of every column name
 #before putting the rest of the name in the `names_to` column
 
@@ -130,7 +131,7 @@ berry_data %>%
 
 `anti_join()` can be used to *remove* data. If you have a list of participants whose responses had data quality issues, you can put it in the second argument of `anti_join()` to return the lefthand table with those entries removed.
 
-We do have some repeat participants in the berry tests, because they were allowed to participate for each berry type once. But in online surveys, repeat answers could be a problem necessitating all data removal. Let's demonstrate how we'd do that with `anti_join()`:
+We do have some repeat participants in the berry tests, because the actual study involved repeated measures. But in online surveys, repeat answers could be a problem necessitating all data removal. Let's demonstrate how we'd do that with `anti_join()`:
 
 ```{r using anti_join() to remove rows}
 problem_participants <-
@@ -139,10 +140,10 @@ problem_participants <-
   summarize(sessions = n_distinct(test_day)) %>%
   filter(sessions > 1)
 
-berry_data %>%
-  anti_join(problem_participants)
 #We don't need to specify by if they share the column name they're joining on
 #and NO OTHERS
+berry_data %>%
+  anti_join(problem_participants)
 ```
 
 `anti_join()` also gives priority to the first/lefthand argument, usually the one you're piping in with `%>%`. It returns the rows in your left tibble that don't have corresponding entries in the righthand one. It also does *not* add the columns that are unique to your right table. There is no `n` column in the output.
@@ -184,7 +185,10 @@ You can also use `relocate()` to specify positions
 
 ```{r using relative positions with relocate()}
 berry_data %>%
-  relocate(Gender, Age, `Subject Code`, `Start Time (UTC)`, `End Time (UTC)`, `Sample Identifier`, .after = berry) # move repetitive and empty columns to the end
+  relocate(Gender, Age, `Subject Code`, `Start Time (UTC)`, 
+           `End Time (UTC)`, `Sample Identifier`, 
+           # move repetitive and empty columns to the end
+           .after = berry) 
 ```
 
 ### Remove missing values
@@ -215,21 +219,29 @@ berry_data %>%
   drop_na() #Now we get only respondants who answered all 9-point liking questions.
 ```
 
+You can also use `drop_na()` with specific columns, which is useful to avoid losing all of your data!
+
+```{r}
+berry_data %>%
+  drop_na(`9pt_overall`)
+```
+
 Or you may want to remove any columns/variables that have some missing data, which is one of the most common uses of `where()`:
 
 ```{r removing columns with missing values}
-berry_data %>%
-  select(where(~none(.x, is.na))) #Only 38 columns with absolutely no missing values.
+#Only 38 columns with absolutely no missing values.
 #This loses all of the liking data.
+berry_data %>%
+  select(where(~none(.x, is.na))) 
 ```
 
 Both of the above methods guarantee that you will have an output with absolutely no missing data, but may be over-zealous if, say, everyone answered overall liking on one of the three scales and we want to do some work to combine those later. `filter()` and `select()` can be combined to do infinitely complex missing value removal.
 
 ```{r removing rows that are missing all three aroma liking ratings}
+#You'll notice that only strawberries have any non-NA liking values, actually
 berry_data %>%
   select(where(~!every(.x, is.na))) %>% #remove columns with no data
   filter(!(is.na(`9pt_aroma`) & is.na(lms_aroma) & is.na(us_aroma)))
-#You'll notice that only strawberries have any non-NA liking values, actually
 ```
 
 ### Counting categorical variables
@@ -247,11 +259,13 @@ berry_data %>%
 We can also do this with a little less typing using `count()`, which is handy if we're repeatedly doing a lot of counting observations in various categories (like for CATA tests and Correspondence Analyses):
 
 ```{r using count() to count responses}
+#Counts the number of observations (rows) of each berry
 berry_data %>%
-  count(`Sample Name`) #Counts the number of observations (rows) of each berry
+  count(`Sample Name`) 
 
+#Number of observations, *not necessarily* the number of participants!
 berry_data %>%
-  count(berry) #Number of observations, *not necessarily* the number of participants!
+  count(berry) 
 ```
 
 Depending on the shape of your data, the number of rows may or may not be the count you actually want. Maybe we want to know how many people participated in each day of testing, but we have one row per *tasting event*.
@@ -259,15 +273,15 @@ Depending on the shape of your data, the number of rows may or may not be the co
 We could use `pivot_wider()` to reshape our data first, so we have one row per *completed tasting session*, but since `count()` drops most columns anyways, we only really need one row for each thing we care about. `distinct()` can be handy here. It keeps one row for each **distinct** combination of the columns you give it, getting rid of all other columns so it doesn't have to worry about the fact that one person gave multiple different `9pt_overall` ratings per `test_day`.
 
 ```{r easy counting with distinct() and count()}
-berry_data %>%
-  distinct(test_day, `Subject Code`)
 #Two columns, with one row for each completed tasting session
 #(each reflects 5-6 rows in the initial data)
+berry_data %>%
+  distinct(test_day, `Subject Code`)
 
+#Counts the number of participants per testing day
 berry_data %>%
   distinct(test_day, `Subject Code`) %>%
   count(test_day)
-#Counts the number of participants per testing day
 ```
 
 ### Sort your data
@@ -276,15 +290,18 @@ More frequently, we will want to rearrange our rows, which can be done with `arr
 
 ```{r arrange() lets you sort your data}
 berry_data %>%
-  arrange(desc(lms_overall)) %>% # which berries had the highest liking on the lms?
+  arrange(desc(lms_overall)) %>% 
+  # which berries had the highest liking on the lms?
   select(`Sample Name`, `Participant Name`, lms_overall)
 ```
 
 You can sort alphabetically as well:
 
 ```{r arrange() works on both numeric and character data}
-tibble(state_name = state.name, area = state.area) %>% # using a dataset of US States for demonstration
-  arrange(desc(state_name))                            # sort states reverse-alphabetically
+# using a dataset of US States for demonstration
+tibble(state_name = state.name, area = state.area) %>% 
+  # sort states reverse-alphabetically
+  arrange(desc(state_name))                            
 ```
 
 It's not a bad idea to restart your R session here.  Make sure to save your work, but a clean `Environment` is great when we're shifting topics.
