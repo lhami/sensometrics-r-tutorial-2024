@@ -140,8 +140,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#introductions"><i class="fa fa-check"></i>Introductions</a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#elizabeth-clark-phd"><i class="fa fa-check"></i>Elizabeth Clark, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#sébastien-lê-phd"><i class="fa fa-check"></i>Sébastien Lê, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
@@ -497,9 +499,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>ggplot2</code> has a broad range of built-in options for scales, but there are many others available in add-on packages that build on top of it. You can also build your own scales using the <code>scale_*_manual()</code> functions, in which you give a vector of the same length as your mapped aesthetic variable in order to set up the visual assignment. That sounds jargon-y, so here is an example:</p>
 <div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="data-visualization-basics-with-ggplot2.html#cb354-1" tabindex="-1"></a><span class="co"># We&#39;ll pick 14 random colors from the colors R knows about</span></span>
 <span id="cb354-2"><a href="data-visualization-basics-with-ggplot2.html#cb354-2" tabindex="-1"></a>random_colors <span class="ot">&lt;-</span> <span class="fu">print</span>(<span class="fu">colors</span>()[<span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">colors</span>()), <span class="at">size =</span> <span class="dv">10</span>)])</span></code></pre></div>
-<pre><code>##  [1] &quot;yellow1&quot;        &quot;purple1&quot;        &quot;red2&quot;           &quot;lightcyan4&quot;    
-##  [5] &quot;rosybrown4&quot;     &quot;violet&quot;         &quot;wheat&quot;          &quot;palevioletred1&quot;
-##  [9] &quot;gray25&quot;         &quot;grey73&quot;</code></pre>
+<pre><code>##  [1] &quot;grey98&quot;        &quot;grey70&quot;        &quot;dimgray&quot;       &quot;grey13&quot;       
+##  [5] &quot;cornsilk4&quot;     &quot;gray15&quot;        &quot;paleturquoise&quot; &quot;darkorange2&quot;  
+##  [9] &quot;dodgerblue2&quot;   &quot;slategray4&quot;</code></pre>
 <div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="data-visualization-basics-with-ggplot2.html#cb356-1" tabindex="-1"></a>p <span class="sc">+</span> </span>
 <span id="cb356-2"><a href="data-visualization-basics-with-ggplot2.html#cb356-2" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> random_colors) <span class="sc">+</span></span>
 <span id="cb356-3"><a href="data-visualization-basics-with-ggplot2.html#cb356-3" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">&quot;taste&quot;</span>, <span class="st">&quot;appearance&quot;</span>),</span>

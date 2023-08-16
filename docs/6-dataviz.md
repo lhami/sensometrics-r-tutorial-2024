@@ -409,9 +409,9 @@ random_colors <- print(colors()[sample(x = 1:length(colors()), size = 10)])
 ```
 
 ```
-##  [1] "yellow1"        "purple1"        "red2"           "lightcyan4"    
-##  [5] "rosybrown4"     "violet"         "wheat"          "palevioletred1"
-##  [9] "gray25"         "grey73"
+##  [1] "grey98"        "grey70"        "dimgray"       "grey13"       
+##  [5] "cornsilk4"     "gray15"        "paleturquoise" "darkorange2"  
+##  [9] "dodgerblue2"   "slategray4"
 ```
 
 ```r
