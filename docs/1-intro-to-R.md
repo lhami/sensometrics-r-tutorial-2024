@@ -88,7 +88,7 @@ getwd() # will print the current working directory
 ```
 
 ```
-## [1] "C:/Users/lhamilton/Documents/pangborn-r-tutorial-2023"
+## [1] "C:/Users/Leah/Documents/R/pangborn-r-tutorial-2023"
 ```
 
 And we can manually change the working directory by using 
@@ -148,9 +148,9 @@ sessionInfo()
 ```
 
 ```
-## R version 4.3.1 (2023-06-16 ucrt)
+## R version 4.3.0 (2023-04-21 ucrt)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 19045)
+## Running under: Windows 10 x64 (build 19044)
 ## 
 ## Matrix products: default
 ## 
@@ -174,18 +174,16 @@ sessionInfo()
 ##  [9] tibble_3.2.1    ggplot2_3.4.2   tidyverse_2.0.0
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] bit_4.0.5         gtable_0.3.3      jsonlite_1.8.7    crayon_1.5.2     
-##  [5] compiler_4.3.1    tidyselect_1.2.0  parallel_4.3.1    jquerylib_0.1.4  
-##  [9] scales_1.2.1      yaml_2.3.7        fastmap_1.1.1     R6_2.5.1         
-## [13] generics_0.1.3    knitr_1.43        bookdown_0.34     munsell_0.5.0    
-## [17] bslib_0.5.0       pillar_1.9.0      tzdb_0.4.0        rlang_1.1.1      
-## [21] utf8_1.2.3        stringi_1.7.12    cachem_1.0.8      xfun_0.39        
-## [25] sass_0.4.7        bit64_4.0.5       timechange_0.2.0  cli_3.6.1        
-## [29] withr_2.5.0       magrittr_2.0.3    digest_0.6.33     grid_4.3.1       
-## [33] vroom_1.6.3       rstudioapi_0.15.0 hms_1.1.3         lifecycle_1.0.3  
-## [37] vctrs_0.6.3       evaluate_0.21     glue_1.6.2        fansi_1.0.4      
-## [41] colorspace_2.1-0  rmarkdown_2.23    tools_4.3.1       pkgconfig_2.0.3  
-## [45] htmltools_0.5.5
+##  [1] bit_4.0.5        gtable_0.3.3     crayon_1.5.2     compiler_4.3.0  
+##  [5] tidyselect_1.2.0 parallel_4.3.0   scales_1.2.1     yaml_2.3.7      
+##  [9] fastmap_1.1.1    R6_2.5.1         generics_0.1.3   knitr_1.42      
+## [13] bookdown_0.34    munsell_0.5.0    pillar_1.9.0     tzdb_0.3.0      
+## [17] rlang_1.1.1      utf8_1.2.3       stringi_1.7.12   xfun_0.39       
+## [21] bit64_4.0.5      timechange_0.2.0 cli_3.6.1        withr_2.5.0     
+## [25] magrittr_2.0.3   digest_0.6.31    grid_4.3.0       vroom_1.6.3     
+## [29] rstudioapi_0.14  hms_1.1.3        lifecycle_1.0.3  vctrs_0.6.2     
+## [33] evaluate_0.21    glue_1.6.2       fansi_1.0.4      colorspace_2.1-0
+## [37] rmarkdown_2.21   tools_4.3.0      pkgconfig_2.0.3  htmltools_0.5.5
 ```
 
 Finally, you can also load (and unload) packages using the `Packages` tab, by clicking the checkbox next to the name of the package you want to load (or unload).

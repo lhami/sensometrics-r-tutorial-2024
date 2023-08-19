@@ -34,21 +34,21 @@ berry_data_cata_long
 ```
 
 ```
-## # A tibble: 270,252 × 10
+## # A tibble: 270,252 x 10
 ##    `Subject Code` `Sample Name` berry `9pt_appearance` `9pt_overall` `9pt_taste`
 ##             <dbl> <chr>         <chr>            <dbl>         <dbl>       <dbl>
-##  1           1001 raspberry 6   rasp…                4             4           4
-##  2           1001 raspberry 6   rasp…                4             4           4
-##  3           1001 raspberry 6   rasp…                4             4           4
-##  4           1001 raspberry 6   rasp…                4             4           4
-##  5           1001 raspberry 6   rasp…                4             4           4
-##  6           1001 raspberry 6   rasp…                4             4           4
-##  7           1001 raspberry 6   rasp…                4             4           4
-##  8           1001 raspberry 6   rasp…                4             4           4
-##  9           1001 raspberry 6   rasp…                4             4           4
-## 10           1001 raspberry 6   rasp…                4             4           4
-## # ℹ 270,242 more rows
-## # ℹ 4 more variables: `9pt_texture` <dbl>, `9pt_aroma` <dbl>, attribute <chr>,
+##  1           1001 raspberry 6   rasp~                4             4           4
+##  2           1001 raspberry 6   rasp~                4             4           4
+##  3           1001 raspberry 6   rasp~                4             4           4
+##  4           1001 raspberry 6   rasp~                4             4           4
+##  5           1001 raspberry 6   rasp~                4             4           4
+##  6           1001 raspberry 6   rasp~                4             4           4
+##  7           1001 raspberry 6   rasp~                4             4           4
+##  8           1001 raspberry 6   rasp~                4             4           4
+##  9           1001 raspberry 6   rasp~                4             4           4
+## 10           1001 raspberry 6   rasp~                4             4           4
+## # i 270,242 more rows
+## # i 4 more variables: `9pt_texture` <dbl>, `9pt_aroma` <dbl>, attribute <chr>,
 ## #   presence <dbl>
 ```
 
@@ -67,26 +67,26 @@ berry_data_cata_long %>%
 ```
 
 ```
-## # A tibble: 7,507 × 44
+## # A tibble: 7,507 x 44
 ##    `Subject Code` `Sample Name` berry `9pt_appearance` `9pt_overall` `9pt_taste`
 ##             <dbl> <chr>         <chr>            <dbl>         <dbl>       <dbl>
-##  1           1001 raspberry 6   rasp…                4             4           4
-##  2           1001 raspberry 5   rasp…                8             9           9
-##  3           1001 raspberry 2   rasp…                4             3           3
-##  4           1001 raspberry 3   rasp…                7             7           6
-##  5           1001 raspberry 4   rasp…                7             4           3
-##  6           1001 raspberry 1   rasp…                7             4           3
-##  7           1002 raspberry 6   rasp…                6             4           4
-##  8           1002 raspberry 5   rasp…                8             7           4
-##  9           1002 raspberry 2   rasp…                8             7           6
-## 10           1002 raspberry 3   rasp…                7             9           9
-## # ℹ 7,497 more rows
-## # ℹ 38 more variables: `9pt_texture` <dbl>, `9pt_aroma` <dbl>,
+##  1           1001 raspberry 6   rasp~                4             4           4
+##  2           1001 raspberry 5   rasp~                8             9           9
+##  3           1001 raspberry 2   rasp~                4             3           3
+##  4           1001 raspberry 3   rasp~                7             7           6
+##  5           1001 raspberry 4   rasp~                7             4           3
+##  6           1001 raspberry 1   rasp~                7             4           3
+##  7           1002 raspberry 6   rasp~                6             4           4
+##  8           1002 raspberry 5   rasp~                8             7           4
+##  9           1002 raspberry 2   rasp~                8             7           6
+## 10           1002 raspberry 3   rasp~                7             9           9
+## # i 7,497 more rows
+## # i 38 more variables: `9pt_texture` <dbl>, `9pt_aroma` <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
 ## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>,
 ## #   cata_appearance_fresh <dbl>, cata_appearance_goodshape <dbl>,
-## #   cata_appearance_goodquality <dbl>, cata_appearance_none <dbl>, …
+## #   cata_appearance_goodquality <dbl>, cata_appearance_none <dbl>, ...
 ```
 
 Pivoting is an incredibly powerful and incredibly common data manipulation technique that will become even more powerful when we need to make complex graphs later. Different functions and analyses may require the data in different longer or wider formats, and you will often find yourself starting with even less tidy data than what we've provided.
@@ -115,7 +115,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 17 × 5
+## # A tibble: 17 x 5
 ## # Groups:   attribute [5]
 ##    attribute  berry         `9pt`      lms      us
 ##    <chr>      <chr>         <dbl>    <dbl>   <dbl>
@@ -192,7 +192,7 @@ bind_rows(Berry = berry_type_counts,
 ```
 
 ```
-## # A tibble: 7 × 3
+## # A tibble: 7 x 3
 ##   Variable Level          n
 ##   <chr>    <chr>      <int>
 ## 1 Berry    blackberry   299
@@ -232,7 +232,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 93
+## # A tibble: 7,507 x 93
 ##    `Subject Code` `Participant Name` `Start Time (UTC)` `End Time (UTC)`
 ##             <dbl>              <dbl> <chr>              <chr>           
 ##  1           1001               1001 6/13/2019 21:05    6/13/2019 21:09 
@@ -245,13 +245,13 @@ berry_data %>%
 ##  8           1002               1002 6/13/2019 19:57    6/13/2019 20:01 
 ##  9           1002               1002 6/13/2019 20:13    6/13/2019 20:17 
 ## 10           1002               1002 6/13/2019 20:03    6/13/2019 20:07 
-## # ℹ 7,497 more rows
-## # ℹ 89 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
+## # i 7,497 more rows
+## # i 89 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
 ## #   `Sample Name` <chr>, `9pt_appearance` <dbl>, pre_expectation <dbl>,
 ## #   jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 `anti_join()` can be used to *remove* data. If you have a list of participants whose responses had data quality issues, you can put it in the second argument of `anti_join()` to return the lefthand table with those entries removed.
@@ -277,7 +277,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 3,755 × 92
+## # A tibble: 3,755 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 21:05   
@@ -290,13 +290,13 @@ berry_data %>%
 ##  8           1002               1002 NA     NA    6/13/2019 19:57   
 ##  9           1002               1002 NA     NA    6/13/2019 20:13   
 ## 10           1002               1002 NA     NA    6/13/2019 20:03   
-## # ℹ 3,745 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 3,745 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 `anti_join()` also gives priority to the first/lefthand argument, usually the one you're piping in with `%>%`. It returns the rows in your left tibble that don't have corresponding entries in the righthand one. It also does *not* add the columns that are unique to your right table. There is no `n` column in the output.
@@ -371,7 +371,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 92
+## # A tibble: 7,507 x 92
 ##    Subject Sample      `Subject Code` Gender Age   `Start Time (UTC)`
 ##      <dbl> <chr>                <dbl> <lgl>  <lgl> <chr>             
 ##  1    1001 raspberry 6           1001 NA     NA    6/13/2019 21:05   
@@ -384,13 +384,13 @@ berry_data %>%
 ##  8    1002 raspberry 5           1002 NA     NA    6/13/2019 19:57   
 ##  9    1002 raspberry 2           1002 NA     NA    6/13/2019 20:13   
 ## 10    1002 raspberry 3           1002 NA     NA    6/13/2019 20:03   
-## # ℹ 7,497 more rows
-## # ℹ 86 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 7,497 more rows
+## # i 86 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `9pt_appearance` <dbl>, pre_expectation <dbl>,
 ## #   jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 You can also rename by position, but be sure you have the right order and don't change the input data later:
@@ -402,7 +402,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 92
+## # A tibble: 7,507 x 92
 ##    Subject `Participant Name` Gender Age   `Start Time (UTC)` `End Time (UTC)`
 ##      <dbl>              <dbl> <lgl>  <lgl> <chr>              <chr>           
 ##  1    1001               1001 NA     NA    6/13/2019 21:05    6/13/2019 21:09 
@@ -415,13 +415,13 @@ berry_data %>%
 ##  8    1002               1002 NA     NA    6/13/2019 19:57    6/13/2019 20:01 
 ##  9    1002               1002 NA     NA    6/13/2019 20:13    6/13/2019 20:17 
 ## 10    1002               1002 NA     NA    6/13/2019 20:03    6/13/2019 20:07 
-## # ℹ 7,497 more rows
-## # ℹ 86 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
+## # i 7,497 more rows
+## # i 86 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
 ## #   `Sample Name` <chr>, `9pt_appearance` <dbl>, pre_expectation <dbl>,
 ## #   jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 ### Relocate your columns
@@ -435,7 +435,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 92
+## # A tibble: 7,507 x 92
 ##    `Sample Name` `Subject Code` `Participant Name` Gender Age  
 ##    <chr>                  <dbl>              <dbl> <lgl>  <lgl>
 ##  1 raspberry 6             1001               1001 NA     NA   
@@ -448,13 +448,13 @@ berry_data %>%
 ##  8 raspberry 5             1002               1002 NA     NA   
 ##  9 raspberry 2             1002               1002 NA     NA   
 ## 10 raspberry 3             1002               1002 NA     NA   
-## # ℹ 7,497 more rows
-## # ℹ 87 more variables: `Start Time (UTC)` <chr>, `End Time (UTC)` <chr>,
+## # i 7,497 more rows
+## # i 87 more variables: `Start Time (UTC)` <chr>, `End Time (UTC)` <chr>,
 ## #   `Serving Position` <dbl>, `Sample Identifier` <dbl>,
 ## #   `9pt_appearance` <dbl>, pre_expectation <dbl>, jar_color <dbl>,
 ## #   jar_gloss <dbl>, jar_size <dbl>, cata_appearance_unevencolor <dbl>,
 ## #   cata_appearance_misshapen <dbl>, cata_appearance_creased <dbl>,
-## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>, …
+## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>, ...
 ```
 
 You can also use `relocate()` to specify positions
@@ -469,7 +469,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 92
+## # A tibble: 7,507 x 92
 ##    `Participant Name` `Serving Position` `Sample Name` `9pt_appearance`
 ##                 <dbl>              <dbl> <chr>                    <dbl>
 ##  1               1001                  5 raspberry 6                  4
@@ -482,13 +482,13 @@ berry_data %>%
 ##  8               1002                  1 raspberry 5                  8
 ##  9               1002                  4 raspberry 2                  8
 ## 10               1002                  2 raspberry 3                  7
-## # ℹ 7,497 more rows
-## # ℹ 88 more variables: pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>,
+## # i 7,497 more rows
+## # i 88 more variables: pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>,
 ## #   jar_size <dbl>, cata_appearance_unevencolor <dbl>,
 ## #   cata_appearance_misshapen <dbl>, cata_appearance_creased <dbl>,
 ## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>,
 ## #   cata_appearance_notfresh <dbl>, cata_appearance_fresh <dbl>,
-## #   cata_appearance_goodshape <dbl>, cata_appearance_goodquality <dbl>, …
+## #   cata_appearance_goodshape <dbl>, cata_appearance_goodquality <dbl>, ...
 ```
 
 ### Remove missing values
@@ -548,14 +548,14 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 0 × 92
-## # ℹ 92 variables: Subject Code <dbl>, Participant Name <dbl>, Gender <lgl>,
+## # A tibble: 0 x 92
+## # i 92 variables: Subject Code <dbl>, Participant Name <dbl>, Gender <lgl>,
 ## #   Age <lgl>, Start Time (UTC) <chr>, End Time (UTC) <chr>,
 ## #   Serving Position <dbl>, Sample Identifier <dbl>, Sample Name <chr>,
 ## #   9pt_appearance <dbl>, pre_expectation <dbl>, jar_color <dbl>,
 ## #   jar_gloss <dbl>, jar_size <dbl>, cata_appearance_unevencolor <dbl>,
 ## #   cata_appearance_misshapen <dbl>, cata_appearance_creased <dbl>,
-## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>, …
+## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>, ...
 ```
 
 ```r
@@ -565,7 +565,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 600 × 7
+## # A tibble: 600 x 7
 ##    `Participant Name` `Sample Name` `9pt_appearance` `9pt_overall` `9pt_taste`
 ##                 <dbl> <chr>                    <dbl>         <dbl>       <dbl>
 ##  1               2001 Strawberry4                  5             5           4
@@ -578,8 +578,8 @@ berry_data %>%
 ##  8               2002 Strawberry1                  4             6           7
 ##  9               2002 Strawberry2                  3             6           6
 ## 10               2002 Strawberry6                  7             7           8
-## # ℹ 590 more rows
-## # ℹ 2 more variables: `9pt_texture` <dbl>, `9pt_aroma` <dbl>
+## # i 590 more rows
+## # i 2 more variables: `9pt_texture` <dbl>, `9pt_aroma` <dbl>
 ```
 
 You can also use `drop_na()` with specific columns, which is useful to avoid losing all of your data!
@@ -591,7 +591,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 2,445 × 92
+## # A tibble: 2,445 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 21:05   
@@ -604,13 +604,13 @@ berry_data %>%
 ##  8           1002               1002 NA     NA    6/13/2019 19:57   
 ##  9           1002               1002 NA     NA    6/13/2019 20:13   
 ## 10           1002               1002 NA     NA    6/13/2019 20:03   
-## # ℹ 2,435 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 2,435 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 Or you may want to remove any columns/variables that have some missing data, which is one of the most common uses of `where()`:
@@ -624,7 +624,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 38
+## # A tibble: 7,507 x 38
 ##    `Subject Code` `Participant Name` `Start Time (UTC)` `End Time (UTC)`
 ##             <dbl>              <dbl> <chr>              <chr>           
 ##  1           1001               1001 6/13/2019 21:05    6/13/2019 21:09 
@@ -637,13 +637,13 @@ berry_data %>%
 ##  8           1002               1002 6/13/2019 19:57    6/13/2019 20:01 
 ##  9           1002               1002 6/13/2019 20:13    6/13/2019 20:17 
 ## 10           1002               1002 6/13/2019 20:03    6/13/2019 20:07 
-## # ℹ 7,497 more rows
-## # ℹ 34 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
+## # i 7,497 more rows
+## # i 34 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
 ## #   `Sample Name` <chr>, pre_expectation <dbl>, jar_color <dbl>,
 ## #   jar_size <dbl>, cata_appearance_unevencolor <dbl>,
 ## #   cata_appearance_misshapen <dbl>, cata_appearance_notfresh <dbl>,
 ## #   cata_appearance_fresh <dbl>, cata_appearance_goodquality <dbl>,
-## #   cata_appearance_none <dbl>, grid_sweetness <dbl>, grid_tartness <dbl>, …
+## #   cata_appearance_none <dbl>, grid_sweetness <dbl>, grid_tartness <dbl>, ...
 ```
 
 Both of the above methods guarantee that you will have an output with absolutely no missing data, but may be over-zealous if, say, everyone answered overall liking on one of the three scales and we want to do some work to combine those later. `filter()` and `select()` can be combined to do infinitely complex missing value removal.
@@ -657,7 +657,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 1,986 × 90
+## # A tibble: 1,986 x 90
 ##    `Subject Code` `Participant Name` `Start Time (UTC)` `End Time (UTC)`
 ##             <dbl>              <dbl> <chr>              <chr>           
 ##  1           2001               2001 6/24/2019 20:18    6/24/2019 20:22 
@@ -670,13 +670,13 @@ berry_data %>%
 ##  8           2002               2002 6/24/2019 20:14    6/24/2019 20:17 
 ##  9           2002               2002 6/24/2019 19:59    6/24/2019 20:04 
 ## 10           2002               2002 6/24/2019 20:09    6/24/2019 20:13 
-## # ℹ 1,976 more rows
-## # ℹ 86 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
+## # i 1,976 more rows
+## # i 86 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
 ## #   `Sample Name` <chr>, `9pt_appearance` <dbl>, pre_expectation <dbl>,
 ## #   jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 ### Counting categorical variables
@@ -693,7 +693,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 23 × 2
+## # A tibble: 23 x 2
 ##    `Sample Name` n_responses
 ##    <chr>               <int>
 ##  1 Blackberry 1          299
@@ -706,7 +706,7 @@ berry_data %>%
 ##  8 Blueberry 3           313
 ##  9 Blueberry 4           313
 ## 10 Blueberry 5           313
-## # ℹ 13 more rows
+## # i 13 more rows
 ```
 
 We can also do this with a little less typing using `count()`, which is handy if we're repeatedly doing a lot of counting observations in various categories (like for CATA tests and Correspondence Analyses):
@@ -719,7 +719,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 23 × 2
+## # A tibble: 23 x 2
 ##    `Sample Name`     n
 ##    <chr>         <int>
 ##  1 Blackberry 1    299
@@ -732,7 +732,7 @@ berry_data %>%
 ##  8 Blueberry 3     313
 ##  9 Blueberry 4     313
 ## 10 Blueberry 5     313
-## # ℹ 13 more rows
+## # i 13 more rows
 ```
 
 ```r
@@ -742,7 +742,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 4 × 2
+## # A tibble: 4 x 2
 ##   berry          n
 ##   <chr>      <int>
 ## 1 blackberry  1495
@@ -764,7 +764,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 1,301 × 2
+## # A tibble: 1,301 x 2
 ##    test_day        `Subject Code`
 ##    <chr>                    <dbl>
 ##  1 Raspberry Day 1           1001
@@ -777,7 +777,7 @@ berry_data %>%
 ##  8 Raspberry Day 1           1009
 ##  9 Raspberry Day 1           1010
 ## 10 Raspberry Day 1           1011
-## # ℹ 1,291 more rows
+## # i 1,291 more rows
 ```
 
 ```r
@@ -788,7 +788,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 12 × 2
+## # A tibble: 12 x 2
 ##    test_day             n
 ##    <chr>            <int>
 ##  1 Blackberry Day 1   108
@@ -818,7 +818,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 3
+## # A tibble: 7,507 x 3
 ##    `Sample Name` `Participant Name` lms_overall
 ##    <chr>                      <dbl>       <dbl>
 ##  1 raspberry 2                 5135         100
@@ -831,7 +831,7 @@ berry_data %>%
 ##  8 Blueberry 6                 5127         100
 ##  9 Blueberry 3                 7040         100
 ## 10 Strawberry1                 1273         100
-## # ℹ 7,497 more rows
+## # i 7,497 more rows
 ```
 
 You can sort alphabetically as well:
@@ -845,7 +845,7 @@ tibble(state_name = state.name, area = state.area) %>%
 ```
 
 ```
-## # A tibble: 50 × 2
+## # A tibble: 50 x 2
 ##    state_name      area
 ##    <chr>          <dbl>
 ##  1 Wyoming        97914
@@ -858,7 +858,7 @@ tibble(state_name = state.name, area = state.area) %>%
 ##  8 Texas         267339
 ##  9 Tennessee      42244
 ## 10 South Dakota   77047
-## # ℹ 40 more rows
+## # i 40 more rows
 ```
 
 It's not a bad idea to restart your R session here.  Make sure to save your work, but a clean `Environment` is great when we're shifting topics.
@@ -872,19 +872,25 @@ Then, we want to make sure to re-load our packages and import our data.
 # The packages we're using
 library(tidyverse)
 library(ca)
+```
 
+```
+## Warning: package 'ca' was built under R version 4.3.1
+```
+
+```r
 # The dataset
 berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
 ```
 ## Rows: 7507 Columns: 92
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification --------------------------------------------------------
 ## Delimiter: ","
 ## chr  (7): Start Time (UTC), End Time (UTC), Sample Name, verbal_likes, verba...
 ## dbl (83): Subject Code, Participant Name, Serving Position, Sample Identifie...
 ## lgl  (2): Gender, Age
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```

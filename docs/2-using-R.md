@@ -116,23 +116,26 @@ rnorm(n = 100, mean = 0, sd = 1)
 ```
 
 ```
-##   [1] -0.08727749  0.02740685  0.05892150 -0.62110908  0.14268272  1.53950809
-##   [7] -1.08254988 -0.89440817  1.35333636 -1.29475668 -0.14810026  0.80014947
-##  [13]  0.61294477  1.82702675  1.61993169 -0.89640678 -0.21157941  0.11592969
-##  [19]  2.01652054 -0.75528846  1.91008780 -0.05635510 -1.26395565  1.30459363
-##  [25]  1.13137462 -0.47314941  1.71902539  0.87533218  1.65021950  1.60564080
-##  [31]  0.86883550  1.61667337  0.82191561 -1.53614012 -1.38397871  0.64141754
-##  [37] -0.36709114  1.93179190 -0.86291799  0.21745168 -1.79636494  2.06796439
-##  [43] -0.52436136 -1.58483694  1.10079832 -1.02276175 -0.68092671 -0.49803366
-##  [49] -0.50398954 -0.65070312  0.69838317  0.05903041 -0.70411151 -1.05314656
-##  [55] -0.54438096  1.92068856  0.30221314 -0.60681887 -1.86562314 -1.63177027
-##  [61]  2.31854432  1.24426223  1.50229992 -1.82025543 -0.06097253  2.51632540
-##  [67]  2.99120543 -1.37171519 -0.25683449 -1.11192142  1.18316458 -0.64723016
-##  [73] -0.31018301  0.13917062 -0.87369438  1.49380648  1.32585076  0.04755361
-##  [79]  0.53764025 -1.04514764 -0.73283991  1.98993889 -0.34581651 -0.99902497
-##  [85] -1.46692908 -2.19283290  0.56026048  0.92388169  0.56751709 -0.07727250
-##  [91] -2.47426283 -0.72597454 -1.19086127 -0.23321816 -2.05392282  1.54916041
-##  [97]  0.64599002  0.59248469 -0.48597604 -0.23863466
+##   [1]  0.3127088404  0.7811740067 -0.0215795288  1.0235217924 -0.7251987669
+##   [6]  0.3727787092  1.8036557121 -0.0178840161  0.9959159908  0.6009265661
+##  [11] -0.8688703459  1.3245708592  1.5943777323 -0.8717920674  0.4635823800
+##  [16] -0.4508236879 -0.7577804727  0.6180873500  0.9591681449  0.1085341079
+##  [21] -0.5628465428  0.9923773209 -0.8125048557 -1.9232796791 -0.5010334053
+##  [26] -0.7742001146 -0.0970364010 -1.2308403095  1.5217743317  2.1809419251
+##  [31]  0.0602903677 -0.5075360006  0.3387776652  0.6847487314  0.5489826537
+##  [36]  1.1707115058  0.7944680476 -0.4693476850 -0.4319151415  1.6035968920
+##  [41]  0.4070418717 -0.5357572540  0.2719328442  0.0008122861  0.7409776357
+##  [46] -0.8331587604 -0.1526313947 -0.5167037484 -1.0929257235  0.3170995516
+##  [51]  0.8632677583 -0.2506240280  0.0385318543  0.2838225075  0.0499514203
+##  [56] -0.0946479888 -0.3059885609 -0.7328641563  0.6611459605  1.0402169375
+##  [61]  0.9267740581  1.1449916307 -0.5905126178 -0.8354054905 -0.9222455707
+##  [66]  0.0119571348  1.1452873421  0.3166335507  0.0209763772 -1.2252522254
+##  [71] -1.7036696849  1.5377006653 -0.5053489443 -1.0450196747  0.0198555816
+##  [76]  0.4638127307 -0.0663671849  0.3539525869 -0.5772909553  0.3607914730
+##  [81]  1.5871903080 -0.1266737033  0.5548421744 -1.5813153725  0.6244765434
+##  [86] -0.4747060467  0.0531680539  0.0663849219 -0.1492569069  0.6111938410
+##  [91]  0.4590638118  2.1055792242  0.0835077185 -1.8789901791 -0.7159629742
+##  [96]  1.1392029786  0.2485645496  0.4365126039  0.2855317261 -0.9579557834
 ```
 
 These forms are called a **function** in R.  Functions lie at the heart of `R`'s power: they are pre-written scripts that are included with base `R` or added in packages, like the ones we installed.  In general, an `R` function will have a form like `<name>(<argument>, <argument>, ...)`.  In other words, the function will have a name (that lets `R` know what you're trying to do) followed by an open parenthesis, and inside that a list of arguments, which are variables, objects, values, etc that you "pass" to the function, finally followed by a close parenthesis.  In the case of our `sqrt()` function, there is only a single argument: a variable to which the square-root operation will be applied.  In the case of the `rnorm()` function there are 3 arguments: the number of values we want, `n`, and the `mean` and standard deviation `sd` of the normal distribution we wish to sample from.
@@ -148,7 +151,7 @@ rnorm(1, 0, 100)
 ```
 
 ```
-## [1] -157.9664
+## [1] 27.46005
 ```
 
 ```r
@@ -157,23 +160,26 @@ rnorm(sd = 1, n = 100, mean = 0)
 ```
 
 ```
-##   [1]  0.14684579 -0.35324077 -1.10140132  0.16088040 -0.60743984  0.33519740
-##   [7]  0.10128245  1.38940673 -0.24433417 -0.66708032 -0.41136583 -0.57104188
-##  [13]  1.44132031 -0.80452868  0.31808200 -1.73626200 -1.00969739 -0.73022311
-##  [19] -0.20200415  0.72575271 -0.01233774  1.03180538  0.98350384  0.32635407
-##  [25]  0.12486072  0.13001981 -0.08414491  0.42082789 -2.53751140 -1.32304178
-##  [31] -1.06752838  0.17419678  0.32987624  0.31405300  1.78280760  1.87163793
-##  [37] -0.38541866  0.28613078 -0.76134387  0.95151587  0.41622928  1.13374210
-##  [43]  2.23569967  0.19270917  2.05602122  3.15557230  1.89812374 -2.04490131
-##  [49] -0.66551418  1.84582031  0.70101205  0.06673048 -0.78571262  0.25797933
-##  [55]  1.17849673 -0.64064266 -1.05498523  0.02646779 -0.50238082 -0.08815260
-##  [61]  1.42418790  0.70747835 -0.19416286  1.48983219 -1.16009546 -0.90975139
-##  [67]  0.47344354  0.49118630  2.21645071 -1.44188538  0.64028636  0.90431772
-##  [73] -0.61875375 -0.72284745  0.88386119 -0.43558907  1.35780998  0.81360649
-##  [79] -2.15669795 -1.91957056 -0.42046163  1.70477598 -0.25998033 -1.01090357
-##  [85] -0.88767985 -1.25522430 -0.62309958 -0.47649812  0.10960275  1.13649116
-##  [91] -0.78603264  1.57913027  0.22051166  0.01603259  1.17980443 -0.71280292
-##  [97]  0.23616588  0.08718981  0.95004569  0.17542991
+##   [1]  0.846774745  1.000191578 -0.145750723  1.566699892  1.753139051
+##   [6] -0.115245345  0.321254828  0.000450397  0.740293204  0.181187066
+##  [11] -0.887583241 -0.618598590 -0.330435879 -2.417908767 -0.072796750
+##  [16]  0.532909880  0.456909453  0.473676409  1.997337995 -2.005915574
+##  [21]  0.841572722  1.135965809 -0.131080007 -1.178496947  2.149888857
+##  [26] -0.350743758 -1.077018392  0.631203417 -2.862627387 -1.368542826
+##  [31] -1.111228779  1.156583220 -1.269423061 -1.158976889 -0.471091408
+##  [36]  1.762110724  0.404541511  2.040268190  1.597849153  1.775415738
+##  [41] -1.700472927 -0.193710062  0.476411479 -0.841765728 -0.190948680
+##  [46]  1.040547336  0.412257056 -0.680708660  0.523015149 -2.103943339
+##  [51]  0.779978705 -0.760464170 -0.740882618  0.999925500 -1.380059203
+##  [56] -0.473940949  1.826746300  1.553454122 -0.744743699  0.250054291
+##  [61] -1.663891798 -1.279729088  0.025808513 -0.078183147  1.359307795
+##  [66]  0.899439097 -0.363354954  0.608445014  0.692863220  0.139534597
+##  [71]  0.093151850 -0.432444071  0.221886011 -0.673139279  2.066764307
+##  [76]  1.245291063 -0.654288364 -0.643006370 -0.282278725 -0.625371213
+##  [81] -1.113960818  2.596223612 -1.307314828  0.289711362 -1.828386767
+##  [86] -2.098665031 -0.397126873  0.780363125 -0.201391022 -1.447829968
+##  [91]  1.016883364  0.704308656 -0.534276737  0.077979801  0.391692282
+##  [96] -0.881415459 -0.400030573  0.049131806  1.722677999 -0.320569208
 ```
 
 Programming languages like `R` are very literal, and we need to be as literal as we can to make them work the way we want them to.
@@ -207,7 +213,7 @@ getwd()
 ```
 
 ```
-## [1] "C:/Users/lhamilton/Documents/pangborn-r-tutorial-2023"
+## [1] "C:/Users/Leah/Documents/R/pangborn-r-tutorial-2023"
 ```
 
 Therefore, **relative to the working directory**, the file path to this data is `data/clt-berry-data.csv`.  Please note that this is the UNIX convention for file paths: in Windows, the backslash `\` is used to separate directories.  Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention in this workshop.
@@ -234,18 +240,18 @@ read_csv(file = "data/clt-berry-data.csv")
 
 ```
 ## Rows: 7507 Columns: 92
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification --------------------------------------------------------
 ## Delimiter: ","
 ## chr  (7): Start Time (UTC), End Time (UTC), Sample Name, verbal_likes, verba...
 ## dbl (83): Subject Code, Participant Name, Serving Position, Sample Identifie...
 ## lgl  (2): Gender, Age
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```
-## # A tibble: 7,507 × 92
+## # A tibble: 7,507 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 21:05   
@@ -258,13 +264,13 @@ read_csv(file = "data/clt-berry-data.csv")
 ##  8           1002               1002 NA     NA    6/13/2019 19:57   
 ##  9           1002               1002 NA     NA    6/13/2019 20:13   
 ## 10           1002               1002 NA     NA    6/13/2019 20:03   
-## # ℹ 7,497 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 7,497 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 Suddenly, we have tabular data (i.e., data in rows and columns), like we'd have in Excel!  Now we're getting somewhere.  However, before we go forward we'll have to store this data somewhere--right now we're just reading it and throwing it away.
@@ -276,14 +282,14 @@ berry_data <- read_csv(file = "data/clt-berry-data.csv")
 
 ```
 ## Rows: 7507 Columns: 92
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification --------------------------------------------------------
 ## Delimiter: ","
 ## chr  (7): Start Time (UTC), End Time (UTC), Sample Name, verbal_likes, verba...
 ## dbl (83): Subject Code, Participant Name, Serving Position, Sample Identifie...
 ## lgl  (2): Gender, Age
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 As a note, in many countries the separator (delimiter) will be the semi-colon (`;`), since the comma is used as the decimal marker.  To read files formatted this way, you can use the `read_csv2()` function.  If you encounter tab-separated values files (`.tsv`) you can use the `read_tsv()` function.  If you have more non-standard delimiters, you can use the `read_delim()` function, which will allow you to specify your own delimiter characters.  You can also read many other formats of tabular data using the `rio` package ("read input/output"), which can be installed from CRAN (using, as you have learned, `install.packages("rio")`).
@@ -408,7 +414,7 @@ str(berry_data)
 ```
 
 ```
-## spc_tbl_ [7,507 × 92] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+## spc_tbl_ [7,507 x 92] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ Subject Code               : num [1:7507] 1001 1001 1001 1001 1001 ...
 ##  $ Participant Name           : num [1:7507] 1001 1001 1001 1001 1001 ...
 ##  $ Gender                     : logi [1:7507] NA NA NA NA NA NA ...
@@ -730,7 +736,7 @@ berry_data[3, 9] # get the 3rd row, 9th column value
 ```
 
 ```
-## # A tibble: 1 × 1
+## # A tibble: 1 x 1
 ##   `Sample Name`
 ##   <chr>        
 ## 1 raspberry 2
@@ -744,7 +750,7 @@ berry_data[1:6, 9] # get the first 5 rows of the 9th column value
 ```
 
 ```
-## # A tibble: 6 × 1
+## # A tibble: 6 x 1
 ##   `Sample Name`
 ##   <chr>        
 ## 1 raspberry 6  
@@ -763,7 +769,7 @@ berry_data[, 1] # get all rows of the 1st column
 ```
 
 ```
-## # A tibble: 7,507 × 1
+## # A tibble: 7,507 x 1
 ##    `Subject Code`
 ##             <dbl>
 ##  1           1001
@@ -776,7 +782,7 @@ berry_data[, 1] # get all rows of the 1st column
 ##  8           1002
 ##  9           1002
 ## 10           1002
-## # ℹ 7,497 more rows
+## # i 7,497 more rows
 ```
 
 We can also use logical subsetting, just like in vectors.  This is very powerful but a bit complicated, so we are going to introduce some `tidyverse` based operators to do this that will make it a lot easier.  I will just give an example:
@@ -787,7 +793,7 @@ berry_data[berry_data$berry == "raspberry", ] # get all raspberry data
 ```
 
 ```
-## # A tibble: 2,148 × 92
+## # A tibble: 2,148 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 21:05   
@@ -800,13 +806,13 @@ berry_data[berry_data$berry == "raspberry", ] # get all raspberry data
 ##  8           1002               1002 NA     NA    6/13/2019 19:57   
 ##  9           1002               1002 NA     NA    6/13/2019 20:13   
 ## 10           1002               1002 NA     NA    6/13/2019 20:03   
-## # ℹ 2,138 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 2,138 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 In this last example I also introduced the final bit of `tibble` and `data.frame` wrangling we will cover here: the `$` operator.  This is the operator to select a single column from a `data.frame` or `tibble`.  It gives you back the vector that makes up that column:

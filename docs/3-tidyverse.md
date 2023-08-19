@@ -24,14 +24,14 @@ berry_data <- read_csv("data/clt-berry-data.csv")
 
 ```
 ## Rows: 7507 Columns: 92
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification --------------------------------------------------------
 ## Delimiter: ","
 ## chr  (7): Start Time (UTC), End Time (UTC), Sample Name, verbal_likes, verba...
 ## dbl (83): Subject Code, Participant Name, Serving Position, Sample Identifie...
 ## lgl  (2): Gender, Age
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 
@@ -53,98 +53,98 @@ glimpse(berry_data)
 ```
 ## Rows: 7,507
 ## Columns: 92
-## $ `Subject Code`              <dbl> 1001, 1001, 1001, 1001, 1001, 1001, 1002, …
-## $ `Participant Name`          <dbl> 1001, 1001, 1001, 1001, 1001, 1001, 1002, …
-## $ Gender                      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ Age                         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ `Start Time (UTC)`          <chr> "6/13/2019 21:05", "6/13/2019 20:55", "6/1…
-## $ `End Time (UTC)`            <chr> "6/13/2019 21:09", "6/13/2019 20:59", "6/1…
-## $ `Serving Position`          <dbl> 5, 3, 2, 1, 4, 6, 3, 1, 4, 2, 6, 5, 2, 4, …
-## $ `Sample Identifier`         <dbl> 1426, 3167, 4624, 5068, 7195, 9161, 1426, …
-## $ `Sample Name`               <chr> "raspberry 6", "raspberry 5", "raspberry 2…
-## $ `9pt_appearance`            <dbl> 4, 8, 4, 7, 7, 7, 6, 8, 8, 7, 9, 8, 5, 5, …
-## $ pre_expectation             <dbl> 2, 4, 2, 4, 3, 4, 2, 3, 5, 3, 4, 5, 3, 3, …
-## $ jar_color                   <dbl> 2, 3, 2, 2, 4, 4, 2, 3, 3, 2, 3, 4, 3, 3, …
-## $ jar_gloss                   <dbl> 4, 3, 2, 3, 3, 3, 4, 3, 4, 4, 2, 4, 3, 3, …
-## $ jar_size                    <dbl> 2, 3, 3, 4, 3, 3, 4, 3, 5, 3, 3, 4, 3, 3, …
-## $ cata_appearance_unevencolor <dbl> 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, …
-## $ cata_appearance_misshapen   <dbl> 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, …
-## $ cata_appearance_creased     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, …
-## $ cata_appearance_seedy       <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-## $ cata_appearance_bruised     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, …
-## $ cata_appearance_notfresh    <dbl> 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, …
-## $ cata_appearance_fresh       <dbl> 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, …
-## $ cata_appearance_goodshape   <dbl> 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, …
-## $ cata_appearance_goodquality <dbl> 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, …
-## $ cata_appearance_none        <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-## $ `9pt_overall`               <dbl> 4, 9, 3, 7, 4, 4, 4, 7, 7, 9, 7, 2, 8, 7, …
-## $ verbal_likes                <chr> "Out of the two, there was one that had a …
-## $ verbal_dislikes             <chr> "There were different flavors coming from …
-## $ `9pt_taste`                 <dbl> 4, 9, 3, 6, 3, 3, 4, 4, 6, 9, 6, 2, 8, 7, …
-## $ grid_sweetness              <dbl> 3, 6, 3, 6, 2, 3, 3, 2, 2, 6, 4, 1, 6, 4, …
-## $ grid_tartness               <dbl> 6, 5, 5, 3, 5, 6, 5, 5, 5, 2, 2, 7, 4, 5, …
-## $ grid_raspberryflavor        <dbl> 4, 7, 2, 6, 2, 3, 2, 6, 2, 7, 2, 2, 6, 5, …
-## $ jar_sweetness               <dbl> 2, 3, 2, 3, 2, 1, 1, 1, 1, 3, 2, 1, 3, 3, …
-## $ jar_tartness                <dbl> 4, 3, 3, 3, 4, 5, 4, 4, 4, 3, 4, 5, 3, 3, …
-## $ cata_taste_floral           <dbl> 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, …
-## $ cata_taste_berry            <dbl> 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, …
-## $ cata_taste_green            <dbl> 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, …
-## $ cata_taste_grassy           <dbl> 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, …
-## $ cata_taste_fermented        <dbl> 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-## $ cata_taste_tropical         <dbl> 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, …
-## $ cata_taste_fruity           <dbl> 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, …
-## $ cata_taste_citrus           <dbl> 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, …
-## $ cata_taste_earthy           <dbl> 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, …
-## $ cata_taste_candy            <dbl> 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, …
-## $ cata_taste_none             <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-## $ `9pt_texture`               <dbl> 6, 8, 2, 8, 5, 6, 6, 9, 8, 7, 7, 7, 8, 7, …
-## $ grid_seediness              <dbl> 3, 5, 6, 3, 5, 5, 6, 4, 6, 5, 6, 5, 4, 4, …
-## $ grid_firmness               <dbl> 5, 5, 5, 2, 6, 5, 5, 6, 5, 3, 5, 5, 4, 5, …
-## $ grid_juiciness              <dbl> 2, 5, 2, 2, 2, 4, 2, 4, 2, 3, 3, 2, 6, 5, …
-## $ jar_firmness                <dbl> 3, 3, 4, 2, 4, 3, 3, 3, 3, 2, 3, 3, 3, 3, …
-## $ jar_juciness                <dbl> 2, 3, 1, 2, 2, 2, 1, 2, 1, 3, 2, 1, 3, 3, …
-## $ post_expectation            <dbl> 1, 5, 2, 4, 2, 2, 2, 2, 2, 5, 2, 1, 4, 3, …
-## $ price                       <dbl> 1.99, 4.99, 2.99, 4.99, 2.99, 3.99, 3.99, …
-## $ product_tier                <dbl> 1, 3, 2, 3, 1, 2, 2, 2, 1, 3, 2, 1, 2, 2, …
-## $ purchase_intent             <dbl> 1, 5, 2, 4, 2, 2, 3, 4, 2, 5, 3, 1, 5, 5, …
-## $ subject                     <dbl> 1031946, 1031946, 1031946, 1031946, 103194…
-## $ test_day                    <chr> "Raspberry Day 1", "Raspberry Day 1", "Ras…
-## $ us_appearance               <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ us_overall                  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ us_taste                    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ us_texture                  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ lms_appearance              <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ lms_overall                 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ lms_taste                   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ lms_texture                 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_appearane_bruised      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_appearance_goodshapre  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_appearance_goodcolor   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ grid_blackberryflavor       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_cinnamon         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_lemon            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_clove            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_minty            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_grape            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ grid_crispness              <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ jar_crispness               <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ jar_juiciness               <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_appearane_creased      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ grid_blueberryflavor        <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_piney            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_peachy           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ `9pt_aroma`                 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ grid_strawberryflavor       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_caramel          <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_grapey           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_melon            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ cata_taste_cherry           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ grid_crunchiness            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ jar_crunch                  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ us_aroma                    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ lms_aroma                   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ berry                       <chr> "raspberry", "raspberry", "raspberry", "ra…
-## $ sample                      <dbl> 6, 5, 2, 3, 4, 1, 6, 5, 2, 3, 4, 1, 6, 5, …
+## $ `Subject Code`              <dbl> 1001, 1001, 1001, 1001, 1001, 1001, 1002, ~
+## $ `Participant Name`          <dbl> 1001, 1001, 1001, 1001, 1001, 1001, 1002, ~
+## $ Gender                      <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ Age                         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ `Start Time (UTC)`          <chr> "6/13/2019 21:05", "6/13/2019 20:55", "6/1~
+## $ `End Time (UTC)`            <chr> "6/13/2019 21:09", "6/13/2019 20:59", "6/1~
+## $ `Serving Position`          <dbl> 5, 3, 2, 1, 4, 6, 3, 1, 4, 2, 6, 5, 2, 4, ~
+## $ `Sample Identifier`         <dbl> 1426, 3167, 4624, 5068, 7195, 9161, 1426, ~
+## $ `Sample Name`               <chr> "raspberry 6", "raspberry 5", "raspberry 2~
+## $ `9pt_appearance`            <dbl> 4, 8, 4, 7, 7, 7, 6, 8, 8, 7, 9, 8, 5, 5, ~
+## $ pre_expectation             <dbl> 2, 4, 2, 4, 3, 4, 2, 3, 5, 3, 4, 5, 3, 3, ~
+## $ jar_color                   <dbl> 2, 3, 2, 2, 4, 4, 2, 3, 3, 2, 3, 4, 3, 3, ~
+## $ jar_gloss                   <dbl> 4, 3, 2, 3, 3, 3, 4, 3, 4, 4, 2, 4, 3, 3, ~
+## $ jar_size                    <dbl> 2, 3, 3, 4, 3, 3, 4, 3, 5, 3, 3, 4, 3, 3, ~
+## $ cata_appearance_unevencolor <dbl> 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, ~
+## $ cata_appearance_misshapen   <dbl> 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, ~
+## $ cata_appearance_creased     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, ~
+## $ cata_appearance_seedy       <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+## $ cata_appearance_bruised     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, ~
+## $ cata_appearance_notfresh    <dbl> 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, ~
+## $ cata_appearance_fresh       <dbl> 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, ~
+## $ cata_appearance_goodshape   <dbl> 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, ~
+## $ cata_appearance_goodquality <dbl> 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, ~
+## $ cata_appearance_none        <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+## $ `9pt_overall`               <dbl> 4, 9, 3, 7, 4, 4, 4, 7, 7, 9, 7, 2, 8, 7, ~
+## $ verbal_likes                <chr> "Out of the two, there was one that had a ~
+## $ verbal_dislikes             <chr> "There were different flavors coming from ~
+## $ `9pt_taste`                 <dbl> 4, 9, 3, 6, 3, 3, 4, 4, 6, 9, 6, 2, 8, 7, ~
+## $ grid_sweetness              <dbl> 3, 6, 3, 6, 2, 3, 3, 2, 2, 6, 4, 1, 6, 4, ~
+## $ grid_tartness               <dbl> 6, 5, 5, 3, 5, 6, 5, 5, 5, 2, 2, 7, 4, 5, ~
+## $ grid_raspberryflavor        <dbl> 4, 7, 2, 6, 2, 3, 2, 6, 2, 7, 2, 2, 6, 5, ~
+## $ jar_sweetness               <dbl> 2, 3, 2, 3, 2, 1, 1, 1, 1, 3, 2, 1, 3, 3, ~
+## $ jar_tartness                <dbl> 4, 3, 3, 3, 4, 5, 4, 4, 4, 3, 4, 5, 3, 3, ~
+## $ cata_taste_floral           <dbl> 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, ~
+## $ cata_taste_berry            <dbl> 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, ~
+## $ cata_taste_green            <dbl> 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, ~
+## $ cata_taste_grassy           <dbl> 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, ~
+## $ cata_taste_fermented        <dbl> 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+## $ cata_taste_tropical         <dbl> 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, ~
+## $ cata_taste_fruity           <dbl> 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, ~
+## $ cata_taste_citrus           <dbl> 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, ~
+## $ cata_taste_earthy           <dbl> 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, ~
+## $ cata_taste_candy            <dbl> 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, ~
+## $ cata_taste_none             <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+## $ `9pt_texture`               <dbl> 6, 8, 2, 8, 5, 6, 6, 9, 8, 7, 7, 7, 8, 7, ~
+## $ grid_seediness              <dbl> 3, 5, 6, 3, 5, 5, 6, 4, 6, 5, 6, 5, 4, 4, ~
+## $ grid_firmness               <dbl> 5, 5, 5, 2, 6, 5, 5, 6, 5, 3, 5, 5, 4, 5, ~
+## $ grid_juiciness              <dbl> 2, 5, 2, 2, 2, 4, 2, 4, 2, 3, 3, 2, 6, 5, ~
+## $ jar_firmness                <dbl> 3, 3, 4, 2, 4, 3, 3, 3, 3, 2, 3, 3, 3, 3, ~
+## $ jar_juciness                <dbl> 2, 3, 1, 2, 2, 2, 1, 2, 1, 3, 2, 1, 3, 3, ~
+## $ post_expectation            <dbl> 1, 5, 2, 4, 2, 2, 2, 2, 2, 5, 2, 1, 4, 3, ~
+## $ price                       <dbl> 1.99, 4.99, 2.99, 4.99, 2.99, 3.99, 3.99, ~
+## $ product_tier                <dbl> 1, 3, 2, 3, 1, 2, 2, 2, 1, 3, 2, 1, 2, 2, ~
+## $ purchase_intent             <dbl> 1, 5, 2, 4, 2, 2, 3, 4, 2, 5, 3, 1, 5, 5, ~
+## $ subject                     <dbl> 1031946, 1031946, 1031946, 1031946, 103194~
+## $ test_day                    <chr> "Raspberry Day 1", "Raspberry Day 1", "Ras~
+## $ us_appearance               <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ us_overall                  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ us_taste                    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ us_texture                  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ lms_appearance              <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ lms_overall                 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ lms_taste                   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ lms_texture                 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_appearane_bruised      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_appearance_goodshapre  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_appearance_goodcolor   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ grid_blackberryflavor       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_cinnamon         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_lemon            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_clove            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_minty            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_grape            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ grid_crispness              <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ jar_crispness               <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ jar_juiciness               <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_appearane_creased      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ grid_blueberryflavor        <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_piney            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_peachy           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ `9pt_aroma`                 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ grid_strawberryflavor       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_caramel          <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_grapey           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_melon            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ cata_taste_cherry           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ grid_crunchiness            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ jar_crunch                  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ us_aroma                    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ lms_aroma                   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+## $ berry                       <chr> "raspberry", "raspberry", "raspberry", "ra~
+## $ sample                      <dbl> 6, 5, 2, 3, 4, 1, 6, 5, 2, 3, 4, 1, 6, 5, ~
 ```
 
 So, for example, we might want to determine whether there are differences in liking between the berries, test days, or scales, in which case perhaps we only want the columns starting with `us_`, `lms_`, and `9pt_` along with `berry` and `test_day`.  We learned previously that we can do this with numeric indexing:
@@ -155,7 +155,7 @@ berry_data[, c(10,25,28,45,56:64,81,89:91)]
 ```
 
 ```
-## # A tibble: 7,507 × 17
+## # A tibble: 7,507 x 17
 ##    `9pt_appearance` `9pt_overall` `9pt_taste` `9pt_texture` test_day       
 ##               <dbl>         <dbl>       <dbl>         <dbl> <chr>          
 ##  1                4             4           4             6 Raspberry Day 1
@@ -168,8 +168,8 @@ berry_data[, c(10,25,28,45,56:64,81,89:91)]
 ##  8                8             7           4             9 Raspberry Day 1
 ##  9                8             7           6             8 Raspberry Day 1
 ## 10                7             9           9             7 Raspberry Day 1
-## # ℹ 7,497 more rows
-## # ℹ 12 more variables: us_appearance <dbl>, us_overall <dbl>, us_taste <dbl>,
+## # i 7,497 more rows
+## # i 12 more variables: us_appearance <dbl>, us_overall <dbl>, us_taste <dbl>,
 ## #   us_texture <dbl>, lms_appearance <dbl>, lms_overall <dbl>, lms_taste <dbl>,
 ## #   lms_texture <dbl>, `9pt_aroma` <dbl>, us_aroma <dbl>, lms_aroma <dbl>,
 ## #   berry <chr>
@@ -188,7 +188,7 @@ berry_data[, c("9pt_aroma","9pt_overall","9pt_taste","9pt_texture","9pt_appearan
 ```
 
 ```
-## # A tibble: 7,507 × 17
+## # A tibble: 7,507 x 17
 ##    `9pt_aroma` `9pt_overall` `9pt_taste` `9pt_texture` `9pt_appearance`
 ##          <dbl>         <dbl>       <dbl>         <dbl>            <dbl>
 ##  1          NA             4           4             6                4
@@ -201,8 +201,8 @@ berry_data[, c("9pt_aroma","9pt_overall","9pt_taste","9pt_texture","9pt_appearan
 ##  8          NA             7           4             9                8
 ##  9          NA             7           6             8                8
 ## 10          NA             9           9             7                7
-## # ℹ 7,497 more rows
-## # ℹ 12 more variables: lms_aroma <dbl>, lms_overall <dbl>, lms_taste <dbl>,
+## # i 7,497 more rows
+## # i 12 more variables: lms_aroma <dbl>, lms_overall <dbl>, lms_taste <dbl>,
 ## #   lms_texture <dbl>, lms_appearance <dbl>, us_aroma <dbl>, us_overall <dbl>,
 ## #   us_taste <dbl>, us_texture <dbl>, us_appearance <dbl>, berry <chr>,
 ## #   test_day <chr>
@@ -222,20 +222,20 @@ select(berry_data, berry, test_day,
 ```
 
 ```
-## # A tibble: 7,507 × 7
+## # A tibble: 7,507 x 7
 ##    berry     test_day lms_aroma lms_overall lms_taste lms_texture lms_appearance
 ##    <chr>     <chr>        <dbl>       <dbl>     <dbl>       <dbl>          <dbl>
-##  1 raspberry Raspber…        NA          NA        NA          NA             NA
-##  2 raspberry Raspber…        NA          NA        NA          NA             NA
-##  3 raspberry Raspber…        NA          NA        NA          NA             NA
-##  4 raspberry Raspber…        NA          NA        NA          NA             NA
-##  5 raspberry Raspber…        NA          NA        NA          NA             NA
-##  6 raspberry Raspber…        NA          NA        NA          NA             NA
-##  7 raspberry Raspber…        NA          NA        NA          NA             NA
-##  8 raspberry Raspber…        NA          NA        NA          NA             NA
-##  9 raspberry Raspber…        NA          NA        NA          NA             NA
-## 10 raspberry Raspber…        NA          NA        NA          NA             NA
-## # ℹ 7,497 more rows
+##  1 raspberry Raspber~        NA          NA        NA          NA             NA
+##  2 raspberry Raspber~        NA          NA        NA          NA             NA
+##  3 raspberry Raspber~        NA          NA        NA          NA             NA
+##  4 raspberry Raspber~        NA          NA        NA          NA             NA
+##  5 raspberry Raspber~        NA          NA        NA          NA             NA
+##  6 raspberry Raspber~        NA          NA        NA          NA             NA
+##  7 raspberry Raspber~        NA          NA        NA          NA             NA
+##  8 raspberry Raspber~        NA          NA        NA          NA             NA
+##  9 raspberry Raspber~        NA          NA        NA          NA             NA
+## 10 raspberry Raspber~        NA          NA        NA          NA             NA
+## # i 7,497 more rows
 ```
 
 This is much clearer to the reader.
@@ -260,7 +260,7 @@ select(berry_data, berry, test_day, # these "syntactic" column names don't need 
 ```
 
 ```
-## # A tibble: 7,507 × 8
+## # A tibble: 7,507 x 8
 ##    berry     test_day        `9pt_aroma` `9pt_overall` `9pt_taste` `9pt_texture`
 ##    <chr>     <chr>                 <dbl>         <dbl>       <dbl>         <dbl>
 ##  1 raspberry Raspberry Day 1          NA             4           4             6
@@ -273,8 +273,8 @@ select(berry_data, berry, test_day, # these "syntactic" column names don't need 
 ##  8 raspberry Raspberry Day 1          NA             7           4             9
 ##  9 raspberry Raspberry Day 1          NA             7           6             8
 ## 10 raspberry Raspberry Day 1          NA             9           9             7
-## # ℹ 7,497 more rows
-## # ℹ 2 more variables: `9pt_appearance` <dbl>, `Sample Name` <chr>
+## # i 7,497 more rows
+## # i 2 more variables: `9pt_appearance` <dbl>, `Sample Name` <chr>
 ```
 
 The backticks are only necessary when a column name breaks one of the variable-naming rules, and RStudio will usually fill them in for you if you use tab autocompletion when writing your select() and other tidyverse functions.
@@ -287,7 +287,7 @@ select(berry_data, starts_with("lms_")) #the double-quotes are back because this
 ```
 
 ```
-## # A tibble: 7,507 × 5
+## # A tibble: 7,507 x 5
 ##    lms_appearance lms_overall lms_taste lms_texture lms_aroma
 ##             <dbl>       <dbl>     <dbl>       <dbl>     <dbl>
 ##  1             NA          NA        NA          NA        NA
@@ -300,7 +300,7 @@ select(berry_data, starts_with("lms_")) #the double-quotes are back because this
 ##  8             NA          NA        NA          NA        NA
 ##  9             NA          NA        NA          NA        NA
 ## 10             NA          NA        NA          NA        NA
-## # ℹ 7,497 more rows
+## # i 7,497 more rows
 ```
 
 There are equivalents for the end of column names (`ends_with()`) and text found anywhere in the name (`contains()`).
@@ -314,7 +314,7 @@ select(berry_data, starts_with("lms_"), starts_with("9pt_"), starts_with("us_"),
 ```
 
 ```
-## # A tibble: 7,507 × 17
+## # A tibble: 7,507 x 17
 ##    lms_appearance lms_overall lms_taste lms_texture lms_aroma `9pt_appearance`
 ##             <dbl>       <dbl>     <dbl>       <dbl>     <dbl>            <dbl>
 ##  1             NA          NA        NA          NA        NA                4
@@ -327,8 +327,8 @@ select(berry_data, starts_with("lms_"), starts_with("9pt_"), starts_with("us_"),
 ##  8             NA          NA        NA          NA        NA                8
 ##  9             NA          NA        NA          NA        NA                8
 ## 10             NA          NA        NA          NA        NA                7
-## # ℹ 7,497 more rows
-## # ℹ 11 more variables: `9pt_overall` <dbl>, `9pt_taste` <dbl>,
+## # i 7,497 more rows
+## # i 11 more variables: `9pt_overall` <dbl>, `9pt_taste` <dbl>,
 ## #   `9pt_texture` <dbl>, `9pt_aroma` <dbl>, us_appearance <dbl>,
 ## #   us_overall <dbl>, us_taste <dbl>, us_texture <dbl>, us_aroma <dbl>,
 ## #   berry <chr>, test_day <chr>
@@ -340,7 +340,7 @@ select(berry_data, starts_with("jar_"), ends_with("_overall"),
 ```
 
 ```
-## # A tibble: 7,507 × 15
+## # A tibble: 7,507 x 15
 ##    jar_color jar_gloss jar_size jar_sweetness jar_tartness jar_firmness
 ##        <dbl>     <dbl>    <dbl>         <dbl>        <dbl>        <dbl>
 ##  1         2         4        2             2            4            3
@@ -353,8 +353,8 @@ select(berry_data, starts_with("jar_"), ends_with("_overall"),
 ##  8         3         3        3             1            4            3
 ##  9         3         4        5             1            4            3
 ## 10         2         4        3             3            3            2
-## # ℹ 7,497 more rows
-## # ℹ 9 more variables: jar_juciness <dbl>, jar_crispness <dbl>,
+## # i 7,497 more rows
+## # i 9 more variables: jar_juciness <dbl>, jar_crispness <dbl>,
 ## #   jar_juiciness <dbl>, jar_crunch <dbl>, `9pt_overall` <dbl>,
 ## #   us_overall <dbl>, lms_overall <dbl>, berry <chr>, test_day <chr>
 ```
@@ -367,7 +367,7 @@ select(berry_data, everything()) #This selects everything--it doesn't change at 
 ```
 
 ```
-## # A tibble: 7,507 × 92
+## # A tibble: 7,507 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 21:05   
@@ -380,13 +380,13 @@ select(berry_data, everything()) #This selects everything--it doesn't change at 
 ##  8           1002               1002 NA     NA    6/13/2019 19:57   
 ##  9           1002               1002 NA     NA    6/13/2019 20:13   
 ## 10           1002               1002 NA     NA    6/13/2019 20:03   
-## # ℹ 7,497 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 7,497 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 ```r
@@ -395,26 +395,26 @@ select(berry_data, berry, contains("_overall"),
 ```
 
 ```
-## # A tibble: 7,507 × 92
+## # A tibble: 7,507 x 92
 ##    berry  `9pt_overall` us_overall lms_overall `Subject Code` `Participant Name`
 ##    <chr>          <dbl>      <dbl>       <dbl>          <dbl>              <dbl>
-##  1 raspb…             4         NA          NA           1001               1001
-##  2 raspb…             9         NA          NA           1001               1001
-##  3 raspb…             3         NA          NA           1001               1001
-##  4 raspb…             7         NA          NA           1001               1001
-##  5 raspb…             4         NA          NA           1001               1001
-##  6 raspb…             4         NA          NA           1001               1001
-##  7 raspb…             4         NA          NA           1002               1002
-##  8 raspb…             7         NA          NA           1002               1002
-##  9 raspb…             7         NA          NA           1002               1002
-## 10 raspb…             9         NA          NA           1002               1002
-## # ℹ 7,497 more rows
-## # ℹ 86 more variables: Gender <lgl>, Age <lgl>, `Start Time (UTC)` <chr>,
+##  1 raspb~             4         NA          NA           1001               1001
+##  2 raspb~             9         NA          NA           1001               1001
+##  3 raspb~             3         NA          NA           1001               1001
+##  4 raspb~             7         NA          NA           1001               1001
+##  5 raspb~             4         NA          NA           1001               1001
+##  6 raspb~             4         NA          NA           1001               1001
+##  7 raspb~             4         NA          NA           1002               1002
+##  8 raspb~             7         NA          NA           1002               1002
+##  9 raspb~             7         NA          NA           1002               1002
+## 10 raspb~             9         NA          NA           1002               1002
+## # i 7,497 more rows
+## # i 86 more variables: Gender <lgl>, Age <lgl>, `Start Time (UTC)` <chr>,
 ## #   `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
-## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>, …
+## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>, ...
 ```
 
 `everything()` can be very useful for programming, but if you just need to rearrange an even easier function is `relocate()`, which moves whatever columns you specify to the "left" or "right" of the `data.frame`; you can even get more specific and move to the left or right of specific columns:
@@ -426,7 +426,7 @@ relocate(berry_data, us_overall)
 ```
 
 ```
-## # A tibble: 7,507 × 92
+## # A tibble: 7,507 x 92
 ##    us_overall `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##         <dbl>          <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1         NA           1001               1001 NA     NA    6/13/2019 21:05   
@@ -439,13 +439,13 @@ relocate(berry_data, us_overall)
 ##  8         NA           1002               1002 NA     NA    6/13/2019 19:57   
 ##  9         NA           1002               1002 NA     NA    6/13/2019 20:13   
 ## 10         NA           1002               1002 NA     NA    6/13/2019 20:03   
-## # ℹ 7,497 more rows
-## # ℹ 86 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 7,497 more rows
+## # i 86 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 ```r
@@ -454,7 +454,7 @@ relocate(berry_data, `Subject Code`, .before = Gender)
 ```
 
 ```
-## # A tibble: 7,507 × 92
+## # A tibble: 7,507 x 92
 ##    `Participant Name` `Subject Code` Gender Age   `Start Time (UTC)`
 ##                 <dbl>          <dbl> <lgl>  <lgl> <chr>             
 ##  1               1001           1001 NA     NA    6/13/2019 21:05   
@@ -467,13 +467,13 @@ relocate(berry_data, `Subject Code`, .before = Gender)
 ##  8               1002           1002 NA     NA    6/13/2019 19:57   
 ##  9               1002           1002 NA     NA    6/13/2019 20:13   
 ## 10               1002           1002 NA     NA    6/13/2019 20:03   
-## # ℹ 7,497 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 7,497 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 
@@ -486,7 +486,7 @@ select(berry_data, where(is.numeric))
 ```
 
 ```
-## # A tibble: 7,507 × 83
+## # A tibble: 7,507 x 83
 ##    `Subject Code` `Participant Name` `Serving Position` `Sample Identifier`
 ##             <dbl>              <dbl>              <dbl>               <dbl>
 ##  1           1001               1001                  5                1426
@@ -499,13 +499,13 @@ select(berry_data, where(is.numeric))
 ##  8           1002               1002                  1                3167
 ##  9           1002               1002                  4                4624
 ## 10           1002               1002                  2                5068
-## # ℹ 7,497 more rows
-## # ℹ 79 more variables: `9pt_appearance` <dbl>, pre_expectation <dbl>,
+## # i 7,497 more rows
+## # i 79 more variables: `9pt_appearance` <dbl>, pre_expectation <dbl>,
 ## #   jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
 ## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>,
-## #   cata_appearance_fresh <dbl>, cata_appearance_goodshape <dbl>, …
+## #   cata_appearance_fresh <dbl>, cata_appearance_goodshape <dbl>, ...
 ```
 
 ```r
@@ -514,7 +514,7 @@ select(berry_data, where(~!any(is.na(.))))
 ```
 
 ```
-## # A tibble: 7,507 × 38
+## # A tibble: 7,507 x 38
 ##    `Subject Code` `Participant Name` `Start Time (UTC)` `End Time (UTC)`
 ##             <dbl>              <dbl> <chr>              <chr>           
 ##  1           1001               1001 6/13/2019 21:05    6/13/2019 21:09 
@@ -527,13 +527,13 @@ select(berry_data, where(~!any(is.na(.))))
 ##  8           1002               1002 6/13/2019 19:57    6/13/2019 20:01 
 ##  9           1002               1002 6/13/2019 20:13    6/13/2019 20:17 
 ## 10           1002               1002 6/13/2019 20:03    6/13/2019 20:07 
-## # ℹ 7,497 more rows
-## # ℹ 34 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
+## # i 7,497 more rows
+## # i 34 more variables: `Serving Position` <dbl>, `Sample Identifier` <dbl>,
 ## #   `Sample Name` <chr>, pre_expectation <dbl>, jar_color <dbl>,
 ## #   jar_size <dbl>, cata_appearance_unevencolor <dbl>,
 ## #   cata_appearance_misshapen <dbl>, cata_appearance_notfresh <dbl>,
 ## #   cata_appearance_fresh <dbl>, cata_appearance_goodquality <dbl>,
-## #   cata_appearance_none <dbl>, grid_sweetness <dbl>, grid_tartness <dbl>, …
+## #   cata_appearance_none <dbl>, grid_sweetness <dbl>, grid_tartness <dbl>, ...
 ```
 
 The little squiggly symbol, called a tilde (`~`), is above the backtick on QWERTY keyboards, and it turns everything that comes after it into a "lambda function". We'll talk more about lambda functions later, when we talk about `across()`. You can read it the above as "`select()` the columns from `berry_data` `where()` there are not (`!`) `any()` NA values (`is.na(.)`)".
@@ -552,7 +552,7 @@ berry_data[1:10, ]
 ```
 
 ```
-## # A tibble: 10 × 92
+## # A tibble: 10 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 21:05   
@@ -565,13 +565,13 @@ berry_data[1:10, ]
 ##  8           1002               1002 NA     NA    6/13/2019 19:57   
 ##  9           1002               1002 NA     NA    6/13/2019 20:13   
 ## 10           1002               1002 NA     NA    6/13/2019 20:03   
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
 ## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>,
-## #   cata_appearance_fresh <dbl>, cata_appearance_goodshape <dbl>, …
+## #   cata_appearance_fresh <dbl>, cata_appearance_goodshape <dbl>, ...
 ```
 
 Again, this is not very human readable, and if we reorganize our rows this won't be useful anymore.  The `tidyverse` answer to this approach is the `filter()` function, which lets you filter your dataset into specific rows according to *data stored in the table itself*.
@@ -583,7 +583,7 @@ filter(berry_data, pre_expectation > 3)
 ```
 
 ```
-## # A tibble: 2,192 × 92
+## # A tibble: 2,192 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 20:55   
@@ -596,13 +596,13 @@ filter(berry_data, pre_expectation > 3)
 ##  8           1004               1004 NA     NA    6/13/2019 20:58   
 ##  9           1004               1004 NA     NA    6/13/2019 20:50   
 ## 10           1005               1005 NA     NA    6/13/2019 20:13   
-## # ℹ 2,182 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 2,182 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 When using `filter()`, we can specify multiple logical conditions.  For example, let's get only raspberries with initially high expectations.  If we want only exact matches, we can use the direct `==` operator:
@@ -613,7 +613,7 @@ filter(berry_data, pre_expectation > 3, berry == "raspberry")
 ```
 
 ```
-## # A tibble: 709 × 92
+## # A tibble: 709 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 20:55   
@@ -626,13 +626,13 @@ filter(berry_data, pre_expectation > 3, berry == "raspberry")
 ##  8           1004               1004 NA     NA    6/13/2019 20:58   
 ##  9           1004               1004 NA     NA    6/13/2019 20:50   
 ## 10           1005               1005 NA     NA    6/13/2019 20:13   
-## # ℹ 699 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 699 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 But this won't return, for example, any berries labeled as "Raspberry", with an uppercase R.
@@ -643,14 +643,14 @@ filter(berry_data, pre_expectation > 3, berry == "Raspberry")
 ```
 
 ```
-## # A tibble: 0 × 92
-## # ℹ 92 variables: Subject Code <dbl>, Participant Name <dbl>, Gender <lgl>,
+## # A tibble: 0 x 92
+## # i 92 variables: Subject Code <dbl>, Participant Name <dbl>, Gender <lgl>,
 ## #   Age <lgl>, Start Time (UTC) <chr>, End Time (UTC) <chr>,
 ## #   Serving Position <dbl>, Sample Identifier <dbl>, Sample Name <chr>,
 ## #   9pt_appearance <dbl>, pre_expectation <dbl>, jar_color <dbl>,
 ## #   jar_gloss <dbl>, jar_size <dbl>, cata_appearance_unevencolor <dbl>,
 ## #   cata_appearance_misshapen <dbl>, cata_appearance_creased <dbl>,
-## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>, …
+## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>, ...
 ```
 
 Luckily, we don't have a mix of raspberries and Raspberries. Maybe we want both raspberries and strawberries that panelists had high expectations of:
@@ -661,7 +661,7 @@ filter(berry_data, pre_expectation > 3, berry == "raspberry" | berry == "strawbe
 ```
 
 ```
-## # A tibble: 1,104 × 92
+## # A tibble: 1,104 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 20:55   
@@ -674,13 +674,13 @@ filter(berry_data, pre_expectation > 3, berry == "raspberry" | berry == "strawbe
 ##  8           1004               1004 NA     NA    6/13/2019 20:58   
 ##  9           1004               1004 NA     NA    6/13/2019 20:50   
 ## 10           1005               1005 NA     NA    6/13/2019 20:13   
-## # ℹ 1,094 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 1,094 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 In `R`, the `|` means Boolean `OR`, and the `&` means Boolean `AND`. If you're trying to figure out which one to use, phrase what you want to do with your `filter()` statement by starting "keep only rows that have...". We may want to look at raspberries *and* strawberries, but we want to "keep only rows that have a `berry` type of raspberry *or* strawberry".
@@ -693,7 +693,7 @@ filter(berry_data, str_detect(test_day, "Day 1"))
 ```
 
 ```
-## # A tibble: 2,586 × 92
+## # A tibble: 2,586 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 21:05   
@@ -706,13 +706,13 @@ filter(berry_data, str_detect(test_day, "Day 1"))
 ##  8           1002               1002 NA     NA    6/13/2019 19:57   
 ##  9           1002               1002 NA     NA    6/13/2019 20:13   
 ## 10           1002               1002 NA     NA    6/13/2019 20:03   
-## # ℹ 2,576 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 2,576 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 Here, the `str_detect()` function searched for any text that **contains** "Day 1" in the `test_day` column.
@@ -731,8 +731,8 @@ select(filter(berry_data, berry == "blackberry"), `Sample Name`, contains("_over
 ```
 
 ```
-## # A tibble: 1,495 × 40
-##    `Sample Name` `9pt_overall` us_overall lms_overall cata_appearance_unevenco…¹
+## # A tibble: 1,495 x 40
+##    `Sample Name` `9pt_overall` us_overall lms_overall cata_appearance_unevenco~1
 ##    <chr>                 <dbl>      <dbl>       <dbl>                      <dbl>
 ##  1 Blackberry 4              2         NA          NA                          0
 ##  2 Blackberry 2              5         NA          NA                          0
@@ -744,13 +744,13 @@ select(filter(berry_data, berry == "blackberry"), `Sample Name`, contains("_over
 ##  8 Blackberry 1              8         NA          NA                          0
 ##  9 Blackberry 3              8         NA          NA                          0
 ## 10 Blackberry 5              8         NA          NA                          0
-## # ℹ 1,485 more rows
-## # ℹ abbreviated name: ¹​cata_appearance_unevencolor
-## # ℹ 35 more variables: cata_appearance_misshapen <dbl>,
+## # i 1,485 more rows
+## # i abbreviated name: 1: cata_appearance_unevencolor
+## # i 35 more variables: cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
 ## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>,
 ## #   cata_appearance_fresh <dbl>, cata_appearance_goodshape <dbl>,
-## #   cata_appearance_goodquality <dbl>, cata_appearance_none <dbl>, …
+## #   cata_appearance_goodquality <dbl>, cata_appearance_none <dbl>, ...
 ```
 
 The problem with this approach is that we have to read it "inside out".  First, `filter()` will happen and get us only berries whose `berry` is exactly "blackberry".  Then `select()` will get `Sample Name` along with columns that match "_overall" or "cata_ in their names.  Especially as your code gets complicated, this can be very hard to read (and in the bookdown, doesn't even fit on one line!).
@@ -764,8 +764,8 @@ select(blackberries, `Sample Name`, contains("_overall"), contains("cata_"))
 ```
 
 ```
-## # A tibble: 1,495 × 40
-##    `Sample Name` `9pt_overall` us_overall lms_overall cata_appearance_unevenco…¹
+## # A tibble: 1,495 x 40
+##    `Sample Name` `9pt_overall` us_overall lms_overall cata_appearance_unevenco~1
 ##    <chr>                 <dbl>      <dbl>       <dbl>                      <dbl>
 ##  1 Blackberry 4              2         NA          NA                          0
 ##  2 Blackberry 2              5         NA          NA                          0
@@ -777,13 +777,13 @@ select(blackberries, `Sample Name`, contains("_overall"), contains("cata_"))
 ##  8 Blackberry 1              8         NA          NA                          0
 ##  9 Blackberry 3              8         NA          NA                          0
 ## 10 Blackberry 5              8         NA          NA                          0
-## # ℹ 1,485 more rows
-## # ℹ abbreviated name: ¹​cata_appearance_unevencolor
-## # ℹ 35 more variables: cata_appearance_misshapen <dbl>,
+## # i 1,485 more rows
+## # i abbreviated name: 1: cata_appearance_unevencolor
+## # i 35 more variables: cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
 ## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>,
 ## #   cata_appearance_fresh <dbl>, cata_appearance_goodshape <dbl>,
-## #   cata_appearance_goodquality <dbl>, cata_appearance_none <dbl>, …
+## #   cata_appearance_goodquality <dbl>, cata_appearance_none <dbl>, ...
 ```
 
 But now we have this intermediate we don't really need cluttering up our `Environment` tab.  This is fine for a single step, but if you have a lot of steps in your analysis this is going to get old (and confusing) fast.  You'll have to remove a lot of these using the `rm()` command to keep your code clean.
@@ -809,8 +809,8 @@ berry_data %>%                             # Start with the berry_data
 ```
 
 ```
-## # A tibble: 1,495 × 40
-##    `Sample Name` `9pt_overall` us_overall lms_overall cata_appearance_unevenco…¹
+## # A tibble: 1,495 x 40
+##    `Sample Name` `9pt_overall` us_overall lms_overall cata_appearance_unevenco~1
 ##    <chr>                 <dbl>      <dbl>       <dbl>                      <dbl>
 ##  1 Blackberry 4              2         NA          NA                          0
 ##  2 Blackberry 2              5         NA          NA                          0
@@ -822,13 +822,13 @@ berry_data %>%                             # Start with the berry_data
 ##  8 Blackberry 1              8         NA          NA                          0
 ##  9 Blackberry 3              8         NA          NA                          0
 ## 10 Blackberry 5              8         NA          NA                          0
-## # ℹ 1,485 more rows
-## # ℹ abbreviated name: ¹​cata_appearance_unevencolor
-## # ℹ 35 more variables: cata_appearance_misshapen <dbl>,
+## # i 1,485 more rows
+## # i abbreviated name: 1: cata_appearance_unevencolor
+## # i 35 more variables: cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
 ## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>,
 ## #   cata_appearance_fresh <dbl>, cata_appearance_goodshape <dbl>,
-## #   cata_appearance_goodquality <dbl>, cata_appearance_none <dbl>, …
+## #   cata_appearance_goodquality <dbl>, cata_appearance_none <dbl>, ...
 ```
 
 In this example, each place there is a `%>%` I've added a comment saying "AND THEN".  This is because that's exactly what the pipe does: it passes whatever happened in the previous step to the next function.  Specifically, `%>%` passes the **results** of the previous line to the **first argument** of the next line.
@@ -930,7 +930,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 1,612 × 92
+## # A tibble: 1,612 x 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
 ##  1           1001               1001 NA     NA    6/13/2019 20:55   
@@ -943,13 +943,13 @@ berry_data %>%
 ##  8           1009               1009 NA     NA    6/13/2019 20:39   
 ##  9           1010               1010 NA     NA    6/13/2019 20:02   
 ## 10           1010               1010 NA     NA    6/13/2019 20:14   
-## # ℹ 1,602 more rows
-## # ℹ 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
+## # i 1,602 more rows
+## # i 87 more variables: `End Time (UTC)` <chr>, `Serving Position` <dbl>,
 ## #   `Sample Identifier` <dbl>, `Sample Name` <chr>, `9pt_appearance` <dbl>,
 ## #   pre_expectation <dbl>, jar_color <dbl>, jar_gloss <dbl>, jar_size <dbl>,
 ## #   cata_appearance_unevencolor <dbl>, cata_appearance_misshapen <dbl>,
 ## #   cata_appearance_creased <dbl>, cata_appearance_seedy <dbl>,
-## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, …
+## #   cata_appearance_bruised <dbl>, cata_appearance_notfresh <dbl>, ...
 ```
 
 But what if we want to be able to just see this?
@@ -963,7 +963,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 5
+## # A tibble: 7,507 x 5
 ##    `Participant Name` `Sample Name` pre_expectation post_expectation improved
 ##                 <dbl> <chr>                   <dbl>            <dbl> <lgl>   
 ##  1               1001 raspberry 6                 2                1 FALSE   
@@ -976,7 +976,7 @@ berry_data %>%
 ##  8               1002 raspberry 5                 3                2 FALSE   
 ##  9               1002 raspberry 2                 5                2 FALSE   
 ## 10               1002 raspberry 3                 3                5 TRUE    
-## # ℹ 7,497 more rows
+## # i 7,497 more rows
 ```
 
 What does the above function do?
@@ -1005,7 +1005,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 3
+## # A tibble: 7,507 x 3
 ##    `Sample Name` `9pt_overall` difference_from_average
 ##    <chr>                 <dbl>                   <dbl>
 ##  1 raspberry 6               4                   -1.68
@@ -1018,7 +1018,7 @@ berry_data %>%
 ##  8 raspberry 5               7                    1.32
 ##  9 raspberry 2               7                    1.32
 ## 10 raspberry 3               9                    3.32
-## # ℹ 7,497 more rows
+## # i 7,497 more rows
 ```
 ## Split-apply-combine analyses
 
@@ -1049,7 +1049,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 3
+## # A tibble: 7,507 x 3
 ## # Groups:   Sample Name [23]
 ##    `Sample Name` `9pt_overall` difference_from_average
 ##    <chr>                 <dbl>                   <dbl>
@@ -1063,7 +1063,7 @@ berry_data %>%
 ##  8 raspberry 5               7                   1.04 
 ##  9 raspberry 2               7                   1.14 
 ## 10 raspberry 3               9                   2.83 
-## # ℹ 7,497 more rows
+## # i 7,497 more rows
 ```
 
 You might notice that the `mutate()` call hasn't been changed at all from when we did this in the last code chunk using the global average, but that the numbers are in fact different. The tibble also now tells us that it has `Groups: Sample Name[23]`, because of our group_by() call.
@@ -1082,7 +1082,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 5
+## # A tibble: 7,507 x 5
 ##    `Sample Name` `9pt_overall` group_average difference_from_average
 ##    <chr>                 <dbl>         <dbl>                   <dbl>
 ##  1 raspberry 6               4          6.30                  -2.30 
@@ -1095,8 +1095,8 @@ berry_data %>%
 ##  8 raspberry 5               7          5.96                   1.04 
 ##  9 raspberry 2               7          5.86                   1.14 
 ## 10 raspberry 3               9          6.17                   2.83 
-## # ℹ 7,497 more rows
-## # ℹ 1 more variable: grand_average <dbl>
+## # i 7,497 more rows
+## # i 1 more variable: grand_average <dbl>
 ```
 
 You'll see that the `Groups` info at the top of the tibble is gone, and that thanks to `ungroup()` every single row has the same grand average.
@@ -1124,7 +1124,7 @@ berry_summary
 ```
 
 ```
-## # A tibble: 23 × 5
+## # A tibble: 23 x 5
 ##    `Sample Name` n_responses mean_rating sd_rating se_rating
 ##    <chr>               <int>       <dbl>     <dbl>     <dbl>
 ##  1 Blackberry 1           93        5.12      2.23     0.231
@@ -1137,7 +1137,7 @@ berry_summary
 ##  8 Blueberry 3           105        5.61      1.92     0.188
 ##  9 Blueberry 4           105        5.70      2.08     0.203
 ## 10 Blueberry 5           105        5.38      2.17     0.212
-## # ℹ 13 more rows
+## # i 13 more rows
 ```
 
 We can use this approach to even get a summary stats table - for example, confidence limits according to the normal distribution:
@@ -1150,7 +1150,7 @@ berry_summary %>%
 ```
 
 ```
-## # A tibble: 23 × 7
+## # A tibble: 23 x 7
 ##    `Sample Name` n_responses mean_rating sd_rating se_rating lower_limit
 ##    <chr>               <int>       <dbl>     <dbl>     <dbl>       <dbl>
 ##  1 Blackberry 1           93        5.12      2.23     0.231        4.67
@@ -1163,8 +1163,8 @@ berry_summary %>%
 ##  8 Blueberry 3           105        5.61      1.92     0.188        5.24
 ##  9 Blueberry 4           105        5.70      2.08     0.203        5.31
 ## 10 Blueberry 5           105        5.38      2.17     0.212        4.97
-## # ℹ 13 more rows
-## # ℹ 1 more variable: upper_limit <dbl>
+## # i 13 more rows
+## # i 1 more variable: upper_limit <dbl>
 ```
 
 Note that in the above example we use `mutate()`, *not* `summarize()`, because we had saved our summarized data.  We could also have calculated `lower_limit` and `upper_limit` directly as part of the `summarize()` statement if we hadn't saved the intermediate.
@@ -1188,7 +1188,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 23 × 37
+## # A tibble: 23 x 37
 ##    `Sample Name` cata_appearance_unevencolor cata_appearance_misshapen
 ##    <chr>                               <dbl>                     <dbl>
 ##  1 Blackberry 1                           28                        67
@@ -1201,13 +1201,13 @@ berry_data %>%
 ##  8 Blueberry 3                            34                        37
 ##  9 Blueberry 4                            29                        26
 ## 10 Blueberry 5                            22                        35
-## # ℹ 13 more rows
-## # ℹ 34 more variables: cata_appearance_creased <dbl>,
+## # i 13 more rows
+## # i 34 more variables: cata_appearance_creased <dbl>,
 ## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>,
 ## #   cata_appearance_notfresh <dbl>, cata_appearance_fresh <dbl>,
 ## #   cata_appearance_goodshape <dbl>, cata_appearance_goodquality <dbl>,
 ## #   cata_appearance_none <dbl>, cata_taste_floral <dbl>,
-## #   cata_taste_berry <dbl>, cata_taste_green <dbl>, cata_taste_grassy <dbl>, …
+## #   cata_taste_berry <dbl>, cata_taste_green <dbl>, ...
 ```
 
 You might read this as: `summarize()` `across()` every `.col` that `starts_with("cata_")` by taking the `sum()`. 
@@ -1226,8 +1226,8 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 23 × 73
-##    `Sample Name` cata_appearance_unevencolor_frequency cata_appearance_unevenc…¹
+## # A tibble: 23 x 73
+##    `Sample Name` cata_appearance_unevencolor_frequency cata_appearance_unevenc~1
 ##    <chr>                                         <dbl>                     <dbl>
 ##  1 Blackberry 1                                     28                    0.0936
 ##  2 Blackberry 2                                     32                    0.107 
@@ -1239,13 +1239,13 @@ berry_data %>%
 ##  8 Blueberry 3                                      34                    0.109 
 ##  9 Blueberry 4                                      29                    0.0927
 ## 10 Blueberry 5                                      22                    0.0703
-## # ℹ 13 more rows
-## # ℹ abbreviated name: ¹​cata_appearance_unevencolor_percentage
-## # ℹ 70 more variables: cata_appearance_misshapen_frequency <dbl>,
+## # i 13 more rows
+## # i abbreviated name: 1: cata_appearance_unevencolor_percentage
+## # i 70 more variables: cata_appearance_misshapen_frequency <dbl>,
 ## #   cata_appearance_misshapen_percentage <dbl>,
 ## #   cata_appearance_creased_frequency <dbl>,
 ## #   cata_appearance_creased_percentage <dbl>,
-## #   cata_appearance_seedy_frequency <dbl>, …
+## #   cata_appearance_seedy_frequency <dbl>, ...
 ```
 
 `across()` is capable of taking arbitrarily complicated functions, but you'll notice that we didn't include the parentheses we usually see after a function name for `sum()` and `mean()`. `across()` will just pipe in each column to the `.fns` as the first argument. That means, however, that there's nowhere for us to put additional arguments like `na.rm`.
@@ -1266,7 +1266,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 23 × 11
+## # A tibble: 23 x 11
 ##    `Sample Name` `9pt_appearance_mean` `9pt_appearance_sd` `9pt_overall_mean`
 ##    <chr>                         <dbl>               <dbl>              <dbl>
 ##  1 Blackberry 1                     NA                  NA                 NA
@@ -1279,8 +1279,8 @@ berry_data %>%
 ##  8 Blueberry 3                      NA                  NA                 NA
 ##  9 Blueberry 4                      NA                  NA                 NA
 ## 10 Blueberry 5                      NA                  NA                 NA
-## # ℹ 13 more rows
-## # ℹ 7 more variables: `9pt_overall_sd` <dbl>, `9pt_taste_mean` <dbl>,
+## # i 13 more rows
+## # i 7 more variables: `9pt_overall_sd` <dbl>, `9pt_taste_mean` <dbl>,
 ## #   `9pt_taste_sd` <dbl>, `9pt_texture_mean` <dbl>, `9pt_texture_sd` <dbl>,
 ## #   `9pt_aroma_mean` <dbl>, `9pt_aroma_sd` <dbl>
 ```
@@ -1294,7 +1294,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 23 × 11
+## # A tibble: 23 x 11
 ##    `Sample Name` `9pt_appearance_mean` `9pt_appearance_sd` `9pt_overall_mean`
 ##    <chr>                         <dbl>               <dbl>              <dbl>
 ##  1 Blackberry 1                   6.57                1.64               5.12
@@ -1307,8 +1307,8 @@ berry_data %>%
 ##  8 Blueberry 3                    6.4                 1.68               5.61
 ##  9 Blueberry 4                    6.45                1.72               5.70
 ## 10 Blueberry 5                    6.39                1.74               5.38
-## # ℹ 13 more rows
-## # ℹ 7 more variables: `9pt_overall_sd` <dbl>, `9pt_taste_mean` <dbl>,
+## # i 13 more rows
+## # i 7 more variables: `9pt_overall_sd` <dbl>, `9pt_taste_mean` <dbl>,
 ## #   `9pt_taste_sd` <dbl>, `9pt_texture_mean` <dbl>, `9pt_texture_sd` <dbl>,
 ## #   `9pt_aroma_mean` <dbl>, `9pt_aroma_sd` <dbl>
 ```

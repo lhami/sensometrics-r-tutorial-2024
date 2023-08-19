@@ -11,7 +11,7 @@ Normally, we present CA results as a graph. You can use the base R `plot()` func
 plot(berry_ca_res)
 ```
 
-<img src="6-dataviz_files/figure-html/base R plotting example-1.png" width="672" />
+![](6-dataviz_files/figure-latex/base R plotting example-1.pdf)<!-- --> 
 
 You can learn some things from this already: Strawberries 1 & 2 had some appearance defects that made them noticably different from the others. The blackberries were generally more earthy, while many of the raspberries and strawberries had more fruity/berry flavor. Often, multivariate data analysis packages have pretty good defaults built into their packages that you should take advantage of to quickly look at your data.
 
@@ -59,7 +59,7 @@ berry_data %>%
 ## Warning: Removed 5005 rows containing missing values (`geom_point()`).
 ```
 
-<img src="6-dataviz_files/figure-html/a first ggplot-1.png" width="672" />
+![](6-dataviz_files/figure-latex/a first ggplot-1.pdf)<!-- --> 
 
 This doesn't look all that impressive--partly because the data being plotted itself isn't that sensible, and partly because we haven't made many changes. If we want to plot some **summary** data, maybe one point per berry sample, we can use the familiar `tidyverse` functions to reshape our data and pipe it into `ggplot()`.
 
@@ -85,7 +85,7 @@ berry_average_likings %>%
   geom_point()
 ```
 
-<img src="6-dataviz_files/figure-html/basic ggplot2 scatterplot-1.png" width="672" />
+![](6-dataviz_files/figure-latex/basic ggplot2 scatterplot-1.pdf)<!-- --> 
 
 This plot has fewer overlapping points and less noise, so it's a lot more informative. But it still doesn't look that good, with the underscores in the axis labels, the printer-unfriendly grey background, etc. Let's start looking at the pieces that make up a `ggplot` so we can change them.
 
@@ -108,7 +108,7 @@ berry_average_likings %>%
 ```
 
 ```
-## # A tibble: 23 × 2
+## # A tibble: 23 x 2
 ##    lms_overall `9pt_overall`
 ##          <dbl>         <dbl>
 ##  1       32.6           6.30
@@ -121,7 +121,7 @@ berry_average_likings %>%
 ##  8        5.60          4.66
 ##  9        6.92          5.12
 ## 10       20.4           5.65
-## # ℹ 13 more rows
+## # i 13 more rows
 ```
 
 There are many `geom_*()` functions in `ggplot2`, and many others defined in other accessory packages like `ggrepel`. These determine what symbols and spatial arrangements are used to represent each row, and are the heart of visualizations. Some `geom_*()` functions do some summarization of their own, making them more appropriate for raw data.
@@ -143,7 +143,7 @@ berry_data %>%
 ## Warning: Removed 5005 rows containing non-finite values (`stat_smooth()`).
 ```
 
-<img src="6-dataviz_files/figure-html/changing the geom changes the way the data map-1.png" width="672" />
+![](6-dataviz_files/figure-latex/changing the geom changes the way the data map-1.pdf)<!-- --> 
 
 `geom_smooth()` fits a smoothed line to our data. By default, it will use either Local Polynomial Regression or the Generalized Additive Model, depending on the size of your data (here, you can see that it chose `gam`, the Generalized Additive Model). You can specify models manually, using the `method` argument of `geom_smooth()`:
 
@@ -162,7 +162,7 @@ berry_data %>%
 ## Warning: Removed 5005 rows containing non-finite values (`stat_smooth()`).
 ```
 
-<img src="6-dataviz_files/figure-html/linear regression with geom_smooth-1.png" width="672" />
+![](6-dataviz_files/figure-latex/linear regression with geom_smooth-1.pdf)<!-- --> 
 
 We can also combine layers, as the term implies:
 
@@ -186,7 +186,7 @@ berry_data %>%
 ## Warning: Removed 5005 rows containing missing values (`geom_point()`).
 ```
 
-<img src="6-dataviz_files/figure-html/geoms are layers in a plot-1.png" width="672" />
+![](6-dataviz_files/figure-latex/geoms are layers in a plot-1.pdf)<!-- --> 
 
 Note that we don't need to tell *either* `geom_smooth()` or `geom_point()` what `x` and `y` are--they "inherit" them from the `ggplot()` function to which they are added (`+`), which defines the plot itself.
 
@@ -212,7 +212,7 @@ berry_data %>%
 ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
 ```
 
-<img src="6-dataviz_files/figure-html/here are some other parts of the plot we can control with data-1.png" width="672" />
+![](6-dataviz_files/figure-latex/here are some other parts of the plot we can control with data-1.pdf)<!-- --> 
 
 We can see that more of the blue dots for samples with a bruised appearance in the lower left of the figure--it has a negative influence on the ratings of overall liking *and* appearance.
 
@@ -231,7 +231,7 @@ berry_data %>%
 ## Warning: Removed 5062 rows containing missing values (`geom_point()`).
 ```
 
-<img src="6-dataviz_files/figure-html/an unreadable scatterplot-1.png" width="672" />
+![](6-dataviz_files/figure-latex/an unreadable scatterplot-1.pdf)<!-- --> 
 
 Each of those points actually represents many individual ratings of berries, possibly hundreds. There are almost certainly fewer people giving the berries a 1 for appearance and a 9 for overall liking than there are people rating each a 6. This also makes it a good demonstration of how `ggplot` handles the transparency of overlapping points:
 
@@ -246,7 +246,7 @@ berry_data %>%
 ## Warning: Removed 5062 rows containing missing values (`geom_point()`).
 ```
 
-<img src="6-dataviz_files/figure-html/transparent points stack on top of each other to make less transparent points-1.png" width="672" />
+![](6-dataviz_files/figure-latex/transparent points stack on top of each other to make less transparent points-1.pdf)<!-- --> 
 
 But the actual solution to this problem, instead of the hacky pseudo-heat map, is `geom_jitter()`, which applies a small random x and y offset to each point:
 
@@ -270,7 +270,7 @@ berry_data %>%
 ## Warning: Removed 5062 rows containing missing values (`geom_point()`).
 ```
 
-<img src="6-dataviz_files/figure-html/using geom_jitter for overlapping points-1.png" width="672" />
+![](6-dataviz_files/figure-latex/using geom_jitter for overlapping points-1.pdf)<!-- --> 
 
 You can see there are some overlapping points left, but this gives us a much better idea of the shape, along with the summarizing `geom_smooth()`. Since there are only 9 possible values on the hedonic scale while the continuous Labeled Magnitude Scale allows people to select numbers in-between scale labels, `geom_jitter()` can be thought of as simulating this random human scale usage after the fact.
 
@@ -286,7 +286,7 @@ berry_data %>%
   geom_bar()
 ```
 
-<img src="6-dataviz_files/figure-html/geom_bar and geom_histogram-1.png" width="672" />
+![](6-dataviz_files/figure-latex/geom_bar and geom_histogram-1.pdf)<!-- --> 
 
 ```r
 berry_data %>%
@@ -298,7 +298,7 @@ berry_data %>%
 ## Warning: Removed 5062 rows containing non-finite values (`stat_count()`).
 ```
 
-<img src="6-dataviz_files/figure-html/geom_bar and geom_histogram-2.png" width="672" />
+![](6-dataviz_files/figure-latex/geom_bar and geom_histogram-2.pdf)<!-- --> 
 
 ```r
 #and geom_histogram() is for continuous data, it counts and bins:
@@ -315,7 +315,7 @@ berry_data %>%
 ## Warning: Removed 5005 rows containing non-finite values (`stat_bin()`).
 ```
 
-<img src="6-dataviz_files/figure-html/geom_bar and geom_histogram-3.png" width="672" />
+![](6-dataviz_files/figure-latex/geom_bar and geom_histogram-3.pdf)<!-- --> 
 
 ### Arguments inside and outside of `aes()`
 
@@ -334,7 +334,7 @@ berry_data %>%
   theme_bw()
 ```
 
-<img src="6-dataviz_files/figure-html/using the aes function-1.png" width="672" />
+![](6-dataviz_files/figure-latex/using the aes function-1.pdf)<!-- --> 
 
 Color would be a better way to represent this relationship, however, as semitransparent points can overlap and appear indistinguishable from a single, darker point.
 
@@ -351,7 +351,7 @@ berry_data %>%
   theme_void()
 ```
 
-<img src="6-dataviz_files/figure-html/using the theme functions-1.png" width="672" />
+![](6-dataviz_files/figure-latex/using the theme functions-1.pdf)<!-- --> 
 
 You can also edit every last element of the plot's theme using the base `theme()` function, which is powerful but a little bit tricky to use.
 
@@ -387,7 +387,7 @@ p <-
 p
 ```
 
-<img src="6-dataviz_files/figure-html/ggplots are R objects-1.png" width="672" />
+![](6-dataviz_files/figure-latex/ggplots are R objects-1.pdf)<!-- --> 
 
 We can take a saved plot (like `p`) and use scales to change how it is visualized.
 
@@ -398,7 +398,7 @@ p +
   scale_color_grey(start = 0, end = 0.8) #For bar plots, color is the outline!
 ```
 
-<img src="6-dataviz_files/figure-html/we can modify stored plots after the fact-1.png" width="672" />
+![](6-dataviz_files/figure-latex/we can modify stored plots after the fact-1.pdf)<!-- --> 
 
 `ggplot2` has a broad range of built-in options for scales, but there are many others available in add-on packages that build on top of it.  You can also build your own scales using the `scale_*_manual()` functions, in which you give a vector of the same length as your mapped aesthetic variable in order to set up the visual assignment.  That sounds jargon-y, so here is an example:
 
@@ -409,9 +409,9 @@ random_colors <- print(colors()[sample(x = 1:length(colors()), size = 10)])
 ```
 
 ```
-##  [1] "grey98"        "grey70"        "dimgray"       "grey13"       
-##  [5] "cornsilk4"     "gray15"        "paleturquoise" "darkorange2"  
-##  [9] "dodgerblue2"   "slategray4"
+##  [1] "brown4"         "grey23"         "cornflowerblue" "gray9"         
+##  [5] "mediumpurple2"  "gray16"         "aliceblue"      "darkseagreen"  
+##  [9] "peachpuff"      "thistle1"
 ```
 
 ```r
@@ -421,7 +421,7 @@ p +
                      values = c("lightgrey", "black"))
 ```
 
-<img src="6-dataviz_files/figure-html/another example of posthoc plot modification-1.png" width="672" />
+![](6-dataviz_files/figure-latex/another example of posthoc plot modification-1.pdf)<!-- --> 
 
 ### Finally, `facet_*()`
 
@@ -440,7 +440,7 @@ berry_cata_long %>%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 ```
 
-<img src="6-dataviz_files/figure-html/splitting the plot into 12 small multiples-1.png" width="672" />
+![](6-dataviz_files/figure-latex/splitting the plot into 12 small multiples-1.pdf)<!-- --> 
 
 We can still compare the facets in this case, because they all share X and Y axes. The "none" attribute was checked much less often than the other attributes, for example. We can also see that uneven color was a more common problem among the raspberries and strawberries than the blueberries and blackberries, and that strawberries and blackberries more commonly had fermented flavor.
 
@@ -463,7 +463,7 @@ berry_cata_long %>%
 ## using the `.groups` argument.
 ```
 
-<img src="6-dataviz_files/figure-html/more control over bar plots with geom_col-1.png" width="672" />
+![](6-dataviz_files/figure-latex/more control over bar plots with geom_col-1.pdf)<!-- --> 
 
 Both plots show that blueberries and raspberries are more commonly described by "berry flavor", but looking at the proportions instead of the raw counts reveals that there aren't strong differences in floral flavor across the berry types.
 
@@ -485,7 +485,7 @@ ggplot() +
   theme_bw()
 ```
 
-<img src="6-dataviz_files/figure-html/a complicated ggplot that gives different data to each geom-1.png" width="672" />
+![](6-dataviz_files/figure-latex/a complicated ggplot that gives different data to each geom-1.pdf)<!-- --> 
 
 It's the fact that the arrows need `xend` and `yend` instead of `x` and `y` like the text, as well as the fact that there are only arrows for half the data, that make it easier to give each geom its own `data`. There are simpler (and possibly better) ways to display the same information as this plot, which we'll cover next.
 
@@ -505,21 +505,21 @@ berry_ca_coords
 ```
 
 ```
-## # A tibble: 36 × 14
+## # A tibble: 36 x 14
 ##    Type  Variable     Dim1    Dim2    Dim3   Dim4    Dim5   Dim6     Dim7   Dim8
 ##    <chr> <chr>       <dbl>   <dbl>   <dbl>  <dbl>   <dbl>  <dbl>    <dbl>  <dbl>
-##  1 Berry Blackberr… -0.676  1.56    0.0289 -2.12   0.421   0.416 -0.0872   0.555
-##  2 Berry Blackberr… -0.461  2.16    0.445  -0.676 -0.401   1.35  -0.144    0.318
-##  3 Berry Blackberr… -1.03   1.03    0.589  -1.55   0.149  -0.154 -0.00916  0.173
-##  4 Berry Blackberr… -0.476  0.738  -2.14    1.80  -1.05    0.604  1.12     1.62 
-##  5 Berry Blackberr… -0.738  1.55   -2.29   -0.377 -1.48   -0.653 -0.503   -0.956
-##  6 Berry Blueberry… -0.942 -0.167   1.35    0.972  0.342  -0.709  0.276    0.509
-##  7 Berry Blueberry… -0.891 -0.735   0.469   1.36  -0.0587  3.08   0.538   -1.17 
-##  8 Berry Blueberry… -0.693  0.308   0.498   0.267  1.45   -1.53   0.767   -0.176
-##  9 Berry Blueberry… -1.06  -0.198   0.540  -0.601  1.45   -0.122  0.607   -0.266
-## 10 Berry Blueberry… -0.904  0.0126  0.296   1.32   1.25    0.821  0.475    1.31 
-## # ℹ 26 more rows
-## # ℹ 4 more variables: Dim9 <dbl>, Dim10 <dbl>, Dim11 <dbl>, Dim12 <dbl>
+##  1 Berry Blackberr~ -0.676  1.56    0.0289 -2.12   0.421   0.416 -0.0872   0.555
+##  2 Berry Blackberr~ -0.461  2.16    0.445  -0.676 -0.401   1.35  -0.144    0.318
+##  3 Berry Blackberr~ -1.03   1.03    0.589  -1.55   0.149  -0.154 -0.00916  0.173
+##  4 Berry Blackberr~ -0.476  0.738  -2.14    1.80  -1.05    0.604  1.12     1.62 
+##  5 Berry Blackberr~ -0.738  1.55   -2.29   -0.377 -1.48   -0.653 -0.503   -0.956
+##  6 Berry Blueberry~ -0.942 -0.167   1.35    0.972  0.342  -0.709  0.276    0.509
+##  7 Berry Blueberry~ -0.891 -0.735   0.469   1.36  -0.0587  3.08   0.538   -1.17 
+##  8 Berry Blueberry~ -0.693  0.308   0.498   0.267  1.45   -1.53   0.767   -0.176
+##  9 Berry Blueberry~ -1.06  -0.198   0.540  -0.601  1.45   -0.122  0.607   -0.266
+## 10 Berry Blueberry~ -0.904  0.0126  0.296   1.32   1.25    0.821  0.475    1.31 
+## # i 26 more rows
+## # i 4 more variables: Dim9 <dbl>, Dim10 <dbl>, Dim11 <dbl>, Dim12 <dbl>
 ```
 
 This will get us pretty far.
@@ -537,7 +537,7 @@ berry_ca_coords %>%
   ylab("Dimension 2")
 ```
 
-<img src="6-dataviz_files/figure-html/a basic ca map with ggplot2-1.png" width="672" />
+![](6-dataviz_files/figure-latex/a basic ca map with ggplot2-1.pdf)<!-- --> 
 
 `geom_text()` is similar to `geom_point()`, but instead of having a point with a given `shape`, it places **text** on the plot which you can pull directly from your data using the `label` aesthetic. We can make this even more readable using `geom_text_repel()`, a very similar geom out of the `ggrepel` package:
 
@@ -554,7 +554,7 @@ berry_ca_coords %>%
   ylab("Dimension 2")
 ```
 
-<img src="6-dataviz_files/figure-html/a basic ca map with geom_repel-1.png" width="672" />
+![](6-dataviz_files/figure-latex/a basic ca map with geom_repel-1.pdf)<!-- --> 
 
 With a little bit of extra work, we can also add the % inertia to each dimension label, tweak the colors with `color_scale_manual`, and make the text a bit bigger.
 
@@ -585,7 +585,12 @@ berry_ca_coords %>%
                                 "Strawberry" = "#f089cb"))
 ```
 
-<img src="6-dataviz_files/figure-html/a much more fine-tuned ca map with ggplot2-1.png" width="672" />
+```
+## Warning: ggrepel: 2 unlabeled data points (too many overlaps). Consider
+## increasing max.overlaps
+```
+
+![](6-dataviz_files/figure-latex/a much more fine-tuned ca map with ggplot2-1.pdf)<!-- --> 
 
 This plot still isn't really what I'd call "publication ready". A lot of the final tweaking will depend on the exact size you want, but regardless I'd probably continue adjusting the labels, zoom the plot out a bit, and consider only displaying CATA terms with a high enough `berry_ca_res$colinertia` so the plot was a bit less cluttered.
 

@@ -286,19 +286,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-ca-package" class="section level3 hasAnchor" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> The CA package<a href="untidy-data-analysis.html#the-ca-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s take a look at this <code>ca</code> package!</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="untidy-data-analysis.html#cb245-1" tabindex="-1"></a><span class="fu">library</span>(ca)</span>
-<span id="cb245-2"><a href="untidy-data-analysis.html#cb245-2" tabindex="-1"></a></span>
-<span id="cb245-3"><a href="untidy-data-analysis.html#cb245-3" tabindex="-1"></a>?ca</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="untidy-data-analysis.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ca)</span>
+<span id="cb247-2"><a href="untidy-data-analysis.html#cb247-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb247-3"><a href="untidy-data-analysis.html#cb247-3" aria-hidden="true" tabindex="-1"></a>?ca</span></code></pre></div>
 <p>The first thing you’ll see is that it wants, specifically, a data frame or matrix as <code>obj</code>. We’ll be ignoring the <code>formula</code> option, because a frequency table stored as a matrix is more flexible: you can use it in other functions like those in the <code>FactoMineR</code> package.</p>
 <p>A <strong>frequency table</strong> or <strong>contingency table</strong> is one way of numerically representing multiple categorical variables measured on the same set of observations. Each row represents one group of observations, each column represents one level of a given categorical variable, and the cells are filled with the number of observations in that group that fall into that level of the categorical variable.</p>
 <p>The help file shows us an example of a frequency table included in base R, so we can take a look at the shape we need to match:</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="untidy-data-analysis.html#cb246-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;author&quot;</span>)</span>
-<span id="cb246-2"><a href="untidy-data-analysis.html#cb246-2" tabindex="-1"></a><span class="fu">str</span>(author)</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="untidy-data-analysis.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;author&quot;</span>)</span>
+<span id="cb248-2"><a href="untidy-data-analysis.html#cb248-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(author)</span></code></pre></div>
 <pre><code>##  num [1:12, 1:26] 550 515 590 557 589 541 517 592 576 557 ...
 ##  - attr(*, &quot;dimnames&quot;)=List of 2
 ##   ..$ : chr [1:12] &quot;three daughters (buck)&quot; &quot;drifters (michener)&quot; &quot;lost world (clark)&quot; &quot;east wind (buck)&quot; ...
 ##   ..$ : chr [1:26] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...</code></pre>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="untidy-data-analysis.html#cb248-1" tabindex="-1"></a><span class="fu">head</span>(author)</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="untidy-data-analysis.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(author)</span></code></pre></div>
 <pre><code>##                                a   b   c   d    e   f   g   h   i j  k   l   m
 ## three daughters (buck)       550 116 147 374 1015 131 131 493 442 2 52 302 159
 ## drifters (michener)          515 109 172 311  827 167 136 376 432 8 61 280 146
@@ -314,8 +314,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## farewell to arms (hemingway) 504 542  95 0 416 314 691 197  64 225  1 155  2
 ## sound and fury 7 (faulkner)  471 589  84 2 324 454 672 247  71 160 11 280  1</code></pre>
 <p>Now let’s take a look at the <strong>tidy</strong> CATA data we need to convert into a frequency table:</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="untidy-data-analysis.html#cb250-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb250-2"><a href="untidy-data-analysis.html#cb250-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, <span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="untidy-data-analysis.html#cb252-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb252-2"><a href="untidy-data-analysis.html#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, <span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 38
 ##    `Sample Name` `Subject Code` cata_appearance_unevenc…¹ cata_appearance_miss…²
 ##    &lt;chr&gt;                  &lt;dbl&gt;                     &lt;dbl&gt;                  &lt;dbl&gt;
@@ -346,29 +346,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It is your job as a sensory scientist and data analyst to understand what kind of data you have <em>based on how it was collected</em>, and select appropriate analyses accordingly.</p>
 <p>In <code>berry_data$cata_*</code>, the data is represented as a 1 if that panelist checked that attribute for that sample, and a 0 otherwise. This could also be represented as a logical <code>TRUE</code> or <code>FALSE</code>, but the 0 and 1 convention makes binomial statistics most common, so you’ll see it a lot.</p>
 <p>You can also pretty easily convert between binomial/binary data stored as <code>numeric</code> 0s and 1s and <code>logical</code> data.</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="untidy-data-analysis.html#cb252-1" tabindex="-1"></a>testlogic <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>)</span>
-<span id="cb252-2"><a href="untidy-data-analysis.html#cb252-2" tabindex="-1"></a>testlogic</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="untidy-data-analysis.html#cb254-1" aria-hidden="true" tabindex="-1"></a>testlogic <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>)</span>
+<span id="cb254-2"><a href="untidy-data-analysis.html#cb254-2" aria-hidden="true" tabindex="-1"></a>testlogic</span></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE</code></pre>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="untidy-data-analysis.html#cb254-1" tabindex="-1"></a><span class="fu">class</span>(testlogic) <span class="co">#We start with logical data</span></span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="untidy-data-analysis.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(testlogic) <span class="co">#We start with logical data</span></span></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="untidy-data-analysis.html#cb256-1" tabindex="-1"></a>testnums <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(testlogic) <span class="co">#as.numeric() turns FALSE to 0 and TRUE to 1</span></span>
-<span id="cb256-2"><a href="untidy-data-analysis.html#cb256-2" tabindex="-1"></a>testnums</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="untidy-data-analysis.html#cb258-1" aria-hidden="true" tabindex="-1"></a>testnums <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(testlogic) <span class="co">#as.numeric() turns FALSE to 0 and TRUE to 1</span></span>
+<span id="cb258-2"><a href="untidy-data-analysis.html#cb258-2" aria-hidden="true" tabindex="-1"></a>testnums</span></code></pre></div>
 <pre><code>## [1] 1 0 0</code></pre>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="untidy-data-analysis.html#cb258-1" tabindex="-1"></a><span class="fu">class</span>(testnums) <span class="co">#Now it&#39;s numeric</span></span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="untidy-data-analysis.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(testnums) <span class="co">#Now it&#39;s numeric</span></span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="untidy-data-analysis.html#cb260-1" tabindex="-1"></a><span class="fu">as.logical</span>(testnums) <span class="co">#We can turn numeric to logical data the same way</span></span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="untidy-data-analysis.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.logical</span>(testnums) <span class="co">#We can turn numeric to logical data the same way</span></span></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE</code></pre>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="untidy-data-analysis.html#cb262-1" tabindex="-1"></a><span class="fu">as.logical</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="co">#Be careful with non-binary data, though!</span></span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="untidy-data-analysis.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.logical</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="co">#Be careful with non-binary data, though!</span></span></code></pre></div>
 <pre><code>## [1] FALSE  TRUE  TRUE  TRUE</code></pre>
 <p>You may also have your categorical data stored as a <code>character</code> type, namely if the categories are <strong>mutually exclusive</strong> or if you have free response data where there were not a finite/fixed set of options. The latter can quickly become thorny to deal with, because every single respondent could have their own unique categories that don’t align with any others. Julia Silge and David Robinson’s book <a href="https://www.tidytextmining.com/"><em>Text Mining with R</em></a> is a good primer for tidying and doing basic analysis of text data.</p>
 <p>The first type of <code>character</code> data (with a limited number of mutually exclusive categories), thankfully, is much easier to deal with. We could turn the <code>berry</code> type variable into four separate <strong>indicator variables</strong> with 0s and 1s, if the analysis called for it, using <code>pivot_wider()</code>. Because we’re turning <em>one column</em> into <em>multiple columns</em>, we’re making the data wider, even though we don’t actually want to make it any shorter.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="untidy-data-analysis.html#cb264-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb264-2"><a href="untidy-data-analysis.html#cb264-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">presence =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb264-3"><a href="untidy-data-analysis.html#cb264-3" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> berry,</span>
-<span id="cb264-4"><a href="untidy-data-analysis.html#cb264-4" tabindex="-1"></a>              <span class="at">values_from =</span> presence, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb264-5"><a href="untidy-data-analysis.html#cb264-5" tabindex="-1"></a>  <span class="co">#The rest is just for visibility:</span></span>
-<span id="cb264-6"><a href="untidy-data-analysis.html#cb264-6" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">&quot;berry&quot;</span>), <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb264-7"><a href="untidy-data-analysis.html#cb264-7" tabindex="-1"></a>  <span class="fu">arrange</span>(lms_overall)</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="untidy-data-analysis.html#cb266-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb266-2"><a href="untidy-data-analysis.html#cb266-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">presence =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb266-3"><a href="untidy-data-analysis.html#cb266-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> berry,</span>
+<span id="cb266-4"><a href="untidy-data-analysis.html#cb266-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> presence, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb266-5"><a href="untidy-data-analysis.html#cb266-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#The rest is just for visibility:</span></span>
+<span id="cb266-6"><a href="untidy-data-analysis.html#cb266-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">&quot;berry&quot;</span>), <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb266-7"><a href="untidy-data-analysis.html#cb266-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(lms_overall)</span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 95
 ##    cata_taste_berry raspberry blackberry blueberry strawberry `Sample Name`
 ##               &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;        
@@ -391,9 +391,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   cata_appearance_misshapen &lt;dbl&gt;, cata_appearance_creased &lt;dbl&gt;, …</code></pre>
 <p>And we can see here that <code>pivot_wider()</code> increased the number of columns without decreasing the number of rows. By default, it will only combine rows where every column other than the <code>names_from</code> and <code>values_from</code> columns are identical.</p>
 <p>It’s often possible to convert between data types by changing the scope of your focus. <strong>Summary tables</strong> of categorical data can include numerical statistics (and this might give you a clue as to which <code>tidyverse</code> verb we’re going to be using the most in this chapter). The most common kind of summary statistic for categorical variables is the <strong>count</strong> or <strong>frequency</strong>, which is where frequency tables get their name.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="untidy-data-analysis.html#cb266-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb266-2"><a href="untidy-data-analysis.html#cb266-2" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb266-3"><a href="untidy-data-analysis.html#cb266-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>), sum))</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="untidy-data-analysis.html#cb268-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb268-2"><a href="untidy-data-analysis.html#cb268-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb268-3"><a href="untidy-data-analysis.html#cb268-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>), sum))</span></code></pre></div>
 <pre><code>## # A tibble: 23 × 37
 ##    `Sample Name` cata_appearance_unevencolor cata_appearance_misshapen
 ##    &lt;chr&gt;                               &lt;dbl&gt;                     &lt;dbl&gt;
@@ -416,12 +416,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   cata_taste_berry &lt;dbl&gt;, cata_taste_green &lt;dbl&gt;, cata_taste_grassy &lt;dbl&gt;, …</code></pre>
 <p>Note that the there are some attributes with NA counts. If we reran the analysis with <code>na.rm = TRUE</code>, we’d see that these attributes have zero citations for the berries that were <code>NA</code> before. This is because some attributes were only relevant for some of the berries. You will have to think about whether and how to include any of these variables in your analysis.</p>
 <p>For now, we’ll just drop those terms.</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="untidy-data-analysis.html#cb268-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb268-2"><a href="untidy-data-analysis.html#cb268-2" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb268-3"><a href="untidy-data-analysis.html#cb268-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>), sum)) <span class="sc">%&gt;%</span></span>
-<span id="cb268-4"><a href="untidy-data-analysis.html#cb268-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span> <span class="fu">none</span>(.x, is.na))) <span class="ot">-&gt;</span> berry_tidy_contingency</span>
-<span id="cb268-5"><a href="untidy-data-analysis.html#cb268-5" tabindex="-1"></a></span>
-<span id="cb268-6"><a href="untidy-data-analysis.html#cb268-6" tabindex="-1"></a>berry_tidy_contingency</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="untidy-data-analysis.html#cb270-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb270-2"><a href="untidy-data-analysis.html#cb270-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb270-3"><a href="untidy-data-analysis.html#cb270-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>), sum)) <span class="sc">%&gt;%</span></span>
+<span id="cb270-4"><a href="untidy-data-analysis.html#cb270-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span> <span class="fu">none</span>(.x, is.na))) <span class="ot">-&gt;</span> berry_tidy_contingency</span>
+<span id="cb270-5"><a href="untidy-data-analysis.html#cb270-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-6"><a href="untidy-data-analysis.html#cb270-6" aria-hidden="true" tabindex="-1"></a>berry_tidy_contingency</span></code></pre></div>
 <pre><code>## # A tibble: 23 × 14
 ##    `Sample Name` cata_appearance_unevencolor cata_appearance_misshapen
 ##    &lt;chr&gt;                               &lt;dbl&gt;                     &lt;dbl&gt;
@@ -446,15 +446,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="untidy-analysis" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Untidy Analysis<a href="untidy-data-analysis.html#untidy-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We have our contingency table now, right? That wasn’t so hard! Let’s do CA!</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="untidy-data-analysis.html#cb270-1" tabindex="-1"></a>berry_tidy_contingency <span class="sc">%&gt;%</span></span>
-<span id="cb270-2"><a href="untidy-data-analysis.html#cb270-2" tabindex="-1"></a>  <span class="fu">ca</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="untidy-data-analysis.html#cb272-1" aria-hidden="true" tabindex="-1"></a>berry_tidy_contingency <span class="sc">%&gt;%</span></span>
+<span id="cb272-2"><a href="untidy-data-analysis.html#cb272-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ca</span>()</span></code></pre></div>
 <p>To explain why this error happens, we’re going to need to talk a bit more about base R, since <code>ca</code> and many other data analysis packages aren’t part of the <code>tidyverse</code>. Specifically, we need to talk about matrices and row names.</p>
 <div id="untidying-data" class="section level3 hasAnchor" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Untidying Data<a href="untidy-data-analysis.html#untidying-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s take another look at the ways the example <code>author</code> dataset are different from our data.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="untidy-data-analysis.html#cb271-1" tabindex="-1"></a><span class="fu">class</span>(author)</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="untidy-data-analysis.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(author)</span></code></pre></div>
 <pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="untidy-data-analysis.html#cb273-1" tabindex="-1"></a><span class="fu">dimnames</span>(author)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="untidy-data-analysis.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(author)</span></code></pre></div>
 <pre><code>## [[1]]
 ##  [1] &quot;three daughters (buck)&quot;       &quot;drifters (michener)&quot;         
 ##  [3] &quot;lost world (clark)&quot;           &quot;east wind (buck)&quot;            
@@ -466,9 +466,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [[2]]
 ##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot;
 ## [20] &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="untidy-data-analysis.html#cb275-1" tabindex="-1"></a><span class="fu">class</span>(berry_tidy_contingency)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="untidy-data-analysis.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(berry_tidy_contingency)</span></code></pre></div>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="untidy-data-analysis.html#cb277-1" tabindex="-1"></a><span class="fu">dimnames</span>(berry_tidy_contingency)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="untidy-data-analysis.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(berry_tidy_contingency)</span></code></pre></div>
 <pre><code>## [[1]]
 ##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot; &quot;15&quot;
 ## [16] &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot; &quot;21&quot; &quot;22&quot; &quot;23&quot;
@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [13] &quot;cata_taste_earthy&quot;           &quot;cata_taste_none&quot;</code></pre>
 <p>The example data we’re trying to replicate is a <code>matrix</code>. This is another kind of tabular data, similar to a <code>tibble</code> or <code>data.frame</code>. The thing that sets matrices apart is that <em>every single cell in a matrix has the same data type</em>. This is a property that a lot of matrix algebra relies upon, like the math underpinning Correspondence Analysis.</p>
 <p>Because they’re tabular, it’s very easy to turn a <code>data.frame</code> <em>into</em> a <code>matrix</code>, like the <code>ca()</code> function alludes to in the help files.</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="untidy-data-analysis.html#cb279-1" tabindex="-1"></a><span class="fu">as.matrix</span>(berry_tidy_contingency)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="untidy-data-analysis.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.matrix</span>(berry_tidy_contingency)</span></code></pre></div>
 <pre><code>##       Sample Name    cata_appearance_unevencolor cata_appearance_misshapen
 ##  [1,] &quot;Blackberry 1&quot; &quot; 28&quot;                       &quot; 67&quot;                    
 ##  [2,] &quot;Blackberry 2&quot; &quot; 32&quot;                       &quot; 72&quot;                    
@@ -606,18 +606,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [23,] &quot; 47&quot;             &quot;14&quot;</code></pre>
 <p>This is what the <code>ca()</code> function does for us when we give it a <code>data.frame</code> or <code>tibble</code>. It follows the hierarchy of data types, so you’ll see that now every single number is surrounded by quotation marks now (“). It’s been converted into the least-restrictive data type in <code>berry_tidy_contingency</code>, which is <code>character</code>.</p>
 <p>Unfortunately, you can’t do math on <code>character</code> vectors.</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="untidy-data-analysis.html#cb281-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
-<span id="cb281-2"><a href="untidy-data-analysis.html#cb281-2" tabindex="-1"></a><span class="st">&quot;1&quot;</span> <span class="sc">+</span> <span class="st">&quot;2&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="untidy-data-analysis.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb283-2"><a href="untidy-data-analysis.html#cb283-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;1&quot;</span> <span class="sc">+</span> <span class="st">&quot;2&quot;</span></span></code></pre></div>
 <p>It’s important to know which row corresponds to which berry, though, so we want to keep the <code>Sample Name</code> column <em>somehow</em>! This is where <code>rownames</code> come in handy, which the <code>author</code> data has but our <code>berry_tidy_contingency</code> doesn’t.</p>
 <p>The <code>tidyverse</code> doesn’t really use row names (it is technically <em>possible</em> to have a tibble with <code>rownames</code>, but extremely error-prone). The theory is that whatever information you <em>could</em> use as <code>rownames</code> could be added as another column, and that you may have multiple variables whose combined levels define each row (say the sample and the participant IDs) rather than needing a single less-informative ID unique to each row.</p>
 <p>Row names are important to numeric matrices, though, because we can’t do math on a matrix of character variables!</p>
 <p>The <code>tidyverse</code> provides a handy function for this, <code>column_to_rownames()</code>:</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="untidy-data-analysis.html#cb282-1" tabindex="-1"></a>berry_tidy_contingency <span class="sc">%&gt;%</span></span>
-<span id="cb282-2"><a href="untidy-data-analysis.html#cb282-2" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Sample Name&quot;</span>) <span class="ot">-&gt;</span> berry_contingency_df</span>
-<span id="cb282-3"><a href="untidy-data-analysis.html#cb282-3" tabindex="-1"></a></span>
-<span id="cb282-4"><a href="untidy-data-analysis.html#cb282-4" tabindex="-1"></a><span class="fu">class</span>(berry_contingency_df)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="untidy-data-analysis.html#cb284-1" aria-hidden="true" tabindex="-1"></a>berry_tidy_contingency <span class="sc">%&gt;%</span></span>
+<span id="cb284-2"><a href="untidy-data-analysis.html#cb284-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Sample Name&quot;</span>) <span class="ot">-&gt;</span> berry_contingency_df</span>
+<span id="cb284-3"><a href="untidy-data-analysis.html#cb284-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb284-4"><a href="untidy-data-analysis.html#cb284-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(berry_contingency_df)</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="untidy-data-analysis.html#cb284-1" tabindex="-1"></a><span class="fu">dimnames</span>(berry_contingency_df)</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="untidy-data-analysis.html#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(berry_contingency_df)</span></code></pre></div>
 <pre><code>## [[1]]
 ##  [1] &quot;Blackberry 1&quot; &quot;Blackberry 2&quot; &quot;Blackberry 3&quot; &quot;Blackberry 4&quot; &quot;Blackberry 5&quot;
 ##  [6] &quot;Blueberry 1&quot;  &quot;Blueberry 2&quot;  &quot;Blueberry 3&quot;  &quot;Blueberry 4&quot;  &quot;Blueberry 5&quot; 
@@ -636,16 +636,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that you have to double-quote (““) column names for <code>column_to_rownames()</code>. No idea why. I just do what <code>?column_to_rownames</code> tells me.</p>
 <p><code>berry_contingency_df</code> is all set for the <code>ca()</code> function now, but if you run into any functions (like many of those in <code>FactoMineR</code> and other packages) that need matrices, you can always use <code>as.matrix()</code> on the results of <code>column_to_rownames()</code>.</p>
 <p><code>column_to_rownames()</code> will almost always be the cleanest way to untidy your data, but there are some other functions that may be handy if you need a different data format, like a vector. You already know about $-subsetting, but you can also use <code>pull()</code> to pull one column out of a <code>tibble</code> as a vector using tidyverse syntax, so it fits easily at the end or in the middle of a series of piped steps.</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="untidy-data-analysis.html#cb286-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb286-2"><a href="untidy-data-analysis.html#cb286-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>),</span>
-<span id="cb286-3"><a href="untidy-data-analysis.html#cb286-3" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;attribute&quot;</span>,</span>
-<span id="cb286-4"><a href="untidy-data-analysis.html#cb286-4" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;presence&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb286-5"><a href="untidy-data-analysis.html#cb286-5" tabindex="-1"></a>  <span class="fu">filter</span>(presence <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb286-6"><a href="untidy-data-analysis.html#cb286-6" tabindex="-1"></a>  <span class="fu">count</span>(attribute) <span class="sc">%&gt;%</span></span>
-<span id="cb286-7"><a href="untidy-data-analysis.html#cb286-7" tabindex="-1"></a>  <span class="co">#Arranges the highest-cited CATA terms first</span></span>
-<span id="cb286-8"><a href="untidy-data-analysis.html#cb286-8" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> </span>
-<span id="cb286-9"><a href="untidy-data-analysis.html#cb286-9" tabindex="-1"></a>  <span class="co">#Pulls the attribute names as a vector, in the order above</span></span>
-<span id="cb286-10"><a href="untidy-data-analysis.html#cb286-10" tabindex="-1"></a>  <span class="fu">pull</span>(attribute)      </span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="untidy-data-analysis.html#cb288-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb288-2"><a href="untidy-data-analysis.html#cb288-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>),</span>
+<span id="cb288-3"><a href="untidy-data-analysis.html#cb288-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;attribute&quot;</span>,</span>
+<span id="cb288-4"><a href="untidy-data-analysis.html#cb288-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;presence&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb288-5"><a href="untidy-data-analysis.html#cb288-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(presence <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb288-6"><a href="untidy-data-analysis.html#cb288-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(attribute) <span class="sc">%&gt;%</span></span>
+<span id="cb288-7"><a href="untidy-data-analysis.html#cb288-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Arranges the highest-cited CATA terms first</span></span>
+<span id="cb288-8"><a href="untidy-data-analysis.html#cb288-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb288-9"><a href="untidy-data-analysis.html#cb288-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Pulls the attribute names as a vector, in the order above</span></span>
+<span id="cb288-10"><a href="untidy-data-analysis.html#cb288-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(attribute)      </span></code></pre></div>
 <pre><code>##  [1] &quot;cata_appearance_fresh&quot;       &quot;cata_taste_berry&quot;           
 ##  [3] &quot;cata_appearance_goodquality&quot; &quot;cata_appearance_goodshape&quot;  
 ##  [5] &quot;cata_taste_fruity&quot;           &quot;cata_appearance_goodcolor&quot;  
@@ -676,17 +676,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Okay, are you ready? Our data is <em>finally</em> in the shape and format we needed. You’re ready to run multivariate statistics in R.</p>
 <p>Ready?</p>
 <p>Are you sure?</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="untidy-data-analysis.html#cb288-1" tabindex="-1"></a><span class="fu">ca</span>(berry_contingency_df) <span class="ot">-&gt;</span> berry_ca_res</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="untidy-data-analysis.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ca</span>(berry_contingency_df) <span class="ot">-&gt;</span> berry_ca_res</span></code></pre></div>
 <p>Yep, that’s it.</p>
 <p>There are other options you can read about in the help files, if you need a more sophisticated analysis, but most of the time, if I need to change something, it’s with the way I’m arranging my data <em>before</em> analysis rather than fundamentally changing the <code>ca()</code> call.</p>
 <p>In general, I find it easiest to do all of the filtering and selecting <em>on the tibble</em> so I can use the handy <code>tidyverse</code> functions, before I untidy the data, but you can also include extra rows or columns in your contingency table (as long as they’re also numbers!!) and then tell the <code>ca()</code> function which columns are active and supplemental. This may be an easier way to compare a few different analyses with different variables or levels of summarization, rather than having to make a bunch of different contingency matrices for each.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="untidy-data-analysis.html#cb289-1" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
-<span id="cb289-2"><a href="untidy-data-analysis.html#cb289-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">&quot;cata_&quot;</span>, <span class="st">&quot;9pt_&quot;</span>, <span class="st">&quot;lms_&quot;</span>, <span class="st">&quot;us_&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb289-3"><a href="untidy-data-analysis.html#cb289-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">&quot;cata_&quot;</span>), <span class="sc">~</span> <span class="fu">sum</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
-<span id="cb289-4"><a href="untidy-data-analysis.html#cb289-4" tabindex="-1"></a>            <span class="fu">across</span>(<span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">&quot;9pt_&quot;</span>,<span class="st">&quot;lms_&quot;</span>,<span class="st">&quot;us_&quot;</span>)), <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="at">.by =</span> <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb289-5"><a href="untidy-data-analysis.html#cb289-5" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Sample Name&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb289-6"><a href="untidy-data-analysis.html#cb289-6" tabindex="-1"></a>  <span class="co">#You have to know the NUMERIC indices to do it this way.</span></span>
-<span id="cb289-7"><a href="untidy-data-analysis.html#cb289-7" tabindex="-1"></a>  <span class="fu">ca</span>(<span class="at">supcol =</span> <span class="dv">37</span><span class="sc">:</span><span class="dv">51</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="untidy-data-analysis.html#cb291-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb291-2"><a href="untidy-data-analysis.html#cb291-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>, <span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">&quot;cata_&quot;</span>, <span class="st">&quot;9pt_&quot;</span>, <span class="st">&quot;lms_&quot;</span>, <span class="st">&quot;us_&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb291-3"><a href="untidy-data-analysis.html#cb291-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">&quot;cata_&quot;</span>), <span class="sc">~</span> <span class="fu">sum</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb291-4"><a href="untidy-data-analysis.html#cb291-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">across</span>(<span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">&quot;9pt_&quot;</span>,<span class="st">&quot;lms_&quot;</span>,<span class="st">&quot;us_&quot;</span>)), <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="at">.by =</span> <span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb291-5"><a href="untidy-data-analysis.html#cb291-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;Sample Name&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb291-6"><a href="untidy-data-analysis.html#cb291-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#You have to know the NUMERIC indices to do it this way.</span></span>
+<span id="cb291-7"><a href="untidy-data-analysis.html#cb291-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ca</span>(<span class="at">supcol =</span> <span class="dv">37</span><span class="sc">:</span><span class="dv">51</span>) </span></code></pre></div>
 <pre><code>## 
 ##  Principal inertias (eigenvalues):
 ##            1        2        3        4        5        6        7       
@@ -837,8 +837,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="retidying-data" class="section level3 hasAnchor" number="5.3.3">
 <h3><span class="header-section-number">5.3.3</span> Retidying Data<a href="untidy-data-analysis.html#retidying-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What does the <code>ca()</code> function actually give us?</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="untidy-data-analysis.html#cb291-1" tabindex="-1"></a>berry_ca_res <span class="sc">%&gt;%</span></span>
-<span id="cb291-2"><a href="untidy-data-analysis.html#cb291-2" tabindex="-1"></a>  <span class="fu">str</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="untidy-data-analysis.html#cb293-1" aria-hidden="true" tabindex="-1"></a>berry_ca_res <span class="sc">%&gt;%</span></span>
+<span id="cb293-2"><a href="untidy-data-analysis.html#cb293-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code></pre></div>
 <pre><code>## List of 16
 ##  $ sv        : num [1:12] 0.2958 0.1659 0.133 0.0724 0.0647 ...
 ##  $ nd        : logi NA
@@ -866,7 +866,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It’s a list with many useful things. You can think of a list as kinda like a data frame, because each item has a <strong>name</strong> (like columns in data frames), except they can be any length/size/shape. It’s <em>not</em> tabular, so you can’t use [1,2] for indexing rows and columns, but you <em>can</em> use $ indexing if you know the name of the data you’re after.</p>
 <p>You’re unlikely to need to worry about the specifics. Just remember that lists can be $-indexed.</p>
 <p>There are a few things we may want out of the list that <code>ca()</code> gives us, and we can see descriptions of them in plain English by typing <code>?ca</code>. These are the ones we’ll be using:</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="untidy-data-analysis.html#cb293-1" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>rowcoord <span class="co">#the standard coordinates of the row variable (berry)</span></span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="untidy-data-analysis.html#cb295-1" aria-hidden="true" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>rowcoord <span class="co">#the standard coordinates of the row variable (berry)</span></span></code></pre></div>
 <pre><code>##                      Dim1        Dim2        Dim3       Dim4         Dim5
 ## Blackberry 1 -0.676422039  1.55801517  0.02889809 -2.1207457  0.421035244
 ## Blackberry 2 -0.460988133  2.16220762  0.44500036 -0.6763648 -0.401344347
@@ -939,7 +939,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## raspberry 4  -0.43059527 -0.823009716
 ## raspberry 5  -0.56755742  0.383635858
 ## raspberry 6   1.44742716  1.252192647</code></pre>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="untidy-data-analysis.html#cb295-1" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>colcoord <span class="co">#the standard coordinates of the column variable (attribute)</span></span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="untidy-data-analysis.html#cb297-1" aria-hidden="true" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>colcoord <span class="co">#the standard coordinates of the column variable (attribute)</span></span></code></pre></div>
 <pre><code>##                                   Dim1        Dim2        Dim3       Dim4
 ## cata_appearance_unevencolor  1.9366137 -1.17322492  0.32072486 -0.3691085
 ## cata_appearance_misshapen    0.0589441  2.05113772 -3.66060544  0.3531013
@@ -982,44 +982,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## cata_taste_fruity           -0.65205090 -0.3340588  1.11961579 -1.89705359
 ## cata_taste_earthy            1.24888861  2.0332988  0.06165682 -1.23209187
 ## cata_taste_none              0.41381134 -0.8624509 -1.47668343  0.52466551</code></pre>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="untidy-data-analysis.html#cb297-1" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>sv       <span class="co">#the singular value for each dimension</span></span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="untidy-data-analysis.html#cb299-1" aria-hidden="true" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>sv       <span class="co">#the singular value for each dimension</span></span></code></pre></div>
 <pre><code>##  [1] 0.295838428 0.165865288 0.132976201 0.072363931 0.064690580 0.044807235
 ##  [7] 0.038031617 0.029774848 0.024918839 0.021300214 0.014415082 0.008117431</code></pre>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="untidy-data-analysis.html#cb299-1" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>sv <span class="sc">%&gt;%</span>   <span class="co">#which are useful in calculating the % inertia of each dimension</span></span>
-<span id="cb299-2"><a href="untidy-data-analysis.html#cb299-2" tabindex="-1"></a>  {.<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>(.<span class="sc">^</span><span class="dv">2</span>)}</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="untidy-data-analysis.html#cb301-1" aria-hidden="true" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>sv <span class="sc">%&gt;%</span>   <span class="co">#which are useful in calculating the % inertia of each dimension</span></span>
+<span id="cb301-2"><a href="untidy-data-analysis.html#cb301-2" aria-hidden="true" tabindex="-1"></a>  {.<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>(.<span class="sc">^</span><span class="dv">2</span>)}</span></code></pre></div>
 <pre><code>##  [1] 0.5920550825 0.1861075348 0.1196191706 0.0354239712 0.0283096845
 ##  [6] 0.0135815468 0.0097845873 0.0059972484 0.0042005733 0.0030691695
 ## [11] 0.0014056824 0.0004457488</code></pre>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="untidy-data-analysis.html#cb301-1" tabindex="-1"></a><span class="co">#The column and row masses (in case you want to add your own supplementary variables</span></span>
-<span id="cb301-2"><a href="untidy-data-analysis.html#cb301-2" tabindex="-1"></a><span class="co">#after the fact):</span></span>
-<span id="cb301-3"><a href="untidy-data-analysis.html#cb301-3" tabindex="-1"></a></span>
-<span id="cb301-4"><a href="untidy-data-analysis.html#cb301-4" tabindex="-1"></a><span class="co">#the row masses</span></span>
-<span id="cb301-5"><a href="untidy-data-analysis.html#cb301-5" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>rowmass  </span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="untidy-data-analysis.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The column and row masses (in case you want to add your own supplementary variables</span></span>
+<span id="cb303-2"><a href="untidy-data-analysis.html#cb303-2" aria-hidden="true" tabindex="-1"></a><span class="co">#after the fact):</span></span>
+<span id="cb303-3"><a href="untidy-data-analysis.html#cb303-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb303-4"><a href="untidy-data-analysis.html#cb303-4" aria-hidden="true" tabindex="-1"></a><span class="co">#the row masses</span></span>
+<span id="cb303-5"><a href="untidy-data-analysis.html#cb303-5" aria-hidden="true" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>rowmass  </span></code></pre></div>
 <pre><code>##  [1] 0.03919516 0.03935024 0.04121113 0.04008684 0.04287819 0.03938901
 ##  [7] 0.03783826 0.03985423 0.03857486 0.03915639 0.04136621 0.04446771
 ## [13] 0.04392494 0.04345972 0.04229666 0.04640614 0.04318834 0.04896488
 ## [19] 0.05001163 0.05160115 0.04780181 0.04962394 0.04935256</code></pre>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="untidy-data-analysis.html#cb303-1" tabindex="-1"></a><span class="co">#the column masses</span></span>
-<span id="cb303-2"><a href="untidy-data-analysis.html#cb303-2" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>colmass  </span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="untidy-data-analysis.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="co">#the column masses</span></span>
+<span id="cb305-2"><a href="untidy-data-analysis.html#cb305-2" aria-hidden="true" tabindex="-1"></a>berry_ca_res<span class="sc">$</span>colmass  </span></code></pre></div>
 <pre><code>##  [1] 0.084825929 0.047259052 0.055090331 0.162479646 0.144917423 0.002713809
 ##  [7] 0.045708304 0.161510429 0.061409630 0.033883849 0.119485152 0.064317283
 ## [13] 0.016399163</code></pre>
 <p>The <em>main</em> results of CA are the row and column coordinates, which are in two matrices with the same columns. We can tidy them with the reverse of <code>column_to_rownames()</code>, <code>rownames_to_column()</code>, and then we can use <code>bind_rows()</code> to combine them.</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="untidy-data-analysis.html#cb305-1" tabindex="-1"></a>berry_row_coords <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>rowcoord <span class="sc">%&gt;%</span></span>
-<span id="cb305-2"><a href="untidy-data-analysis.html#cb305-2" tabindex="-1"></a>  <span class="co">#rownames_to_column() works on data.frames, not matrices</span></span>
-<span id="cb305-3"><a href="untidy-data-analysis.html#cb305-3" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb305-4"><a href="untidy-data-analysis.html#cb305-4" tabindex="-1"></a>  <span class="co">#This has to be the same for both to use bind_rows()!</span></span>
-<span id="cb305-5"><a href="untidy-data-analysis.html#cb305-5" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Variable&quot;</span>) </span>
-<span id="cb305-6"><a href="untidy-data-analysis.html#cb305-6" tabindex="-1"></a></span>
-<span id="cb305-7"><a href="untidy-data-analysis.html#cb305-7" tabindex="-1"></a><span class="co">#Equivalent to the above, and works on matrices</span></span>
-<span id="cb305-8"><a href="untidy-data-analysis.html#cb305-8" tabindex="-1"></a>berry_col_coords <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>colcoord <span class="sc">%&gt;%</span></span>
-<span id="cb305-9"><a href="untidy-data-analysis.html#cb305-9" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;Variable&quot;</span>)</span>
-<span id="cb305-10"><a href="untidy-data-analysis.html#cb305-10" tabindex="-1"></a></span>
-<span id="cb305-11"><a href="untidy-data-analysis.html#cb305-11" tabindex="-1"></a>berry_ca_coords <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="at">Berry =</span> berry_row_coords,</span>
-<span id="cb305-12"><a href="untidy-data-analysis.html#cb305-12" tabindex="-1"></a>                             <span class="at">Attribute =</span> berry_col_coords,</span>
-<span id="cb305-13"><a href="untidy-data-analysis.html#cb305-13" tabindex="-1"></a>                             <span class="at">.id =</span> <span class="st">&quot;Type&quot;</span>)</span>
-<span id="cb305-14"><a href="untidy-data-analysis.html#cb305-14" tabindex="-1"></a></span>
-<span id="cb305-15"><a href="untidy-data-analysis.html#cb305-15" tabindex="-1"></a>berry_ca_coords</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="untidy-data-analysis.html#cb307-1" aria-hidden="true" tabindex="-1"></a>berry_row_coords <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>rowcoord <span class="sc">%&gt;%</span></span>
+<span id="cb307-2"><a href="untidy-data-analysis.html#cb307-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#rownames_to_column() works on data.frames, not matrices</span></span>
+<span id="cb307-3"><a href="untidy-data-analysis.html#cb307-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb307-4"><a href="untidy-data-analysis.html#cb307-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#This has to be the same for both to use bind_rows()!</span></span>
+<span id="cb307-5"><a href="untidy-data-analysis.html#cb307-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Variable&quot;</span>) </span>
+<span id="cb307-6"><a href="untidy-data-analysis.html#cb307-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb307-7"><a href="untidy-data-analysis.html#cb307-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Equivalent to the above, and works on matrices</span></span>
+<span id="cb307-8"><a href="untidy-data-analysis.html#cb307-8" aria-hidden="true" tabindex="-1"></a>berry_col_coords <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>colcoord <span class="sc">%&gt;%</span></span>
+<span id="cb307-9"><a href="untidy-data-analysis.html#cb307-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;Variable&quot;</span>)</span>
+<span id="cb307-10"><a href="untidy-data-analysis.html#cb307-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb307-11"><a href="untidy-data-analysis.html#cb307-11" aria-hidden="true" tabindex="-1"></a>berry_ca_coords <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="at">Berry =</span> berry_row_coords,</span>
+<span id="cb307-12"><a href="untidy-data-analysis.html#cb307-12" aria-hidden="true" tabindex="-1"></a>                             <span class="at">Attribute =</span> berry_col_coords,</span>
+<span id="cb307-13"><a href="untidy-data-analysis.html#cb307-13" aria-hidden="true" tabindex="-1"></a>                             <span class="at">.id =</span> <span class="st">&quot;Type&quot;</span>)</span>
+<span id="cb307-14"><a href="untidy-data-analysis.html#cb307-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb307-15"><a href="untidy-data-analysis.html#cb307-15" aria-hidden="true" tabindex="-1"></a>berry_ca_coords</span></code></pre></div>
 <pre><code>##         Type                    Variable         Dim1        Dim2        Dim3
 ## 1      Berry                Blackberry 1 -0.676422039  1.55801517  0.02889809
 ## 2      Berry                Blackberry 2 -0.460988133  2.16220762  0.44500036
@@ -1133,10 +1133,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 36 -0.8624509 -1.47668343  0.524665515</code></pre>
 <p>We could also add on any columns that have one value for each product <em>and</em> each attribute (or fill in the gaps with <code>NA</code>s). Maybe we want a column with the <code>rowmass</code>es and <code>colmass</code>es. These are vectors, so it would be handy if we could wrangle them into tibbles first.</p>
 <p>You can use either <code>tibble()</code> or <code>data.frame()</code> to make vectors in the same order into a table. They have basically the same usage. Just make sure you name your columns!</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="untidy-data-analysis.html#cb307-1" tabindex="-1"></a>berry_rowmass <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Variable =</span> berry_ca_res<span class="sc">$</span>rownames,</span>
-<span id="cb307-2"><a href="untidy-data-analysis.html#cb307-2" tabindex="-1"></a>                        <span class="at">Mass =</span> berry_ca_res<span class="sc">$</span>rowmass)</span>
-<span id="cb307-3"><a href="untidy-data-analysis.html#cb307-3" tabindex="-1"></a></span>
-<span id="cb307-4"><a href="untidy-data-analysis.html#cb307-4" tabindex="-1"></a>berry_rowmass</span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="untidy-data-analysis.html#cb309-1" aria-hidden="true" tabindex="-1"></a>berry_rowmass <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Variable =</span> berry_ca_res<span class="sc">$</span>rownames,</span>
+<span id="cb309-2"><a href="untidy-data-analysis.html#cb309-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Mass =</span> berry_ca_res<span class="sc">$</span>rowmass)</span>
+<span id="cb309-3"><a href="untidy-data-analysis.html#cb309-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb309-4"><a href="untidy-data-analysis.html#cb309-4" aria-hidden="true" tabindex="-1"></a>berry_rowmass</span></code></pre></div>
 <pre><code>## # A tibble: 23 × 2
 ##    Variable       Mass
 ##    &lt;chr&gt;         &lt;dbl&gt;
@@ -1152,14 +1152,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 Blueberry 5  0.0392
 ## # ℹ 13 more rows</code></pre>
 <p>If you have an already-named vector, <code>enframe()</code> is a handy shortcut to making a two-column tibble, but unfortunately this isn’t how the <code>ca</code> package structures its output.</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="untidy-data-analysis.html#cb309-1" tabindex="-1"></a>named_colmasses <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>colmass</span>
-<span id="cb309-2"><a href="untidy-data-analysis.html#cb309-2" tabindex="-1"></a><span class="fu">names</span>(named_colmasses) <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>colnames</span>
-<span id="cb309-3"><a href="untidy-data-analysis.html#cb309-3" tabindex="-1"></a></span>
-<span id="cb309-4"><a href="untidy-data-analysis.html#cb309-4" tabindex="-1"></a>berry_colmass <span class="ot">&lt;-</span> named_colmasses <span class="sc">%&gt;%</span></span>
-<span id="cb309-5"><a href="untidy-data-analysis.html#cb309-5" tabindex="-1"></a>  <span class="fu">enframe</span>(<span class="at">name =</span> <span class="st">&quot;Variable&quot;</span>,</span>
-<span id="cb309-6"><a href="untidy-data-analysis.html#cb309-6" tabindex="-1"></a>          <span class="at">value =</span> <span class="st">&quot;Mass&quot;</span>)</span>
-<span id="cb309-7"><a href="untidy-data-analysis.html#cb309-7" tabindex="-1"></a></span>
-<span id="cb309-8"><a href="untidy-data-analysis.html#cb309-8" tabindex="-1"></a>berry_colmass</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="untidy-data-analysis.html#cb311-1" aria-hidden="true" tabindex="-1"></a>named_colmasses <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>colmass</span>
+<span id="cb311-2"><a href="untidy-data-analysis.html#cb311-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(named_colmasses) <span class="ot">&lt;-</span> berry_ca_res<span class="sc">$</span>colnames</span>
+<span id="cb311-3"><a href="untidy-data-analysis.html#cb311-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb311-4"><a href="untidy-data-analysis.html#cb311-4" aria-hidden="true" tabindex="-1"></a>berry_colmass <span class="ot">&lt;-</span> named_colmasses <span class="sc">%&gt;%</span></span>
+<span id="cb311-5"><a href="untidy-data-analysis.html#cb311-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enframe</span>(<span class="at">name =</span> <span class="st">&quot;Variable&quot;</span>,</span>
+<span id="cb311-6"><a href="untidy-data-analysis.html#cb311-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">value =</span> <span class="st">&quot;Mass&quot;</span>)</span>
+<span id="cb311-7"><a href="untidy-data-analysis.html#cb311-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb311-8"><a href="untidy-data-analysis.html#cb311-8" aria-hidden="true" tabindex="-1"></a>berry_colmass</span></code></pre></div>
 <pre><code>## # A tibble: 13 × 2
 ##    Variable                       Mass
 ##    &lt;chr&gt;                         &lt;dbl&gt;
@@ -1177,8 +1177,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 12 cata_taste_earthy           0.0643 
 ## 13 cata_taste_none             0.0164</code></pre>
 <p>And now we can use <code>bind_rows()</code> and <code>left_join()</code> to jigsaw these together.</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="untidy-data-analysis.html#cb311-1" tabindex="-1"></a><span class="fu">bind_rows</span>(berry_colmass, berry_rowmass) <span class="sc">%&gt;%</span></span>
-<span id="cb311-2"><a href="untidy-data-analysis.html#cb311-2" tabindex="-1"></a>  <span class="fu">left_join</span>(berry_ca_coords, <span class="at">by =</span> <span class="st">&quot;Variable&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="untidy-data-analysis.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(berry_colmass, berry_rowmass) <span class="sc">%&gt;%</span></span>
+<span id="cb313-2"><a href="untidy-data-analysis.html#cb313-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(berry_ca_coords, <span class="at">by =</span> <span class="st">&quot;Variable&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 36 × 15
 ##    Variable    Mass Type     Dim1    Dim2   Dim3   Dim4    Dim5    Dim6     Dim7
 ##    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
@@ -1204,17 +1204,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Like with our <em>untidying</em> process, the shape you need to get your data into during <em>retidying</em> is ultimately decided by what you want to do with it next. Correspondence Analysis is primarily a graphical method, so next we’re going to talk about graphing functions in R in our last substantive chapter. By the end, you will be able to make the plots we showed in the beginning!</p>
 <p>Let’s take a quick moment to <strong>save our data</strong> before we move on, though, so we don’t have to rerun our <code>ca()</code> whenever we restart <code>R</code> to make more changes to our graph.</p>
 <p>As we’ve shown before, you can save tabular data easily:</p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="untidy-data-analysis.html#cb313-1" tabindex="-1"></a>berry_ca_coords <span class="sc">%&gt;%</span></span>
-<span id="cb313-2"><a href="untidy-data-analysis.html#cb313-2" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;data/berry_ca_coords.csv&quot;</span>)</span>
-<span id="cb313-3"><a href="untidy-data-analysis.html#cb313-3" tabindex="-1"></a></span>
-<span id="cb313-4"><a href="untidy-data-analysis.html#cb313-4" tabindex="-1"></a>berry_col_coords <span class="sc">%&gt;%</span></span>
-<span id="cb313-5"><a href="untidy-data-analysis.html#cb313-5" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;data/berry_ca_col_coords.csv&quot;</span>)</span>
-<span id="cb313-6"><a href="untidy-data-analysis.html#cb313-6" tabindex="-1"></a></span>
-<span id="cb313-7"><a href="untidy-data-analysis.html#cb313-7" tabindex="-1"></a>berry_row_coords <span class="sc">%&gt;%</span></span>
-<span id="cb313-8"><a href="untidy-data-analysis.html#cb313-8" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;data/berry_ca_row_coords.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="untidy-data-analysis.html#cb315-1" aria-hidden="true" tabindex="-1"></a>berry_ca_coords <span class="sc">%&gt;%</span></span>
+<span id="cb315-2"><a href="untidy-data-analysis.html#cb315-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;data/berry_ca_coords.csv&quot;</span>)</span>
+<span id="cb315-3"><a href="untidy-data-analysis.html#cb315-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb315-4"><a href="untidy-data-analysis.html#cb315-4" aria-hidden="true" tabindex="-1"></a>berry_col_coords <span class="sc">%&gt;%</span></span>
+<span id="cb315-5"><a href="untidy-data-analysis.html#cb315-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;data/berry_ca_col_coords.csv&quot;</span>)</span>
+<span id="cb315-6"><a href="untidy-data-analysis.html#cb315-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb315-7"><a href="untidy-data-analysis.html#cb315-7" aria-hidden="true" tabindex="-1"></a>berry_row_coords <span class="sc">%&gt;%</span></span>
+<span id="cb315-8"><a href="untidy-data-analysis.html#cb315-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;data/berry_ca_row_coords.csv&quot;</span>)</span></code></pre></div>
 <p>But <code>.csv</code> is a <strong>tabular format</strong>, so it’s a little harder to save the whole non-tabular list of <code>berry_ca_res</code> as a table. There’s a lot of stuff we may need later, though, so just in case we can save it as an <code>.Rds</code> file:</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="untidy-data-analysis.html#cb314-1" tabindex="-1"></a>berry_ca_res <span class="sc">%&gt;%</span></span>
-<span id="cb314-2"><a href="untidy-data-analysis.html#cb314-2" tabindex="-1"></a>  <span class="fu">write_rds</span>(<span class="st">&quot;data/berry_ca_results.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="untidy-data-analysis.html#cb316-1" aria-hidden="true" tabindex="-1"></a>berry_ca_res <span class="sc">%&gt;%</span></span>
+<span id="cb316-2"><a href="untidy-data-analysis.html#cb316-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(<span class="st">&quot;data/berry_ca_results.rds&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>

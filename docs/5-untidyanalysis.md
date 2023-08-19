@@ -70,8 +70,8 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 38
-##    `Sample Name` `Subject Code` cata_appearance_unevenc…¹ cata_appearance_miss…²
+## # A tibble: 7,507 x 38
+##    `Sample Name` `Subject Code` cata_appearance_unevenc~1 cata_appearance_miss~2
 ##    <chr>                  <dbl>                     <dbl>                  <dbl>
 ##  1 raspberry 6             1001                         0                      1
 ##  2 raspberry 5             1001                         0                      0
@@ -83,13 +83,13 @@ berry_data %>%
 ##  8 raspberry 5             1002                         1                      0
 ##  9 raspberry 2             1002                         1                      0
 ## 10 raspberry 3             1002                         1                      0
-## # ℹ 7,497 more rows
-## # ℹ abbreviated names: ¹​cata_appearance_unevencolor, ²​cata_appearance_misshapen
-## # ℹ 34 more variables: cata_appearance_creased <dbl>,
+## # i 7,497 more rows
+## # i abbreviated names: 1: cata_appearance_unevencolor,
+## #   2: cata_appearance_misshapen
+## # i 34 more variables: cata_appearance_creased <dbl>,
 ## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>,
 ## #   cata_appearance_notfresh <dbl>, cata_appearance_fresh <dbl>,
-## #   cata_appearance_goodshape <dbl>, cata_appearance_goodquality <dbl>,
-## #   cata_appearance_none <dbl>, cata_taste_floral <dbl>, …
+## #   cata_appearance_goodshape <dbl>, cata_appearance_goodquality <dbl>, ...
 ```
 
 This is a pretty typical way for data collection software to save data from categorical questions like CATA and ordinal questions like JAR: one column per attribute. It's also, currently, a `tibble`, which is not in the list of objects that the `ca()` function will take.
@@ -172,7 +172,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 7,507 × 95
+## # A tibble: 7,507 x 95
 ##    cata_taste_berry raspberry blackberry blueberry strawberry `Sample Name`
 ##               <dbl>     <dbl>      <dbl>     <dbl>      <dbl> <chr>        
 ##  1                0         1          0         0          0 raspberry 2  
@@ -185,13 +185,13 @@ berry_data %>%
 ##  8                0         0          0         1          0 Blueberry 2  
 ##  9                0         0          0         1          0 Blueberry 4  
 ## 10                0         0          0         0          1 Strawberry1  
-## # ℹ 7,497 more rows
-## # ℹ 89 more variables: `Subject Code` <dbl>, `Participant Name` <dbl>,
+## # i 7,497 more rows
+## # i 89 more variables: `Subject Code` <dbl>, `Participant Name` <dbl>,
 ## #   Gender <lgl>, Age <lgl>, `Start Time (UTC)` <chr>, `End Time (UTC)` <chr>,
 ## #   `Serving Position` <dbl>, `Sample Identifier` <dbl>,
 ## #   `9pt_appearance` <dbl>, pre_expectation <dbl>, jar_color <dbl>,
 ## #   jar_gloss <dbl>, jar_size <dbl>, cata_appearance_unevencolor <dbl>,
-## #   cata_appearance_misshapen <dbl>, cata_appearance_creased <dbl>, …
+## #   cata_appearance_misshapen <dbl>, cata_appearance_creased <dbl>, ...
 ```
 
 And we can see here that `pivot_wider()` increased the number of columns without decreasing the number of rows. By default, it will only combine rows where every column other than the `names_from` and `values_from` columns are identical.
@@ -206,7 +206,7 @@ berry_data %>%
 ```
 
 ```
-## # A tibble: 23 × 37
+## # A tibble: 23 x 37
 ##    `Sample Name` cata_appearance_unevencolor cata_appearance_misshapen
 ##    <chr>                               <dbl>                     <dbl>
 ##  1 Blackberry 1                           28                        67
@@ -219,13 +219,13 @@ berry_data %>%
 ##  8 Blueberry 3                            34                        37
 ##  9 Blueberry 4                            29                        26
 ## 10 Blueberry 5                            22                        35
-## # ℹ 13 more rows
-## # ℹ 34 more variables: cata_appearance_creased <dbl>,
+## # i 13 more rows
+## # i 34 more variables: cata_appearance_creased <dbl>,
 ## #   cata_appearance_seedy <dbl>, cata_appearance_bruised <dbl>,
 ## #   cata_appearance_notfresh <dbl>, cata_appearance_fresh <dbl>,
 ## #   cata_appearance_goodshape <dbl>, cata_appearance_goodquality <dbl>,
 ## #   cata_appearance_none <dbl>, cata_taste_floral <dbl>,
-## #   cata_taste_berry <dbl>, cata_taste_green <dbl>, cata_taste_grassy <dbl>, …
+## #   cata_taste_berry <dbl>, cata_taste_green <dbl>, ...
 ```
 
 Note that the there are some attributes with NA counts. If we reran the analysis with `na.rm = TRUE`, we'd see that these attributes have zero citations for the berries that were `NA` before. This is because some attributes were only relevant for some of the berries. You will have to think about whether and how to include any of these variables in your analysis.
@@ -243,7 +243,7 @@ berry_tidy_contingency
 ```
 
 ```
-## # A tibble: 23 × 14
+## # A tibble: 23 x 14
 ##    `Sample Name` cata_appearance_unevencolor cata_appearance_misshapen
 ##    <chr>                               <dbl>                     <dbl>
 ##  1 Blackberry 1                           28                        67
@@ -256,8 +256,8 @@ berry_tidy_contingency
 ##  8 Blueberry 3                            34                        37
 ##  9 Blueberry 4                            29                        26
 ## 10 Blueberry 5                            22                        35
-## # ℹ 13 more rows
-## # ℹ 11 more variables: cata_appearance_notfresh <dbl>,
+## # i 13 more rows
+## # i 11 more variables: cata_appearance_notfresh <dbl>,
 ## #   cata_appearance_fresh <dbl>, cata_appearance_goodquality <dbl>,
 ## #   cata_appearance_none <dbl>, cata_taste_floral <dbl>,
 ## #   cata_taste_berry <dbl>, cata_taste_grassy <dbl>,
@@ -1109,7 +1109,7 @@ berry_rowmass
 ```
 
 ```
-## # A tibble: 23 × 2
+## # A tibble: 23 x 2
 ##    Variable       Mass
 ##    <chr>         <dbl>
 ##  1 Blackberry 1 0.0392
@@ -1122,7 +1122,7 @@ berry_rowmass
 ##  8 Blueberry 3  0.0399
 ##  9 Blueberry 4  0.0386
 ## 10 Blueberry 5  0.0392
-## # ℹ 13 more rows
+## # i 13 more rows
 ```
 
 If you have an already-named vector, `enframe()` is a handy shortcut to making a two-column tibble, but unfortunately this isn't how the `ca` package structures its output.
@@ -1140,7 +1140,7 @@ berry_colmass
 ```
 
 ```
-## # A tibble: 13 × 2
+## # A tibble: 13 x 2
 ##    Variable                       Mass
 ##    <chr>                         <dbl>
 ##  1 cata_appearance_unevencolor 0.0848 
@@ -1167,21 +1167,21 @@ bind_rows(berry_colmass, berry_rowmass) %>%
 ```
 
 ```
-## # A tibble: 36 × 15
+## # A tibble: 36 x 15
 ##    Variable    Mass Type     Dim1    Dim2   Dim3   Dim4    Dim5    Dim6     Dim7
 ##    <chr>      <dbl> <chr>   <dbl>   <dbl>  <dbl>  <dbl>   <dbl>   <dbl>    <dbl>
-##  1 cata_ap… 0.0848  Attr…  1.94   -1.17    0.321 -0.369 -1.62   -0.377    0.302 
-##  2 cata_ap… 0.0473  Attr…  0.0589  2.05   -3.66   0.353 -1.01   -0.212   -0.239 
-##  3 cata_ap… 0.0551  Attr…  2.45    0.162  -0.225  0.995  2.87    1.03    -0.0555
-##  4 cata_ap… 0.162   Attr… -0.937   0.0247  0.440  0.124 -0.109   0.141    0.0440
-##  5 cata_ap… 0.145   Attr… -0.997   0.0809  0.506  0.485  0.530   0.333    0.343 
-##  6 cata_ap… 0.00271 Attr… -0.794  -1.48   -0.166 -1.42   0.690   3.29   -17.0   
-##  7 cata_ta… 0.0457  Attr… -0.282  -0.156  -0.661 -0.224  1.50   -2.82     0.864 
-##  8 cata_ta… 0.162   Attr… -0.333  -0.790  -0.460 -0.435  0.0346  0.0894  -0.214 
-##  9 cata_ta… 0.0614  Attr…  0.598   1.20    1.49   1.30  -0.968  -1.02    -0.489 
-## 10 cata_ta… 0.0339  Attr…  0.485   2.24    0.825 -3.96   0.106   1.89     1.04  
-## # ℹ 26 more rows
-## # ℹ 5 more variables: Dim8 <dbl>, Dim9 <dbl>, Dim10 <dbl>, Dim11 <dbl>,
+##  1 cata_ap~ 0.0848  Attr~  1.94   -1.17    0.321 -0.369 -1.62   -0.377    0.302 
+##  2 cata_ap~ 0.0473  Attr~  0.0589  2.05   -3.66   0.353 -1.01   -0.212   -0.239 
+##  3 cata_ap~ 0.0551  Attr~  2.45    0.162  -0.225  0.995  2.87    1.03    -0.0555
+##  4 cata_ap~ 0.162   Attr~ -0.937   0.0247  0.440  0.124 -0.109   0.141    0.0440
+##  5 cata_ap~ 0.145   Attr~ -0.997   0.0809  0.506  0.485  0.530   0.333    0.343 
+##  6 cata_ap~ 0.00271 Attr~ -0.794  -1.48   -0.166 -1.42   0.690   3.29   -17.0   
+##  7 cata_ta~ 0.0457  Attr~ -0.282  -0.156  -0.661 -0.224  1.50   -2.82     0.864 
+##  8 cata_ta~ 0.162   Attr~ -0.333  -0.790  -0.460 -0.435  0.0346  0.0894  -0.214 
+##  9 cata_ta~ 0.0614  Attr~  0.598   1.20    1.49   1.30  -0.968  -1.02    -0.489 
+## 10 cata_ta~ 0.0339  Attr~  0.485   2.24    0.825 -3.96   0.106   1.89     1.04  
+## # i 26 more rows
+## # i 5 more variables: Dim8 <dbl>, Dim9 <dbl>, Dim10 <dbl>, Dim11 <dbl>,
 ## #   Dim12 <dbl>
 ```
 

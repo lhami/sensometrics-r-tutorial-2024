@@ -12,7 +12,7 @@ We have managed to touch on all of these topics, but of course we have taken the
 
 <center>
 
-![What does good code even look like? (via [XKCD](https://xkcd.com/844/))](https://imgs.xkcd.com/comics/good_code.png)
+![What does good code even look like? (via [XKCD](https://xkcd.com/844/))](img/xkcd_844_good_code.png)
 
 </center>
 

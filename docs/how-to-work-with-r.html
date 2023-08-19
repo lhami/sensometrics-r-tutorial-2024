@@ -283,15 +283,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="doing-math-and-creating-objects-in-r" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Doing math and creating objects in <code>R</code><a href="how-to-work-with-r.html#doing-math-and-creating-objects-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>At it’s most basic, <code>R</code> can be a calculator. If you type math into the <code>Console</code> and hit <code>return</code> it will do math for you!</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="how-to-work-with-r.html#cb11-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="how-to-work-with-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="how-to-work-with-r.html#cb13-1" tabindex="-1"></a><span class="dv">1000</span> <span class="sc">/</span> <span class="fl">3.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="how-to-work-with-r.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1000</span> <span class="sc">/</span> <span class="fl">3.5</span></span></code></pre></div>
 <pre><code>## [1] 285.7143</code></pre>
 <p>To get the most out of R, though, we are going to want to use its abilities as a programming language. Among some other topics that I won’t explicitly cover today, this means using <code>R</code> to store values (and later objects that contain multiple lines of values, like you’d get in an Excel spreadsheet).</p>
 <p>This set of characters is the <strong>assignment operator</strong>: <code>&lt;-</code>. It works like this:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="how-to-work-with-r.html#cb15-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb15-2"><a href="how-to-work-with-r.html#cb15-2" tabindex="-1"></a>hi <span class="ot">&lt;-</span> <span class="st">&quot;hello world&quot;</span></span>
-<span id="cb15-3"><a href="how-to-work-with-r.html#cb15-3" tabindex="-1"></a>data_set <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="how-to-work-with-r.html#cb15-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb15-2"><a href="how-to-work-with-r.html#cb15-2" aria-hidden="true" tabindex="-1"></a>hi <span class="ot">&lt;-</span> <span class="st">&quot;hello world&quot;</span></span>
+<span id="cb15-3"><a href="how-to-work-with-r.html#cb15-3" aria-hidden="true" tabindex="-1"></a>data_set <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>… but that didn’t do anything! Where’s the output? Well, we can do two things. First, look at the “Environment” tab in your RStudio after you run the above code chunk. You’ll notice that there are 3 new things there: <code>x</code>, <code>hi</code>, and <code>data_set</code>. In general I am going to call those <strong>objects</strong>–they are stored variables, which R now knows about by name. How did it learn about them? You guessed it: the assignment operator: <code>&lt;-</code>.</p>
 <p>To be explicit: <code>x &lt;- 100</code> can be read in English as “x gets 100” (what a lot of programmers like to say) or, in a clearer but longer way, “assign 100 to a variable called x”.</p>
 <p><strong>NB</strong>: R also allows you to use <code>=</code> as an assignment operator. <strong>DO NOT DO THIS!</strong>. There are two good reasons.</p>
@@ -304,73 +304,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If you find typing <code>&lt;-</code> a pain (reasonably), RStudio provides a keyboard shortcut: either <code>option + -</code> on Mac or <code>Alt + -</code> on PC.</p>
 <p>I am going to use the terms “object” and “variable” interchangeably in this workshop–in other programming languages there are hard distinctions between these concepts, and even in some <code>R</code> packages this can be important, but for our purposes I mean the same thing if I am sloppy.</p>
 <p>The advantage of storing values into objects is that we can do math with them, change them, and duplicate and store them elsewhere.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="how-to-work-with-r.html#cb16-1" tabindex="-1"></a>x <span class="sc">/</span> <span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="how-to-work-with-r.html#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">/</span> <span class="dv">10</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="how-to-work-with-r.html#cb18-1" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="how-to-work-with-r.html#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
 <pre><code>## [1] 101</code></pre>
 <p>Note that doing math with a variable doesn’t change the variable itself. To do that, you have to use the assignment <code>&lt;-</code> to change the value of the variable again:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="how-to-work-with-r.html#cb20-1" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="how-to-work-with-r.html#cb20-1" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="how-to-work-with-r.html#cb22-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb22-2"><a href="how-to-work-with-r.html#cb22-2" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="how-to-work-with-r.html#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb22-2"><a href="how-to-work-with-r.html#cb22-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>## [1] 101</code></pre>
 </div>
 <div id="functions-and-their-arguments-in-r" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Functions and their arguments in <code>R</code><a href="how-to-work-with-r.html#functions-and-their-arguments-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Obviously if we’re using <code>R</code> as a calculator we might want to do more than basic arithmetic. What about taking the square root of <code>x</code>?</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="how-to-work-with-r.html#cb24-1" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="how-to-work-with-r.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span></code></pre></div>
 <pre><code>## [1] 10.04988</code></pre>
 <p>In fact, we can ask R to do lots of neat stuff, like generate random numbers for us. For example, here are 100 random numbers from a normal distribution with mean of 0 and standard deviation of 1.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="how-to-work-with-r.html#cb26-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>##   [1] -0.08727749  0.02740685  0.05892150 -0.62110908  0.14268272  1.53950809
-##   [7] -1.08254988 -0.89440817  1.35333636 -1.29475668 -0.14810026  0.80014947
-##  [13]  0.61294477  1.82702675  1.61993169 -0.89640678 -0.21157941  0.11592969
-##  [19]  2.01652054 -0.75528846  1.91008780 -0.05635510 -1.26395565  1.30459363
-##  [25]  1.13137462 -0.47314941  1.71902539  0.87533218  1.65021950  1.60564080
-##  [31]  0.86883550  1.61667337  0.82191561 -1.53614012 -1.38397871  0.64141754
-##  [37] -0.36709114  1.93179190 -0.86291799  0.21745168 -1.79636494  2.06796439
-##  [43] -0.52436136 -1.58483694  1.10079832 -1.02276175 -0.68092671 -0.49803366
-##  [49] -0.50398954 -0.65070312  0.69838317  0.05903041 -0.70411151 -1.05314656
-##  [55] -0.54438096  1.92068856  0.30221314 -0.60681887 -1.86562314 -1.63177027
-##  [61]  2.31854432  1.24426223  1.50229992 -1.82025543 -0.06097253  2.51632540
-##  [67]  2.99120543 -1.37171519 -0.25683449 -1.11192142  1.18316458 -0.64723016
-##  [73] -0.31018301  0.13917062 -0.87369438  1.49380648  1.32585076  0.04755361
-##  [79]  0.53764025 -1.04514764 -0.73283991  1.98993889 -0.34581651 -0.99902497
-##  [85] -1.46692908 -2.19283290  0.56026048  0.92388169  0.56751709 -0.07727250
-##  [91] -2.47426283 -0.72597454 -1.19086127 -0.23321816 -2.05392282  1.54916041
-##  [97]  0.64599002  0.59248469 -0.48597604 -0.23863466</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="how-to-work-with-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>##   [1] -0.817685110  0.201152377 -1.071774749 -1.224584643 -0.371708145
+##   [6]  0.202118981 -0.016109239  2.348819210 -0.400830922  1.109840793
+##  [11] -0.367812885  0.453660107 -0.303437762  1.274748698 -2.097878251
+##  [16]  1.557493741  0.856844279 -0.325518728 -0.372224056  0.049242839
+##  [21] -0.756189885  2.071136762  1.794900330 -0.386906112 -0.888441856
+##  [26]  0.888011180 -0.655852076 -0.703391039  1.477231069  3.159130327
+##  [31]  0.249453619  1.911644948 -0.147883108  1.753066221 -0.510659614
+##  [36]  0.676239754 -0.462741938  0.722808260 -0.982828210 -0.931724341
+##  [41]  0.476143199  0.167080937 -0.982189220  1.657857273  1.366360717
+##  [46] -1.404160479 -1.318165302 -1.416507978 -1.285776466 -0.661263391
+##  [51] -0.153887857  0.204531137 -0.030454422 -1.547247122  0.131458897
+##  [56] -0.962992329  1.464009478  0.810420155 -1.171066988 -1.943981866
+##  [61]  0.219626093  0.312425983 -0.865671783  0.609384640 -0.407829773
+##  [66] -1.451028766 -0.001936591  1.661404145 -2.882450854  0.159143901
+##  [71] -0.481442405  0.821825839  1.126861277  0.105922580  1.524592857
+##  [76]  0.519303422 -0.107379955 -1.008023497 -1.934083946  1.698295558
+##  [81] -0.648037741 -0.638706550 -2.286233717  0.457099132  1.148283087
+##  [86]  0.456779392  0.955835626  0.623830541 -1.155282709 -0.257100605
+##  [91] -0.271969756 -1.471053878  0.036452776 -0.195503227 -0.864964154
+##  [96]  2.216331908 -0.169473846  1.734705945  0.260645234 -1.482721218</code></pre>
 <p>These forms are called a <strong>function</strong> in R. Functions lie at the heart of <code>R</code>’s power: they are pre-written scripts that are included with base <code>R</code> or added in packages, like the ones we installed. In general, an <code>R</code> function will have a form like <code>&lt;name&gt;(&lt;argument&gt;, &lt;argument&gt;, ...)</code>. In other words, the function will have a name (that lets <code>R</code> know what you’re trying to do) followed by an open parenthesis, and inside that a list of arguments, which are variables, objects, values, etc that you “pass” to the function, finally followed by a close parenthesis. In the case of our <code>sqrt()</code> function, there is only a single argument: a variable to which the square-root operation will be applied. In the case of the <code>rnorm()</code> function there are 3 arguments: the number of values we want, <code>n</code>, and the <code>mean</code> and standard deviation <code>sd</code> of the normal distribution we wish to sample from.</p>
 <p>Functions are the <code>R</code> tools for which you can make the most use of the help operator: <code>?</code>. Try typing <code>?rnorm</code> into your console, and when you hit <code>return</code> you’ll see the help page for the function.</p>
 <p>Notice that in the <code>rnorm()</code> example we <em>named</em> the arguments–we told <code>R</code> which was the <code>n</code>, <code>mean</code>, and <code>sd</code>. This is because if we name arguments, we can give them in any order. Otherwise, <code>R</code> will try to match the provided values to the arguments <strong>in the order in which they are given in the help file</strong>. This is a major source of errors for newer <code>R</code> users!</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="how-to-work-with-r.html#cb28-1" tabindex="-1"></a><span class="co"># This will give us 1 value from the normal distribution with mean = 0 and sd = 100</span></span>
-<span id="cb28-2"><a href="how-to-work-with-r.html#cb28-2" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div>
-<pre><code>## [1] -157.9664</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="how-to-work-with-r.html#cb30-1" tabindex="-1"></a><span class="co"># But we can also use named arguments to provide them in any order we wish!</span></span>
-<span id="cb30-2"><a href="how-to-work-with-r.html#cb30-2" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">sd =</span> <span class="dv">1</span>, <span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>)</span></code></pre></div>
-<pre><code>##   [1]  0.14684579 -0.35324077 -1.10140132  0.16088040 -0.60743984  0.33519740
-##   [7]  0.10128245  1.38940673 -0.24433417 -0.66708032 -0.41136583 -0.57104188
-##  [13]  1.44132031 -0.80452868  0.31808200 -1.73626200 -1.00969739 -0.73022311
-##  [19] -0.20200415  0.72575271 -0.01233774  1.03180538  0.98350384  0.32635407
-##  [25]  0.12486072  0.13001981 -0.08414491  0.42082789 -2.53751140 -1.32304178
-##  [31] -1.06752838  0.17419678  0.32987624  0.31405300  1.78280760  1.87163793
-##  [37] -0.38541866  0.28613078 -0.76134387  0.95151587  0.41622928  1.13374210
-##  [43]  2.23569967  0.19270917  2.05602122  3.15557230  1.89812374 -2.04490131
-##  [49] -0.66551418  1.84582031  0.70101205  0.06673048 -0.78571262  0.25797933
-##  [55]  1.17849673 -0.64064266 -1.05498523  0.02646779 -0.50238082 -0.08815260
-##  [61]  1.42418790  0.70747835 -0.19416286  1.48983219 -1.16009546 -0.90975139
-##  [67]  0.47344354  0.49118630  2.21645071 -1.44188538  0.64028636  0.90431772
-##  [73] -0.61875375 -0.72284745  0.88386119 -0.43558907  1.35780998  0.81360649
-##  [79] -2.15669795 -1.91957056 -0.42046163  1.70477598 -0.25998033 -1.01090357
-##  [85] -0.88767985 -1.25522430 -0.62309958 -0.47649812  0.10960275  1.13649116
-##  [91] -0.78603264  1.57913027  0.22051166  0.01603259  1.17980443 -0.71280292
-##  [97]  0.23616588  0.08718981  0.95004569  0.17542991</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="how-to-work-with-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This will give us 1 value from the normal distribution with mean = 0 and sd = 100</span></span>
+<span id="cb28-2"><a href="how-to-work-with-r.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div>
+<pre><code>## [1] -130.0599</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="how-to-work-with-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># But we can also use named arguments to provide them in any order we wish!</span></span>
+<span id="cb30-2"><a href="how-to-work-with-r.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">sd =</span> <span class="dv">1</span>, <span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>##   [1] -1.305967194  0.833838602  2.055708347  1.148340695 -1.975784664
+##   [6]  1.272842205 -1.816663768 -1.065154652  1.334737745 -0.789520572
+##  [11]  1.093223730 -1.449656669 -0.075943477 -0.076770678  0.629619179
+##  [16] -0.235792194  0.282821782  0.398656245 -0.516286787 -0.573390347
+##  [21]  0.847637216 -0.108346417  0.093116262 -0.800869021 -0.017547694
+##  [26]  1.773355629  0.302902009 -0.579775107  0.692745358 -0.577940024
+##  [31]  1.100826892 -0.016906361 -0.725611016 -0.653119981  1.402995644
+##  [36]  0.735565613 -1.202475574  0.802287429 -0.007062299  0.273570813
+##  [41]  0.838437233  0.549700070 -1.766065796  0.180132432  1.593446326
+##  [46] -0.498796913  0.499469802 -0.027801746 -0.905313735 -0.012029211
+##  [51] -0.825973068 -0.790924859  0.692281877  0.027140777 -1.511327360
+##  [56]  0.108679341 -0.259232705 -1.076976856  0.607391104 -0.755897513
+##  [61] -0.655911421  1.492628283  0.877401709  0.376582939  0.661203283
+##  [66]  0.451127238  0.561445617 -1.015280512 -0.543614135  0.471003336
+##  [71] -0.174258563 -0.021928594  0.421090651 -1.351618719  1.276840685
+##  [76]  0.980765127 -0.041995270 -1.485061461 -1.822049129  0.038704302
+##  [81]  0.355441696 -0.675691487  0.555490200  0.942430888  0.654592486
+##  [86]  0.545253426  0.139770261  1.568669538 -0.530368597 -0.765494538
+##  [91] -1.067672750  0.014948603 -0.265742283 -1.965178672  0.345987647
+##  [96] -2.252388351  0.893178997 -0.399286173  0.533278596  0.475754894</code></pre>
 <p>Programming languages like <code>R</code> are very literal, and we need to be as literal as we can to make them work the way we want them to.</p>
 </div>
 <div id="reading-data-into-r" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Reading data into <code>R</code><a href="how-to-work-with-r.html#reading-data-into-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>So far we’ve only done very basic things with <code>R</code>, which probably haven’t sold you on its power and utility. Let’s try doing some things that will hopefully get us a little further towards actual, useful applications.</p>
 <p>First off, make sure you have the <code>tidyverse</code> package loaded by using the <code>library()</code> function.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="how-to-work-with-r.html#cb32-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="how-to-work-with-r.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>Now, we’re going to read in the data we’re going to use for this workshop using the function <code>read_csv()</code>. If you want to learn about this function, use the <code>?read_csv</code> command to get some details.</p>
 <p>In the workshop archive you downloaded, the <code>data/</code> directory has a file called <code>clt-berry-data.csv</code>. If you double-click this in your file browser, it will (most likely) open in Excel, and you can take a look at it. The data describe the attributes and liking scores reported by consumers for a variety of berries across multiple CLTs. A total of 969 participants (<code>Subject Code</code>) and 23 berries (<code>Sample Name</code>) were involved in these tests, with only one species of berry (blackberry, blueberry, raspberry, or strawberry) presented during each CLT. In the actual experimental design, subjects got multiple sample sets (so there are <em>not</em> 969 unique subjects), but here we will treat them as unique for ease of description.</p>
 <p>As for the survey, panelists were asked JAR, CATA, and free response questions, as well as liking on the Unlabeled Line Scale (<code>us_*</code>), 9-point scale (<code>9pt_*</code>), or labeled magnitude scale (<code>lms_*</code>).</p>
@@ -378,8 +384,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="where-the-data-lives" class="section level3 hasAnchor" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Where the data lives<a href="how-to-work-with-r.html#where-the-data-lives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We touched on <strong>working directories</strong> because this is how <code>R</code> “sees” your computer. It will look first in the working directory, and then you will have to tell it where the file is <em>relative</em> to that directory. If you have been following along and opened up the <code>.Rproj</code> file in the downloaded archive, your working directory should be the archive’s top level, which will mean that we only need to point <code>R</code> towards the <code>data/</code> folder and then the <code>clt-berry-data.csv</code> file. We can check the working directory with the <code>getwd()</code> function.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="how-to-work-with-r.html#cb33-1" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;C:/Users/lhamilton/Documents/pangborn-r-tutorial-2023&quot;</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="how-to-work-with-r.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;C:/Users/Leah/Documents/R/pangborn-r-tutorial-2023&quot;</code></pre>
 <p>Therefore, <strong>relative to the working directory</strong>, the file path to this data is <code>data/clt-berry-data.csv</code>. Please note that this is the UNIX convention for file paths: in Windows, the backslash <code>\</code> is used to separate directories. Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention in this workshop.</p>
 </div>
 <div id="what-kind-of-file-are-we-importing" class="section level3 hasAnchor" number="2.3.2">
@@ -392,7 +398,7 @@ cat_acquisition_order,name,weight\n
 2,Margot,10\n
 3,Little Guy,13\n</code></pre>
 <p>Each line represents a row of data, and each field is separated by a comma (<code>,</code>). We can read this kind of data into <code>R</code> by using the <code>read_csv()</code> function.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="how-to-work-with-r.html#cb36-1" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/clt-berry-data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="how-to-work-with-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/clt-berry-data.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 7507 Columns: 92
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -423,7 +429,7 @@ cat_acquisition_order,name,weight\n
 ## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
 ## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
 <p>Suddenly, we have tabular data (i.e., data in rows and columns), like we’d have in Excel! Now we’re getting somewhere. However, before we go forward we’ll have to store this data somewhere–right now we’re just reading it and throwing it away.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="how-to-work-with-r.html#cb39-1" tabindex="-1"></a>berry_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/clt-berry-data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="how-to-work-with-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/clt-berry-data.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 7507 Columns: 92
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -440,38 +446,38 @@ cat_acquisition_order,name,weight\n
 <h2><span class="header-section-number">2.4</span> Data in <code>R</code><a href="how-to-work-with-r.html#data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s take a look at the <code>Environment</code> tab. Among some other objects you may have created (like <code>x</code>), you should see <code>berry_data</code> listed. This is a type of data called a <code>data.frame</code> in <code>R</code>, and it is going to be, for the most part, the kind of data you interact with most. Let’s learn about how these types of objects work by doing a quick review of the basics.</p>
 <p>We started by creating an object called <code>x</code> and storing a number (<code>100</code>) into it. What kind of thing is this?</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="how-to-work-with-r.html#cb41-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb41-2"><a href="how-to-work-with-r.html#cb41-2" tabindex="-1"></a><span class="fu">class</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="how-to-work-with-r.html#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb41-2"><a href="how-to-work-with-r.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x)</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="how-to-work-with-r.html#cb43-1" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="how-to-work-with-r.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
 <p><code>R</code> has a bunch of basic data types, including the above “numeric” data type, which is a “real number” (in computer terms, a floating-point double as opposed to an integer). It can also store logical values (<code>TRUE</code> and <code>FALSE</code>), integers, characters/strings (which are what we’re really here to deal with) and some more exotic data types you won’t encounter very much. What <code>R</code> does that makes it good for data analysis is that it stores these all as <strong>vectors</strong>: 1-dimensional arrays of the same type of data. So, in fact, <code>x</code> is a length-1 vector of numeric data:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="how-to-work-with-r.html#cb45-1" tabindex="-1"></a><span class="fu">length</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="how-to-work-with-r.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>The operator to explicitly make a vector in <code>R</code> is the <code>c()</code> function, which stands for “combine”. So if we want to make a vector of a few values, we use this function as so:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="how-to-work-with-r.html#cb47-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">50</span>)</span>
-<span id="cb47-2"><a href="how-to-work-with-r.html#cb47-2" tabindex="-1"></a>y</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="how-to-work-with-r.html#cb47-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">50</span>)</span>
+<span id="cb47-2"><a href="how-to-work-with-r.html#cb47-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div>
 <pre><code>## [1]  1  2  3 10 50</code></pre>
 <p>We can also use <code>c()</code> to combine pre-existing objects:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="how-to-work-with-r.html#cb49-1" tabindex="-1"></a><span class="fu">c</span>(x, y)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="how-to-work-with-r.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(x, y)</span></code></pre></div>
 <pre><code>## [1] 100   1   2   3  10  50</code></pre>
 <p>You can have vectors of other types of objects:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="how-to-work-with-r.html#cb51-1" tabindex="-1"></a>animals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;fox&quot;</span>, <span class="st">&quot;bat&quot;</span>, <span class="st">&quot;rat&quot;</span>, <span class="st">&quot;cat&quot;</span>)</span>
-<span id="cb51-2"><a href="how-to-work-with-r.html#cb51-2" tabindex="-1"></a><span class="fu">class</span>(animals)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="how-to-work-with-r.html#cb51-1" aria-hidden="true" tabindex="-1"></a>animals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;fox&quot;</span>, <span class="st">&quot;bat&quot;</span>, <span class="st">&quot;rat&quot;</span>, <span class="st">&quot;cat&quot;</span>)</span>
+<span id="cb51-2"><a href="how-to-work-with-r.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(animals)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>If we try to combine vectors of 2 types of data, <code>R</code> will “coerce” the data types to match to the less restrictive type, in the following order: <code>logical &gt; integer &gt; numeric &gt; character</code>. So if we combine <code>y</code> and <code>animals</code>, we’ll turn the numbers into their character representations. I mention this because it can be a source of error and confusion when we are working with large datasets, as we may see.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="how-to-work-with-r.html#cb53-1" tabindex="-1"></a><span class="fu">c</span>(y, animals)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="how-to-work-with-r.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(y, animals)</span></code></pre></div>
 <pre><code>## [1] &quot;1&quot;   &quot;2&quot;   &quot;3&quot;   &quot;10&quot;  &quot;50&quot;  &quot;fox&quot; &quot;bat&quot; &quot;rat&quot; &quot;cat&quot;</code></pre>
 <p>For example, we can divide all the numbers in <code>y</code> by <code>2</code>, but if we try to divide <code>c(y, animals)</code> by <code>2</code> we will get an error:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="how-to-work-with-r.html#cb55-1" tabindex="-1"></a><span class="fu">c</span>(y, animals) <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="how-to-work-with-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(y, animals) <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## Error in c(y, animals)/2: non-numeric argument to binary operator</code></pre>
 <p>For vectors (and more complex objects), we can use the <code>str()</code> (“structure”) function to get some details about their nature and what they contain:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="how-to-work-with-r.html#cb57-1" tabindex="-1"></a><span class="fu">str</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="how-to-work-with-r.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(y)</span></code></pre></div>
 <pre><code>##  num [1:5] 1 2 3 10 50</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="how-to-work-with-r.html#cb59-1" tabindex="-1"></a><span class="fu">str</span>(animals)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="how-to-work-with-r.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(animals)</span></code></pre></div>
 <pre><code>##  chr [1:4] &quot;fox&quot; &quot;bat&quot; &quot;rat&quot; &quot;cat&quot;</code></pre>
 <p>This <code>str()</code> function is especially useful when we have big, complicated datasets, like <code>berry_data</code>:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="how-to-work-with-r.html#cb61-1" tabindex="-1"></a><span class="fu">str</span>(berry_data)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="how-to-work-with-r.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(berry_data)</span></code></pre></div>
 <pre><code>## spc_tbl_ [7,507 × 92] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ Subject Code               : num [1:7507] 1001 1001 1001 1001 1001 ...
 ##  $ Participant Name           : num [1:7507] 1001 1001 1001 1001 1001 ...
@@ -664,23 +670,23 @@ cat_acquisition_order,name,weight\n
 <div id="subsetting-data" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Subsetting data<a href="how-to-work-with-r.html#subsetting-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Vectors, by nature, are ordered arrays of data (in this case, 1-dimensional arrays). That means they have a first element, a second element, and so on. Our <code>y</code> vector has 5 total elements, and our <code>animals</code> vector has 4 elements. In <code>R</code>, the way to <strong>subset</strong> vectors is to use the <code>[]</code> (square brackets) operator. For a 1-dimensional vector, we use this to select one or more elements:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="how-to-work-with-r.html#cb63-1" tabindex="-1"></a>y[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="how-to-work-with-r.html#cb63-1" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="how-to-work-with-r.html#cb65-1" tabindex="-1"></a>animals[<span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="how-to-work-with-r.html#cb65-1" aria-hidden="true" tabindex="-1"></a>animals[<span class="dv">4</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;cat&quot;</code></pre>
 <p>We can also select multiple elements by using a vector of indices</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="how-to-work-with-r.html#cb67-1" tabindex="-1"></a>animals[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="how-to-work-with-r.html#cb67-1" aria-hidden="true" tabindex="-1"></a>animals[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span></code></pre></div>
 <pre><code>## [1] &quot;fox&quot; &quot;bat&quot;</code></pre>
 <p>A shortcut for a sequence of numbers in <code>R</code> is the <code>:</code> (colon) operator, so this is often used for indexing:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="how-to-work-with-r.html#cb69-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="how-to-work-with-r.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="how-to-work-with-r.html#cb71-1" tabindex="-1"></a>animals[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="how-to-work-with-r.html#cb71-1" aria-hidden="true" tabindex="-1"></a>animals[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;fox&quot; &quot;bat&quot; &quot;rat&quot;</code></pre>
 <p>We often want to use programmatic (or “conditional”) logic to subset vectors and more complex datasets. For example, we might want to only select elements of <code>y</code> that are less than <code>10</code>. To do that, we can use one of <code>R</code>’s conditional logic operators: <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>==</code>, or <code>!=</code>. These, in order, stand for “less than,”greater than,“,”less than or equal to,” “greater than or equal to,” “equal to,” and “not equal to.”</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="how-to-work-with-r.html#cb73-1" tabindex="-1"></a>y <span class="sc">&lt;</span> <span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="how-to-work-with-r.html#cb73-1" aria-hidden="true" tabindex="-1"></a>y <span class="sc">&lt;</span> <span class="dv">10</span></span></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE  TRUE FALSE FALSE</code></pre>
 <p>We can then use this same set of logical values to select only the elements of <code>y</code> for which the condition is <code>TRUE</code>:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="how-to-work-with-r.html#cb75-1" tabindex="-1"></a>y[y <span class="sc">&lt;</span> <span class="dv">10</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="how-to-work-with-r.html#cb75-1" aria-hidden="true" tabindex="-1"></a>y[y <span class="sc">&lt;</span> <span class="dv">10</span>]</span></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
 <p>This is useful if we have a long vector (frequently) and do not want to list or are not able to list all of the actual indices that we want to select.</p>
 </div>
@@ -689,31 +695,31 @@ cat_acquisition_order,name,weight\n
 <p>Now that we have the basics of vectors, we can move on to the complex data object we’re really interested in: <code>berry_data</code>. This is a type of object called a <code>tibble</code>, which is a cute/fancy version of the more basic <code>R</code> object called a <code>data.frame</code>. These are <code>R</code>’s version of the <code>.csv</code> file or your typical Excel file: a rectangular matrix of data, with (usually) columns representing some variable and rows representing some kind of observation. Each row will have a value in each column or will be <code>NA</code>, which is <code>R</code>’s specific value to represent <strong>missing data</strong>.</p>
 <p>In a <code>data.frame</code>, every column has to have only a single data type: a column might be <code>logical</code> or <code>integer</code> or <code>character</code>, but it cannot be a mix. However, each column can be a different type. For example, the first column in our <code>beer_data</code>, called <code>reviews</code>, is a <code>character</code> vector, but the third column, <code>beer_id</code>, is a <code>numeric</code> column.</p>
 <p>We have now moved from 1-dimensional vectors to 2-dimensional data tables, which means we’re going to have some new properties to investigate. First off, we might want to know how many rows and columns our data table has:</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="how-to-work-with-r.html#cb77-1" tabindex="-1"></a><span class="fu">nrow</span>(berry_data)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="how-to-work-with-r.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(berry_data)</span></code></pre></div>
 <pre><code>## [1] 7507</code></pre>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="how-to-work-with-r.html#cb79-1" tabindex="-1"></a><span class="fu">ncol</span>(berry_data)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="how-to-work-with-r.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(berry_data)</span></code></pre></div>
 <pre><code>## [1] 92</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="how-to-work-with-r.html#cb81-1" tabindex="-1"></a><span class="fu">length</span>(berry_data) <span class="co"># Note that length() of a data.frame is the same as ncol()</span></span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="how-to-work-with-r.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(berry_data) <span class="co"># Note that length() of a data.frame is the same as ncol()</span></span></code></pre></div>
 <pre><code>## [1] 92</code></pre>
 <p>We already tried running <code>str(berry_data)</code>, which gives us the data types of each column and an example. Some other ways to examine the data include the following:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="how-to-work-with-r.html#cb83-1" tabindex="-1"></a>berry_data <span class="co"># simply printing the object</span></span>
-<span id="cb83-2"><a href="how-to-work-with-r.html#cb83-2" tabindex="-1"></a><span class="fu">head</span>(berry_data) <span class="co"># show the first few rows</span></span>
-<span id="cb83-3"><a href="how-to-work-with-r.html#cb83-3" tabindex="-1"></a><span class="fu">tail</span>(berry_data) <span class="co"># show the last few rows</span></span>
-<span id="cb83-4"><a href="how-to-work-with-r.html#cb83-4" tabindex="-1"></a><span class="fu">glimpse</span>(berry_data) <span class="co"># a more compact version of str()</span></span>
-<span id="cb83-5"><a href="how-to-work-with-r.html#cb83-5" tabindex="-1"></a><span class="fu">names</span>(berry_data) <span class="co"># get the variable/column names</span></span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="how-to-work-with-r.html#cb83-1" aria-hidden="true" tabindex="-1"></a>berry_data <span class="co"># simply printing the object</span></span>
+<span id="cb83-2"><a href="how-to-work-with-r.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(berry_data) <span class="co"># show the first few rows</span></span>
+<span id="cb83-3"><a href="how-to-work-with-r.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(berry_data) <span class="co"># show the last few rows</span></span>
+<span id="cb83-4"><a href="how-to-work-with-r.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(berry_data) <span class="co"># a more compact version of str()</span></span>
+<span id="cb83-5"><a href="how-to-work-with-r.html#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(berry_data) <span class="co"># get the variable/column names</span></span></code></pre></div>
 <p>Some of these functions (for example, <code>glimpse()</code>) come from the <code>tidyverse</code> package, so if you are having trouble running a command, first make sure you have run <code>library(tidyverse)</code>.</p>
 </div>
 </div>
 <div id="subsetting-and-wrangling-data-tables" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Subsetting and wrangling data tables<a href="how-to-work-with-r.html#subsetting-and-wrangling-data-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Since we now have 2 dimensions, our old strategy of using a single number to select a value from a vector won’t work! But the <code>[]</code> operator still works on data frames and tibbles. We just have to specify coordinates, as <code>[&lt;row&gt;, &lt;column&gt;]</code>.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="how-to-work-with-r.html#cb84-1" tabindex="-1"></a>berry_data[<span class="dv">3</span>, <span class="dv">9</span>] <span class="co"># get the 3rd row, 9th column value</span></span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="how-to-work-with-r.html#cb84-1" aria-hidden="true" tabindex="-1"></a>berry_data[<span class="dv">3</span>, <span class="dv">9</span>] <span class="co"># get the 3rd row, 9th column value</span></span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   `Sample Name`
 ##   &lt;chr&gt;        
 ## 1 raspberry 2</code></pre>
 <p>We can continue to use ranges or vectors of indices to select larger parts of the table</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="how-to-work-with-r.html#cb86-1" tabindex="-1"></a>berry_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">9</span>] <span class="co"># get the first 5 rows of the 9th column value</span></span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="how-to-work-with-r.html#cb86-1" aria-hidden="true" tabindex="-1"></a>berry_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">9</span>] <span class="co"># get the first 5 rows of the 9th column value</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   `Sample Name`
 ##   &lt;chr&gt;        
@@ -724,7 +730,7 @@ cat_acquisition_order,name,weight\n
 ## 5 raspberry 4  
 ## 6 raspberry 1</code></pre>
 <p>If we only want to subset on a specific dimension and get everything from the other dimension, we just leave it blank.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="how-to-work-with-r.html#cb88-1" tabindex="-1"></a>berry_data[, <span class="dv">1</span>] <span class="co"># get all rows of the 1st column</span></span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="how-to-work-with-r.html#cb88-1" aria-hidden="true" tabindex="-1"></a>berry_data[, <span class="dv">1</span>] <span class="co"># get all rows of the 1st column</span></span></code></pre></div>
 <pre><code>## # A tibble: 7,507 × 1
 ##    `Subject Code`
 ##             &lt;dbl&gt;
@@ -740,7 +746,7 @@ cat_acquisition_order,name,weight\n
 ## 10           1002
 ## # ℹ 7,497 more rows</code></pre>
 <p>We can also use logical subsetting, just like in vectors. This is very powerful but a bit complicated, so we are going to introduce some <code>tidyverse</code> based operators to do this that will make it a lot easier. I will just give an example:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="how-to-work-with-r.html#cb90-1" tabindex="-1"></a>berry_data[berry_data<span class="sc">$</span>berry <span class="sc">==</span> <span class="st">&quot;raspberry&quot;</span>, ] <span class="co"># get all raspberry data</span></span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="how-to-work-with-r.html#cb90-1" aria-hidden="true" tabindex="-1"></a>berry_data[berry_data<span class="sc">$</span>berry <span class="sc">==</span> <span class="st">&quot;raspberry&quot;</span>, ] <span class="co"># get all raspberry data</span></span></code></pre></div>
 <pre><code>## # A tibble: 2,148 × 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
@@ -762,8 +768,8 @@ cat_acquisition_order,name,weight\n
 ## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
 ## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
 <p>In this last example I also introduced the final bit of <code>tibble</code> and <code>data.frame</code> wrangling we will cover here: the <code>$</code> operator. This is the operator to select a single column from a <code>data.frame</code> or <code>tibble</code>. It gives you back the vector that makes up that column:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="how-to-work-with-r.html#cb92-1" tabindex="-1"></a>berry_data<span class="sc">$</span>lms_overall <span class="co"># not printed because it is too long!</span></span>
-<span id="cb92-2"><a href="how-to-work-with-r.html#cb92-2" tabindex="-1"></a>berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="co"># column names starting with numbers or containing special characters like spaces need to be surrounded by backticks (`)</span></span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="how-to-work-with-r.html#cb92-1" aria-hidden="true" tabindex="-1"></a>berry_data<span class="sc">$</span>lms_overall <span class="co"># not printed because it is too long!</span></span>
+<span id="cb92-2"><a href="how-to-work-with-r.html#cb92-2" aria-hidden="true" tabindex="-1"></a>berry_data<span class="sc">$</span><span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="co"># column names starting with numbers or containing special characters like spaces need to be surrounded by backticks (`)</span></span></code></pre></div>
 <p>One of the nice things about RStudio is that it provides tab-completion for <code>$</code>. Go to the console, type “ber” and hit <code>tab</code> (or just wait a second or two, if you use the default RStudio settings). You’ll see a list of possible matches, with <code>berry_data</code> at the top. Hit enter, and this will fill out the typing for you! Now, type “$” and hit <code>tab</code> again. You’ll see a list of the columns in <code>berry_data</code>! This can save a huge amount of typing and memorizing the names of variables and objects.</p>
 <p>Now that we’ve gone over the basics of creating and manipulating objects in <code>R</code>, we’re going to run through the basics of data manipulation and visualization with the <code>tidyverse</code>. Before we move on to that topic, let’s address <strong>any questions</strong>.</p>
 </div>

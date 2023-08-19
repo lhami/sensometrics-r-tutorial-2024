@@ -7,7 +7,7 @@ site: "bookdown::bookdown_site"
 documentclass: book
 output:
   bookdown::gitbook: default
-  #bookdown::pdf_book: default
+  bookdown::pdf_book: default
 github-repo: lhami/pangborn-tutorial-2023
 ---
 
@@ -37,7 +37,7 @@ Elizabeth Clark is a Senior Scientist in Sensory & Consumer Sciences at McCormic
 
 ### Sébastien Lê, PhD {-}
 
-Sébastien Lê is an Associate Professor of Statistics and Computer science at l’Institut Agro Rennes-Angers, in France. He's a co-author of the FactoMineR and SenoMineR R packages, a co-author of [*Analyzing Sensory Data with R*](https://doi.org/10.1201/9781315373416), and a co-author of the Sensory %>% Data %>% Science educational platform.
+Sébastien Lê is an Associate Professor of Statistics and Computer science at l’Institut Agro Rennes-Angers, in France. He's a co-author of the FactoMineR and SensoMineR R packages, a co-author of [*Analyzing Sensory Data with R*](https://doi.org/10.1201/9781315373416), and a co-author of the Sensory %>% Data %>% Science educational platform.
 He's always curious and open to all kind of collaborations.
 
 ### Jacob Lahne, PhD {-}
