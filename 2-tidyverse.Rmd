@@ -1,4 +1,4 @@
-# Wrangling data with `tidyverse`: Rows, Columns, and Groups
+# Wrangling data with `tidyverse`
 
 ```{r setup, include = FALSE, purl = FALSE}
 library(tidyverse)

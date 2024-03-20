@@ -1,5 +1,5 @@
 ---
-title: "An introduction to R for sensory and consumer scientists"
+title: "Publication-quality data visualizations using the R tidyverse"
 author: 
   - Jacob Lahne^[Virginia Tech, jlahne@vt.edu]
   - Leah Hamilton^[Virginia State University, lhamilton@vsu.edu]
@@ -8,7 +8,7 @@ documentclass: book
 output:
   bookdown::gitbook: default
   bookdown::pdf_book: default
-github-repo: lhami/pangborn-tutorial-2023
+github-repo: lhami/sensometrics-tutorial-2024
 ---
 
 # Introduction and welcome {-}
@@ -21,7 +21,7 @@ berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
 
-Welcome to the Pangborn Sensometrics Workshop "**An introduction to R for sensory and consumer scientists**"!
+Welcome to the Sensometrics Workshop "**Publication-quality data visualizations using the R tidyverse**"!
 
 This workshop is going to be conducted not using slides, but through **livecoding**.  That means we are going to run code lines in the console or highlight and run code in scripts and other files.  It is also an opportunity and encouragement for you to follow along.  Along with introducing ourselves for today's workshop, we're going to discuss a bit about how that will work here.
 
@@ -31,43 +31,25 @@ This workshop is going to be conducted not using slides, but through **livecodin
 
 Leah Hamilton is an Assistant Professor of Sensory & Flavor Science at Virginia State University, in the US. Her primary research interest is flavor language, including the ways that people talk about flavors using their own words in different contexts. In her new position at Virginia State University, she'll be working closely with plant breeders and agricultural scientists to develop sensory-driven specialty crops and support the work of small and underprivileged farmers in the mid-Atlantic US.
 
-### Elizabeth Clark, PhD {-}
-
-Elizabeth Clark is a Senior Scientist in Sensory & Consumer Sciences at McCormick & Company Inc. — a global leader in flavor operating in two segments across 170 countries and territories. McCormick’s passion for Sensory & Consumer Science has led to published research on a replacement for the Scoville heat method for the sensory determination of pungency in capsicum products (Gillette, Appel, & Leggo, 1984); The Sensory Quality System (SQS): a global quality control solution (King et.al, 2022); the EsSense Profile®— a scientific measurement of the human emotional response to flavor (King & Meiselman, 2010), and The Wellsense Profile™ — a questionnaire to measure consumer wellness with foods (King et.al, 2015). Leveraging her interests in data analytics & coding, Elizabeth is helping McCormick usher in a new era of sensory research geared toward addressing rapidly evolving challenges faced by global food & beverage companies.
-
-### Sébastien Lê, PhD {-}
-
-Sébastien Lê is an Associate Professor of Statistics and Computer science at l’Institut Agro Rennes-Angers, in France. He's a co-author of the FactoMineR and SensoMineR R packages, a co-author of [*Analyzing Sensory Data with R*](https://doi.org/10.1201/9781315373416), and a co-author of the Sensory %>% Data %>% Science educational platform.
-He's always curious and open to all kind of collaborations.
-
 ### Jacob Lahne, PhD {-}
 
-Jacob Lahne is an Associate Professor of Food Science & Technology at Virginia Tech, in the United States.  He runs the Virginia Tech Sensory Evaluation Laboratory, as well as teaching courses in data analytics and coding for food-science research.  His main research focuses are sensory data-analysis methodologies and investigating the sensory properties of fermented and distilled foods and beverages. His work was invaluable in putting this workshop together, but unfortunately he won't be joining us in Nantes.
+Jacob Lahne is an Associate Professor of Food Science & Technology at Virginia Tech, in the United States.  He runs the Virginia Tech Sensory Evaluation Laboratory, as well as teaching courses in data analytics and coding for food-science research.  His main research focuses are sensory data-analysis methodologies and investigating the sensory properties of fermented and distilled foods and beverages.
 
 ## Today's agenda {-}
 
-Today's workshop is going to take ~3 hours, with a break for lunch, and we'll be covering the following material:  
+Today's workshop is going to take ~3 hours, and we'll be covering the following material:
 
-1.  Crash course in using R  
-2.  Creating, importing, and manipulating data in R
-3.  Tidy Data Analysis: Rows, Columns, and Groups
-    1. What is tidy data?
-    2. Subsetting data
-    3. Chaining steps together
-    4. Making new variables
-    5. Groups of rows and split-apply-combine
-    6. Groups of columns
-4. Tidy Data Analysis: Reshaping and combining tables
-    1. Wider and longer data
-    2. Combining data frames
-    3. Other data-wrangling utilities
-5.  Data analysis outside the `tidyverse`
-    1. Correspondence Analysis overview
-    2. Working with binary, count, and character data
-    3. Untidying & Retidying data
-6.  Basics of data visualization in `R`/`ggplot2`
-    1. Built-in plots using ca package
-    2. Customizing plots with ggplot2
+1.  Importing Data
+    1. Reading tabular data
+    2. Checking data fidelity
+2.  Basics of Tidy Data Analysis
+3.  Intro to `ggplot2`
+4.  Fine-Tuning Publication-Quality ggplots
+    1. Multivariate Maps
+    2. Faceted Plots
+5.  Other Packages & Extras
+    1. Adding layers and geoms (e.g., `ggrepel`)
+    2. Plot-builders (e.g., `factoextra`)
   
 ## How we're going to run {-}
 
@@ -75,14 +57,67 @@ This workshop is going to be run with **livecoding**, as noted above.  This mean
 
 ### Recommended approach for livecoding {-}
 
-We recommend that you download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/pangborn-tutorial-2023).  This archive, when unzipped, will have a folder structure and a `.Rproj` file.  We recommend that you close out RStudio, unzip the archive, and double click the `.Rproj` file *in that folder*, which will open a new session of RStudio with proper setting (like the home directory) for the files for this workshop.
+We recommend that you download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/sensometrics-tutorial-2024).  This archive, when unzipped, will have a folder structure and a `.Rproj` file.  We recommend that you close out RStudio, unzip the archive, and double click the `.Rproj` file *in that folder*, which will open a new session of RStudio with proper setting (like the home directory) for the files for this workshop.
 
-In that folder, you will find a `data/` folder with the necessary data for the workshop, and a script named `pangborn-all-code.R`.  This latter file contains all of the code demonstrated in this workshop for your future reference.  You can also follow along with the code at the [workshop's page hosted on github.io](https://lhami.github.io/pangborn-tutorial-2023) (which you're reading right now), and which will remain available after this workshop.
+In that folder, you will find a `data/` folder with the necessary data for the workshop, and a script named `sensometrics-all-code.R`.  This latter file contains all of the code demonstrated in this workshop for your future reference.  You can also follow along with the code at the [workshop's page hosted on github.io](https://lhami.github.io/sensometrics-tutorial-2024) (which you're reading right now), and which will remain available after this workshop.
 
-Once you're in RStudio, go to the `File > New File > R Script` menu to open a new script.  We'll talk about how these work in a minute, but this is basically a workbook for you to store sequential lines of code to be run in the `Console`.  It is where you can livecode along!  Even though we are giving you all of the code you need right now, you will learn a lot more if you actively follow along, rather than just run that code.
+Once you're in RStudio, go to the `File > New File > R Script` menu to open a new script.  Scrips are basically workbooks for you to store sequential lines of code to be run in the `Console`.  It is where you can livecode along!  Even though we are giving you all of the code you need right now, you will learn a lot more if you actively follow along, rather than just running the entire code file.
+
+ The `Console` is the place to run code that is short and easy to type, or that you're experimenting with.  It will allow you to write a single line of code, and after you hit `return`, `R` will execute the command.  This is great for "interactive programming", but it isn't so great for building up a complex workflow, or for following along with this workshop!
+
+You can write multiple lines of code in your `R` Script, then execute each one in any order (although keeping a logical sequence from top to bottom will help you keep track of what you're doing).  In an `R` script, everything is expected to be valid R code.
+
+```{r example of a code block, eval = FALSE}
+You can't write this in an R script because it is plain text.  This will
+cause an error.
+
+# If you want to write text or notes to yourself, use the "#" symbol at the start of 
+# every line to "comment" out that line.  You can also put "#" in the middle of
+# a line in order to add a comment - everything after will be ignored.
+
+1 + 1 # this is valid R syntax
+
+print("hello world") # this is also valid R syntax
+```
+
+To run code from your `R` script, put your cursor on the line you want to run and either hit the run button with the green arrow at the top left or (my preferred method) type `cmd + return` (on Mac) or `ctrl + return` (on PC).
 
 ### Dealing with errors {-}
 
-Coding means **making mistakes**.  This is fine--as you will surely see today, I will make a ton of trivial errors and have to fix things on the fly.  If you run into trouble, try looking carefully at what you've done and see if you can see what went wrong.  If that fails, we are here to help!  Because we have 3 instructors for this workshop, two of us are available to help at any time.  
+Coding means **making mistakes**.  This is fine--as you will surely see today, we will make a ton of trivial errors and have to fix things on the fly.  If you run into trouble, try looking carefully at what you've done and see if you can see what went wrong.  You can also make use of the help files in `R`.
 
-When you run into trouble, please use the **red sticky note** by putting it on the back of your laptop.  We'll be keeping an eye out, and someone will come to help you.  When you've resolved your problem, take the sticky note back off.  This way you don't have to raise your hand and interrupt the workshop, etc.  However, if your issue is a common one or something we think is worth noting, don't worry--we'll make time to discuss it!
+You can always get help on a particular function by typing `?<search term>`, which will make the help documentation for whatever you've searched for appear. For example, try typing the following to get help for the `sessionInfo()` command:
+
+```{r, eval = FALSE}
+?sessionInfo
+```
+
+But what if you don't know what to search for?
+
+By typing `??<search term>` you will search **all** help files for the search term.  R will return a list of matching articles to you in the help pane.  This is considerably slower, since it's searching hundreds or thousands of text files.  Try typing `??install` into your console to see how this works.
+
+You will notice that there are two types of results in the help list for install.  The help pages should be familiar.  But what are "vignettes"?  Try clicking on one to find out.
+
+Vignettes are formatted, conversational walkthroughs that are increasingly common (and helpful!) for R packages.  Rather than explaining a single function they usually explain some aspect of a package, and how to use it.  And, even better for our purposes, they are written in R Markdown.  Click the "source" link next to the vignette name in order to see how the author wrote it in R Markdown.  This is a great way to learn new tricks.
+
+While you can find vignettes as we just did, a better way is to use the function `browseVignettes()`.  This opens a web browser window that lists **all** vignettes installed on your computer.  You can then use `cmd`/`ctrl + F` to search using terms in the web browser and quickly find package names, function names, or topics you are looking for.
+
+## PSA: not-knowing is normal!
+
+Above, I mentioned "help files". How do we get help when we (inevitably) run into problems in R? There are a couple steps you will find helpful in the future:
+
+1.  Look up the help file for whatever you're doing. Do this by using the syntax `?<search item>` (for example `?c` gets help on the vector command) as a shortcut on the console.
+2.  Search the help files for a term you think is related. Can't remember the command for making a sequence of integers? Go to the "Help" pane in RStudio and search in the search box for "sequence". See if some of the top results get you what you need.
+3.  The internet. Seriously. I am not kidding even a little bit. R has one of the most active and (surprisingly) helpful user communities I've ever encountered. Try going to google and searching for "How do I make a sequence of numbers in R?" You will find quite a bit of useful help. I find the following sites particularly helpful
+    1.  [Stack Overflow](https://stackoverflow.com/questions/tagged/r)
+    2.  [Cross Validated/Stack Exchange](https://stats.stackexchange.com/questions/tagged/r)
+    3.  Seriously, [Google will get you most of the way to helpful answers](https://is.gd/80V5zF) for many basic R questions.
+
+
+We may come back to this, but I want to emphasize that **looking up help is normal**. I do it all the time. Learning to ask questions in helpful ways, how to quickly parse the information you find, and how to slightly alter the answers to suit your particular situation are key skills.
+  
+### Getting Help {-}
+If you get stuck and can't figure out what went wrong, we are here to help!  Because we have 2 instructors for this workshop, one of us is available to help at any time.
+
+When you run into trouble, please raise your hand.  We'll be keeping an eye out, and whichever instructor isn't livecoding will come to help you.  If your issue is a common one or something we think is worth noting, don't worry--we'll make time to discuss it!
+
