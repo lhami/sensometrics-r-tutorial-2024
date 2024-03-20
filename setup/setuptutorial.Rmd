@@ -7,7 +7,6 @@ output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
-output_dir: "setup"
 runtime: shiny_prerendered
 description: "There are a few things you need to do to set up for our sensometrics tutorial. This step-by-step walkthrough will ensure that you have R, RStudio, and all necessary packages correctly installed before you arrive in Paris."
 ---
@@ -16,27 +15,20 @@ description: "There are a few things you need to do to set up for our sensometri
 library(learnr)
 knitr::opts_chunk$set(echo = FALSE)
 options(tutorial.exercise.timelimit = 60, 
-        tutorial.storage = "local") 
+        tutorial.storage = "local")
 ```
-
-```{r copy-code-chunk, child = system.file("child_documents/copy_button.Rmd", package = "tutorial.helpers")}
-```
-
-```{r info-section, child = system.file("child_documents/info_section.Rmd", package = "tutorial.helpers")}
-```
-
-<!-- * Load any necessary libraries for the tutorial in the first code chunk -->
 
 ## Introduction
 In order to be prepared to participate for the in-person tutorial on publication-quality graphics in the tidyverse, you should bring a laptop that has the following installed:
-- `R` (version 4.1.0 or newer)
-- RStudio (version 2022.07.0 or newer)
-- The `R` packages:
-  - **tidyverse**
-  - **FactoMineR**
-  - **ggrepel**
-  - **ca**
-- The tutorial materials from our [GitHub](https://github.com/lhami/sensometrics-r-tutorial-2024/blob/main/code/sensometrics-2024-code-download.zip)
+
+* `R` (version 4.1.0 or newer)
+* RStudio (version 2022.07.0 or newer)
+* The `R` packages:
+  + **tidyverse**
+  + **FactoMineR**
+  + **ggrepel**
+  + **ca**
+* The tutorial materials from our [GitHub](https://github.com/lhami/sensometrics-r-tutorial-2024/blob/main/code/sensometrics-2024-code-download.zip)
 
 You may need help or pre-approval from your IT department if you will be using a work laptop. You should install all of these pieces of software and run the test code **before you travel** to minimize the setup necessary at the start of the tutorial.
 
@@ -52,7 +44,9 @@ If you have never used `R` on this computer before, install the newest version o
 ![](https://vimeo.com/203516510)
 
 If you are using a work-managed Windows computer, you may see a screen that looks like this:
-[A windows user account control prompt asking for administrator credentials to run a program.](img/uac-asks-password-admin.png){width=400px}
+
+![A windows user account control prompt asking for administrator credentials to run a program.](images/uac-asks-password-admin.png){width=400px}
+
 You can safely select "No" and proceed through local installation.
 
 *If* you already have `R` on your computer, run `sessionInfo()` in the `R` console to make sure you are using version 4.1.0 or newer. The **tidyverse** is only compatible with versions of `R` from the last few years, and there are major updates periodically. You can have more than one version of `R` installed on one computer, although [keeping multiple versions of packages installed to go with it is more challenging and may require additional tools](https://scientifictools.org/article/12-is-it-possible-to-install-multiple-versions-of-r/).
@@ -64,7 +58,7 @@ Open your new copy of `R` and paste this code into the console:
 
 Press the enter key to run the code.
 
-```{r r-check echo=FALSE}
+```{r r-check, echo=FALSE}
 question("What does the R console return when you run the above code?",
          answer("1"),
          answer("2"),
@@ -75,7 +69,7 @@ question("What does the R console return when you run the above code?",
          allow_retry = TRUE)
 ```
 
-## RStudio
+## Installing RStudio
 While you *can* do everything that we'll be demonstrating directly in the `R` console, as you did for the last question, it is difficult to keep track of your scripts, manage files, and preview plots with the regular `R` interface. We will be using **RStudio** to make this faster and easier. Unless you are already very comfortable with `R`, we recommend downloading RStudio.
 
 RStudio is an "**I**nteractive **D**evelopment **E**nvironment" (IDE) for working with `R`. Without going into a lot of detail, that means that `R` lives on its own on your computer in a separate directory, and RStudio provides a bunch of better functionality for things like writing multiple files at once, making editing easier, autofilling code, and displaying plots.
@@ -86,7 +80,8 @@ Download the free version of [RStudio Desktop from the Posit website](https://po
 ![](https://vimeo.com/203516968)
 
 If you are using a work-managed Windows computer, you may get stuck at a screen that looks like this:
-[A windows user account control prompt asking for administrator credentials to run a program.](img/uac-asks-password-admin.png){width=400px}
+
+![A windows user account control prompt asking for administrator credentials to run a program.](images/uac-asks-password-admin.png){width=400px}
 
 Unfortunately, you do need a system administrator to approve the RStudio installer on Windows PCs. If you are in this situation, reach out to your IT person **now** and ask them if RStudio is approved software and how to download it.
 
@@ -98,15 +93,17 @@ Open RStudio. Look at the top menu, which starts with `File`, then `Edit`.
 Navigate through this menu to `Tools > Global Options`.
 
 Uncheck all the boxes that have to do with restoring projects and workspaces, so it matches this screenshot:
-![Uncheck the options to restore various data and projects at startup.](img/global-options-settings.png){width=400px}
+
+![Uncheck the options to restore various data and projects at startup.](images/global-options-settings.png){width=400px}
 
 You can see from the lefthand box that this was the `General` tab of the Global Options. Navigate to `Code > Completion` and select the checkboxes to allow using `tab` for autocompletions and allowing multiline autocompletions, as shown below:
-![Check the boxes for tab and multiline autocompletions.](img/code-autocompletion.png){width=400px}
+
+![Check the boxes for tab and multiline autocompletions.](images/code-autocompletion.png){width=400px}
 
 ### Setup check: RStudio
 Keep R or RStudio open. You will need it for the rest of this tutorial.
 
-```{r rstudio-check echo=FALSE}
+```{r rstudio-check, echo=FALSE}
 question("Which of the following are headings under the `Code > Editing` tab of the RStudio Global Options? Check all that apply.",
          answer("Editing", correct = TRUE),
          answer("Execution", correct = TRUE),
@@ -137,19 +134,52 @@ Hit the enter key on your keyboard to run.
 ![](https://vimeo.com/203516241)
 
 ### Setup check: R packages
+You can use `?` in `R` to pull up help files for any function in a package you have installed. Use the following code to read the help file for the function `geom_text_repel()` from the package `ggrepel`:
 
+`?ggrepel::geom_text_repel`
 
+You pnly have to read the two sentences under the **Description** heading. We don't expect you to understand what all of this means yet.
 
-## Code for this tutorial
+```{r rpackage-check, echo=FALSE}
+question("What does `geom_text_repel()` repel text *away from*?",
+         answer("Data points and other text", correct = TRUE),
+         answer("The origin"),
+         answer("The edges of the plot"),
+         answer("The viewer"),
+         answer("Whatever you tell it to"),
+         incorrect = "Read the text under the **Description** heading in the help file. The text labels are repelled away from what?",
+         random_answer_order = TRUE,
+         allow_retry = TRUE)
+```
 
-We recommend that you download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/sensometrics-tutorial-2024).  This archive, when unzipped, will have a folder structure and a `.Rproj` file.  We recommend that you close out RStudio, unzip the archive, and double click the `.Rproj` file *in that folder*, which will open a new session of RStudio with proper setting (like the home directory) for the files for this workshop.
+## Downloading example code
+To help you follow along during the tutorial, we have made an R Project for you with code to complete everything we intend to do, as well as all of the data and a troubleshooting script called `environmenttest.R`.
 
-In that folder, you will find a `data/` folder with the necessary data for the workshop, and a script named `sensometrics-all-code.R`.  This latter file contains all of the code demonstrated in this workshop for your future reference.  You can also follow along with the code at the [workshop's page hosted on github.io](https://lhami.github.io/sensometrics-tutorial-2024) (which you're reading right now), and which will remain available after this workshop.
+Download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/sensometrics-tutorial-2024) now.
 
-Once you're in RStudio, go to the `File > New File > R Script` menu to open a new script.  We'll talk about how these work in a minute, but this is basically a workbook for you to store sequential lines of code to be run in the `Console`.  It is where you can livecode along!  Even though we are giving you all of the code you need right now, you will learn a lot more if you actively follow along, rather than just run that code.
+Close all open sessions of `R` and RStudio. **Unzip the archive**. If you're not sure how to do this, see [the guide for Windows and MacOS here](https://www.hostinger.com/tutorials/how-to-unzip-files).
+
+Open the unzipped folder in the file explorer. It should have an `.Rproj` file and two folders named `code` and `data`. If you see a pink "Extract" button at the top of the file explorer, **you still need to unzip the archive**.
+![The windows file explorer preview for a zipped archive, which you must unzip before you can open the `.Rproj` file as expected.](images/zipped-archive-file-explorer.png)
+### Opening the R Project
+Double-click on `sensometrics-r-tutorial-2024.Rproj` to open the project in RStudio, which will also set your working directory to this folder.
+
+In the `Files` pane (which will be on the bottom right unless you've changed your settings), open `environmenttest.R`. Copy-and-paste this code into the console or use Shift + Enter to run each line in order.
+
+If the `R` console prints any red errors at this point, please send them to us in an email (jlahne at vt dot edu & lhamilton at vsu dot edu). If your packages are installed correctly, this code should clean up the data set we'll be demonstrating our plots with, run a Correspondence Analysis, and print the first singular value of the decomposition.
+
+```{r rproj-check, echo=FALSE}
+question_numeric("What is the first singular value resulting from the CA in `environmenttest.R`?",
+         answer(0.2958384, correct = TRUE),
+         answer(0.3, message = "Please enter a few more digits, so we can be sure."),
+         answer(0.297, message = "Please enter a few more digits, so we can be sure."),
+         incorrect = "Something went wrong. Please restart RStudio, open the R Project again, and run the code one line at a time. If you see a red error message during the `library()` calls, try reinstalling the packages. If you see an error message about `%>%`, make sure you have the tidyverse installed and that you ran every line in order. If you still get a different number after troubleshooting, please email us.",
+         tolerance = 0.001,
+         allow_retry = TRUE)
+```
 
 ## Summary
-###
+Fantastic! If you've gotten the expected output from all of the exercises, you should have everything you need to follow along with the workshop even if there are issues connecting to the internet at the conference. This should ensure that the start of the workshop goes smoothly and that we can spend as much time as possible on the subject matter, so we and your fellow students deeply appreciate your cooperation.
 
-<!-- Two to four sentences which bring the lessons of the tutorial together for the student. What do they know now that they did not know before? How does this tutorial connect to other tutorials? OK if this is very similar to the Introduction. You made a promise as to what they would learn. You (we hope!) kept that promise.-->
+You already have all of the code that we will explain during the workshop, but this is considered an intermediate `R` workshop and we will not be spending time on basic `R` skills, programming or statistical theory, or navigating RStudio. If any of the concepts are unfamiliar to you, or if you're not comfortable *reading* and *running* the short code examples from this setup exercise, you can *optionally* look into the following resources before (or after!) our tutorial:
 
