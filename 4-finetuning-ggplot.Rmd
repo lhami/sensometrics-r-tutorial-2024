@@ -3,20 +3,121 @@
 ```{r setup, include = FALSE, purl = FALSE}
 library(tidyverse)
 library(ca)
+library(ggrepel)
+library(patchwork)
+library(FactoMineR)
+library(factoextra)
 berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
-## Correspondence Analysis Overview
+The plots we've been making so far are fairly straightforward demonstrations. In an actual publication, where space is precious and we're trying to show complex data relationships, we might be looking at something more like this:
 
-Remember what we said about most of the work of analysis being data wrangling? Now that we're about 2/3 of the way through this workshop, it's finally time to talk **data analysis**. The shape you need to wrangle your data *into* is determined by the analysis you want to run. Today, we have a bunch of **categorical data** and we want to understand the overall patterns within it. Which berries are **similar** and which are **different** from each other? Which sensory attributes are driving those differences?
+```{r final graphs}
+berry_data %>%
+  pivot_longer(cols = matches("^(9pt|us|lms)_"),
+               names_to = c("Scale", "Attribute"), names_sep = "_",
+               values_to = "Liking",
+               values_drop_na = TRUE) %>%
+  select(Subject = `Subject Code`, Sample = `Sample Name`, berry, starts_with("cata_"),
+         Scale, Attribute, Liking) %>%
+  group_by(Scale) %>%
+  mutate(Liking = (Liking - mean(Liking)) / sd(Liking)) %>%
+  filter(Attribute == "overall") %>%
+  ungroup() %>%
+  select(-Attribute, -Scale) -> berry_cata_liking
 
-One analysis well-suited to answer these questions for CATA and other categorical data is **Correspondence Analysis**. It's a singular value decomposition-based dimensionality-reduction method, so it's similar to Principal Component Analysis, but can be used when individual observations don't have numerical responses, or when the distances between those numbers (e.g., rankings) aren't meaningful.
+berry_cata_liking %>%
+  pivot_longer(starts_with("cata_"),
+               names_to = "Attribute", names_prefix = "cata_",
+               values_to = "Presence", values_drop_na = TRUE) %>%
+  separate_wider_delim(Attribute, "_", names = c("Modality", "Attribute")) %>%
+  mutate(Modality = str_replace(Modality, "appearane", "appearance"),
+         Attribute = str_replace(Attribute, "goodspapre", "goodshape")) %>%
+  group_by(berry, Modality, Attribute, Presence) %>%
+  summarize(Mean_Liking = mean(Liking)) %>%
+  ungroup() %>%
+  mutate(Presence = ifelse(Presence == 0, "Unchecked", "Checked")) %>%
+  pivot_wider(names_from = Presence, values_from = Mean_Liking) %>%
+  mutate(Penalty = Checked - Unchecked) -> berry_penalty_lift
 
-We're using Correspondence Analysis as an example, so you can see the tidyverse in action! This is not intended to be a statistics lesson. If you want to understand the theoretical and mathematical underpinnings of Correspondence Analysis and its variations, we recommend Michael Greenacre's book [*Correspondence Analysis in Practice*](https://doi.org/10.1201/9781315369983). It was written by the author of the R package we'll be using today (`ca`), and includes R code in the appendix.
+berry_penalty_lift %>%
+  filter(Modality == "taste") %>%
+  nest(.by = berry) %>%
+  mutate(plots = map2(data, berry, function(df, lab) {
+    df %>%
+      arrange(Penalty) %>%
+      mutate(Attribute = factor(Attribute, levels = unique(Attribute),
+                                ordered = TRUE)) %>%
+      ggplot(aes(x = Penalty, y = Attribute, fill = Penalty)) +
+      geom_col() +
+      theme_bw() +
+      theme(legend.position = "none",
+            axis.title.y = element_blank(),
+            panel.grid.major.x = element_blank(),
+            panel.grid.minor = element_blank()) +
+      ggtitle(str_to_title(lab))
+  })) %>%
+  pull(plots, name = berry) %>%
+  #{wrap_plots(., axis_titles = "collect") + plot_annotation(tag_levels = list(names(.)))}
+  wrap_plots()
 
-### The CA package
+berry_data %>%
+  pivot_longer(cols = matches("^(9pt|us|lms)_"),
+               names_to = c("Scale", "Attribute"), names_sep = "_",
+               values_to = "Liking",
+               values_drop_na = TRUE) %>%
+  select(where(~ !any(is.na(.x)))) %>%
+  group_by(Scale) %>%
+  mutate(Liking = (Liking - mean(Liking)) / sd(Liking)) %>%
+  ungroup() %>%
+  select(Subject = `Subject Code`, Sample = `Sample Name`, berry,
+         starts_with("cata_"), Attribute, Liking) %>%
+  pivot_wider(names_from = Attribute, names_prefix = "liking_", values_from = Liking) %>%
+  group_by(Sample) %>%
+  summarize(across(starts_with("cata_"),
+                   sum),
+            across(starts_with("liking_"),
+                   mean)) %>%
+  select(where(~ !any(is.na(.x)))) %>%
+  column_to_rownames("Sample") -> berry_mfa_summary
 
-Let's take a look at this `ca` package!
+berry_mfa_summary %>%
+  MFA(group = c(sum(str_detect(colnames(berry_mfa_summary), "^cata_")),
+                sum(str_detect(colnames(berry_mfa_summary), "^liking_"))),
+      type = c("f","s"),
+      name.group = c("CATA","Liking")) -> berry_mfa_res
+
+berry_mfa_res$global.pca$ind$coord %>%
+  as_tibble(rownames = "Product") %>%
+  mutate(Berry = str_to_title(str_extract(Product, "^[^1-9 ]*")),
+         Variety = str_extract(Product, "\\d$")) -> berry_mfa_indcoords
+
+berry_mfa_res$ind$coord.partiel %>%
+  as_tibble(rownames = "Partial") %>%
+  separate_wider_delim(Partial, ".", names = c("Product", "Scale")) %>%
+  left_join(berry_mfa_indcoords, by = "Product",
+            suffix = c(".Partial", "")) -> berry_mfa_partindcoords_long
+
+berry_mfa_indcoords %>%
+  ggplot(aes(x = Dim.1, y = Dim.2, color = Berry, label = Product)) +
+  geom_vline(xintercept = 0) +
+  geom_hline(yintercept = 0) +
+  geom_segment(aes(xend = Dim.1.Partial, yend = Dim.2.Partial,
+                   linetype = Scale), data = berry_mfa_partindcoords_long) +
+  geom_point() +
+  geom_text_repel(show.legend = FALSE, size = 6) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  xlab(str_c("Dimension 1 (",
+             round(berry_mfa_res$eig[1,"percentage of variance"], digits = 1),
+             "% Variance)")) +
+  ylab(str_c("Dimension 2 (",
+             round(berry_mfa_res$eig[2,"percentage of variance"], digits = 1),
+             "% Variance)"))
+```
+
+Like many things we're introducing today, you can make infinitely-complicated graphs using these same basic semantics. `ggplot2` is a world of exceptions! And you won't leave here knowing every single thing that's possible in ggplot. But by the end of this workshop, you'll be able to understand all of this code at least well enough to tweak it for your data and your graphs, and hopefully to know how to google it. Let's start at the beginning.
 
 ```{r loading the ca package and looking at help files, eval = FALSE}
 library(ca)
@@ -26,8 +127,6 @@ library(ca)
 
 The first thing you'll see is that it wants, specifically, a data frame or matrix as `obj`. We'll be ignoring the `formula` option, because a frequency table stored as a matrix is more flexible: you can use it in other functions like those in the `FactoMineR` package.
 
-A **frequency table** or **contingency table** is one way of numerically representing multiple categorical variables measured on the same set of observations. Each row represents one group of observations, each column represents one level of a given categorical variable, and the cells are filled with the number of observations in that group that fall into that level of the categorical variable.
-
 The help file shows us an example of a frequency table included in base R, so we can take a look at the shape we need to match:
 
 ```{r example contingency table}
@@ -36,7 +135,7 @@ str(author)
 head(author)
 ```
 
-Now let's take a look at the **tidy** CATA data we need to convert into a frequency table:
+Now let's take a look at the **tidy** data we need to convert into this format:
 
 ```{r example of tidy CATA data}
 berry_data %>%
@@ -47,64 +146,9 @@ This is a pretty typical way for data collection software to save data from cate
 
 We need to **untidy** our data to do this analysis, which is pretty common, but the `tidyverse` functions are still going to make it much easier than trying to reshape the data in base R. The makers of the packages have included some helpful functions for converting data *out of the tidyverse*, which we'll cover in a few minutes.
 
-## Categorical, Character, Binomial, Binary, and Count data
 
-Now, you might notice that, for categorical data, there are an awful lot of numbers in both of these tables. Without giving a whole statistics lesson, I want to take a minute to stress that the **data type** in R or another statistical software (`logical > integer > numeric > character`) is **not** necessarily the same as your statistical **level of measurement** (categorical/numerical or nominal/ordinal/interval/ratio).
 
-It is your job as a sensory scientist and data analyst to understand what kind of data you have *based on how it was collected*, and select appropriate analyses accordingly.
 
-In `berry_data$cata_*`, the data is represented as a 1 if that panelist checked that attribute for that sample, and a 0 otherwise. This could also be represented as a logical `TRUE` or `FALSE`, but the 0 and 1 convention makes binomial statistics most common, so you'll see it a lot.
-
-You can also pretty easily convert between binomial/binary data stored as `numeric` 0s and 1s and `logical` data.
-
-```{r converting binary data from numeric to logical}
-testlogic <- c(TRUE,FALSE,FALSE)
-testlogic
-class(testlogic) #We start with logical data
-
-testnums <- as.numeric(testlogic) #as.numeric() turns FALSE to 0 and TRUE to 1
-testnums
-class(testnums) #Now it's numeric
-
-as.logical(testnums) #We can turn numeric to logical data the same way
-as.logical(c(0,1,2,3)) #Be careful with non-binary data, though!
-```
-You may also have your categorical data stored as a `character` type, namely if the categories are **mutually exclusive** or if you have free response data where there were not a finite/fixed set of options. The latter can quickly become thorny to deal with, because every single respondent could have their own unique categories that don't align with any others. Julia Silge and David Robinson's book [*Text Mining with R*](https://www.tidytextmining.com/) is a good primer for tidying and doing basic analysis of text data.
-
-The first type of `character` data (with a limited number of mutually exclusive categories), thankfully, is much easier to deal with. We could turn the `berry` type variable into four separate **indicator variables** with 0s and 1s, if the analysis called for it, using `pivot_wider()`. Because we're turning *one column* into *multiple columns*, we're making the data wider, even though we don't actually want to make it any shorter.
-
-```{r }
-berry_data %>%
-  mutate(presence = 1) %>%
-  pivot_wider(names_from = berry,
-              values_from = presence, values_fill = 0) %>%
-  #The rest is just for visibility:
-  select(ends_with("berry"), `Sample Name`, everything()) %>%
-  arrange(lms_overall)
-```
-
-And we can see here that `pivot_wider()` increased the number of columns without decreasing the number of rows. By default, it will only combine rows where every column other than the `names_from` and `values_from` columns are identical.
-
-It's often possible to convert between data types by changing the scope of your focus. **Summary tables** of categorical data can include numerical statistics (and this might give you a clue as to which `tidyverse` verb we're going to be using the most in this chapter). The most common kind of summary statistic for categorical variables is the **count** or **frequency**, which is where frequency tables get their name.
-
-```{r using summarize to count the CATA frequency}
-berry_data %>%
-  group_by(`Sample Name`) %>%
-  summarize(across(starts_with("cata_"), sum))
-```
-
-Note that the there are some attributes with NA counts. If we reran the analysis with `na.rm = TRUE`, we'd see that these attributes have zero citations for the berries that were `NA` before. This is because some attributes were only relevant for some of the berries. You will have to think about whether and how to include any of these variables in your analysis.
-
-For now, we'll just drop those terms.
-
-```{r frequency table of terms shared by all berries}
-berry_data %>%
-  group_by(`Sample Name`) %>%
-  summarize(across(starts_with("cata_"), sum)) %>%
-  select(where(~ none(.x, is.na))) -> berry_tidy_contingency
-
-berry_tidy_contingency
-```
 
 ## Untidy Analysis
 We have our contingency table now, right? That wasn't so hard! Let's do CA!
@@ -342,288 +386,6 @@ But it's hard to see what's going on with the blueberries. A lot of the text is 
 
 If you want to make this look publication-friendly by getting rid of overlapping text, changing font size and color, color-coding your berries, etc, you *can* do this with base `R`'s plotting functions. The help files for `?plot.ca` and pages 262-268 in Greenacre's [*Correspondence Analysis in Practice*](https://doi.org/10.1201/9781315369983) demonstrate the wide variety of options available (although Greenacre also explains on pages 283-284 that he used a variety of non-base `R` tools to make figures for the book). In general, however, it's much easier to use the tidyverse package `ggplot2` to manipulate graphs.
 
-`ggplot2` provides a standardized, programmatic interface for data visualization, in contrast to the piecemeal approach common to base `R` graphics plotting.  This means that, while the syntax itself can be challenging to learn, syntax for different tasks differs in logical and predictable ways and it works well together with other `tidyverse` functions and principles (like `select()` and `filter()`).
-
-The schematic elements of a ggplot are as follows:
-
-```{r non-working schematic of a ggplot, eval = FALSE}
-# The ggplot() function creates your plotting environment.  We often save it to a variable in R so that we can use the plug-n-play functionality of ggplot without retyping
-p <- ggplot(mapping = aes(x = <a variable>, y = <another variable>, ...),
-            data = <your data>)
-
-# Then, you can add various ways of plotting data to make different visualizations.
-p + 
-  geom_<your chosen way of plotting>(...) +
-  theme_<your chosen theme> +
-  ...
-```
-
-In graphical form, the following diagram ([from VT Professor JP Gannon](https://vt-hydroinformatics.github.io/Plotting.html#our-first-ggplot)) gives an intuition of what is happening:
-
-![Basic ggplot mappings.  Color boxes indicate where the elements go in the function and in the plot.](img/GGplot syntax.png)
-
-Since ggplot2 is a tidyverse package, we do need to (re)tidy the data (and, often, keep reshaping it after that). In general, `ggplot2` works best with data in "long" or "tidy" format: one row for every observation or point.
-
-By default, the scatterplot function needs one row per point with one column of coordinates for each axis (normally x and y):
-
-```{r a first ggplot}
-berry_data %>%
-  # Here we set up the base plot
-  ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
-   # Here we tell our base plot to add points
-  geom_point()                          
-```
-
-This doesn't look all that impressive--partly because the data being plotted itself isn't that sensible, and partly because we haven't made many changes. If we want to plot some **summary** data, maybe one point per berry sample, we can use the familiar `tidyverse` functions to reshape our data and pipe it into `ggplot()`.
-
-``` {r basic ggplot2 scatterplot}
-berry_data %>%
-  select(`Sample Name`, contains(c("9pt_","lms_","us_"))) %>%
-  summarize(across(everything(), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) -> 
-  berry_average_likings
-
-berry_average_likings %>%
-  nrow()
-
-berry_average_likings %>%
-  ggplot(aes(x = `9pt_overall`, y = `lms_overall`)) +
-   #23 points, one per row
-  geom_point()
-```
-
-This plot has fewer overlapping points and less noise, so it's a lot more informative. But it still doesn't look that good, with the underscores in the axis labels, the printer-unfriendly grey background, etc. Let's start looking at the pieces that make up a `ggplot` so we can change them.
-
-### The `aes()` function and `mapping = ` argument
-
-The `ggplot()` function takes two arguments that are essential, as well as some others you'll only use in specific cases.  The first, `data = `, is straightforward, and you'll usually be passing data to the function at the end of some pipeline using `%>%`
-
-The second, `mapping = `, is less clear.  This argument requires the `aes()` function, which can be read as the "aesthetic" function.  The way that this function works is quite complex, and really not worth digging into here, but it's the place where you **tell `ggplot()` what part of your data is going to connect to what part of the plot**.  So, if we write `aes(x = rating)`, we can read this in our heads as "the values of x will be mapped from the 'rating' column".
-
-This sentence tells us the other important thing about `ggplot()` and the `aes()` mappings: **mapped variables each have to be in their own column**.  This is another reason that `ggplot()` requires tidy data.
-
-### Adding layers with `geom_*()` functions
-
-In the above example, we added (literally, using `+`) a function called `geom_point()` to the base `ggplot()` call.  This is functionally a "layer" of our plot, that tells `ggplot2` how to actually visualize the elements specified in the `aes()` function--in the case of `geom_point()`, we create a point for each row's combination of `x = lms_overall` and `y = 9pt_overall`.
-
-```{r what we are plotting in this example}
-berry_average_likings %>%
-  select(lms_overall, `9pt_overall`)
-```
-
-There are many `geom_*()` functions in `ggplot2`, and many others defined in other accessory packages like `ggrepel`. These determine what symbols and spatial arrangements are used to represent each row, and are the heart of visualizations. Some `geom_*()` functions do some summarization of their own, making them more appropriate for raw data.
-
-We can see this by swapping out the `geom_*()` in our initial scatterplot on the Labeled Magnitude Scale liking data:
-
-```{r changing the geom changes the way the data map}
-berry_data %>%
-  ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
-  geom_smooth()
-```
-
-`geom_smooth()` fits a smoothed line to our data. By default, it will use either Local Polynomial Regression or the Generalized Additive Model, depending on the size of your data (here, you can see that it chose `gam`, the Generalized Additive Model). You can specify models manually, using the `method` argument of `geom_smooth()`:
-
-```{r linear regression with geom_smooth}
-berry_data %>%
-  ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
-  geom_smooth(method = "lm")
-```
-
-We can also combine layers, as the term implies:
-
-```{r geoms are layers in a plot}
-berry_data %>%
-  ggplot(mapping = aes(x = lms_appearance, y = lms_overall)) + 
-  geom_point() +
-  geom_smooth()
-```
-
-Note that we don't need to tell *either* `geom_smooth()` or `geom_point()` what `x` and `y` are--they "inherit" them from the `ggplot()` function to which they are added (`+`), which defines the plot itself.
-
-What other arguments can be set to aesthetics?  Well, we can set other visual properties like **color**, **size**, **transparency** (called "alpha"), and so on.  For example, let's try to look at whether there is a relationship between berry condition (proxied here by `cata_appearance_bruised`) and overall liking.
-
-```{r here are some other parts of the plot we can control with data}
-berry_data %>%
-  #ggplot will drop NA values for you, but it's good practice to
-  #think about what you want to do with them:
-  drop_na(lms_overall, cata_appearance_bruised) %>%
-  #color, shape, linetype, and other aesthetics that would add a key
-  #don't like numeric data types. The quick-and-dirty solution:
-  mutate(across(starts_with("cata_"), as.factor)) %>%
-  ggplot(mapping = aes(x = lms_appearance, y = lms_overall,
-                       color = cata_appearance_bruised)) +
-  geom_point(alpha = 1/4) + 
-  geom_smooth(se = FALSE) +
-  theme_bw()
-```
-
-We can see that more of the blue dots for samples with a bruised appearance in the lower left of the figure--it has a negative influence on the ratings of overall liking *and* appearance.
-
-### Geoms for categorical, ordinal, or unevenly-distributed data
-
-You may notice that we've been using the Labeled Magnitude Scale data so far, rather than the data from the other two scales. That's because adding `geom_point()` to the 9-point hedonic scale data looks like this:
-
-```{r an unreadable scatterplot}
-berry_data %>%
-  ggplot(mapping = aes(x = `9pt_appearance`, y = `9pt_overall`)) +
-  geom_point()
-```
-
-Each of those points actually represents many individual ratings of berries, possibly hundreds. There are almost certainly fewer people giving the berries a 1 for appearance and a 9 for overall liking than there are people rating each a 6. This also makes it a good demonstration of how `ggplot` handles the transparency of overlapping points:
-
-```{r transparent points stack on top of each other to make less transparent points}
-berry_data %>%
-  ggplot(mapping = aes(x = `9pt_appearance`, y = `9pt_overall`)) +
-  geom_point(alpha = 0.05) 
-```
-
-But the actual solution to this problem, instead of the hacky pseudo-heat map, is `geom_jitter()`, which applies a small random x and y offset to each point:
-
-```{r using geom_jitter for overlapping points}
-berry_data %>%
-  ggplot(mapping = aes(x = `9pt_appearance`, y = `9pt_overall`)) +
-  geom_jitter(alpha = 1/4) +
-  geom_smooth(method = "lm", se = FALSE)
-```
-
-You can see there are some overlapping points left, but this gives us a much better idea of the shape, along with the summarizing `geom_smooth()`. Since there are only 9 possible values on the hedonic scale while the continuous Labeled Magnitude Scale allows people to select numbers in-between scale labels, `geom_jitter()` can be thought of as simulating this random human scale usage after the fact.
-
-If you'd like to look at the variation of a single categorical or discrete variable, a bar plot is more appropriate. `geom_bar()` is another **summarizing** geom, similar to `geom_smooth()`, as it expects a discrete `x` variable and *one row per observation*. It will **count** the number of rows in each **group** and use those counts to plot the bar heights, one bar per group. (Note that you can override or tweak this behavior using additional arguments.)
-
-`geom_histogram()` is the version for numeric data, which will also calculate bins for you.
-
-```{r geom_bar and geom_histogram}
-#geom_bar() is for when you already have discrete data, it just counts:
-berry_data %>%
-  ggplot(aes(x = cata_taste_berry)) +
-  geom_bar()
-
-berry_data %>%
-  ggplot(aes(x = `9pt_overall`)) +
-  geom_bar()
-
-#and geom_histogram() is for continuous data, it counts and bins:
-berry_data %>%
-  ggplot(aes(x = `lms_overall`)) +
-  geom_histogram()
-```
-
-### Arguments inside and outside of `aes()`
-
-In some previous plots, we've seen some aesthetic elements specified directly inside of geom functions like `geom_point(alpha = 1/4)`, without using `aes()` to **map** a variable to this aesthetic. If we want every point or geom to have the same, fixed look (the same transparency, the same color, etc), we *don't* wrap it in the `aes()` function. `aes()` ties a visual element to a variable.
-
-Note that we *can* map `alpha` to a variable, just like `color`:
-
-```{r using the aes function}
-berry_data %>%
-  drop_na(lms_overall, cata_appearance_bruised) %>%
-  ggplot(aes(x = lms_appearance, y = lms_overall)) + 
-  # We can set new aes() mappings in individual layers, as well as the plot itself
-  geom_point(aes(alpha = jar_size)) +
-  #Unlike color, alpha will accept numeric variables for mapping
-  theme_bw()
-```
-
-Color would be a better way to represent this relationship, however, as semitransparent points can overlap and appear indistinguishable from a single, darker point.
-
-### Using `theme_*()` to change visual options quickly
-
-In the last plot, notice that we have changed from the default (and to my mind unattractive) grey background of `ggplot2` to a black and white theme.  This is by adding a `theme_bw()` call to the list of commands.  `ggplot2` includes a number of default `theme_*()` functions, and you can get many more through other `R` packages.  They can have subtle to dramatic effects:
-
-```{r using the theme functions}
-berry_data %>%
-  drop_na(lms_overall, cata_appearance_bruised) %>%
-  ggplot(aes(x = lms_appearance, y = lms_overall)) + 
-  geom_point() +
-  theme_void()
-```
-
-You can also edit every last element of the plot's theme using the base `theme()` function, which is powerful but a little bit tricky to use.
-
-### Changing aesthetic elements with `scale_*()` functions
-
-But what about the color of the *points*? None of the themes change the colors used for drawing geoms, or the color scales used for showing categories or additional variables.
-
-The symbols, colors, or other signifiers mapped to aesthetic variables by `mapping()` are are controlled by the `scale_*()` functions. In my experience, the most frequently encountered scales are those for color: either `scale_fill_*()` for solid objects (like the bars in a histogram) or `scale_color_*()` for lines and points (like the outlines of the histogram bars).
-
-Scale functions work by telling `ggplot()` *how* to map aesthetic variables to visual elements. The `viridis` package is a good starting place for color and fill scales, as its `scale_color_viridis_*()` functions provide color-blind and (theoretically) print-safe color palettes.
-
-```{r ggplots are R objects}
-# To effectively plot all of the cata attributes on a bar chart, the data
-# needs to be longer (one geom_bar() per group, not per column!)
-# and we'll remove columns with NAs for now.
-berry_cata_long <- 
-  berry_data %>%
-  select(where(~none(.x, is.na))) %>%
-  pivot_longer(starts_with("cata_"),
-               names_to = c(NA, "Modality", "Attribute"), names_sep = "_",
-               values_to = "Presence")
-
-# And now we can use this for plotting
-p <- 
-  berry_cata_long %>%
-  filter(Presence == 1) %>%
-  ggplot(aes(x = Attribute, fill = berry, color = Modality)) + 
-  geom_bar(position = position_dodge()) +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-
-p
-```
-
-We can take a saved plot (like `p`) and use scales to change how it is visualized.
-
-```{r we can modify stored plots after the fact}
-p +
-  scale_fill_viridis_d() +
-  scale_color_grey(start = 0, end = 0.8) #For bar plots, color is the outline!
-```
-
-`ggplot2` has a broad range of built-in options for scales, but there are many others available in add-on packages that build on top of it.  You can also build your own scales using the `scale_*_manual()` functions, in which you give a vector of the same length as your mapped aesthetic variable in order to set up the visual assignment.  That sounds jargon-y, so here is an example:
-
-```{r another example of posthoc plot modification}
-# We'll pick 14 random colors from the colors R knows about
-random_colors <- print(colors()[sample(x = 1:length(colors()), size = 10)])
-
-p + 
-  scale_fill_manual(values = random_colors) +
-  scale_color_manual(breaks = c("taste", "appearance"),
-                     values = c("lightgrey", "black"))
-```
-
-### Finally, `facet_*()`
-
-The last powerful tool I want to show off is the ability of `ggplot2` to make what [Edward Tufte called "small multiples"](https://socviz.co/groupfacettx.html#facet-to-make-small-multiples): breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.
-
-The bar plot we were just looking at is quite busy, even without displaying all 36 CATA questions. Instead, let's see how we can break out separate plots, for example, different CATA attributes into "small multiple" facet plots to get a look at trends between berries one attribute at a time.
-
-```{r splitting the plot into 12 small multiples}
-berry_cata_long %>%
-  filter(Presence == 1) %>%
-  ggplot(aes(x = berry)) + 
-  geom_bar() +
-  theme_bw() +
-  facet_wrap(~ Attribute) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-
-```
-
-We can still compare the facets in this case, because they all share X and Y axes. The "none" attribute was checked much less often than the other attributes, for example. We can also see that uneven color was a more common problem among the raspberries and strawberries than the blueberries and blackberries, and that strawberries and blackberries more commonly had fermented flavor.
-
-It would be good to go a step further and plot the percentages, rather than the raw counts, since not every berry had the exact same number of participants. We can use `geom_col()` instead of `geom_bar()` to do our own summarizing:
-
-```{r more control over bar plots with geom_col}
-berry_cata_long %>%
-  group_by(berry, Attribute, Modality) %>%
-  summarize(proportion = mean(Presence)) %>%
-  ggplot(aes(x = berry, y = proportion)) + 
-  geom_col() +
-  theme_bw() +
-  facet_wrap(~ Attribute) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-
-```
-
-Both plots show that blueberries and raspberries are more commonly described by "berry flavor", but looking at the proportions instead of the raw counts reveals that there aren't strong differences in floral flavor across the berry types.
 
 ### The ggplot rabbithole
 
