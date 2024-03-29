@@ -1,0 +1,646 @@
+---
+output: html_document
+---
+
+# Importing and wrangling data
+
+```{r setup-2, echo=FALSE, include=FALSE}
+library(tidyverse)
+library(ca)
+knitr::opts_chunk$set(fig.align = "center")
+```
+
+Now that everyone is on the same page for how we're going to use `R`, we're going to dive right into importing our data into `R`, exploring it, and--most importantly--visualizing it.  In this part of the tutorial, we are going to focus on getting data into `R` and manipulating it.  
+
+Personally, I prefer to see the reason for doing something, rather than being shown a bunch of buildig blocks and not seeing how they fit together.  Therefore, we're going to start off this section with a complete work flow for importing and visualizing some real results, and then work backward as we unpack how and why we've taken particular steps.
+
+## Motivation: exploring berry and cider CATA/liking data
+
+Before we begin, we need to make sure we've loaded the packages we're going to use.  
+
+```{r libraries-2}
+# This package is actually a set of utility packages we will use a lot
+library(tidyverse)
+# ca is Michael Greenacre's Correspondence Analysis library
+library(ca)
+```
+
+The plan here is to present "full" workflows for data import, wrangling, and visualization below so as to give a skeleton to work through.  This is going to look like a lot of code at once, but I don't use anything in these workflows that we will not be covering (in some way!) today.  Hopefully, by the end of today's workshop you will be able both to understand and dissect complex code and use it to build your own analyses and visualizations.
+
+### Berries {#berries}
+
+Here we are going to import and process data from a study on berries.  These data come from a large, central-location study on berries, the methodological details of which are published in @yeung2021.  Very briefly, the data describe the attributes and liking scores reported by consumers for a variety of berries across multiple CLTs. A total of 969 participants (`Subject Code`) and 23 berries (`Sample Name`) were involved in these tests, with only one species of berry (blackberry, blueberry, raspberry, or strawberry) presented during each CLT.  In the actual experimental design, subjects got multiple sample sets (so there are *not* 969 unique subjects), but here we will treat them as unique for ease of description.
+
+```{r berry-full-penalty, message=FALSE, fig.align='center', fig.width=7, fig.height=4, results=FALSE}
+# Import the data
+raw_berry_data <- 
+  read_csv(file = "data/clt-berry-data.csv") %>%
+  select(where(~ !all(is.na(.)))) 
+
+cleaned_berry_data <-
+  raw_berry_data %>%
+  # Get the relevant columns
+  select(`Subject Code`, 
+         berry,
+         sample,
+         starts_with("cata_"), 
+         contains("overall")) %>%
+  # Rescale the LAM and US scales to a 9-pt range
+  mutate(lms_overall = (lms_overall + 100) * (8 / 200) + 1,
+         us_overall = (us_overall + 0) * (8 / 15) + 1) %>%
+  # Switch the 3 overall liking columns into a single column
+  pivot_longer(contains("overall"),
+               names_to = "hedonic_scale",
+               values_to = "rating",
+               values_drop_na = TRUE) %>%
+  # Let's make all the CATA variables into a single column to make life easier
+  # (and get rid of those NAs)
+  pivot_longer(starts_with("cata_"),
+               names_to = "cata_variable",
+               values_to = "checked",
+               names_transform = ~str_remove(., "cata_"),
+               values_drop_na = TRUE)
+
+berry_penalty_analysis_data <- 
+  cleaned_berry_data %>%
+  group_by(berry, cata_variable, checked) %>%
+  summarize(penalty_lift = mean(rating),
+            count = n()) %>%
+  ungroup() 
+
+# Make a plot of the overall penalty/lift for checked attributes
+p1_berry_penalty <- 
+  berry_penalty_analysis_data %>%
+  select(-count) %>%
+  pivot_wider(names_from = checked,
+              values_from = penalty_lift,
+              names_prefix = "checked_") %>%
+  group_by(berry, cata_variable) %>%
+  summarize(penalty_lift = checked_1 - checked_0) %>%
+  # We can tidy up our CATA labels
+  separate(cata_variable, 
+           into = c("mode", "variable"), 
+           sep = "_") %>%
+  # Fix a typo
+  mutate(mode = str_replace(mode, "appearane", "appearance")) %>%
+  mutate(mode = case_when(mode == "taste" ~ "(T)",
+                          mode == "appearance" ~ "(A)")) %>%
+  unite(variable, mode, col = "cata_variable", sep = " ") %>%
+  # We are using a function from tidytext that makes faceting the final figure
+  # easier
+  mutate(cata_variable = tidytext::reorder_within(x = cata_variable,
+                                                  by = penalty_lift,
+                                                  within = berry)) %>%
+  #And finally we plot!
+  ggplot(mapping = aes(x = cata_variable, y = penalty_lift)) +
+  geom_col(aes(fill = penalty_lift), color = "white", show.legend = FALSE) + 
+  facet_wrap(~berry, scales = "free", nrow = 1) + 
+  tidytext::scale_x_reordered() + 
+  coord_flip() + 
+  theme_classic() + 
+  scale_fill_gradient(low = "tan", high = "darkgreen") + 
+  labs(x = NULL, y = NULL,
+       title = "Penalty / Lift Analysis",
+       subtitle = "displays the mean difference (within berries) for when a CATA variable is checked\nor un-checked")
+
+p1_berry_penalty
+```
+
+### Cider {#cider}
+
+Now, let's get our cider data.  These data come from a small consumer study on 3 commercial "hard" (alcoholic) ciders, served in two conditions (chilled or unchilled) to 48 consumers, who used a pre-defined CATA lexicon, rated overall liking, and evaluated cider "dryness" on a 4-pt, structured line scale.  The full details of the study are published in @calvert2022a.  
+
+```{r cider-full-penalty, message = FALSE, fig.align='center', fig.width = 7, results = FALSE}
+raw_cider_data <- 
+  read_csv("data/CiderDryness_SensoryDATA.csv")
+
+cider_penalty_data <- 
+  raw_cider_data %>%
+  pivot_longer(Fresh_Apples:Synthetic,
+               names_to = "cata_variable",
+               values_to = "checked") %>%
+  group_by(cata_variable, checked) %>%
+  summarize(rating = mean(Liking),
+            count = n()) %>%
+  mutate(proportion = count / sum(count)) %>%
+  ungroup()
+
+# Define the "important" penalty/lift zones
+
+zones <- 
+  tribble(~penalty_lift, ~xmin, ~xmax, ~ymin, ~ymax,
+          "penalty", 0.25, Inf, -Inf, -1,
+          "lift", 0.25, Inf, 1, Inf)
+
+# Let's make a plot where we take into account the frequency of checking as well
+# as the penalty
+p2_cider_penalty <- 
+  cider_penalty_data %>%
+  select(-count, -proportion) %>%
+  pivot_wider(names_from = checked,
+              values_from = rating) %>%
+  mutate(penalty = `1` - `0`) %>%
+  left_join(cider_penalty_data %>%
+              filter(checked == 1) %>%
+              select(cata_variable, proportion)) %>%
+  # And now we plot!
+  ggplot(aes(x = proportion, y = penalty)) + 
+  geom_hline(yintercept = 0) + 
+  geom_rect(aes(xmin = xmin, ymin = ymin, 
+                xmax = xmax, ymax = ymax,
+                fill = penalty_lift, color = penalty_lift),
+            data = zones, 
+            inherit.aes = FALSE,
+            linetype = 2) + 
+  geom_point() + 
+  ggrepel::geom_label_repel(aes(label = cata_variable), alpha = 2/3) + 
+  scale_fill_manual("penalty / lift zone:", 
+                    values = alpha(c( "darkgreen", "tan"), alpha = 1/4)) + 
+  scale_color_manual(NULL, values = c( "darkgreen", "tan"), breaks = NULL) + 
+  theme_bw() + 
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        legend.position = "top") + 
+  labs(x = "Proportion of checks for CATA attribute",
+       y = "Change in average liking when CATA\nattribute is checked",
+       title = "Penalty/Lift Analysis",
+       subtitle = "in which average change is plotted against check frequency")
+
+p2_cider_penalty
+```
+
+### "Publication quality"
+
+What do we mean by "publication quality" visualizations?  Neither of us are theorists of visualization--for that, we would recommend that you look at the excellent work from [Claus Wilke](https://clauswilke.com/dataviz/) and [Kieran Healey](https://socviz.co/index.html#preface).  We will not be discussing (in any detail) ideas about which color palettes best communicate different types of data, what kinds of displays are most effective (box plots vs violin plots vs ...), or whether pie charts are really so bad (mostly yes).  
+
+Rather, we have noticed that most `R` packages for data analysis provide visualizations as part of their output, and many sensory scientists are using these *default* outputs in publications.  This is annoying because often these visualizations are meant to be part of the data exploration/analysis process: they are not polished or they don't display the data to its best advantage (whatever that is for the particular case).  In this workshop, we want to help you develop the competency to alter or re-make these visualizations for yourself so that you can produce visualizations that are relevant to *your* application, that are attractive and easy to read.
+
+As an example, the `FactoMineR` package has excellent default visualizations for exploring and understanding the basic outputs of many common multivariate analyses used by sensory scientists. We can take a look at our cider CATA data visualized as a symmetric CA "biplot" without much effort:
+
+```{r}
+ca_cider <- 
+  raw_cider_data %>%
+  select(Sample_Name, Temperature, Fresh_Apples:Synthetic) %>%
+  unite(Sample_Name, Temperature, col = "sample", sep = " ") %>%
+  group_by(sample) %>%
+  summarize(across(where(is.numeric), ~sum(.))) %>%
+  column_to_rownames("sample") %>%
+  FactoMineR::CA(graph = FALSE)
+
+p3_cider_factominer <- plot(ca_cider)
+p3_cider_factominer
+```
+
+But there might be things about this we want to change!  It would be very helpful to know, for example, that this is a `ggplot2` object that can be altered by a basic handful of standardized syntax.  For example:
+
+```{r}
+p3_cider_factominer +
+  theme_dark() + 
+  labs(caption = "Now we can say some more things!", 
+       subtitle = "of 6 ciders tasted by 48 subjects")
+```
+
+Like I said, we're not here to tell you *how* your plots should look...
+
+The motivating point, here, is to be able to make visualizations that accomplish what you want them to, rather than being at the mercy of packages that have certain defaults built in.
+
+```{r reset-the-environment, include=FALSE}
+rm(list = c("berry_penalty_analysis_data", 
+            "ca_cider", 
+            "cider_penalty_data", 
+            "cleaned_berry_data",
+            "raw_berry_data",
+            "raw_cider_data",
+            "zones"))
+```
+
+## Getting data into `R`
+
+Before we're able to analyze anything, we need to get data into `R`.  In the workshop archive you downloaded, the `data/` directory has files called `clt-berry-data.csv` and `CiderDryness_SensoryDATA.csv`.  These are the files that hold the raw data.
+
+### Where the data live
+
+To get these data into `R`, we need to briefly talk about **working directories** because this is how `R` "sees" your computer.  It will look first in the working directory, and then you will have to tell it where the file is *relative* to that directory.  If you have been following along and opened up the `.Rproj` file in the downloaded archive, your working directory should be the archive's top level, which will mean that we only need to point `R` towards the `data/` folder and then the `clt-berry-data.csv` file.  We can check the working directory with the `getwd()` function.
+
+```{r get-working-directory}
+getwd()
+```
+
+Therefore, **relative to the working directory**, the file path to this data is `data/clt-berry-data.csv`.  Please note that this is the UNIX convention for file paths: in Windows, the backslash `\` is used to separate directories.  Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention in this workshop.
+
+### Getting different kinds of files into `R`
+
+The first step is to notice this is a `.csv` file, which stands for **c**omma-**s**eparated **v**alue.  This means our data, in raw format, looks something like this:
+
+```
+# Comma-separated data (regarding Jake's cats)
+
+cat_acquisition_order,name,weight,age\n
+1,Nick,9,17\n
+2,Margot,7,16\n
+3,Little Guy,13,4\n
+```
+
+Each line represents a row of data, and each field is separated by a comma (`,`).  We can read this kind of data into `R` by using the `read_csv()` function (this is a nicer version of the default `read.csv()` function, and we get access to it by loading `tidyverse` with `library(tidyverse)`).
+
+```{r reading-in-data}
+read_csv(file = "data/clt-berry-data.csv")
+read_csv(file = "data/CiderDryness_SensoryDATA.csv")
+```
+
+Remember that we need to store objects in the Environment if we want to access and modify them.  Therfore, we need to remember to store these somewhere.
+
+```{r store-the-data, message=FALSE}
+raw_berry_data <- read_csv(file = "data/clt-berry-data.csv")
+raw_cider_data <- read_csv(file = "data/CiderDryness_SensoryDATA.csv")
+```
+
+As a note, in many countries the separator (delimiter) will be the semi-colon (`;`), since the comma is used as the decimal marker.  To read files formatted this way, you can use the `read_csv2()` function.  If you encounter tab-separated values files (`.tsv`) you can use the `read_tsv()` function.  If you have more non-standard delimiters, you can use the `read_delim()` function, which will allow you to specify your own delimiter characters.  Excel stores data by default in the `.xlsx` format, which can be read by installing and using the `readxl` package (or saving Excel data as `.csv`).  You can also read many other formats of tabular data using the `rio` package ("read input/output"), which can be installed from CRAN (using, as you have learned, `install.packages("rio")`).
+
+The `read_csv()` function creates a type of object in `R` called a `tibble`, which is a special type of `data.frame`.  These are rectangular "spreadsheet-like" objects like you would encounter in Excel or manipulate in JMP or SPSS.
+
+We can learn more about the objects we just created by either examining them in the `Environment` tab or, preferably, using the `glimpse()` function to get a look at what we have (note that `glimpse()` comes from `tidyverse`; if you don't load it by running `library(tidyverse)` earlier in your session you will get an error).
+
+```{r raw-data-inspection}
+glimpse(raw_berry_data)
+glimpse(raw_cider_data)
+```
+
+This tells us how many rows we have, what the names of our columns (variables) are, what kind of column they are (numeric, character, logical, etc), and a preview of the first few entres in each column.
+
+## Wrangling (selecting, filtering, reshaping) data
+
+Our students often tell us that the hardest part of data analysis and visualization is getting data into the tool you want to use (here `R`) and into the right "shape" for the relevant analysis.  We tend to agree: a common saying in data science is that about 90% of the effort in an analysis workflow is in getting data wrangled into the right format and shape, and 10% is actual analysis.  In a point and click program like SPSS or XLSTAT we don't think about this as much because the activity of reshaping the data--making it longer or wider as required, finding and cleaning missing values, selecting columns or rows, etc--is often temporally and programmatically separated from the "actual" analysis. 
+
+In `R`, this can feel a bit different because we are using the same interface to manipulate our data and to analyze it.  Sometimes we'll want to jump back out to a spreadsheet program like Excel or even the command line (the "shell" like `bash` or `zsh`) to make some changes.  But in general the tools for manipulating data in `R` are both more powerful and more easily used than doing these activities by hand, and you will make yourself a much more effective analyst by mastering these basic tools.
+
+Here, we are going to emphasize the set of tools from the [`tidyverse`](https://www.tidyverse.org/), which are extensively documented in Hadley Wickham and Garrett Grolemund's book [*R for Data Science*](https://r4ds.had.co.nz/).  If you want to learn more, start there!
+
+![The `tidyverse` is associated with this hexagonal iconography.](img/tidyverse-iconography.png)
+
+If you're at all familiar with `R`, you will have learned about subsetting `R` objects like lists and data frames using operators like `[` or `[[` and logical comparisons like `x < 10`.  If you are used to code conventions, this is a great system!  However, for people who are less familiar with coding, these are often difficult to parse and to remember.  So in this workshop we're going to assume you've been exposed to this information, and we're not going to use or focus on it very much; instead, we're going to look at the tools within the `tidyverse` that accomplish the same things in--we think!--a much easier to parse and remember fashion.
+
+### The "pipe" for multiple steps in a workflow: `%>%`
+
+While I am not going to go over much of the base `R` syntax, I want to talk about one particular tool that is becoming standard in modern `R` coding: the **pipe**, which is written in `tidyverse` as `%>%`.  This garbage-looking set of symbols is actually your best friend, you just don't know it yet.  I use this tool constantly in my R programming.
+
+OK, enough background, what the heck _is_ a pipe?  The term "pipe" comes from what it does: like a pipe, `%>%` let's whatever is on it's left side flow through to the right hand side.  It is easiest to read `%>%` as "**AND THEN**". 
+
+```{r the mighty pipe!}
+raw_berry_data %>%                         # Start with the berry_data
+  filter(berry == "blackberry") %>%        # AND THEN filter to blackberries
+  select(`Sample Name`,                    # AND THEN select sample name, overall liking...
+         contains("_overall"), 
+         contains("cata_"))
+```
+
+Typing `%>%` is no fun.  But, happily, RStudio builds in a shortcut for you: macOS is `cmd + shift + M`, Windows is `ctrl + shift + M`.
+
+Please note that since `R` 4.1, a *native* pipe has been implemented (you don't need to load `tidyverse` for it to work), which is written as `|>`.  If you are new to using pipes, you can pretty safely use either one that you prefer, and I think that the keyboard shortcuts above may use the native pipe instead of the `tidyverse` one by default.  If you want to learn details, [this article is helpful](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/).
+
+**TL;DR**: The pipe lets us quickly write functional workflows without saving a lot of intermediate steps.  We're going to use it a lot in the following examples, and I'll call it out the first few times so that you can get the hang of it.
+
+### Subsetting your data
+
+The first thing you'll notice about our `raw_berry_data` in particular is that it is *full* of information we don't need! A common situation in R is wanting to select some rows and some columns of our data--this is called "**subsetting**" our data.  But this is less easy than it might be for the beginner in R.  Happily, the `tidverse` methods are much easier to read (and modeled after syntax from **SQL**, which may be helpful for some users). 
+
+#### Selecting certain columns: `select()`
+
+The first thing we did in our code to wrangle our [`raw_berry_data`](#berries) into something useful was to determine that a number of columns were not necessary. We really only want the subject ID, the sample ID columns, and the CATA and the liking data.  The rest of the data is either metadata (test date, etc) or other kinds of data that are not relevant to our analysis.  We want to get rid of these.
+
+The `tidyverse::select()` function (we write `[package]::[function]` to explicitly describe where a function comes from) lets us select columns in a rectangular data frame (like `.csv` and other spreadsheets) by name, position, or logical criteria.  The subject ID is stored in a column called `Subject Code`, and the berry information is stored in two columns: `berry` and `sample`, indicating what kind of berry and what sample # it is.
+
+```{r}
+raw_berry_data %>%        # We start with our raw_berry_data frame
+  select(`Subject Code`,  # AND THEN we select these 3 columns
+         berry,
+         sample) %>%      # AND THEN we use glimpse() to get a quick summary
+  glimpse()
+```
+Now we only have these 3 columns!  
+
+**An aside:** Note the way that `Subject Code` is written: as `` `Subject Code` ``.  This is because `R` technically doesn't allow some characters in object names, including (but not limited to) white space (` `), leading numbers (starting with `1-9`), and special characters (like `,` or `:`).  We can break this rule by using the **back-tick** operator `` ` `` to escape the normal naming conventions.  This will also happen when, as we did here, we import data from a format, like `.csv`, where these are not rules.  It is a pain to type back-ticks, but the `tab`-completion behavior we set up makes this easier. 
+
+To return to selection, we also want overall liking data and we want CATA variables.  There are a lot of these, and typing them out individually in `select()` would be a pain.  Luckily, there are a set of special functions for use within `select()` (and other `tidyverse` functions) that let us use logical operators to select ranges of columns/variables  You can learn about them using the `?select` command to get the help file.
+
+```{r}
+berry_columns <- 
+  raw_berry_data %>%
+  select(`Subject Code`,
+         berry,
+         sample,
+         starts_with("cata"),    # select columns whose names start with "cata"
+         contains("overall"))    # select columns whose names contain "overall"
+
+berry_columns %>%
+  glimpse()
+```
+
+Because I am intimately familiar with these data, I know that all of the CATA variables were stored in columns starting with `"cata"`, and that ratings for overall acceptability were stored in columns that had `"overall"` somewhere in their name.  
+
+Unlike in our original workflow, we have created an intermediate data frame called `berry_columns` to save us from repeating steps.  But, as above in the original workflow, there is no reason we need to do this.
+
+In our workflow above, note that our [cider data](#cider) came to us pretty clean; we are not using `select()` anywhere to discard columns.
+
+#### Filtering certain rows: `filter()`
+
+Frequently we only want to select some of our observations, which are typically stored in the rows in our rectangular data frames.  `select()` won't help us here, but its row-wise cousin, `filter()`, lets us filter down to only rows that meet some logical criteria.  While you will notice that we do not use `filter()` on either the [cider](#cider) or the [berry](#berry) data above--we want to retain all of our observations in this case--it is easy to imagine situations in which we might want to only inspect a subset of our data.
+
+For example, in the berry data, perhaps we want to separate out our observations on raspberries from all of our other data.  
+
+```{r}
+raw_berry_data %>%
+  distinct(berry)                   # distinct() gives all unique value combinations
+# of the variables it is provided
+
+raw_berry_data %>%
+  filter(berry == "raspberry") %>%  # we filter to only rows where the berry variable
+  distinct(berry)                   # is equal to "raspberry"
+```
+
+We can use `filter()` to get rows according to more complex criteria than the basic comparison operators in `R` (e.g., `==`, `!=`, `>`, `<`, etc).  I want to highlight two basic functions that are extremely useful here.
+
+First, the `%in%` operator will search for whatever is on the left-hand side within the vector provided right-hand side.  This is especially useful when we don't want to build a complicated Boolean search from those comparisons (using `&`, `|`, etc).  If we want to get both raspberries and blackberries, we can write:
+
+```{r}
+raw_berry_data %>%
+  filter(berry %in% c("raspberry", "blackberry")) %>%
+  distinct(berry)
+```
+
+Second, since frequently we are using `filter()` to get rows that meet some criteria stored in categorical variables, the `str_*()` functions from `tidyverse` (technically from `stringr` within the `tidyverse`) are extremely useful.  Let's say we want to get the second test day for each berry.  We can accomplish this by searching *in* in the text of the `test_day` variable.
+
+```{r}
+raw_berry_data %>%
+  distinct(test_day)
+
+raw_berry_data %>%
+  filter(str_detect(test_day, "Day 1")) %>%
+  distinct(test_day)
+```
+
+The combination of `filter()` and `select()` goes a long way to helping us wrangle our data into the right shape for our analyses.
+
+### Reshaping your data
+
+At this point, we've gotten data into `R` and applied some tools to select and filter only relevant variables and ovservations.  However, we often find that our raw data needs to be actively transformed for analysis.  We might find that we need to do simple operations like calculate new quantities based on our raw measurements, convert units, or create new indicator variables.  All of these operations require us to look at existing variables and create new variables *based on* those existing variables/columns.
+
+We also might notice that we are storing our data in a format that doesn't work for us.  You might be familiar with the idea of [pivot tables](https://en.wikipedia.org/wiki/Pivot_table), especially from Excel.  We often find that our data is in "wide" format when we need it to be "long", or vice-versa.  While this seems different from creating new variables, pivoting operations also look at the structure of data (how cells are creatd at the intersection of rows and columns) to create new rows or new columns.    
+
+#### Creating new columns: `mutate()`
+
+Let's start with the simpler operation: creating new columns (variables) based on existing ones.  
+
+We do this above in our workflow `mutate()`.  Often, we want to create a new column temporarily, or to combine several existing columns.  We can do this using the `mutate()` function.  Let's (for the moment) only consider the 9-pt hedonic scale, and create a variable that tells us whether the rating is higher than some cutoff (say 6/9, a common cutoff).
+
+```{r}
+berry_columns %>%
+  select(berry, sample, `9pt_overall`) %>%  # we select these for easy printing
+  mutate(good = `9pt_overall` > 6)
+```
+
+Note the syntax above: in `mutate()`, we put the name of the variable we want to create (or change) on the left hand side of an assignment `=` operator, and then on the right-hand side we describe (in `R` code) how to define the new variable.
+
+Frequently, we want to update existing variables.  We can do this by providing an existing column name on the left-hand side.
+
+In our [berry](#berry) workflow, we can observe that we have 3 (!) different columns measuring overall liking: `9pt_overall`, `lms_overall`, and `us_overall`.  Part of the original experiment was to compare the performance of 3 different hedonic scales (the 9-pt hedonic scale, the Labeled Affective Magnitude scale (mislabeled here as LMS), and an unstructured line scale).  We found that these scales didn't make a huge difference, so now we'd like to combine our data to improve our overall power.  
+
+But this is a problem: the 9-pt scale has a range of $[1,9]$ LAM has a range of $[-100,100]$, and the unstructured line scale has a range of $[0,15]$.  We need to rescale the data to a consistent metric.
+
+```{r}
+berry_columns %>%
+  mutate(lms_overall = (lms_overall + 100) * (8 / 200) + 1,
+         us_overall = (us_overall + 0) * (8 / 15) + 1) %>%
+  select(`9pt_overall`, lms_overall, us_overall) %>%
+  summary()
+
+```
+`mutate()` is a very easy way to edit your data mid-pipe.  So we might want to do some calculations, create a temporary variable using `mutate()`, and then continue our pipe.  **Unless we use `<-` to store our `mutate()`'d data, the results will be only temporary.**
+
+```{r}
+# Our changes from mutate() were not saved
+berry_columns %>% 
+  select(`9pt_overall`, lms_overall, us_overall) %>%
+  summary()
+
+berry_columns <- 
+  berry_columns %>%
+  mutate(lms_overall = (lms_overall + 100) * (8 / 200) + 1,
+         us_overall = (us_overall + 0) * (8 / 15) + 1) 
+
+# And now they are
+berry_columns %>% 
+  select(`9pt_overall`, lms_overall, us_overall) %>%
+  summary()
+```
+
+We have overwitten our original variables with rescaled versions of the LAM and unstructured scales.  Now our values are commensurate.
+
+**NB:** Sometimes we want to simultaneously `select()` and `mutate()` columns; the `transmute()` function is a simple wrapper for both of these operations combined and is quite useful for longer and more complex workflows.
+
+#### Pivoting: `pivot_longer()`/`pivot_wider()`
+
+A key concept motivating the `tidyverse` is the idea of ["tidy" data](https://r4ds.hadley.nz/data-tidy#sec-tidy-data), which is typically also tied to the ability to move between ["long" and "wide" data](https://datacarpentry.org/r-socialsci/instructor/04-tidyr.html#reshaping-with-pivot_wider-and-pivot_longer).  Typically, tidy data means data that is "long", although I don't know if I am convinced that it is an exact 1-to-1 map.
+
+Frequently, in sensory data we have "wide" data, where we are recording *experimental units* in rows and all of the *measured or observed variables* on those experimental units in the columns.  Our cider data is a great example:
+
+```{r}
+raw_cider_data
+```
+
+We describe the experimental units in the first 3 columns: `Sample_Name`, `Temperature`, and `Panelist_Code` define a single serving/sample.  The rest of the columns describe the measurements or observations we made on that single serving.  According to [the principles of tidy data, the column names themselves define a sort of meta-variable](https://r4ds.hadley.nz/data-tidy#sec-billboard): what are we recording?  We can make this data tidy (and long) by instead storing *that meta-variable* in one column and the actual measurement in another.
+
+The `pivot_*()` functions are the tools to accomplish this.  They are remarkably simple and powerful tools for transforming data from wide to long (and vice-versa) as the [analysis demands](#cider).
+
+```{r}
+long_cider_data <- 
+  raw_cider_data %>%
+  pivot_longer(cols = Fresh_Apples:Synthetic,
+               names_to = "cata_variable",
+               values_to = "checked")
+
+long_cider_data
+```
+
+`pivot_longer()` takes wide data and makes it longer, moving the implicit variable stored in the column names into an explicit variable.  It uses a `select()`-style interface for choosing columns to make longer, and you can specify the names of the new columns you're creating (if you don't, column names will be placed in a new `name` column and the cell values will be placed in a `value` column).  
+
+I really like the Data Carpentry animation that shows what is happening in motion:
+
+<center>
+![Pivoting data to tidy it, from [Data Carpentry](https://datacarpentry.org/r-socialsci/instructor/04-tidyr.html#reshaping-with-pivot_wider-and-pivot_longer).](https://datacarpentry.org/r-socialsci/fig/tidyr-pivot_wider_longer.gif)
+</center>
+
+Here, we actually left `MerlynScale_Ranking` and `Liking` out of our `pivot_longer()` because they are going to be dependent variables for our penalty analysis.  
+
+We also used a `pivot_longer()` in our [berry workflow](#berries).
+
+```{r}
+long_berry_data <- 
+  berry_columns %>%
+  pivot_longer(cols = contains("overall"),
+               names_to = "hedonic_scale",
+               values_to = "rating",
+               values_drop_na = TRUE)
+
+long_berry_data %>%
+  select(berry, sample, hedonic_scale, rating)
+```
+
+We used the tool a little differently here, however: we wanted to pull all of our hedonic rating data into a single place, note the use of `contains()` in our `pivot_longer()` selection.  Since each subject only used one hedonic scale in an occasion, our overall data table had blocks of `NA` values throughout it; we dropped the `NA` values when pivoting.  Now we have longer data that gives us one column for an overall hedonic rating, and another (nominal) column that tells us which scale that value originally came from.
+
+Did you notice that we [actually pivoted longer *twice*](#berries)?  The goal of this particular workflow was to produce a penalty analysis, and to do that we are treating the CATA and the hedonic ratings as qualitatively different kinds of outcomes: essentially, CATA becomes the independent variable for this analysis, and hedonic liking becomes the observed outcome.  Therefore, we couldn't pivot all at once.  Instead, we first gathered our (now commensurate) ratings using a first pivot, and then gathered our CATA variables using a second.
+
+```{r}
+long_berry_data <- 
+  long_berry_data %>%
+  pivot_longer(starts_with("cata_"),
+               names_to = "cata_variable",
+               values_to = "checked",
+               names_transform = ~str_remove(., "cata_"),
+               values_drop_na = TRUE)
+
+long_berry_data
+```
+
+Here, notice we once again drop `NA` values because some CATA variables only applied to some berries (e.g., raspberries had different CATA attributes than strawberries, natch).  We also used a shortcut in `pivot_longer()` to remove the `"cata_"` prefix from each CATA variable name, purely to make them more readable.  
+
+While we don't use `pivot_wider()` in the flow above, it does the opposite of `pivot_longer()`: provided with a column of ID variables (like the CATA variables) and a column containing observations, it produces a wider, less tidy data frame.  We can see the effects on our long cider data.
+
+```{r}
+long_cider_data %>%
+  pivot_wider(names_from = cata_variable,
+              values_from = checked)
+```
+
+#### Split-apply-combine: `group_by()`/`summarize()`
+
+Many basic data analyses can be described as *split-apply-combine*: *split* the data into groups, *apply* some analysis into groups, and then *combine* the results.
+
+For example, in our `raw_berry_data` we might want to split the data by each berry sample, calculate the average overall rating and standard deviation of the rating for each, and the generate a summary table telling us these results.  Using the `filter()` and `select()` commands we've learned so far, you could probably cobble together this analysis without further tools.
+
+However, `tidyverse` provides two powerful tools to do this kind of analysis:
+
+    1.  The `group_by()` function takes a data table and groups it by **categorical** values of any column (generally don't try to use `group_by()` on a numeric variable)
+    2.  The `summarize()` function is like `mutate()` for groups created with `group_by()`: 
+        1.  First, you specify 1 or more new columns you want to calculate for each group
+        2.  Second, the function produces 1 value for each group for each new column
+        
+We actually use this approach exactly to get our penalty analysis results for both the berry and cider data sets.  Before we embark on that, though, let's quickly cobble together the exact example (means and SDs) to get an intuition for how a split-apply-combine approach works.
+
+```{r split-apply-combine}
+raw_berry_data %>%
+  
+  # here we are filtering and selecting just to get unstructured line scale
+  # ratings (simply because this is the raw data)
+  
+  select(berry, sample, us_overall) %>%
+  drop_na() %>% # convenience function to remove the NA rows
+
+  # Now we can *split*: group by berry and by sample 
+  
+  group_by(berry, sample) %>%
+  
+  # And now we *apply* a set of summary functions to each group (berry x sample
+  # #) and then *combine* the analyses to get a summary table
+  
+  summarize(mean = mean(us_overall),
+            sd = sd(us_overall),
+            n = n(),
+            se = sd / sqrt(n),
+            ll = mean - 2 * se,
+            ul = mean + 2 * se)
+```
+
+Notice that I can request multiple summary functions for each group; I can also use summaries I just defined (like `sd` or `n`) in further calculations.  Here, we've easily calculated a basic Fisher's LSD table for our means (letting $t\approx2$).  
+
+Now let's look at what we *actually* did for our penalty analyses.  For the cider data, we needed to calculate the change in mean score for when an attribute was checked or not (typical approach for CATA data).
+
+```{r}
+cider_penalty_data <- 
+  long_cider_data %>%
+  group_by(cata_variable, checked) %>%
+  summarize(rating = mean(Liking),
+            count = n()) %>%
+  
+  # You can also use mutate() within data that has been *split* by group_by();
+  # the difference between summarize() and mutate() is that summarize()
+  # collapses each group to a single row.
+  
+  mutate(proportion = count / sum(count)) %>%
+
+  # We use ungroup() because leaving groups in a data frame can have unexpected
+  # results if we forget that we've specified them.
+  
+  ungroup()
+
+cider_penalty_data
+```
+
+In this case, when we start with our `long_cider_data`, we have a column for each CATA attribute and another column for whether that attribute is checked.  By treating these as variables to `group_by()` we can get the information we need for penalty analysis: the mean liking rating for each combination of these variables.  We also calculated the *proportion* of times each combination was observed, since sometimes simple penalty analysis can obscure this information.
+
+For the berries, we did something similar (although we ignored the proportions) partly to illustrate alternative visualization possibilities, and partly because the larger experimental design made this analysis unwieldy.
+
+```{r}
+berry_penalty_data <- 
+  cider_berry_data <- 
+  long_berry_data %>%
+  group_by(berry, cata_variable, checked) %>%
+  summarize(penalty_lift = mean(rating),
+            count = n()) %>%
+  ungroup() 
+
+berry_penalty_data
+```
+
+### Some convenience functions
+
+While we have only reviewed what I consider the "basic" functionality of `tidyverse` for data wrangling, hopefully this gives you a good idea of the powerful and pretty user-friendly tools provided to you through this package.  I wanted to mention a few very basic tools that also make tasks typically painful in `R` easy.
+
+#### Renaming columns
+
+Renaming data frames in `R` is harder than you might think.  With the tools we've just learned, you might realize that, for example, you could probably use some combination of `select()` and `mutate()`/`transmute()` to rename columns, but I make heavy use of the appropriately-named `rename()` function to easily change the name of variables:
+
+```{r}
+berry_penalty_data %>%
+  rename(penalty = penalty_lift)
+```
+
+Notice above we do not quote column names.  We can also `rename()` by column position, which is particularly useful when importing files:
+
+```{r, message = FALSE}
+read_csv("data/CiderDryness_SensoryDATA.csv") %>%
+  rename(sample = 1) # This is actually called "Sample_Name" in the .csv
+```
+
+#### Reorder rows
+
+We often want to reorder the rows in a data frame according to some criteria (usually data-based).  Again, a pain in base `R`, this is made easy using the `arrange()` function in `tidyverse`.
+
+```{r}
+berry_penalty_data %>%
+  arrange(penalty_lift)
+```
+
+We can use either the `-` (the subtraction operator) or the convenience function `desc()` to reverse columns in `arrange()`.  We can also sort by multiple criteria, for example here we can sort by the observed CATA `0/1` descending (highest first), and then break ties by the rating, sorting ascending (lowest first).
+
+```{r}
+cider_penalty_data %>%
+  arrange(-count, -rating)
+```
+
+Finally, `arrange()` will respect groups, so we can sort our penalties within our berries to see what matters most:
+
+```{r}
+berry_penalty_data %>%
+  group_by(berry) %>%
+  arrange(-penalty_lift) %>%
+  slice_head(n = 5)
+```
+
+#### Subset data
+
+Note the `slice_head()` function above: this gives us the first 5 rows (of each group, because we used `group_by()`) in the data set.  The family of `slice_*()` functions is very useful for subsetting data.  
+
+## Wrap up
+
+This is just a taste of the quality-of-life data wrangling tools available in tidyverse.  To learn more, you can look into some of the resources we've linked here (in particular the [R for Data Science handbook](https://r4ds.hadley.nz/)), some of our [previous](https://jlahne.github.io/eurosense-tutorial-2022/) [workshops](https://lhami.github.io/pangborn-r-tutorial-2023/) on the topic, to see how these tools can be applied to sensory data, or my recently created [R Opus v2](https://jlahne.github.io/r-opus-v2/), which applies these tools to a variety of common sensory analyses.
