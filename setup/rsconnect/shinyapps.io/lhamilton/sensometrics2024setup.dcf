@@ -1,0 +1,10 @@
+name: sensometrics2024setup
+title: Sensometrics 2024 Visualization Tutorial Setup
+username: lhamilton
+account: lhamilton
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11670152
+bundleId: 8455400
+url: https://lhamilton.shinyapps.io/sensometrics2024setup/
+version: 1

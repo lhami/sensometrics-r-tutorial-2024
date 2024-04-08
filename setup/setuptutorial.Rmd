@@ -161,6 +161,7 @@ Close all open sessions of `R` and RStudio. **Unzip the archive**. If you're not
 
 Open the unzipped folder in the file explorer. It should have an `.Rproj` file and two folders named `code` and `data`. If you see a pink "Extract" button at the top of the file explorer, **you still need to unzip the archive**.
 ![The windows file explorer preview for a zipped archive, which you must unzip before you can open the `.Rproj` file as expected.](images/zipped-archive-file-explorer.png)
+
 ### Opening the R Project
 Double-click on `sensometrics-r-tutorial-2024.Rproj` to open the project in RStudio, which will also set your working directory to this folder.
 
