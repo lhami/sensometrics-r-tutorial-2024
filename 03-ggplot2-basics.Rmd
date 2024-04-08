@@ -238,17 +238,7 @@ p <-
   mutate(Dry = as.factor(Dry)) %>%
   # This block gets us a subset of beer styles for clear visualization
   ggplot(mapping = aes(x = Liking)) + 
-  geom_density(mapping = aes(fill = Dry))
-  group_by(style) %>%
-  nest(data = -style) %>%
-  ungroup() %>%
-  slice_sample(n = 10) %>%
-  unnest(everything()) %>%
-  # And now we can go back to plotting
-  ggplot(aes(x = rating, group = style)) + 
-  # Density plots are smoothed histograms
-  geom_density(aes(fill = style), alpha = 1/4, color = NA) +
-  theme_bw()
+  geom_density(mapping = aes(fill = Dry), alpha = 1/3, color = "transparent")
 
 p
 ```
@@ -259,7 +249,9 @@ We can take a saved plot (like `p`) and use scales to change how it is visualize
 p + scale_fill_viridis_d()
 ```
 
-`ggplot2` has a broad range of built-in options for scales, but there are many others available in add-on packages that build on top of it.  You can also build your own scales using the `scale_*_manual()` functions, in which you give a vector of the same length as your mapped aesthetic variable in order to set up the visual assignment.  That sounds jargon-y, so here is an example:
+`ggplot2` has a broad range of built-in options for scales, but there are many others available in add-on packages that build on top of it.  The `scale_*_viridis_*()` functions use a package callled `viridis` that provides (theoretically) color-blind safe colors for both continuous (gradient) and categorical (discrete) mappings, but I do find that their defaults (using light colors like yellow on one end of the scale) are hard to see for anyone!
+
+As we saw above, you can also build your own scales using the `scale_*_manual()` functions, in which you give a vector of the same length as your mapped aesthetic variable in order to set up the visual assignment.  That sounds jargon-y, so here is an example:
 
 ```{r another example of posthoc plot modification}
 # We'll pick 14 random colors from the colors R knows about
@@ -273,38 +265,96 @@ p +
 
 The last powerful tool I want to show off is the ability of `ggplot2` to make what[ Edward Tufte called "small multiples"](https://socviz.co/groupfacettx.html#facet-to-make-small-multiples): breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.
 
-So far we've seen how to visualize ratings in our beer data by ABV and by style.  We could combine these in one plot by assigning ABV to one aesthetic, style to another, and so on.  But our plots might get messy.  Instead, let's see how we can break out, for example, different ABVs into different, "small multiple" facet plots to get a look at trends in liking.
+So far we've seen how to visualize the overall liking of ciders in our small data set by the Merlyn Scale Ranking, and how to assign color, transparency, and fill to other attributes.  We can use such an approach to get a quick picture of the CATA selections for each cider in a clear, easy to see visualization:
 
-A plausible sensory hypothesis is that the `palate` variable in particular will change by ABV.  So we are going to take a couple steps here:
-
-1.  We will use `mutate()` to split `abv` into low, medium, and high (using tertile splits)
-3.  We will plot the relationship of `palate` to ABV as a density plot
-3.  We will then look at this as a single plot vs a facetted plot
-
-```{r starting with a base plot showing palate tertiles}
-p <- 
-  beer_data %>%
-  # Step 1: make abv tertiles
-  mutate(abv_tertile = as.factor(ntile(abv, 3))) %>%
-  # Step 2: plot
-  ggplot(aes(x = palate, group = abv_tertile)) + 
-  geom_density(aes(fill = abv_tertile), 
-              alpha = 1/4, color = NA, adjust = 3) + 
-  theme_classic()
-
-# Unfacetted plot
-p
+```{r cider-facets, fig.align = "center"}
+raw_cider_data %>%
+  pivot_longer(Fresh_Apples:Synthetic) %>%
+  group_by(Sample_Name, Temperature, name) %>%
+  summarize(total = sum(value)) %>%
+  ggplot(aes(x = interaction(Sample_Name, Temperature), y = total)) + 
+  geom_col(aes(fill = Sample_Name)) +
+  scale_fill_manual(values = wesanderson::wes_palettes$FantasticFox1) + 
+  coord_flip() + 
+  facet_wrap(~name, ncol = 6) + 
+  labs(x = NULL, y = NULL, fill = NULL) + 
+  theme(legend.position = "top")
 ```
 
-It looks like the expected trend is present, but it's a bit hard to see.  Let's see what happens if we break this out into "facets":
+We can see that overall for the most frequently used attributes, the serving temperature doesn't matter (and for the most part there is some reassuring consistency in the use of terms to describe each cider at different temperatures).
 
-```{r now we split the plot into 3 "small multiples" with facet_wrap()}
-p + 
-  facet_wrap(~abv_tertile, nrow = 4) +
-  theme(legend.position = "none")
+But in the previous part of this workshop, we showed much more complex plots for our berry data, which showed the same plot broken up by a classifying variable: this is called "faceting".  Let's return from our cider data to our berry data in order to finally complete the workflow I showed in the beginning of the workshop.
+
+Now we are prepared to walk through the entire workflow
+
+```{r berry-penalty-plots, fig.align = "center}
+# First we wrangle our data using the tools we've learned to get penalties/lifts
+# for each attributes
+berry_penalty_analysis_data <- 
+  cleaned_berry_data %>%
+  group_by(berry, cata_variable, checked) %>%
+  summarize(penalty_lift = mean(rating),
+            count = n()) %>%
+  ungroup() 
+
+p1_berry_penalty <- 
+  
+  # We start by widening our data just a bit, and use a function to give some
+  # better names to our mean values for when an attribute it checked (1) or not
+  # (0).
+  
+  berry_penalty_analysis_data %>%
+  select(-count) %>%
+  pivot_wider(names_from = checked,
+              values_from = penalty_lift,
+              names_prefix = "checked_") %>%
+  
+  # Then we actually calculate the penalty/lift: what is the difference in the
+  # mean liking when an attribute is checked or not?
+  
+  group_by(berry, cata_variable) %>%
+  summarize(penalty_lift = checked_1 - checked_0) %>%
+  
+  # We have two kinds of CATA attibutes: visual assessment and by-mouth
+  # assessment.  It would be nice to keep track.
+  
+  separate(cata_variable, 
+           into = c("mode", "variable"), 
+           sep = "_") %>%
+  
+  # Fix a typo
+  
+  mutate(mode = str_replace(mode, "appearane", "appearance")) %>%
+  mutate(mode = case_when(mode == "taste" ~ "(T)",
+                          mode == "appearance" ~ "(A)")) %>%
+  unite(variable, mode, col = "cata_variable", sep = " ") %>%
+  
+  # We are using a function from tidytext that makes faceting the final figure
+  # easier: reorder_within() makes a set of factors able to be ordered
+  # differently within another variable.  In this case, we have different
+  # attributes and different penalties within each berry by design
+  
+  mutate(cata_variable = tidytext::reorder_within(x = cata_variable,
+                                                  by = penalty_lift,
+                                                  within = berry)) %>%
+  
+  #And finally we plot!
+  
+  ggplot(mapping = aes(x = cata_variable, y = penalty_lift)) +
+  geom_col(aes(fill = penalty_lift), color = "white", show.legend = FALSE) + 
+  facet_wrap(~berry, scales = "free", nrow = 1) + 
+  tidytext::scale_x_reordered() + 
+  coord_flip() + 
+  theme_classic() + 
+  scale_fill_gradient(low = "tan", high = "darkgreen") + 
+  labs(x = NULL, y = NULL,
+       title = "Penalty / Lift Analysis",
+       subtitle = "displays the mean difference (within berries) for when a CATA variable is checked\nor un-checked")
+
+p1_berry_penalty
 ```
 
-By splitting into facets we can see that there is much more density towards the higher `palate` ratings for the higher `abv` tertiles.  This may help explain the positive relationship between `abv` and `rating` in the overall dataset: the consumers in this sample clearly appreciate the mouthfeel associated with higher alcohol contents.
+We can see that the 2 most important attributes for driving liking are the same across all 4 berries, but that the highest penalty is different across them.
 
 ## Some further reading
 
