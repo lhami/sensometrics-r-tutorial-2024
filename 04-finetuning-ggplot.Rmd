@@ -207,7 +207,7 @@ Note that you have to double-quote ("") column names for `column_to_rownames()`.
 
 `berry_contingency_df` is all set for the `ca()` function now, but if you run into any functions (like many of those in `FactoMineR` and other packages) that need matrices, you can always use `as.matrix()` on the results of `column_to_rownames()`.
 
-`column_to_rownames()` will almost always be the cleanest way to untidy your data, but there are some other functions that may be handy if you need a different data format, like a vector. You already know about $-subsetting, but you can also use `pull()` to pull one column out of a `tibble` as a vector using tidyverse syntax, so it fits easily at the end or in the middle of a series of piped steps.
+`column_to_rownames()` will almost always be the cleanest way to untidy your data, but there are some other functions that may be handy if you need a different data format, like a vector. You already know about `$`-subsetting, but you can also use `pull()` to pull one column out of a `tibble` as a vector using tidyverse syntax, so it fits easily at the end or in the middle of a series of piped steps.
 
 ```{r }
 berry_data %>%
@@ -223,6 +223,7 @@ berry_data %>%
 ```
 
 In summary:
+
 - Reshape your data in the `tidyverse` and then change it as needed for analysis.
 - If you need a `data.frame` or `matrix` with `rownames` set, use `column_to_rownames()`.
 - Use `as.matrix()` carefully, only on tabular data with **all the same data type**.
@@ -265,6 +266,7 @@ What does the `ca()` function actually give us?
 berry_ca_res %>%
   str()
 ```
+
 It's a list with many useful things. You can think of a list as kinda like a data frame, because each item has a **name** (like columns in data frames), except they can be any length/size/shape. It's *not* tabular, so you can't use [1,2] for indexing rows and columns, but you *can* use $ indexing if you know the name of the data you're after.
 
 You're unlikely to need to worry about the specifics. Just remember that lists can be $-indexed.
@@ -340,6 +342,7 @@ bind_rows(berry_colmass, berry_rowmass) %>%
 ```
 
 In summary:
+
 - Many analyses will give you **lists** full of every possible piece of data you could need, which aren't necessarily tabular.
 - If you need to turn a **tabular data** with `rownames` into a tibble, use `rownames_to_column()` or `as_tibble()`.
 - If you need to turn a **named vector** into a two-column table, use `enframe()`
