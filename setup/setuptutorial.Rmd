@@ -101,7 +101,7 @@ You can see from the lefthand box that this was the `General` tab of the Global 
 ![Check the boxes for tab and multiline autocompletions.](images/code-autocompletion.png){width=400px}
 
 ### Setup check: RStudio
-Keep R or RStudio open. You will need it for the rest of this tutorial.
+Keep `R` or RStudio open. You will need it for the rest of this tutorial.
 
 ```{r rstudio-check, echo=FALSE}
 question("Which of the following are headings under the `Code > Editing` tab of the RStudio Global Options? Check all that apply.",
@@ -119,7 +119,8 @@ question("Which of the following are headings under the `Code > Editing` tab of 
 ```
 
 ## Installing R Packages
-Keep R or RStudio open. You need to install the packages:
+Keep `R` or RStudio open. You need to install the packages:
+
 - **tidyverse**
 - **FactoMineR**
 - **ggrepel**
@@ -153,7 +154,7 @@ question("What does `geom_text_repel()` repel text *away from*?",
 ```
 
 ## Downloading example code
-To help you follow along during the tutorial, we have made an R Project for you with code to complete everything we intend to do, as well as all of the data and a troubleshooting script called `environmenttest.R`.
+To help you follow along during the tutorial, we have made an `R` Project for you with code to complete everything we intend to do, as well as all of the data and a troubleshooting script called `environmenttest.R`.
 
 Download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/sensometrics-tutorial-2024) now.
 
