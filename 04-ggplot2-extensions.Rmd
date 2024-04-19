@@ -1,0 +1,118 @@
+# Using ggplot with Other Packages
+
+```{r setup, include = FALSE, purl = FALSE}
+library(tidyverse)
+library(ca)
+library(ggrepel)
+library(patchwork)
+library(FactoMineR)
+library(factoextra)
+berry_data <- read_csv("data/clt-berry-data.csv")
+raw_cider_data <- read_csv("data/CiderDryness_SensoryDATA.csv")
+```
+
+As you might have noticed, we had you download more packages than just `ggplot2` for this tutorial. `ggplot2` is a framework and will help you make many standard plots, but it can't do everything. Or, sometimes, you may not want to use it to do everything yourself.
+
+Packages meant to work with `ggplot2` to more easily make specific kinds of visualizations are also called "ggplot extensions". The four most common kinds of ggplot extensions are:
+
+1. Packages that add `geom_*()s` or `stat_*()`s for new kinds of plots
+2. Packages that add `theme_*()`s and `scale_*()`s for specific color or style needs
+3. Packages that combine multiple plots in various ways
+4. Packages that make `ggplot` objects, so you never write `ggplot()` yourself.
+
+You can view many of these extensions [on the tidyverse website](https://exts.ggplot2.tidyverse.org/gallery/) (where you'll also see many examples that fall into multiple of these categories or don't fit into the categories here at all). 
+
+## New `geom_*()s` and `stat_*()`s
+If you want to label each individual point in the plotting area using text, rather than some symbol or color that indicates the legend off to the side, you can do this using the base `ggplot2` functions `geom_text()` and `geom_label()`:
+
+```{r }
+
+```
+
+The extension I personally use most often, to make crowded plots more readable, is the package `ggrepel`, which adds new `geom_text_repel()` and `geom_label_repel()`.
+
+```{r }
+
+```
+
+They're almost identical to the normal text and label `geom_*()`s, but they use an iterative algorithm to push each piece of text away from the other text and unrelated points or `geom_()`s, while being pulled towards the point being labeled. It is *not deterministic*, so it will be slightly different each time you run the code unless you use `set.seed()` first or set `seed = ***` when adding `geom_*_repel()`.
+
+There are many settings you can play with to adjust these forces, how far a label has to move for a line to show up, whether any labels are left off in dense areas, and how long it tries to find a solution. And, randomly, the ability to give each letter-shape a border in a different color, which seems to be totally undocumented:
+
+```{r }
+#https://stackoverflow.com/questions/56318012/using-ggrepel-and-shadowtext-on-the-same-geom-text
+```
+
+Another useful tool for visualizing any ordinal data or data that's binned by the data collection (e.g., the 9-point hedonic scale) at scale is the `geom_beeswarm()` and `geom_quasirandom()` from the `ggbeeswarm` package, which are similar to `geom_jitter()` but intended for looking at a single numeric variable at a time, possibly across multiple categories.
+
+They limit the jitter to a single direction and ensure that no points are overlapping so you can get a more accurate picture of the density, but take up less space than many faceted `geom_histogram()`s (at least for the same amount of fine-tuning).
+
+```{r }
+
+```
+
+## New `theme_*()`s and `scale_*()`s
+
+
+## Combining Plots
+You've already seen how to `facet_*()` plots to view "small multiple" plots side-by side:
+
+```{r remember faceting, fig.align = "center"}
+raw_cider_data %>%
+  pivot_longer(Fresh_Apples:Synthetic) %>%
+  group_by(Sample_Name, Temperature, name) %>%
+  summarize(total = sum(value)) %>%
+  ggplot(aes(x = interaction(Sample_Name, Temperature), y = total)) + 
+  geom_col(aes(fill = Sample_Name)) +
+  scale_fill_manual(values = wesanderson::wes_palettes$FantasticFox1) + 
+  coord_flip() + 
+  facet_wrap(~name, ncol = 6) + 
+  labs(x = NULL, y = NULL, fill = NULL) + 
+  theme(legend.position = "top")
+```
+
+This works very well whenever you have multiple plots using the same `geom_*()`s that you want to show on the same axes, and you can even adjust the axis limits from facet to facet using `scales = "free*":
+
+```{r }
+raw_cider_data %>%
+  pivot_longer(Fresh_Apples:Synthetic) %>%
+  group_by(Sample_Name, Temperature, name) %>%
+  summarize(total = sum(value)) %>%
+  ggplot(aes(x = interaction(Sample_Name, Temperature), y = total)) + 
+  geom_col(aes(fill = Sample_Name)) +
+  scale_fill_manual(values = wesanderson::wes_palettes$FantasticFox1) + 
+  coord_flip() + 
+  facet_wrap(~name, ncol = 6,
+             scales = "free_x") + # Each plot now has a different x-axis
+  labs(x = NULL, y = NULL, fill = NULL) + 
+  theme(legend.position = "top")
+```
+
+Not that we'd argue you *should* here. Also, take note that the `x` in `free_x` refers to the horizontal axis in the final plot, *after* the `coord_flip()`, and *not* the `x` aesthetic we set in the `ggplot()` call.
+
+But if you have different plot types entirely (different data sources, different `geom_()`s, or different categorical axes) that you want to place side-by-side, say a loading plot and the product map resulting from a PCA or MFA, you're going to need something to paste together multiple `ggplot_()`s.
+
+The easiest way to do this is using `patchwork`:
+
+
+Although, if you have an R `list` structure containing multiple plots, you want to put images anywhere on a visualization, or you're struggling to make a complex arrangement with `patchwork`, `cowplot` is another option:
+
+```{r }
+
+```
+
+Both of these packages can also add letters and other labels to each plot:
+
+```{r }
+
+```
+
+If you need to move or realign the labels so they're not overlapping anything, you can use <> in `patchwork` and <> in `cowplot`:
+
+```{r }
+
+```
+
+You can also use any image editing, publishing, or graphics software to manually combine, arrange, and label plots, but if you need to make changes to a plot later then doing your layout *in R* will mean you just have to run the lightly-updated code again to re-export a fully formatted multi-part figure, even if the plot dimensions change.
+
+## Modifying `ggplot()`s made by other packages
