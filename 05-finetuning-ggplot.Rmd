@@ -10,481 +10,54 @@ library(factoextra)
 berry_data <- read_csv("data/clt-berry-data.csv")
 ```
 
-The plots we've been making so far are fairly straightforward demonstrations. In an actual publication, where space is precious and we're trying to show complex data relationships, we might be looking at something more like this:
+The plots we've been making so far are fairly straightforward demonstrations. So far, the most complicated plots we've all made together looks like this:
+
+```{r penalty analysis example}
+ggplot(mapping = aes(x = cata_variable, y = penalty_lift)) +
+  geom_col(aes(fill = penalty_lift), color = "white", show.legend = FALSE) + 
+  facet_wrap(~berry, scales = "free", nrow = 1) + 
+  tidytext::scale_x_reordered() + 
+  coord_flip() + 
+  theme_classic() + 
+  scale_fill_gradient(low = "tan", high = "darkgreen") + 
+  labs(x = NULL, y = NULL,
+       title = "Penalty / Lift Analysis",
+       subtitle = "displays the mean difference (within berries) for when a CATA variable is checked\nor un-checked")
+```
+
+
+
+In an actual publication, where space is precious and we're trying to show complex data relationships, we might be looking at something more like this:
 
 ```{r final graphs}
-berry_data %>%
-  pivot_longer(cols = matches("^(9pt|us|lms)_"),
-               names_to = c("Scale", "Attribute"), names_sep = "_",
-               values_to = "Liking",
-               values_drop_na = TRUE) %>%
-  select(Subject = `Subject Code`, Sample = `Sample Name`, berry, starts_with("cata_"),
-         Scale, Attribute, Liking) %>%
-  group_by(Scale) %>%
-  mutate(Liking = (Liking - mean(Liking)) / sd(Liking)) %>%
-  filter(Attribute == "overall") %>%
-  ungroup() %>%
-  select(-Attribute, -Scale) -> berry_cata_liking
-
-berry_cata_liking %>%
-  pivot_longer(starts_with("cata_"),
-               names_to = "Attribute", names_prefix = "cata_",
-               values_to = "Presence", values_drop_na = TRUE) %>%
-  separate_wider_delim(Attribute, "_", names = c("Modality", "Attribute")) %>%
-  mutate(Modality = str_replace(Modality, "appearane", "appearance"),
-         Attribute = str_replace(Attribute, "goodspapre", "goodshape")) %>%
-  group_by(berry, Modality, Attribute, Presence) %>%
-  summarize(Mean_Liking = mean(Liking)) %>%
-  ungroup() %>%
-  mutate(Presence = ifelse(Presence == 0, "Unchecked", "Checked")) %>%
-  pivot_wider(names_from = Presence, values_from = Mean_Liking) %>%
-  mutate(Penalty = Checked - Unchecked) -> berry_penalty_lift
-
-berry_penalty_lift %>%
-  filter(Modality == "taste") %>%
-  nest(.by = berry) %>%
-  mutate(plots = map2(data, berry, function(df, lab) {
-    df %>%
-      arrange(Penalty) %>%
-      mutate(Attribute = factor(Attribute, levels = unique(Attribute),
-                                ordered = TRUE)) %>%
-      ggplot(aes(x = Penalty, y = Attribute, fill = Penalty)) +
-      geom_col() +
-      theme_bw() +
-      theme(legend.position = "none",
-            axis.title.y = element_blank(),
-            panel.grid.major.x = element_blank(),
-            panel.grid.minor = element_blank()) +
-      ggtitle(str_to_title(lab))
-  })) %>%
-  pull(plots, name = berry) %>%
-  #{wrap_plots(., axis_titles = "collect") + plot_annotation(tag_levels = list(names(.)))}
-  wrap_plots()
-
-berry_data %>%
-  pivot_longer(cols = matches("^(9pt|us|lms)_"),
-               names_to = c("Scale", "Attribute"), names_sep = "_",
-               values_to = "Liking",
-               values_drop_na = TRUE) %>%
-  select(where(~ !any(is.na(.x)))) %>%
-  group_by(Scale) %>%
-  mutate(Liking = (Liking - mean(Liking)) / sd(Liking)) %>%
-  ungroup() %>%
-  select(Subject = `Subject Code`, Sample = `Sample Name`, berry,
-         starts_with("cata_"), Attribute, Liking) %>%
-  pivot_wider(names_from = Attribute, names_prefix = "liking_", values_from = Liking) %>%
-  group_by(Sample) %>%
-  summarize(across(starts_with("cata_"),
-                   sum),
-            across(starts_with("liking_"),
-                   mean)) %>%
-  select(where(~ !any(is.na(.x)))) %>%
-  column_to_rownames("Sample") -> berry_mfa_summary
-
-berry_mfa_summary %>%
-  MFA(group = c(sum(str_detect(colnames(berry_mfa_summary), "^cata_")),
-                sum(str_detect(colnames(berry_mfa_summary), "^liking_"))),
-      type = c("f","s"),
-      name.group = c("CATA","Liking")) -> berry_mfa_res
-
-berry_mfa_res$global.pca$ind$coord %>%
-  as_tibble(rownames = "Product") %>%
-  mutate(Berry = str_to_title(str_extract(Product, "^[^1-9 ]*")),
-         Variety = str_extract(Product, "\\d$")) -> berry_mfa_indcoords
-
-berry_mfa_res$ind$coord.partiel %>%
-  as_tibble(rownames = "Partial") %>%
-  separate_wider_delim(Partial, ".", names = c("Product", "Scale")) %>%
-  left_join(berry_mfa_indcoords, by = "Product",
-            suffix = c(".Partial", "")) -> berry_mfa_partindcoords_long
-
-berry_mfa_indcoords %>%
-  ggplot(aes(x = Dim.1, y = Dim.2, color = Berry, label = Product)) +
-  geom_vline(xintercept = 0) +
-  geom_hline(yintercept = 0) +
-  geom_segment(aes(xend = Dim.1.Partial, yend = Dim.2.Partial,
-                   linetype = Scale), data = berry_mfa_partindcoords_long) +
-  geom_point() +
-  geom_text_repel(show.legend = FALSE, size = 6) +
-  theme_bw() +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
-  xlab(str_c("Dimension 1 (",
-             round(berry_mfa_res$eig[1,"percentage of variance"], digits = 1),
-             "% Variance)")) +
-  ylab(str_c("Dimension 2 (",
-             round(berry_mfa_res$eig[2,"percentage of variance"], digits = 1),
-             "% Variance)"))
-```
-
-Like many things we're introducing today, you can make infinitely-complicated graphs using these same basic semantics. `ggplot2` is a world of exceptions! And you won't leave here knowing every single thing that's possible in ggplot. But by the end of this workshop, you'll be able to understand all of this code at least well enough to tweak it for your data and your graphs, and hopefully to know how to google it. Let's start at the beginning.
-
-```{r loading the ca package and looking at help files, eval = FALSE}
-library(ca)
-
-?ca
-```
-
-The first thing you'll see is that it wants, specifically, a data frame or matrix as `obj`. We'll be ignoring the `formula` option, because a frequency table stored as a matrix is more flexible: you can use it in other functions like those in the `FactoMineR` package.
-
-The help file shows us an example of a frequency table included in base R, so we can take a look at the shape we need to match:
-
-```{r example contingency table}
-data("author")
-str(author)
-head(author)
-```
-
-Now let's take a look at the **tidy** data we need to convert into this format:
-
-```{r example of tidy CATA data}
-berry_data %>%
-  select(`Sample Name`, `Subject Code`, starts_with("cata_"))
-```
-
-This is a pretty typical way for data collection software to save data from categorical questions like CATA and ordinal questions like JAR: one column per attribute. It's also, currently, a `tibble`, which is not in the list of objects that the `ca()` function will take.
-
-We need to **untidy** our data to do this analysis, which is pretty common, but the `tidyverse` functions are still going to make it much easier than trying to reshape the data in base R. The makers of the packages have included some helpful functions for converting data *out of the tidyverse*, which we'll cover in a few minutes.
-
-
-
-
-
-## Untidy Analysis
-We have our contingency table now, right? That wasn't so hard! Let's do CA!
-
-```{r error with tibbles in base R functions, eval = FALSE}
-berry_tidy_contingency %>%
-  ca()
-```
-
-To explain why this error happens, we're going to need to talk a bit more about base R, since `ca` and many other data analysis packages aren't part of the `tidyverse`. Specifically, we need to talk about matrices and row names.
-
-### Untidying Data
-
-Let's take another look at the ways the example `author` dataset are different from our data.
-
-```{r tabular data with and without rownames}
-class(author)
-dimnames(author)
-class(berry_tidy_contingency)
-dimnames(berry_tidy_contingency)
-```
-
-The example data we're trying to replicate is a `matrix`. This is another kind of tabular data, similar to a `tibble` or `data.frame`. The thing that sets matrices apart is that *every single cell in a matrix has the same data type*. This is a property that a lot of matrix algebra relies upon, like the math underpinning Correspondence Analysis.
-
-Because they're tabular, it's very easy to turn a `data.frame` *into* a `matrix`, like the `ca()` function alludes to in the help files.
-
-```{r turning data frames into matrices (badly)}
-as.matrix(berry_tidy_contingency)
-```
-
-This is what the `ca()` function does for us when we give it a `data.frame` or `tibble`. It follows the hierarchy of data types, so you'll see that now every single number is surrounded by quotation marks now ("). It's been converted into the least-restrictive data type in `berry_tidy_contingency`, which is `character`.
-
-Unfortunately, you can't do math on `character` vectors.
-
-```{r trying to do math with character data, eval = FALSE}
-1 + 2
-"1" + "2"
-```
-
-It's important to know which row corresponds to which berry, though, so we want to keep the `Sample Name` column *somehow*! This is where `rownames` come in handy, which the `author` data has but our `berry_tidy_contingency` doesn't.
-
-The `tidyverse` doesn't really use row names (it is technically *possible* to have a tibble with `rownames`, but extremely error-prone). The theory is that whatever information you *could* use as `rownames` could be added as another column, and that you may have multiple variables whose combined levels define each row (say the sample and the participant IDs) rather than needing a single less-informative ID unique to each row.
-
-Row names are important to numeric matrices, though, because we can't do math on a matrix of character variables!
-
-The `tidyverse` provides a handy function for this, `column_to_rownames()`:
-
-```{r Turning a Column to Rownames}
-berry_tidy_contingency %>%
-  column_to_rownames("Sample Name") -> berry_contingency_df
-
-class(berry_contingency_df)
-dimnames(berry_contingency_df)
-```
-Note that you have to double-quote ("") column names for `column_to_rownames()`. No idea why. I just do what `?column_to_rownames` tells me.
-
-`berry_contingency_df` is all set for the `ca()` function now, but if you run into any functions (like many of those in `FactoMineR` and other packages) that need matrices, you can always use `as.matrix()` on the results of `column_to_rownames()`.
-
-`column_to_rownames()` will almost always be the cleanest way to untidy your data, but there are some other functions that may be handy if you need a different data format, like a vector. You already know about `$`-subsetting, but you can also use `pull()` to pull one column out of a `tibble` as a vector using tidyverse syntax, so it fits easily at the end or in the middle of a series of piped steps.
-
-```{r }
-berry_data %>%
-  pivot_longer(starts_with("cata_"),
-               names_to = "attribute",
-               values_to = "presence") %>%
-  filter(presence == 1) %>%
-  count(attribute) %>%
-  #Arranges the highest-cited CATA terms first
-  arrange(desc(n)) %>% 
-  #Pulls the attribute names as a vector, in the order above
-  pull(attribute)      
-```
-
-In summary:
-
-- Reshape your data in the `tidyverse` and then change it as needed for analysis.
-- If you need a `data.frame` or `matrix` with `rownames` set, use `column_to_rownames()`.
-- Use `as.matrix()` carefully, only on tabular data with **all the same data type**.
-- `as.matrix()` may not work on `tibble`s *at all* in older versions of the `tidyverse`, so it's always safest to go `tibble` -> `data.frame` -> `matrix`.
-- If you need a vector, use `pull()`.
-
-### Data Analysis
-
-Okay, are you ready? Our data is *finally* in the shape and format we needed. You're ready to run multivariate statistics in R.
-
-Ready?
-
-Are you sure?
-
-```{r doing Correspondence Analysis!!}
-ca(berry_contingency_df) -> berry_ca_res
-```
-
-Yep, that's it.
-
-There are other options you can read about in the help files, if you need a more sophisticated analysis, but most of the time, if I need to change something, it's with the way I'm arranging my data *before* analysis rather than fundamentally changing the `ca()` call.
-
-In general, I find it easiest to do all of the filtering and selecting *on the tibble* so I can use the handy `tidyverse` functions, before I untidy the data, but you can also include extra rows or columns in your contingency table (as long as they're also numbers!!) and then tell the `ca()` function which columns are active and supplemental. This may be an easier way to compare a few different analyses with different variables or levels of summarization, rather than having to make a bunch of different contingency matrices for each.
-
-```{r }
-berry_data %>%
-  select(`Sample Name`, contains(c("cata_", "9pt_", "lms_", "us_"))) %>%
-  summarize(across(contains("cata_"), ~ sum(.x, na.rm = TRUE)),
-            across(contains(c("9pt_","lms_","us_")), ~ mean(.x, na.rm = TRUE)), .by = `Sample Name`) %>%
-  column_to_rownames("Sample Name") %>%
-  #You have to know the NUMERIC indices to do it this way.
-  ca(supcol = 37:51) 
-```
-
-### Retidying Data
-
-What does the `ca()` function actually give us?
-
-```{r structure of ca() results}
-berry_ca_res %>%
-  str()
-```
-
-It's a list with many useful things. You can think of a list as kinda like a data frame, because each item has a **name** (like columns in data frames), except they can be any length/size/shape. It's *not* tabular, so you can't use [1,2] for indexing rows and columns, but you *can* use $ indexing if you know the name of the data you're after.
-
-You're unlikely to need to worry about the specifics. Just remember that lists can be $-indexed.
-
-There are a few things we may want out of the list that `ca()` gives us, and we can see descriptions of them in plain English by typing `?ca`. These are the ones we'll be using:
-
-```{r the most commonly-used parts of ca() results}
-berry_ca_res$rowcoord #the standard coordinates of the row variable (berry)
-berry_ca_res$colcoord #the standard coordinates of the column variable (attribute)
-
-berry_ca_res$sv       #the singular value for each dimension
-berry_ca_res$sv %>%   #which are useful in calculating the % inertia of each dimension
-  {.^2 / sum(.^2)}
-
-#The column and row masses (in case you want to add your own supplementary variables
-#after the fact):
-
-#the row masses
-berry_ca_res$rowmass  
-#the column masses
-berry_ca_res$colmass  
-```
-
-The *main* results of CA are the row and column coordinates, which are in two matrices with the same columns. We can tidy them with the reverse of `column_to_rownames()`, `rownames_to_column()`, and then we can use `bind_rows()` to combine them.
-
-```{r tidying the row and column coordinates}
-berry_row_coords <- berry_ca_res$rowcoord %>%
-  #rownames_to_column() works on data.frames, not matrices
-  as.data.frame() %>% 
-  #This has to be the same for both to use bind_rows()!
-  rownames_to_column("Variable") 
-
-#Equivalent to the above, and works on matrices
-berry_col_coords <- berry_ca_res$colcoord %>%
-  as_tibble(rownames = "Variable")
-
-berry_ca_coords <- bind_rows(Berry = berry_row_coords,
-                             Attribute = berry_col_coords,
-                             .id = "Type")
-
-berry_ca_coords
-```
-
-We could also add on any columns that have one value for each product *and* each attribute (or fill in the gaps with `NA`s). Maybe we want a column with the `rowmass`es and `colmass`es. These are vectors, so it would be handy if we could wrangle them into tibbles first.
-
-You can use either `tibble()` or `data.frame()` to make vectors in the same order into a table. They have basically the same usage. Just make sure you name your columns!
-
-```{r turning multiple vectors into one tibble}
-berry_rowmass <- tibble(Variable = berry_ca_res$rownames,
-                        Mass = berry_ca_res$rowmass)
-
-berry_rowmass
-```
-
-If you have an already-named vector, `enframe()` is a handy shortcut to making a two-column tibble, but unfortunately this isn't how the `ca` package structures its output.
-
-```{r turning named vectors into tibbles}
-named_colmasses <- berry_ca_res$colmass
-names(named_colmasses) <- berry_ca_res$colnames
-
-berry_colmass <- named_colmasses %>%
-  enframe(name = "Variable",
-          value = "Mass")
-
-berry_colmass
-```
-
-And now we can use `bind_rows()` and `left_join()` to jigsaw these together.
-
-```{r remember: tidy-joining multiple tables}
-bind_rows(berry_colmass, berry_rowmass) %>%
-  left_join(berry_ca_coords, by = "Variable")
-```
-
-In summary:
-
-- Many analyses will give you **lists** full of every possible piece of data you could need, which aren't necessarily tabular.
-- If you need to turn a **tabular data** with `rownames` into a tibble, use `rownames_to_column()` or `as_tibble()`.
-- If you need to turn a **named vector** into a two-column table, use `enframe()`
-- If you need to turn **multiple vectors** into a table, use `tibble()` or `data.frame()`.
-- You can combine multiple tables together using `bind_rows()` and `left_join()`, if you manage your column names and the orders of your vectors carefully.
-
-Like with our *untidying* process, the shape you need to get your data into during *retidying* is ultimately decided by what you want to do with it next. Correspondence Analysis is primarily a graphical method, so next we're going to talk about graphing functions in R in our last substantive chapter. By the end, you will be able to make the plots we showed in the beginning!
-
-Let's take a quick moment to **save our data** before we move on, though, so we don't have to rerun our `ca()` whenever we restart `R` to make more changes to our graph.
-
-As we've shown before, you can save tabular data easily:
-
-```{r saving the tidy and tabular ca results}
-berry_ca_coords %>%
-  write_csv("data/berry_ca_coords.csv")
-
-berry_col_coords %>%
-  write_csv("data/berry_ca_col_coords.csv")
-
-berry_row_coords %>%
-  write_csv("data/berry_ca_row_coords.csv")
-```
-
-But `.csv` is a **tabular format**, so it's a little harder to save the whole non-tabular list of `berry_ca_res` as a table. There's a lot of stuff we may need later, though, so just in case we can save it as an `.Rds` file:
-
-```{r saving the jagged berry_ca_res as an rds}
-berry_ca_res %>%
-  write_rds("data/berry_ca_results.rds")
-```
-
-## Built-in plots with the ca package
-
-Normally, we present CA results as a graph. You can use the base R `plot()` function *directly* on the output of `ca()` for quick results.
-
-```{r base R plotting example}
-plot(berry_ca_res)
-```
-
-You can learn some things from this already: Strawberries 1 & 2 had some appearance defects that made them noticably different from the others. The blackberries were generally more earthy, while many of the raspberries and strawberries had more fruity/berry flavor. Often, multivariate data analysis packages have pretty good defaults built into their packages that you should take advantage of to quickly look at your data.
-
-But it's hard to see what's going on with the blueberries. A lot of the text is impossible to read. And some additional color- or shape-coding with a key would be helpful.
-
-## Basics of Tidy Graphics
-
-If you want to make this look publication-friendly by getting rid of overlapping text, changing font size and color, color-coding your berries, etc, you *can* do this with base `R`'s plotting functions. The help files for `?plot.ca` and pages 262-268 in Greenacre's [*Correspondence Analysis in Practice*](https://doi.org/10.1201/9781315369983) demonstrate the wide variety of options available (although Greenacre also explains on pages 283-284 that he used a variety of non-base `R` tools to make figures for the book). In general, however, it's much easier to use the tidyverse package `ggplot2` to manipulate graphs.
-
-
-### The ggplot rabbithole
-
-Like many things we're introducing today, you can make infinitely-complicated graphs using these same basic semantics. `ggplot2` is a world of exceptions! You could eventually end up having to do something like this, where each `geom_*` has different `data`:
-
-```{r a complicated ggplot that gives different data to each geom}
-ggplot() +
-  geom_segment(aes(xend = Dim1, yend = Dim2), x = 0, y = 0,
-               arrow = arrow(length = unit(0.25, "cm")),
-               data = berry_col_coords) +
-  geom_text_repel(aes(x = Dim1, y = Dim2, label = Variable, color = Type,
-                      fontface = ifelse(Type == "Attribute", "italic", "plain")),
-                  data = berry_ca_coords) +
-  scale_color_manual(breaks = c("Attribute","Berry"),
-                     values = c("lightgrey","maroon")) +
-  theme_bw()
-```
-
-It's the fact that the arrows need `xend` and `yend` instead of `x` and `y` like the text, as well as the fact that there are only arrows for half the data, that make it easier to give each geom its own `data`. There are simpler (and possibly better) ways to display the same information as this plot, which we'll cover next.
-
-If you ever find yourself tearing your hair out over a complicated plot, remember this section. Some resources you may find helpful for further reading and troubleshooting include:
-
-1.  Kieran Healy's "[Data Visualization: a Practical Introduction](https://socviz.co/index.html#preface)".
-2.  The plotting section of [R for Data Science](https://r4ds.had.co.nz/data-visualisation.html).
-3.  Hadley Wickham's core reference textbook on [ggplot2](https://ggplot2-book.org/).
-
-## Better CA plots with ggplot2
-
-We need to think about what we want to plot. The CA maps are **scatterplots** where each point is a **sample** (row variable) or **attribute** (column variable). These coordinates are in the list that the `ca()` function outputs, but in two separate matrices. We already learned how to combine them into *one* where the columns are *axes* and the rows are the *variables* from our initial dataset, with a column specifying whether each row is a sample or an attribute variable.
-
-```{r remember what our tidy ca results look like}
-berry_ca_coords
-```
-
-This will get us pretty far.
-
-``` {r a basic ca map with ggplot2}
-berry_ca_coords %>%
-  mutate(Variable = str_remove(Variable, "cata_")) %>%
-  ggplot(aes(x = Dim1, y = Dim2, color = Type, label = Variable)) +
-  geom_hline(color="black", yintercept = 0) +
-  geom_vline(color="black", xintercept = 0) +
-  geom_text() +
-  theme_bw() +
-  xlab("Dimension 1") +
-  ylab("Dimension 2")
-```
-
-`geom_text()` is similar to `geom_point()`, but instead of having a point with a given `shape`, it places **text** on the plot which you can pull directly from your data using the `label` aesthetic. We can make this even more readable using `geom_text_repel()`, a very similar geom out of the `ggrepel` package:
-
-``` {r a basic ca map with geom_repel}
-berry_ca_coords %>%
-  mutate(Variable = str_remove(Variable, "cata_")) %>%
-  ggplot(aes(x = Dim1, y = Dim2, color = Type, label = Variable)) +
-  geom_hline(color="black", yintercept = 0) +
-  geom_vline(color="black", xintercept = 0) +
-  geom_text_repel() +
-  theme_bw() +
-  xlab("Dimension 1") +
-  ylab("Dimension 2")
-```
-
-With a little bit of extra work, we can also add the % inertia to each dimension label, tweak the colors with `color_scale_manual`, and make the text a bit bigger.
-
-```{r a much more fine-tuned ca map with ggplot2}
-
-berry_ca_res$sv %>%
-  {str_c("Dimension ", 1:length(.), " (", round(100 * .^2 / sum(.^2), 1), "% Inertia)")} ->
-  berry_cata_ca_dimnames
-
-berry_ca_coords %>%
-  mutate(Variable = str_remove(Variable, "cata_"),
-         Variable = str_replace(Variable, "Strawberry", "Strawberry "),
-         font = ifelse(Type == "Attribute", "italic", "plain")) %>%
-  separate(Variable, c("Var_Major", "Var_Minor"), remove = FALSE) %>%
-  ggplot(aes(x = Dim1, y = Dim2, fontface = font, color = Var_Major, label = Variable)) +
-  geom_hline(color="black", yintercept = 0) +
-  geom_vline(color="black", xintercept = 0) +
-  geom_point() +
-  geom_text_repel(size = 5) +
-  theme_bw() +
-  xlab(berry_cata_ca_dimnames[1]) +
-  ylab(berry_cata_ca_dimnames[2]) +
-  scale_color_manual(values = c("appearance" = "#bababa",
-                                "taste" = "#7f7f7f",
-                                "Blackberry" = "#2d0645",
-                                "Blueberry" = "#3e17e8",
-                                "raspberry" = "#7a1414",
-                                "Strawberry" = "#f089cb"))
 
 ```
 
-This plot still isn't really what I'd call "publication ready". A lot of the final tweaking will depend on the exact size you want, but regardless I'd probably continue adjusting the labels, zoom the plot out a bit, and consider only displaying CATA terms with a high enough `berry_ca_res$colinertia` so the plot was a bit less cluttered.
+## Exporting and Saving Plots
 
-You can tweak forever. And I'd encourage you to go ahead and try to do whatever you can think of, right now, to make this graph more readable!
+It may seem like a weird time to be talking about saving plots, when we haven't gotten to the "fine-tuning" yet, but you should already be familiar with a few examples of things that <>. It is basically impossible to export a `ggplot` at the resolution needed for publishing without changing the aspect ratio, relative sizes, or space between some elements from what you're looking at in the Plots pane or the `.Rmd` chunk output.
 
-For now, this is the culmination of your new data-wrangling, analysis, and graphing skills. We can see which berries are more fresh-tasting and have no notable appearance attributes (blueberries and blackberries), which berries are the worst-looking (strawberries 2 and 6), and we could identify berries anywhere along our roughly earthy/fermented to fruity/berry Dimension 2 (from blackberry 2 to raspberries 3 and 6).
+It's good practice to export your plot as an image (or however else you plan to export it) and re-export it periodically as you go through fine-tuning.
 
-This is also the same set of skills that you'll need for PCA, MDS, DISTATIS, ANOVA, text analysis, and any other computational or statistical task in R. 
+This is also, probably, the most important part of this chapter. You will have to get every plot that you publish out of `R` somehow, after all! The rest of the advice in this chapter are tricks that we draw upon frequently, but you may find that you have different problems or priorities, or that some of these needs are situational.
+
+But you will have to export plots for every project you want to share with the world.
+
+## Making Text Look Okay
+
+### Powerful Text Manipulation with `stringr`
+
+### Special characters, Spaces, and Line Breaks
+
+### Adjusting Text Alignment
+
+## Adding, Removing, and Styling Legends and Plots with `theme()`
+
+## Ordered Categorical Variables
+
+### Specifying Ordinal Variables as Factors
+
+### Alternative Categorical-Ordering Options
+
+## Combining Many `geom_*()`s or `aes()`thetics
+

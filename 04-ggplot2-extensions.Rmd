@@ -13,12 +13,12 @@ raw_cider_data <- read_csv("data/CiderDryness_SensoryDATA.csv")
 
 As you might have noticed, we had you download more packages than just `ggplot2` for this tutorial. `ggplot2` is a framework and will help you make many standard plots, but it can't do everything. Or, sometimes, you may not want to use it to do everything yourself.
 
-Packages meant to work with `ggplot2` to more easily make specific kinds of visualizations are also called "ggplot extensions". The four most common kinds of ggplot extensions are:
+Packages meant to work with `ggplot2` to more easily make specific kinds of visualizations are also called ggplot **extensions**. The four most common kinds of ggplot extensions are:
 
 1. Packages that add `geom_*()s` or `stat_*()`s for new kinds of plots
 2. Packages that add `theme_*()`s and `scale_*()`s for specific color or style needs
-3. Packages that combine multiple plots in various ways
-4. Packages that make `ggplot` objects, so you never write `ggplot()` yourself.
+3. Packages that make `ggplot` objects, so you never write `ggplot()` yourself
+4. Packages that combine multiple plots in various ways
 
 You can view many of these extensions [on the tidyverse website](https://exts.ggplot2.tidyverse.org/gallery/) (where you'll also see many examples that fall into multiple of these categories or don't fit into the categories here at all). 
 
@@ -26,33 +26,193 @@ You can view many of these extensions [on the tidyverse website](https://exts.gg
 If you want to label each individual point in the plotting area using text, rather than some symbol or color that indicates the legend off to the side, you can do this using the base `ggplot2` functions `geom_text()` and `geom_label()`:
 
 ```{r }
+#Let's use the cider CA example from before.
+#We can make our own plots from the coordinates.
+raw_cider_data %>%
+  select(Sample_Name, Temperature, Fresh_Apples:Synthetic) %>%
+  unite(Sample_Name, Temperature, col = "sample", sep = " ") %>%
+  group_by(sample) %>%
+  summarize(across(where(is.numeric), ~sum(.))) %>%
+  column_to_rownames("sample") -> cider_contingency
 
+cider_contingency %>%
+  FactoMineR::CA(graph = FALSE) -> ca_cider
+
+ca_cider$col$coord %>%
+  as_tibble(rownames = "Attribute") %>%
+  ggplot(aes(x = `Dim 1`, y = `Dim 2`, label = Attribute)) +
+  theme_bw() -> ca_cider_termplot
+
+ca_cider_termplot +
+  geom_text()
 ```
 
-The extension I personally use most often, to make crowded plots more readable, is the package `ggrepel`, which adds new `geom_text_repel()` and `geom_label_repel()`.
+```{r }
+ca_cider_termplot +
+  geom_label()
+```
+But, as you can see, the text starts to overlap itself quickly even with only a small handful of attributes. The extension I personally use most often, to make crowded plots like this more readable, is the package `ggrepel`, which adds new `geom_text_repel()` and `geom_label_repel()`.
 
 ```{r }
-
+ca_cider_termplot +
+  geom_label_repel()
 ```
 
-They're almost identical to the normal text and label `geom_*()`s, but they use an iterative algorithm to push each piece of text away from the other text and unrelated points or `geom_()`s, while being pulled towards the point being labeled. It is *not deterministic*, so it will be slightly different each time you run the code unless you use `set.seed()` first or set `seed = ***` when adding `geom_*_repel()`.
+They're almost identical to the normal text and label `geom_*()`s, but they use an iterative algorithm to push each piece of text away from the other text and unrelated points or `geom_()`s, while being pulled towards the point being labeled. It is *not deterministic*, so it will be slightly different each time you run the code (try it now!) unless you use `set.seed()` first or set `seed = ***` when adding `geom_*_repel()`.
 
-There are many settings you can play with to adjust these forces, how far a label has to move for a line to show up, whether any labels are left off in dense areas, and how long it tries to find a solution. And, randomly, the ability to give each letter-shape a border in a different color, which seems to be totally undocumented:
+Even with a set seed, changing the plot size or adding layers to the plot will also slightly change the locations of the labels, so if you're going to try and find a seed that works well for your data, you should be checking it on your final exported plot at the publication resolution (we'll talk about that next chapter).
 
 ```{r }
-#https://stackoverflow.com/questions/56318012/using-ggrepel-and-shadowtext-on-the-same-geom-text
+ca_cider_termplot +
+  geom_label_repel(seed = 12345)
+```
+
+There are many settings you can play with to adjust these forces, how far a label has to move for a line to show up, whether any labels are left off in dense areas, and how long it tries to find a solution. And, randomly, the ability to give each letter-shape a border in a different color, which seems to be totally undocumented in the help files. It can be useful if there are other, multi-colored `geom_*()`s in the background.
+
+```{r}
+raw_cider_data %>%
+  mutate(Product = str_c(Sample_Name, Temperature, sep = " ")) %>%
+  group_by(Product) %>%
+  summarize(Liking = mean(Liking)) %>%
+  left_join(ca_cider$row$coord %>%
+              as_tibble(rownames = "Product")) %>%
+  rename_with(~ str_replace_all(.x, " ", ".")) -> ca_cider_productcoord
+
+#This is NOT a statistically sound preference model, this is just for demonstration
+ca_cider_prefmod <- lm(Liking ~ Dim.1 * Dim.2, data = ca_cider_productcoord)
+expand.grid(Dim.1 = seq(min(ca_cider$col$coord[, "Dim 1"]) - 0.1,
+                    max(ca_cider$col$coord[, "Dim 1"]) + 0.1,
+                    by = 0.01),
+            Dim.2 = seq(min(ca_cider$col$coord[, "Dim 2"]) - 0.1,
+                    max(ca_cider$col$coord[, "Dim 2"]) + 0.1,
+                    by = 0.01)) %>%
+  mutate(., Liking = predict(ca_cider_prefmod, newdata = .)) -> ca_cider_prefinterp
+
+ca_cider_termplot +
+  geom_contour_filled(aes(x = Dim.1, y = Dim.2, z = Liking, fill = after_stat(level)),
+                  inherit.aes = FALSE,
+                  data = ca_cider_prefinterp) + 
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  geom_text_repel(size = 6, color = "white", bg.color = "grey7")
 ```
 
 Another useful tool for visualizing any ordinal data or data that's binned by the data collection (e.g., the 9-point hedonic scale) at scale is the `geom_beeswarm()` and `geom_quasirandom()` from the `ggbeeswarm` package, which are similar to `geom_jitter()` but intended for looking at a single numeric variable at a time, possibly across multiple categories.
 
-They limit the jitter to a single direction and ensure that no points are overlapping so you can get a more accurate picture of the density, but take up less space than many faceted `geom_histogram()`s (at least for the same amount of fine-tuning).
+They limit the jitter to a single direction and ensure that no points are overlapping (or, in the case of `geom_quasirandom()`, that there's a uniform amount of overlap) so you can get a more accurate picture of the density, but take up less space than many faceted `geom_histogram()`s (at least for the same amount of fine-tuning).
 
 ```{r }
+library(ggbeeswarm)
+berry_data %>%
+  select(`Subject Code`, matches("^(lms|9pt|us)_")) %>%
+  pivot_longer(matches("^(lms|9pt|us)_"),
+               names_to = c("Scale", "Attribute"), names_sep = "_",
+               values_to = "Liking", values_drop_na = TRUE) %>%
+  mutate(Liking = ifelse(Scale == "lms",
+                         (Liking + 100) * 8/200 + 1,
+                         ifelse(Scale == "us",
+                                Liking * 8/15 + 1,
+                                Liking))) -> berry_liking
 
+#The jitter plot is actually not very helpful with this many points
+berry_liking %>%
+  ggplot(aes(x = Scale, y = Liking, color = Scale)) +
+  geom_jitter() +
+  facet_wrap(~ Attribute) +
+  theme_bw()
+
+#geom_beeswarm() will also have the same problem, but geom_quasirandom()
+#visualizes the density at each "bin" without us having to specify bins.
+#So these are easy to compare
+berry_liking %>%
+  ggplot(aes(x = Scale, y = Liking, color = Scale)) +
+  geom_quasirandom() +
+  facet_wrap(~ Attribute) +
+  theme_bw()
 ```
 
 ## New `theme_*()`s and `scale_*()`s
+Most of the additional `geom_*()`s in `ggplot2` extensions involve some sort of calculation, so the confidence that you're using someone else's algorithm that's (hopefully!) been double-checked is a real benefit. You've already seen how to change the way your plots look with `theme()` one argument at a time, and how to set `scale_*_manual()` if you have the exact colors or color range that you want.
 
+So there's nothing these prettying-up packages will do that you can't do yourself, but there are a huge number of `ggplot2` extensions that include some version of a no-gridline minimal theme for convenience. Such as:
+
+```{r }
+berry_liking %>%
+  ggplot(aes(x = Scale, y = Liking, color = Scale)) +
+  geom_quasirandom() +
+  facet_wrap(~ Attribute) +
+  cowplot::theme_minimal_hgrid()
+```
+
+Packages that added `scale_*()`s used to be one of the most common kinds of ggplot extensions (because, as you'll notice, the above figure with the default color scale is not red-green colorblind friendly), but the most popular scales now come with `ggplot2` itself.
+
+`RColorBrewer`'s colorblind- and printer-friendly palettes for categorical data are now available in `ggplot2::scale_*_brewer_*()`, and you've already seen us use the `viridis` color palettes in `ggplot2::scale_*_viridis_*()`. The `viridis` color scales *can* be used for categorical data, if you use the `_d()` versions, but they were designed for ordinal and binned data, since some colors will seem more related than others. See [Chapter 4](https://clauswilke.com/dataviz/color-basics.html) and [Chapter 19](https://clauswilke.com/dataviz/color-pitfalls.html) of Claus O. Wilke's book *Fundamentals of Data Visualization*.
+
+## Modifying `ggplot()`s made by other packages
+So far in this chapter, we've been making all of the plots with a call to `ggplot()` and then adding on geoms, themes, labels, scales, and facets with `+`. But we've also been able to save our plots to variables partway through and then keep adding things to the saved plots. This is an incredibly useful difference from the way plots work in base R.
+
+Some packages utilize `ggplot2` by making a whole plot for you with their own internal call to `ggplot()`, which means that you can treat it like any other ggplot for the sake of customizing. Most packages which can save a whole plot to a variable or output several plots in a list use `ggplot()` to do so.
+
+```{r }
+#FactoMineR uses ggplot for its internal plotting,
+#Which is why we can assign the output to a variable
+#and not see the plot right away
+#(although the CA() function will also display several plots by default)
+cider_contingency %>%
+  FactoMineR::CA(graph = FALSE) %>%
+  FactoMineR::plot.CA() -> ca_cider_biplot_facto
+
+#The ca package, meanwhile, uses base plotting.
+#You can tell because it prints this plot immediately.
+cider_contingency %>%
+  ca::ca() %>%
+  ca::plot.ca() -> ca_cider_biplot_green
+```
+
+You can see that the last code chunk only output one plot right away, but we can confirm our suspicions with the base R `class()` function.
+
+```{r }
+class(ca_cider_termplot) # Made with ggplot() ourselves
+class(ca_cider_biplot_facto) # Made with ggplot-based FactoMineR
+class(ca_cider_biplot_green) # Made with ca::ca(), not a plot at all
+ca_cider_biplot_green # It's two tables of coordinates!
+```
+
+What this means is that we can look at the `FactoMineR`-made plot we've saved to `ca_cider_biplot_facto`:
+
+```{r }
+ca_cider_biplot_facto
+```
+
+*And* we can still change up many of the elements by adding additional layers, although it can be a little hard to predict how much flexibility you'll have.
+
+```{r }
+ca_cider_biplot_facto +
+  theme(panel.grid = element_blank(), # Removes the axis lines
+        title = element_blank()) + #Does not remove the title
+  xlim(-1,1) + #Extends the x limits, with a warning
+  scale_color_brewer(type = "qual", palette = "Dark2") #Fails to change the color scale
+```
+
+You can't just `+ scale_color_*()` to an existing `FactoMineR` plot, because they specify a color scheme other than the `ggplot2` default and adding a second color scale does nothing. If you look at the help file for `?FactoMineR::plot.CA`, you can set many of these parameters when you're making the plot, and you can remake it as many times as you need, but doing so does have significantly less flexibility than the approach to plotting we've outlined in this workshop.
+
+We also can't go back and adjust the parameters passed to `geom_text_repel()` after the fact, even though we can tell from the warning messages that that's the package being used to put the attribute and product names onto the biplot.
+
+The easiest thing to add consistently to plots made by other packages is actually more `geom_*()`s, as long as you don't mind them being added *on top of* any existing elements in the plot.
+
+```{r}
+liking_arrow <- data.frame(x1 = 0, y1 = 0, x2 = -0.4, y2 = -0.1, text = "Liking")
+
+ca_cider_biplot_facto +
+  geom_segment(aes(x= x1, y = y1, xend = x2, yend = y2), color = "orange",
+               arrow = arrow(length = unit(0.03, "npc")), linewidth = 1,
+               data = liking_arrow) +
+  geom_text(aes(x = x2, y = y2, label = text), color = "orange",
+            hjust = "outward", vjust = "outward", fontface = "italic",
+            data = liking_arrow)
+```
+
+If you desperately need to [change a scale or reorder `geom_*()`s from an existing `ggplot`](https://cran.r-project.org/web/packages/gginnards/vignettes/user-guide-2.html#replacing-scales-coordinates-whole-themes-and-data.) in a hurry, look into the `gginnards` package.
 
 ## Combining Plots
 You've already seen how to `facet_*()` plots to view "small multiple" plots side-by side:
@@ -66,26 +226,21 @@ raw_cider_data %>%
   geom_col(aes(fill = Sample_Name)) +
   scale_fill_manual(values = wesanderson::wes_palettes$FantasticFox1) + 
   coord_flip() + 
-  facet_wrap(~name, ncol = 6) + 
-  labs(x = NULL, y = NULL, fill = NULL) + 
-  theme(legend.position = "top")
+  labs(x = NULL, y = NULL, fill = NULL) +
+  theme_bw() + 
+  theme(legend.position = "top",
+        panel.grid = element_blank()) -> cider_count_plot
+
+cider_count_plot +
+  facet_wrap(~name, ncol = 6)
 ```
 
 This works very well whenever you have multiple plots using the same `geom_*()`s that you want to show on the same axes, and you can even adjust the axis limits from facet to facet using `scales = "free*":
 
 ```{r }
-raw_cider_data %>%
-  pivot_longer(Fresh_Apples:Synthetic) %>%
-  group_by(Sample_Name, Temperature, name) %>%
-  summarize(total = sum(value)) %>%
-  ggplot(aes(x = interaction(Sample_Name, Temperature), y = total)) + 
-  geom_col(aes(fill = Sample_Name)) +
-  scale_fill_manual(values = wesanderson::wes_palettes$FantasticFox1) + 
-  coord_flip() + 
+cider_count_plot +
   facet_wrap(~name, ncol = 6,
-             scales = "free_x") + # Each plot now has a different x-axis
-  labs(x = NULL, y = NULL, fill = NULL) + 
-  theme(legend.position = "top")
+             scales = "free_x") # Each plot now has a different x-axis
 ```
 
 Not that we'd argue you *should* here. Also, take note that the `x` in `free_x` refers to the horizontal axis in the final plot, *after* the `coord_flip()`, and *not* the `x` aesthetic we set in the `ggplot()` call.
@@ -94,6 +249,9 @@ But if you have different plot types entirely (different data sources, different
 
 The easiest way to do this is using `patchwork`:
 
+```{r }
+
+```
 
 Although, if you have an R `list` structure containing multiple plots, you want to put images anywhere on a visualization, or you're struggling to make a complex arrangement with `patchwork`, `cowplot` is another option:
 
@@ -114,5 +272,3 @@ If you need to move or realign the labels so they're not overlapping anything, y
 ```
 
 You can also use any image editing, publishing, or graphics software to manually combine, arrange, and label plots, but if you need to make changes to a plot later then doing your layout *in R* will mean you just have to run the lightly-updated code again to re-export a fully formatted multi-part figure, even if the plot dimensions change.
-
-## Modifying `ggplot()`s made by other packages
