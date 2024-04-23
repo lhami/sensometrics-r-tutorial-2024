@@ -343,6 +343,10 @@ p1_berry_penalty <-
   ggplot(mapping = aes(x = cata_variable, y = penalty_lift)) +
   geom_col(aes(fill = penalty_lift), color = "white", show.legend = FALSE) + 
   facet_wrap(~berry, scales = "free", nrow = 1) + 
+  
+  # To take advantage of our newly reordered factors, we also need to use the
+  # matching tidytext::scale_x_reordered() function
+  
   tidytext::scale_x_reordered() + 
   coord_flip() + 
   theme_classic() + 
