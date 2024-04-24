@@ -4,7 +4,7 @@ output: html_document
   
 # The basics of plotting with `ggplot2`
   
-```{r setup-2, echo=FALSE, include=FALSE}
+```{r setup-3, echo=FALSE, include=FALSE}
 library(tidyverse)
 library(ca)
 knitr::opts_chunk$set(fig.align = "center")
@@ -124,7 +124,7 @@ raw_cider_data %>%
 
 There are many `geom_*()` functions in `ggplot2`, and many others defined in other accessory packages.  These are the heart of visualizations.  We can swap them out to get different results:
 
-```{r switching geom_() switches the way the data map}
+```{r switching geom switches the way the data map}
 raw_cider_data %>%
   ggplot(mapping = aes(x = MerlynScale_Ranking, y = Liking)) + 
   geom_smooth()
@@ -133,7 +133,7 @@ Here we fit a smoothed line to our data using the default methods in `geom_smoot
 
 We can also combine layers, as the term "layer" implies:
 
-```{r geom_()s are layers in a plot}
+```{r geoms are layers in a plot}
 raw_cider_data %>%
   ggplot(mapping = aes(x = MerlynScale_Ranking, y = Liking)) + 
   geom_jitter() + # add some random noise to show overlapping points
@@ -162,7 +162,7 @@ In the last plot, we saw an example in the `geom_jitter(alpha = 1/2)` function o
 
 If we had a value we wanted to map transparency to, we would set `aes(alpha = <variable>)`.  In this dataset, I can't think of a good option for alpha, but note that we can set any variable in these two ways:
 
-```{r using the aes() function}
+```{r using the aes function}
 # First, here is the previous figure, showing how we can set aesthetics
 raw_cider_data %>%
   mutate(Dry = as.factor(Dry)) %>%
@@ -186,7 +186,7 @@ raw_cider_data %>%
 
 In the last several plots, notice that we have changed from the default (and to my mind unattractive) grey background of `ggplot2` to a black and white theme.  This is by adding a `theme_bw()` call to the list of commands.  `ggplot2` includes a number of default `theme_*()` functions, and you can get many more through other `R` packages.  They can have subtle to dramatic effects:
 
-```{r using the theme_*() functions}
+```{r using the theme functions}
 raw_cider_data %>%
   ggplot(aes(x = MerlynScale_Ranking, y = Liking)) + 
   geom_jitter() + 
@@ -195,7 +195,7 @@ raw_cider_data %>%
 
 You can edit every last element of the plot's theme using the base `theme()` function, which is powerful but a little bit tricky to use.
 
-```{r using theme()}
+```{r using theme}
 raw_cider_data %>%
   ggplot(aes(x = MerlynScale_Ranking, y = Liking)) + 
   geom_jitter() + 
@@ -267,7 +267,7 @@ The last powerful tool I want to show off is the ability of `ggplot2` to make wh
 
 So far we've seen how to visualize the overall liking of ciders in our small data set by the Merlyn Scale Ranking, and how to assign color, transparency, and fill to other attributes.  We can use such an approach to get a quick picture of the CATA selections for each cider in a clear, easy to see visualization:
 
-```{r cider-facets, fig.align = "center"}
+```{r cider-facets}
 raw_cider_data %>%
   pivot_longer(Fresh_Apples:Synthetic) %>%
   group_by(Sample_Name, Temperature, name) %>%
@@ -287,7 +287,7 @@ But in the previous part of this workshop, we showed much more complex plots for
 
 Now we are prepared to walk through the entire workflow
 
-```{r berry-penalty-plots, fig.align = "center}
+```{r berry-penalty-plots}
 # First we wrangle our data using the tools we've learned to get penalties/lifts
 # for each attributes
 berry_penalty_analysis_data <- 

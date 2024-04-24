@@ -34,32 +34,23 @@ I want to emphasize that **looking up help is normal**. I do it all the time. Le
 
 ## Learning more with Sensometrics Society
 
-This workshop was organized and sponsored by the Sensometrics Society.  Want to learn more?  We are hosting our biennial conference **in Paris 3-6 June, 2024**:
-
-<center>
-
-![Sensometrics Society biannual conference banner](img/sensometrics-logo-2024.png)
-
-</center>
-
-In general, Sensometrics has a focus on methods and skills for the analysis of sensory data.  If you're interested in contributing to this focus (or just participating), please see our call for papers:
-
-> Please submit an abstract for either an oral or poster presentation [by following the instructions on the conference website through](https://sensometric.org/Abstract-submission). All submissions need to be received by **December 15, 2023**. All accepted contributions are invited to submit a full paper for inclusion in a virtual special issue of Food Quality and Preference (FQAP).
 
 ## Further reading/resources
 
 1.  General `R` programming
     1.  [Data Carpentry's *R for Social Scientists*](https://datacarpentry.org/r-socialsci/) (and, really the courses from [The Carpentries](https://carpentries.org/) in general)
-    1.  [Wickham & Grolemund's *R for Data Science*](https://r4ds.had.co.nz/)
-    2.  [The stat545 course website](https://stat545.com/)
-    2.  [Healy's *Data Visualization*](https://socviz.co/)
-    3.  My own (somewhat opinionated and eccentric) course from VT: [FST 5984](https://jlahne.github.io/food-data-science-2022/)
-2.  Text analysis
-    1.  [Jurafsky & Martin's seminal textbook, *Speech & Language Processing*](https://web.stanford.edu/~jurafsky/slp3/)
-    2.  [Silge & Robinson's *Text Mining with R*](https://www.tidytextmining.com/)
-    3.  [Chollet et al.'s *Deep Learning with R*](https://www.manning.com/books/deep-learning-with-r-second-edition)
+    2.  [Wickham & Grolemund's *R for Data Science*](https://r4ds.had.co.nz/)
+    3.  [The stat545 course website](https://stat545.com/)
+    4.  My own (somewhat opinionated and eccentric) course from VT: [FST 5984](https://jlahne.github.io/food-data-science-2022/)
+2.  Data Visualization Best Practices
+    1.  [Healy's *Data Visualization*](https://socviz.co/)
+    2.  ["Caveats" from the website Data to Viz](https://www.data-to-viz.com/caveats.html), including topics such as why radar plots & pie charts are controversial and what to use instead.
+3. `ggplot2`-specific
+    1.  [Winston Chang's *R Graphics Cookbook*](https://r-graphics.org/), basically a collection of short tips and sample plots
+    2. [R Graph Gallery's posts](https://r-graph-gallery.com/index.html) breaking down the code to make real, complex, polished ggplots
+    3.  [ggplot2's registered extension gallery](https://exts.ggplot2.tidyverse.org/)
 
-We will also be presenting more coding demonstrations in R this week, as part of the "Applying Natural Language Processing tools for sensory and consumer data" workshop from 15:45-17:15 on August 23rd in Room 200! We'd love to see you there if you're at all interested in working with text data (like the free response comments in the `berry_data`).
+We will also be presenting...
   
 ## Questions/Comments
 

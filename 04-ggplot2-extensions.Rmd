@@ -1,6 +1,10 @@
+---
+output: html_document
+---
+
 # Using ggplot with Other Packages
 
-```{r setup, include = FALSE, purl = FALSE}
+```{r setup-4, include = FALSE, purl = FALSE, echo = FALSE}
 library(tidyverse)
 library(ca)
 library(ggrepel)
@@ -9,6 +13,7 @@ library(FactoMineR)
 library(factoextra)
 berry_data <- read_csv("data/clt-berry-data.csv")
 raw_cider_data <- read_csv("data/CiderDryness_SensoryDATA.csv")
+knitr::opts_chunk$set(fig.align = "center")
 ```
 
 ```{r data preprocessing}
@@ -146,7 +151,7 @@ berry_data_long %>%
 #geom_beeswarm() will also have the same problem, but geom_quasirandom()
 #visualizes the density at each "bin" without us having to specify bins.
 #So these are easy to compare
-berry_liking %>%
+berry_data_long %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
   geom_quasirandom() +
   facet_wrap(~ Attribute) +
@@ -172,7 +177,7 @@ Most of the additional `geom_*()`s in `ggplot2` extensions involve some sort of 
 So there's nothing these prettying-up packages will do that you can't do yourself, but there are a huge number of `ggplot2` extensions that include some version of a no-gridline minimal theme for convenience. Such as:
 
 ```{r the minimal themes in cowplot}
-berry_liking %>%
+berry_data_long %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
   geom_quasirandom() +
   facet_wrap(~ Attribute) +
@@ -215,7 +220,7 @@ ca_cider_biplot_green # It's two tables of coordinates!
 
 What this means is that we can look at the `FactoMineR`-made plot we've saved to `ca_cider_biplot_facto`:
 
-```{r you'll see this ggplot now}
+```{r you can see saved ggplots by calling the variable}
 ca_cider_biplot_facto
 ```
 
@@ -317,28 +322,53 @@ plot(berry_mfa_res, partial = "all") +
         legend.position = "bottom")
 ```
 
-If you have an R `list` structure containing multiple plots, you want to put images anywhere on a visualization, or you're struggling to make a complex arrangement with `patchwork`, `cowplot` is another option:
+If you want to put images anywhere on a visualization, you're struggling to make a complex arrangement with `patchwork`, or you have an R `list` structure containing multiple plots (say, the result of a `for` loop, `*apply()`, or `nest()` call), then `cowplot` is another option:
 
-```{r }
+```{r plotting a list}
+berry_mfa_res$separate.analyses %>%
+  lapply(function(x) {
+    x$ind$coord %>%
+      as_tibble(rownames = "Berry") %>%
+      ggplot(aes(x = Dim.1, y = Dim.2)) +
+      geom_point()
+  }) %>%
+  cowplot::plot_grid(plotlist = ., labels = names(.))
 
+#You can also pipe your list into patchwork::wrap_plots()
+#if you have the latest version of patchwork.
+#It's a fairly new package, so it gains big new features very often.
 ```
 
 Both of these packages can also add letters and other labels to each plot:
 
-```{r }
+```{r labeling plots}
 plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all") +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = 'A') &
   theme(plot.title = element_blank(),
         legend.position = "bottom")
 
-
+cowplot::plot_grid(plot(berry_mfa_res, choix = "var"),
+                   plot(berry_mfa_res, partial = "all"),
+                   labels = "AUTO")
+#Cowplot doesn't have a way to combine or move legends.
+#You'd have to move the legends *before* using plot_grid()
 ```
 
 If you need to move or realign the labels so they're not overlapping anything, you can use <> in `patchwork` and <> in `cowplot`:
 
-```{r }
+```{r moving plot labels}
+plot(berry_mfa_res, choix = "var") + theme(plot.tag.position = c(0.2, 0.95)) +
+  plot(berry_mfa_res, partial = "all") + theme(plot.tag.position = c(0.12, 0.95)) +
+  plot_layout(guides = "collect") +
+  plot_annotation(tag_levels = 'A') &
+  theme(plot.title = element_blank(),
+        legend.position = "bottom")
 
+cowplot::plot_grid(plot(berry_mfa_res, choix = "var"),
+                   plot(berry_mfa_res, partial = "all"),
+                   labels = "AUTO",
+                   label_y = 0.8)
 ```
 
 You can also use any image editing, publishing, or graphics software to manually combine, arrange, and label plots, but if you need to make changes to a plot later then doing your layout *in R* will mean you just have to run the lightly-updated code again to re-export a fully formatted multi-part figure, even if the plot dimensions change.

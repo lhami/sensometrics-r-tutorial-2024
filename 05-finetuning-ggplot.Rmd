@@ -1,3 +1,7 @@
+---
+output: html_document
+---
+
 # Fine-Tuning Publication-Quality ggplots
 
 ```{r setup, include = FALSE, purl = FALSE}
@@ -12,7 +16,7 @@ berry_data <- read_csv("data/clt-berry-data.csv")
 
 The plots we've been making so far are fairly straightforward demonstrations. So far, the most complicated plots we've all made together looks like this:
 
-```{r penalty analysis example}
+```{r penalty analysis example, eval = FALSE}
 ggplot(mapping = aes(x = cata_variable, y = penalty_lift)) +
   geom_col(aes(fill = penalty_lift), color = "white", show.legend = FALSE) + 
   facet_wrap(~berry, scales = "free", nrow = 1) + 
