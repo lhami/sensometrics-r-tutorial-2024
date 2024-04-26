@@ -9,6 +9,7 @@ output:
   bookdown::gitbook: default
   bookdown::pdf_book: default
 github-repo: lhami/sensometrics-tutorial-2024
+bibliography: sensometrics-2024.bib
 ---
 
 # Introduction and welcome {-}
@@ -18,6 +19,7 @@ library(tidyverse)
 library(ca)
 library(ggrepel)
 berry_data <- read_csv("data/clt-berry-data.csv")
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```
 
 

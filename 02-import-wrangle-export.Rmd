@@ -7,7 +7,7 @@ output: html_document
 ```{r setup-2, echo=FALSE, include=FALSE}
 library(tidyverse)
 library(ca)
-knitr::opts_chunk$set(fig.align = "center")
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```
 
 Now that everyone is on the same page for how we're going to use `R`, we're going to dive right into importing our data into `R`, exploring it, and--most importantly--visualizing it.  In this part of the tutorial, we are going to focus on getting data into `R` and manipulating it.  
