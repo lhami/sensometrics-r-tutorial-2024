@@ -12,6 +12,7 @@ library(patchwork)
 library(FactoMineR)
 library(factoextra)
 berry_data <- read_csv("data/clt-berry-data.csv")
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```
 
 The plots we've been making so far are fairly straightforward demonstrations. So far, the most complicated plots we've all made together looks like this:

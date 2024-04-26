@@ -1,6 +1,12 @@
-# Tutorial for Pangborn 2023: "An introduction to R for sensory and consumer scientists"
+# Tutorial for Sensometrics 2024: “Publication-quality data visualizations using the R tidyverse”
 
-This repository contains code and markdown files for the tutorial presented at Pangborn 2023.  If you like, you can download the materials by using the "..." menu at the top right of the repository menu.  You can also see the rendered version of this material by going to the :point_right: [**workshop bookdown page**](https://lhami.github.io/pangborn-r-tutorial-2023/) :point_left:.
+This repository contains code and markdown files for the tutorial presented at Sensometrics 2024.  If you like, you can download the materials by using the "..." menu at the top right of the repository menu.  You can also see the rendered version of this material by going to the :point_right: [**workshop bookdown page**](https://lhami.github.io/pangborn-r-tutorial-2023/) :point_left:.
+
+# Do _this_ first
+
+We have created [a quick tutorial](https://lhamilton.shinyapps.io/sensometrics2024setup/) to help you install `R`, RStudio, and to confirm that your installation is functioning for the tutorial _prior_ to Sensometrics.
+
+Please go [to the tutorial website](https://lhamilton.shinyapps.io/sensometrics2024setup/) and follow the instructions there.  You will be guided in installing or updating your software so that, on the day of the tutorial, we can dive right into the material!
 
 # Quick Reference
 

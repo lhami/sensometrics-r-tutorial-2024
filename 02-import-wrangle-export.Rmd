@@ -7,7 +7,7 @@ output: html_document
 ```{r setup-2, echo=FALSE, include=FALSE}
 library(tidyverse)
 library(ca)
-knitr::opts_chunk$set(fig.align = "center")
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```
 
 Now that everyone is on the same page for how we're going to use `R`, we're going to dive right into importing our data into `R`, exploring it, and--most importantly--visualizing it.  In this part of the tutorial, we are going to focus on getting data into `R` and manipulating it.  
@@ -640,6 +640,32 @@ berry_penalty_data %>%
 #### Subset data
 
 Note the `slice_head()` function above: this gives us the first 5 rows (of each group, because we used `group_by()`) in the data set.  The family of `slice_*()` functions is very useful for subsetting data.  
+
+## Saving your data
+
+Often, you will have an ugly, raw data file.  You want to clean up this data file: remove junk variables, rename columns, omit outliers, and have something that is actually workable.  Sometimes, you create a new intermediate product (say, a penalty-analysis table) that you'd like to be able to share and work with elsewehere.  Now, you know how to do all that in `R`, often with fewer clicks and less effort than in Excel or other WYSIWYG tool.  But once you restart your `R` session, you will need to rerun this workflow, and you can't access your data products in other software.
+
+To save this work, you can use `write.csv()` or `readr::write_csv()` and it's relatives (e.g., functions like `write.file()`).  These will create **or overwrite** a file in the directory location you specify.
+
+```{r demonstrating write_csv}
+# We will keep in the tidyverse idiom with readr::write_csv()
+write_csv(x = berry_penalty_data,
+          file = "data/berry-penalty-data.csv")
+```
+
+Sometimes, we want to be able to save `R` data for re-loading later.  It's good to do this explicitly, rather than relying on something like RStudio's version of autosaving (which we've turned off for you at the beginning of this tutorial).  You might want to do this instead of `write_csv()` because:
+
+-  You have non-tabular data (lists, tensors, ggplots, etc)
+-  You are saving the output of time-consuming workflows and want to be able to start again without re-running those workflows
+-  You want to bundle a lot of objects together into a single file for yourself or other `R` users
+
+<font color="red">**DO WE WANT write_rds() or save() here?**</font>
+
+### A note on replicability
+
+In order to make sure that your data are replicable, you should *always* keep your raw data and the script/code that transforms that data into your cleaned form.  That way, when (*not* if) you discover a couple minor errors, you can go back and fix it, and you will not be stuck trying to remember how you overwrote this data in the first place.
+
+This will also protect you if, in the future, someone looks at your data and asks something like "but where did these means come from?"
 
 ## Wrap up
 

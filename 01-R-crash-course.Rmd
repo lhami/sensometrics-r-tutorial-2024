@@ -5,7 +5,7 @@ output: html_document
 # A crash course in `R` and RStudio
 
 ```{r setup-1, include=FALSE, echo=FALSE}
-
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```
 
 In this section, we're going to very briefly go over the basics of `R`.  This is meant to get everyone on the same page.  If you've done the pre-work we described on the tutorial github repo, this will hopefully be pretty familiar!
