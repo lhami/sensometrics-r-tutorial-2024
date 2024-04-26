@@ -56,3 +56,5 @@ We will also be presenting...
 ## Questions/Comments
 
 If you get stuck, feel free to find us during the conference, or email us at **jlahne at vt dot edu** and **lhamilton at vsu dot edu**.  I'd love to learn about what you're working on! 
+
+## References
