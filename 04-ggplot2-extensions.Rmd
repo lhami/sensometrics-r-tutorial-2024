@@ -290,20 +290,20 @@ But if you have different plot types entirely (different data sources, different
 
 The easiest way to do this is using `patchwork`, which will work on ggplots you've made yourself *or* with ones made by packages like `FactoMineR`. *When you have `patchwork` loaded*, the `+` operator will put two plots side-by-side:
 
-```{r combining plots with patchwork}
+```{r combining plots with patchwork, fig.width=7}
 library(patchwork)
 plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all")
 ```
 
 And the `/` operator will arrange two plots vertically:
 
-```{r arranging plots vertically with patchwork}
+```{r arranging plots vertically with patchwork, fig.height=7}
 plot(berry_mfa_res, choix = "var") / plot(berry_mfa_res, partial = "all")
 ```
 
 The advantage of doing this with a package like `patchwork`, rather than saving separate images, is that it aligns all of the plot areas precisely and that they will more easily move or rearrange certain plot elements like legends and axis labels.
 
-```{r collecting legends at the bottom of a patchwork ensemble}
+```{r collecting legends at the bottom of a patchwork ensemble, fig.width = 7}
 plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all") +
   plot_layout(guides = "collect") &
   theme(plot.title = element_blank(),
@@ -312,7 +312,7 @@ plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all") +
 
 The `&` operator lets you add elements like themes or annotations to all of the plots you've combined together. `plot_layout()` is a `patchwork` function that lets you set relative plot sizes, decide how to arrange more than 2 plots, and move legends:
 
-```{r more complex patchwork layout}
+```{r more complex patchwork layout, fig.width = 7}
 plot(berry_mfa_res, partial = "all") +
   (plot(berry_mfa_res, choix = "var") +
   plot(berry_mfa_res, choix = "freq", invisible = "ind")) +
@@ -324,7 +324,7 @@ plot(berry_mfa_res, partial = "all") +
 
 If you want to put images anywhere on a visualization, you're struggling to make a complex arrangement with `patchwork`, or you have an R `list` structure containing multiple plots (say, the result of a `for` loop, `*apply()`, or `nest()` call), then `cowplot` is another option:
 
-```{r plotting a list}
+```{r plotting a list, fig.width = 7}
 berry_mfa_res$separate.analyses %>%
   lapply(function(x) {
     x$ind$coord %>%
@@ -341,7 +341,7 @@ berry_mfa_res$separate.analyses %>%
 
 Both of these packages can also add letters and other labels to each plot:
 
-```{r labeling plots}
+```{r labeling plots, fig.width=7}
 plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all") +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = 'A') &
