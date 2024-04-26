@@ -104,7 +104,7 @@ Vignettes are formatted, conversational walkthroughs that are increasingly commo
 
 While you can find vignettes as we just did, a better way is to use the function `browseVignettes()`.  This opens a web browser window that lists **all** vignettes installed on your computer.  You can then use `cmd`/`ctrl + F` to search using terms in the web browser and quickly find package names, function names, or topics you are looking for.
 
-## PSA: not-knowing is normal!
+## PSA: not-knowing is normal! {-}
 
 Above, I mentioned "help files". How do we get help when we (inevitably) run into problems in R? There are a couple steps you will find helpful in the future:
 
