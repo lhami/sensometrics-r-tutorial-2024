@@ -2,7 +2,11 @@ library(tidyverse)
 library(ca)
 library(FactoMineR)
 library(ggrepel)
-library(factoextra)
+library(ggforce)
+library(cowplot)
+library(patchwork)
+library(tidytext)
+library(wesanderson)
 #To debug your R version number:
 #sessionInfo()$R.version$version.string
 #To debug your working directory:
