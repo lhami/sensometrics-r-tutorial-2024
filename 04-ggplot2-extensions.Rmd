@@ -290,32 +290,20 @@ But if you have different plot types entirely (different data sources, different
 
 The easiest way to do this is using `patchwork`, which will work on ggplots you've made yourself *or* with ones made by packages like `FactoMineR`. *When you have `patchwork` loaded*, the `+` operator will put two plots side-by-side:
 
-<<<<<<< HEAD
-```{r combining plots with patchwork, warning = FALSE}
-=======
-```{r combining plots with patchwork, fig.width=7}
->>>>>>> 607dc14cf0c3df6559acb23088d9079ed6c301a9
+```{r combining plots with patchwork, fig.width=7, warning = FALSE}
 library(patchwork)
 plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all")
 ```
 
 And the `/` operator will arrange two plots vertically:
 
-<<<<<<< HEAD
-```{r arranging plots vertically with patchwork, warning = FALSE}
-=======
-```{r arranging plots vertically with patchwork, fig.height=7}
->>>>>>> 607dc14cf0c3df6559acb23088d9079ed6c301a9
+```{r arranging plots vertically with patchwork, fig.height=7, warning = FALSE}
 plot(berry_mfa_res, choix = "var") / plot(berry_mfa_res, partial = "all")
 ```
 
 The advantage of doing this with a package like `patchwork`, rather than saving separate images, is that it aligns all of the plot areas precisely and that they will more easily move or rearrange certain plot elements like legends and axis labels.
 
-<<<<<<< HEAD
-```{r collecting legends at the bottom of a patchwork ensemble, warning = FALSE}
-=======
-```{r collecting legends at the bottom of a patchwork ensemble, fig.width = 7}
->>>>>>> 607dc14cf0c3df6559acb23088d9079ed6c301a9
+```{r collecting legends at the bottom of a patchwork ensemble, fig.width = 7, warning = FALSE}
 plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all") +
   plot_layout(guides = "collect") &
   theme(plot.title = element_blank(),
@@ -324,11 +312,7 @@ plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all") +
 
 The `&` operator lets you add elements like themes or annotations to all of the plots you've combined together. `plot_layout()` is a `patchwork` function that lets you set relative plot sizes, decide how to arrange more than 2 plots, and move legends:
 
-<<<<<<< HEAD
-```{r more complex patchwork layout, warning = FALSE}
-=======
-```{r more complex patchwork layout, fig.width = 7}
->>>>>>> 607dc14cf0c3df6559acb23088d9079ed6c301a9
+```{r more complex patchwork layout, fig.width = 7, warning = FALSE}
 plot(berry_mfa_res, partial = "all") +
   (plot(berry_mfa_res, choix = "var") +
   plot(berry_mfa_res, choix = "freq", invisible = "ind")) +
@@ -340,11 +324,7 @@ plot(berry_mfa_res, partial = "all") +
 
 If you want to put images anywhere on a visualization, you're struggling to make a complex arrangement with `patchwork`, or you have an R `list` structure containing multiple plots (say, the result of a `for` loop, `*apply()`, or `nest()` call), then `cowplot` is another option:
 
-<<<<<<< HEAD
-```{r plotting a list, warning = FALSE}
-=======
-```{r plotting a list, fig.width = 7}
->>>>>>> 607dc14cf0c3df6559acb23088d9079ed6c301a9
+```{r plotting a list, fig.width = 7, warning = FALSE}
 berry_mfa_res$separate.analyses %>%
   lapply(function(x) {
     x$ind$coord %>%
@@ -361,11 +341,7 @@ berry_mfa_res$separate.analyses %>%
 
 Both of these packages can also add letters and other labels to each plot:
 
-<<<<<<< HEAD
-```{r labeling plots, warning = FALSE}
-=======
-```{r labeling plots, fig.width=7}
->>>>>>> 607dc14cf0c3df6559acb23088d9079ed6c301a9
+```{r labeling plots, fig.width=7, warning = FALSE}
 plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all") +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = 'A') &
