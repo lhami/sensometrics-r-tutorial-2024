@@ -4,13 +4,8 @@ output: html_document
 
 # Fine-Tuning Publication-Quality ggplots
 
-```{r setup, include = FALSE, purl = FALSE}
+```{r setup-5, include = FALSE, purl = FALSE}
 library(tidyverse)
-library(ca)
-library(ggrepel)
-library(patchwork)
-library(FactoMineR)
-library(factoextra)
 berry_data <- read_csv("data/clt-berry-data.csv")
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```

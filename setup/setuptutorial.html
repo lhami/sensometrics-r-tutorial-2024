@@ -120,9 +120,14 @@ that has the following installed:</p>
 <li>The <code>R</code> packages:
 <ul>
 <li><strong>tidyverse</strong></li>
+<li><strong>tidytext</strong></li>
 <li><strong>FactoMineR</strong></li>
-<li><strong>ggrepel</strong></li>
 <li><strong>ca</strong></li>
+<li><strong>ggrepel</strong></li>
+<li><strong>ggforce</strong></li>
+<li><strong>cowplot</strong></li>
+<li><strong>patchwork</strong></li>
+<li><strong>wesanderson</strong></li>
 </ul></li>
 <li>The tutorial materials from our <a
 href="https://github.com/lhami/sensometrics-r-tutorial-2024/blob/main/code/sensometrics-2024-code-download.zip">GitHub</a></li>
@@ -252,8 +257,8 @@ autocompletions.</div>
 </div>
 <div id="section-setup-check-rstudio" class="section level3">
 <h3>Setup check: RStudio</h3>
-<p>Keep R or RStudio open. You will need it for the rest of this
-tutorial.</p>
+<p>Keep <code>R</code> or RStudio open. You will need it for the rest of
+this tutorial.</p>
 <div class="panel panel-default tutorial-question-container">
 <div data-label="rstudio-check" class="tutorial-question panel-body">
 <div id="rstudio-check-answer_container" class="shiny-html-output"></div>
@@ -266,12 +271,23 @@ tutorial.</p>
 </div>
 <div id="section-installing-r-packages" class="section level2">
 <h2>Installing R Packages</h2>
-<p>Keep R or RStudio open. You need to install the packages: -
-<strong>tidyverse</strong> - <strong>FactoMineR</strong> -
-<strong>ggrepel</strong> - <strong>ca</strong></p>
+<p>Keep <code>R</code> or RStudio open. You need to install the
+packages:</p>
+<ul>
+<li><strong>tidyverse</strong></li>
+<li><strong>tidytext</strong></li>
+<li><strong>FactoMineR</strong></li>
+<li><strong>ca</strong></li>
+<li><strong>ggrepel</strong></li>
+<li><strong>ggforce</strong></li>
+<li><strong>cowplot</strong></li>
+<li><strong>patchwork</strong></li>
+<li><strong>wesanderson</strong></li>
+</ul>
 <p>You can do this by pasting the following code into the R(Studio)
 console:</p>
-<p><code>install.packages(c("tidyverse", "FactoMineR", "ggrepel", "ca"))</code></p>
+<pre><code>install.packages(c(&quot;tidyverse&quot;, &quot;tidytext&quot;, &quot;FactoMineR&quot;, &quot;ca&quot;, 
+&quot;ggrepel&quot;, &quot;ggforce&quot;, &quot;cowplot&quot;, &quot;patchwork&quot;, &quot;wesanderson&quot;))</code></pre>
 <p>Hit the enter key on your keyboard to run.</p>
 <p><img src="https://vimeo.com/203516241" /></p>
 <div id="section-setup-check-r-packages" class="section level3">
@@ -296,10 +312,10 @@ what all of this means yet.</p>
 </div>
 <div id="section-downloading-example-code" class="section level2">
 <h2>Downloading example code</h2>
-<p>To help you follow along during the tutorial, we have made an R
-Project for you with code to complete everything we intend to do, as
-well as all of the data and a troubleshooting script called
-<code>environmenttest.R</code>.</p>
+<p>To help you follow along during the tutorial, we have made an
+<code>R</code> Project for you with code to complete everything we
+intend to do, as well as all of the data and a troubleshooting script
+called <code>environmenttest.R</code>.</p>
 <p>Download the pre-made archive of code and data from the <a
 href="https://github.com/lhami/sensometrics-tutorial-2024">workshop
 github repo</a> now.</p>
@@ -385,19 +401,19 @@ session$onSessionEnded(function() {
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "r-check", question = structure("What does the R console return when you run the above code?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_377841b", 
+"character")), answers = list(structure(list(id = "lnr_ans_c3d1998", 
     option = "1", value = "1", label = structure("1", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_aee2d29", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5c2a09c", 
     option = "2", value = "2", label = structure("2", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1e08842", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5b8c267", 
     option = "3", value = "3", label = structure("3", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c786aa6", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a04b842", 
     option = "4", value = "4", label = structure("4", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1216aaf", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_5d474d0", 
     option = "5", value = "5", label = structure("5", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Woah! As far as we know, R version 5 isn’t available yet. Make sure you run the code exactly as we typed it. If you did, email us for help.", html = TRUE, class = c("html", 
     "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -408,7 +424,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("You need R version 4.1.0 or newer for this tutorial. Please go to CRAN and install a new version of R.", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "r-check-answer", question = "r-check"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 973994231.546449, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 460805706.285421, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -417,26 +433,26 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "rstudio-check", 
     question = structure("Which of the following are headings under the <code>Code &gt; Editing<\u002fcode> tab of the RStudio Global Options? Check all that apply.", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_673ec4f", 
+    "character")), answers = list(structure(list(id = "lnr_ans_6207bd5", 
         option = "Editing", value = "Editing", label = structure("Editing", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f18494e", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4966ce8", 
         option = "Execution", value = "Execution", label = structure("Execution", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b5519de", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2736b4d", 
         option = "Snippets", value = "Snippets", label = structure("Snippets", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a65f205", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_de3103d", 
         option = "Other Languages", value = "Other Languages", 
         label = structure("Other Languages", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_29707a4", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4afc7b0", 
         option = "R and C/C++", value = "R and C/C++", label = structure("R and C/C++", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3fcfc7a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7489a92", 
         option = "Workspace", value = "Workspace", label = structure("Workspace", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_385c657", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4dc913", 
         option = "History", value = "History", label = structure("History", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -447,28 +463,28 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "rstudio-check-answer", question = "rstudio-check"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 1033577073.5187, options = list()), class = c("learnr_checkbox", 
+    seed = 1590112008.25955, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "rpackage-check", 
     question = structure("What does <code>geom_text_repel()<\u002fcode> repel text <em>away from<\u002fem>?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_a2958db", 
+    "character")), answers = list(structure(list(id = "lnr_ans_9976de7", 
         option = "Data points and other text", value = "Data points and other text", 
         label = structure("Data points and other text", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ad974e8", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ba0b08", 
         option = "The origin", value = "The origin", label = structure("The origin", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5513b18", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8c7e936", 
         option = "The edges of the plot", value = "The edges of the plot", 
         label = structure("The edges of the plot", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_bf98d28", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_73e68c0", 
         option = "The viewer", value = "The viewer", label = structure("The viewer", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2e81c95", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_bded31c", 
         option = "Whatever you tell it to", value = "Whatever you tell it to", 
         label = structure("Whatever you tell it to", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -480,7 +496,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "rpackage-check-answer", question = "rpackage-check"), 
     loading = NULL, random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 2016275916.5611, options = list()), class = c("learnr_radio", 
+    seed = 339010318.842136, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -488,14 +504,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", label = "rproj-check", 
     question = structure("What is the first singular value resulting from the CA in <code>environmenttest.R<\u002fcode>?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_2688719", 
+    "character")), answers = list(structure(list(id = "lnr_ans_9b151c8", 
         option = "0.2958384", value = 0.2958384, label = structure("0.2958384", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2d1c095", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1e638dd", 
         option = "0.3", value = 0.3, label = structure("0.3", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Please enter a few more digits, so we can be sure.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_58b5f1c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ba17695", 
         option = "0.297", value = 0.297, label = structure("0.297", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Please enter a few more digits, so we can be sure.", html = TRUE, class = c("html", 
         "character")), type = "literal"), class = c("tutorial_question_answer", 
@@ -507,7 +523,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", labe
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "rproj-check-answer", question = "rproj-check"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 343051263.340254, options = list(min = NA, max = NA, 
+    seed = 948002629.058552, options = list(min = NA, max = NA, 
         step = NA, tolerance = 0.001)), class = c("learnr_numeric", 
 "tutorial_question")), session = session)
 </script>
@@ -519,7 +535,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", labe
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","commonmark","compiler","datasets","digest","ellipsis","evaluate","fastmap","fontawesome","graphics","grDevices","htmltools","htmlwidgets","httpuv","jquerylib","jsonlite","knitr","later","learnr","lifecycle","magrittr","markdown","methods","mime","promises","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","shiny","stats","tools","utils","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.3.1","0.5.0","1.0.8","2.3.1","3.6.1","1.9.0","4.3.1","4.3.1","0.6.33","0.3.2","0.21","1.1.1","0.5.1","4.3.1","4.3.1","0.5.5","1.6.2","1.6.11","0.1.4","1.8.7","1.43","1.3.1","0.11.5","1.0.3","2.0.3","1.7","4.3.1","0.12","1.2.1","2.5.1","1.0.11","1.1.1","2.23","2.0.3","0.15.0","0.4.7","1.7.5","4.3.1","4.3.1","4.3.1","2.5.0","0.39","1.8-4","2.3.7"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45]}},"value":[{"type":"character","attributes":{},"value":["backports","base","bslib","cachem","checkmate","cli","commonmark","compiler","datasets","digest","ellipsis","evaluate","fastmap","fontawesome","graphics","grDevices","htmltools","htmlwidgets","httpuv","jquerylib","jsonlite","knitr","later","learnr","lifecycle","magrittr","markdown","methods","mime","promises","R6","Rcpp","rlang","rmarkdown","rprojroot","rstudioapi","sass","shiny","stats","tools","utils","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","4.3.1","0.7.0","1.0.8","2.3.1","3.6.1","1.9.0","4.3.1","4.3.1","0.6.33","0.3.2","0.23","1.1.1","0.5.1","4.3.1","4.3.1","0.5.8.1","1.6.2","1.6.11","0.1.4","1.8.8","1.43","1.3.1","0.11.5","1.0.4","2.0.3","1.7","4.3.1","0.12","1.2.1","2.5.1","1.0.11","1.1.1","2.23","2.0.4","0.15.0","0.4.9","1.7.5","4.3.1","4.3.1","4.3.1","3.0.0","0.39","1.8-4","2.3.7"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>

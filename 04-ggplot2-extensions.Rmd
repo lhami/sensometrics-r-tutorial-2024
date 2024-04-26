@@ -6,11 +6,6 @@ output: html_document
 
 ```{r setup-4, include = FALSE, purl = FALSE, echo = FALSE}
 library(tidyverse)
-library(ca)
-library(ggrepel)
-library(patchwork)
-library(FactoMineR)
-library(factoextra)
 berry_data <- read_csv("data/clt-berry-data.csv")
 raw_cider_data <- read_csv("data/CiderDryness_SensoryDATA.csv")
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
@@ -53,10 +48,10 @@ berry_data_long %>%
   column_to_rownames("Sample") -> berry_mfa_summary
 
 berry_mfa_summary %>%
-  MFA(group = c(sum(str_detect(colnames(berry_mfa_summary), "^cata_")),
-                sum(str_detect(colnames(berry_mfa_summary), "^liking_"))),
-      type = c("f","s"), graph = FALSE,
-      name.group = c("CATA","Liking")) -> berry_mfa_res
+  FactoMineR::MFA(group = c(sum(str_detect(colnames(berry_mfa_summary), "^cata_")),
+                            sum(str_detect(colnames(berry_mfa_summary), "^liking_"))),
+                  type = c("f","s"), graph = FALSE,
+                  name.group = c("CATA","Liking")) -> berry_mfa_res
 ```
 
 As you might have noticed, we had you download more packages than just `ggplot2` for this tutorial. `ggplot2` is a framework and will help you make many standard plots, but it can't do everything. Or, sometimes, you may not want to use it to do everything yourself.
@@ -93,7 +88,7 @@ But, as you can see, the text starts to overlap itself quickly even with only a 
 
 ```{r using geom_label_repel with 22 sensory attributes}
 ca_cider_termplot +
-  geom_label_repel()
+  ggrepel::geom_label_repel()
 ```
 
 They're almost identical to the normal text and label `geom_*()`s, but they use an iterative algorithm to push each piece of text away from the other text and unrelated points or `geom_()`s, while being pulled towards the point being labeled. It is *not deterministic*, so it will be slightly different each time you run the code (try it now!) unless you use `set.seed()` first or set `seed = ***` when adding `geom_*_repel()`.
@@ -102,7 +97,7 @@ Even with a set seed, changing the plot size or adding `geom_*()`s to the plot w
 
 ```{r geom_text_repel with a set seed will look the same every time}
 ca_cider_termplot +
-  geom_label_repel(seed = 12345)
+  ggrepel::geom_label_repel(seed = 12345)
 ```
 
 There are many settings you can play with to adjust these forces, how far a label has to move for a line to show up, whether any labels are left off in dense areas, and how long it tries to find a solution. And, randomly, the ability to give each letter-shape a border in a different color, which seems to be totally undocumented in the help files. It can be useful if there are other, multi-colored `geom_*()`s in the background.
@@ -132,7 +127,7 @@ ca_cider_termplot +
                   data = ca_cider_prefinterp) + 
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(expand = c(0, 0)) +
-  geom_text_repel(size = 6, color = "white", bg.color = "grey7")
+  ggrepel::geom_text_repel(size = 6, color = "white", bg.color = "grey7")
 ```
 
 Another useful tool for visualizing any ordinal/binned data (e.g., the 9-point hedonic scale) at scale is the `geom_beeswarm()` and `geom_quasirandom()` from the `ggbeeswarm` package, which are similar to `geom_jitter()` but intended for looking at a single numeric variable at a time, possibly across multiple categories.
@@ -140,7 +135,6 @@ Another useful tool for visualizing any ordinal/binned data (e.g., the 9-point h
 They limit the jitter to a single direction and ensure that no points are overlapping (or, in the case of `geom_quasirandom()`, that there's a uniform amount of overlap) so you can get a more accurate picture of the density, but take up less space than many faceted `geom_histogram()`s (at least for the same amount of fine-tuning).
 
 ```{r using ggbeeswarm to compare ordinal distributions}
-library(ggbeeswarm)
 #The jitter plot is actually not very helpful with this many points
 berry_data_long %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
@@ -153,7 +147,7 @@ berry_data_long %>%
 #So these are easy to compare
 berry_data_long %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
-  geom_quasirandom() +
+  ggbeeswarm::geom_quasirandom() +
   facet_wrap(~ Attribute) +
   theme_bw()
 ```
@@ -166,7 +160,7 @@ berry_mfa_res$quanti.var$coord %>%
   ggplot() +
   geom_segment(aes(x = 0, y = 0, xend = Dim.1, yend = Dim.2), arrow = arrow()) +
   ggforce::geom_circle(aes(x0 = 0, y0 = 0, r = 1), color = "blue") +
-  geom_text_repel(aes(x = Dim.1, y = Dim.2, label = Modality)) +
+  ggrepel::geom_text_repel(aes(x = Dim.1, y = Dim.2, label = Modality)) +
   theme_bw() +
   theme(aspect.ratio = 1)
 ```
@@ -179,7 +173,7 @@ So there's nothing these prettying-up packages will do that you can't do yoursel
 ```{r the minimal themes in cowplot}
 berry_data_long %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
-  geom_quasirandom() +
+  ggbeeswarm::geom_quasirandom() +
   facet_wrap(~ Attribute) +
   cowplot::theme_minimal_hgrid()
 ```
@@ -355,9 +349,9 @@ cowplot::plot_grid(plot(berry_mfa_res, choix = "var"),
 #You'd have to move the legends *before* using plot_grid()
 ```
 
-If you need to move or realign the labels so they're not overlapping anything, you can use <> in `patchwork` and <> in `cowplot`:
+If you need to move or realign the labels so they're not overlapping anything, in `patchwork` you can add `theme(plot.tag.position = c(X, Y))` to individual plots with `+` or to the whole grouping of plots with `&`. The `cowplot::plot_grid()` function has arguments `labels_x` and `labels_y`, which let you adjust the distance from the bottom left hand corner of the figure.
 
-```{r moving plot labels, warning = FALSE}
+```{r moving plot labels, fig.width = 7, warning = FALSE}
 plot(berry_mfa_res, choix = "var") + theme(plot.tag.position = c(0.2, 0.95)) +
   plot(berry_mfa_res, partial = "all") + theme(plot.tag.position = c(0.12, 0.95)) +
   plot_layout(guides = "collect") +
