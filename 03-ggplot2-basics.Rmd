@@ -7,7 +7,7 @@ output: html_document
 ```{r setup-3, echo=FALSE, include=FALSE}
 library(tidyverse)
 library(ca)
-knitr::opts_chunk$set(fig.align = "center")
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 
 # Import the data
 raw_berry_data <- 
