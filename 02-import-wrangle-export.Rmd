@@ -659,7 +659,26 @@ Sometimes, we want to be able to save `R` data for re-loading later.  It's good 
 -  You are saving the output of time-consuming workflows and want to be able to start again without re-running those workflows
 -  You want to bundle a lot of objects together into a single file for yourself or other `R` users
 
-<font color="red">**DO WE WANT write_rds() or save() here?**</font>
+If you want to save a single `R` object, the `write_rds()` function saves an object into a native `R` data format: `.rds`.  This uses syntax similar to `write_csv()`:
+
+```{r demonstrating write_rds}
+berry_penalty_data %>%
+  write_rds(file = "data/berry-penalty-data.rds")
+```
+
+Often, though, it can be helpful to save multiple `R` objects so that a workplace can be restored.  In this case, the generic `save()` function will save a *list* of `R` objects provided as symbolic names into a file of format `.RData`, which can be restored with `load()`.  
+
+```{r}
+save(long_berry_data,
+     long_cider_data,
+     file = "data/long-data-objects.RData")
+
+rm(long_berry_data, long_cider_data)
+
+load(file = "data/long-data-objects.RData")
+```
+
+This can be very helpful for sharing data.
 
 ### A note on replicability
 
