@@ -25,9 +25,14 @@ In order to be prepared to participate for the in-person tutorial on publication
 * RStudio (version 2022.07.0 or newer)
 * The `R` packages:
   + **tidyverse**
+  + **tidytext**
   + **FactoMineR**
-  + **ggrepel**
   + **ca**
+  + **ggrepel**
+  + **ggforce**
+  + **cowplot**
+  + **patchwork**
+  + **wesanderson**
 * The tutorial materials from our [GitHub](https://github.com/lhami/sensometrics-r-tutorial-2024/blob/main/code/sensometrics-2024-code-download.zip)
 
 You may need help or pre-approval from your IT department if you will be using a work laptop. You should install all of these pieces of software and run the test code **before you travel** to minimize the setup necessary at the start of the tutorial.
@@ -122,13 +127,21 @@ question("Which of the following are headings under the `Code > Editing` tab of 
 Keep `R` or RStudio open. You need to install the packages:
 
 - **tidyverse**
+- **tidytext**
 - **FactoMineR**
-- **ggrepel**
 - **ca**
+- **ggrepel**
+- **ggforce**
+- **cowplot**
+- **patchwork**
+- **wesanderson**
 
 You can do this by pasting the following code into the R(Studio) console:
 
-`install.packages(c("tidyverse", "FactoMineR", "ggrepel", "ca"))`
+```
+install.packages(c("tidyverse", "tidytext", "FactoMineR", "ca", 
+"ggrepel", "ggforce", "cowplot", "patchwork", "wesanderson"))
+```
 
 Hit the enter key on your keyboard to run.
 

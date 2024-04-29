@@ -4,21 +4,33 @@ output: html_document
 
 # Fine-Tuning Publication-Quality ggplots
 
-```{r setup, include = FALSE, purl = FALSE}
+```{r setup-5, include = FALSE, purl = FALSE}
 library(tidyverse)
-library(ca)
-library(ggrepel)
-library(patchwork)
-library(FactoMineR)
-library(factoextra)
 berry_data <- read_csv("data/clt-berry-data.csv")
+berry_penalty_data <- read_csv("data/berry-penalty-data.csv")
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```
 
-The plots we've been making so far are fairly straightforward demonstrations. So far, the most complicated plots we've all made together looks like this:
+The plots we've been making so far are fairly straightforward demonstrations. At the very end of Chapter 3, we briefly showed you the code and results for this plot:
 
-```{r penalty analysis example, eval = FALSE}
-ggplot(mapping = aes(x = cata_variable, y = penalty_lift)) +
+```{r penalty analysis example, fig.width = 7}
+berry_penalty_data %>%
+  select(-count) %>%
+  pivot_wider(names_from = checked,
+              values_from = penalty_lift,
+              names_prefix = "checked_") %>%
+  separate(cata_variable, 
+           into = c("mode", "variable"), 
+           sep = "_") %>%
+  mutate(penalty_lift = checked_1 - checked_0,
+         mode = case_when(mode == "taste" ~ "(T)",
+                          mode == "appearance" ~ "(A)",
+                          mode == "appearane" ~ "(A)")) %>%
+  unite(variable, mode, col = "cata_variable", sep = " ") %>%
+  mutate(cata_variable = tidytext::reorder_within(x = cata_variable,
+                                                  by = penalty_lift,
+                                                  within = berry)) %>%
+  ggplot(mapping = aes(x = cata_variable, y = penalty_lift)) +
   geom_col(aes(fill = penalty_lift), color = "white", show.legend = FALSE) + 
   facet_wrap(~berry, scales = "free", nrow = 1) + 
   tidytext::scale_x_reordered() + 
@@ -27,26 +39,57 @@ ggplot(mapping = aes(x = cata_variable, y = penalty_lift)) +
   scale_fill_gradient(low = "tan", high = "darkgreen") + 
   labs(x = NULL, y = NULL,
        title = "Penalty / Lift Analysis",
+       subtitle = "displays the mean difference (within berries) for when a CATA variable is checked\nor un-checked") ->
+  goal_plot
+
+goal_plot
+```
+
+Which uses some tricks from the `stringr` and `tidytext` packages in order to give us easy-to-read labels. Using the existing column names and variable-codes in our original data, it would've looked more like this:
+
+```{r worse penalty analysis example, fig.width = 7}
+berry_penalty_data %>%
+  select(-count) %>%
+  pivot_wider(names_from = checked,
+              values_from = penalty_lift,
+              names_prefix = "checked_") %>%
+  mutate(penalty_lift = checked_1 - checked_0) %>%
+  ggplot(mapping = aes(x = cata_variable, y = penalty_lift)) +
+  geom_col(aes(fill = penalty_lift), color = "white", show.legend = FALSE) + 
+  facet_wrap(~berry, scales = "free", nrow = 2) +
+  coord_flip() + 
+  theme_classic() + 
+  scale_fill_gradient(low = "tan", high = "darkgreen") + 
+  labs(x = NULL, y = NULL,
+       title = "Penalty / Lift Analysis",
        subtitle = "displays the mean difference (within berries) for when a CATA variable is checked\nor un-checked")
 ```
 
-
-
-In an actual publication, where space is precious and we're trying to show complex data relationships, we might be looking at something more like this:
-
-```{r final graphs}
-
-```
+Which we're showing 
 
 ## Exporting and Saving Plots
 
-It may seem like a weird time to be talking about saving plots, when we haven't gotten to the "fine-tuning" yet, but you should already be familiar with a few examples of things that <>. It is basically impossible to export a `ggplot` at the resolution needed for publishing without changing the aspect ratio, relative sizes, or space between some elements from what you're looking at in the Plots pane or the `.Rmd` chunk output.
+It may seem like a weird time to be talking about saving plots, when we haven't gotten to the "fine-tuning" yet, but you should already be familiar with a few examples of things that change when the aspect ratio of the plot or the monitor you're viewing it on changes slightly. It is basically impossible to export a `ggplot` at the resolution needed for publishing without changing the aspect ratio, relative sizes, or space between some elements from what you're looking at in the Plots pane or the `.Rmd` chunk output.
 
-It's good practice to export your plot as an image (or however else you plan to export it) and re-export it periodically as you go through fine-tuning.
+It's good practice to export your plot as an image (or pdf or knit-together document or however else you plan to export it) and re-export it periodically as you go through fine-tuning.
 
 This is also, probably, the most important part of this chapter. You will have to get every plot that you publish out of `R` somehow, after all! The rest of the advice in this chapter are tricks that we draw upon frequently, but you may find that you have different problems or priorities, or that some of these needs are situational.
 
 But you will have to export plots for every project you want to share with the world.
+
+### What format?
+
+You can, as we've already discussed, save a `ggplot` object in a `.rds` file. But that won't let you put it into your powerpoint, or manuscript, or take it to the printer. You need an image file. The exact *type* of image will depend on the other software you're using for your report, presentation, paper, book, etc.
+
+There are two major ways to save the kind of spatial color data that comprise images such as graphs. You can store them as **vector graphics**, which can be rescaled because they're made up of lines and shapes (we'll be talking about `.pdf` and `.svg`) or as **bitmap graphics**, which store images as a grid of **pixels** (we'll be talking about `.png`).
+
+`.pdf` vector images are best for **LaTeX**
+`.svg` vector images are more widely supported in word processors 
+`.png` bitmap images are the most predictable to print, the best for web publishing, and can be used in pretty much every software ever made, *if* you know exactly the size you want.
+
+<>
+
+This is not a `knitr` or `bookdown` tutorial, because we had to choose our topics, but we used the `bookdown` package to make the [online webpage version of this tutorial](https://lhami.github.io/sensometrics-r-tutorial-2024/). It comes with its own advantages and challenges, 
 
 ## Making Text Look Okay
 
