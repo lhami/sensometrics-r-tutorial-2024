@@ -7,7 +7,7 @@ site: "bookdown::bookdown_site"
 documentclass: book
 output:
   bookdown::gitbook: default
-  bookdown::pdf_book: default
+  #bookdown::pdf_book: default
 github-repo: lhami/sensometrics-tutorial-2024
 bibliography: sensometrics-2024.bib
 ---
@@ -46,12 +46,14 @@ Today's workshop is going to take ~3 hours, and we'll be covering the following 
     2. Checking data fidelity
 2.  Basics of Tidy Data Analysis
 3.  Intro to `ggplot2`
-4.  Fine-Tuning Publication-Quality ggplots
-    1. Multivariate Maps
-    2. Faceted Plots
-5.  Other Packages & Extras
+4.  Other Packages & Extras
     1. Adding layers and geoms (e.g., `ggrepel`)
     2. Plot-builders (e.g., `factoextra`)
+    3. Combining plots
+5.  Fine-Tuning Publication-Quality ggplots
+    1. Exporting plots
+    2. Formatting text
+    3. Ordering categorical variables
   
 ## How we're going to run {-}
 
@@ -59,13 +61,13 @@ This workshop is going to be run with **livecoding**, as noted above.  This mean
 
 ### Recommended approach for livecoding {-}
 
-We recommend that you download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/sensometrics-tutorial-2024).  This archive, when unzipped, will have a folder structure and a `.Rproj` file.  We recommend that you close out RStudio, unzip the archive, and double click the `.Rproj` file *in that folder*, which will open a new session of RStudio with proper setting (like the home directory) for the files for this workshop.
+We recommend that you download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/sensometrics-tutorial-2024).  This archive, when unzipped, will have a folder structure and a `.Rproj` file.  We recommend that you close out RStudio, unzip the archive, and double click the `.Rproj` file *in that folder*, which will open a new session of RStudio with proper settings (like the home directory) for the files for this workshop.
 
 In that folder, you will find a `data/` folder with the necessary data for the workshop, and a script named `sensometrics-all-code.R`.  This latter file contains all of the code demonstrated in this workshop for your future reference.  You can also follow along with the code at the [workshop's page hosted on github.io](https://lhami.github.io/sensometrics-tutorial-2024) (which you're reading right now), and which will remain available after this workshop.
 
-Once you're in RStudio, go to the `File > New File > R Script` menu to open a new script.  Scrips are basically workbooks for you to store sequential lines of code to be run in the `Console`.  It is where you can livecode along!  Even though we are giving you all of the code you need right now, you will learn a lot more if you actively follow along, rather than just running the entire code file.
+Once you're in RStudio, go to the `File > New File > R Script` menu to open a new script.  Scrips are basically workbooks for you to store sequential lines of code to be run in the `Console`.  It is where you can livecode along!  Even though we are giving you all of the code you need right now, you will learn a lot more if you actively write out the code to follow along, rather than just running the entire code file.
 
- The `Console` is the place to run code that is short and easy to type, or that you're experimenting with.  It will allow you to write a single line of code, and after you hit `return`, `R` will execute the command.  This is great for "interactive programming", but it isn't so great for building up a complex workflow, or for following along with this workshop!
+The `Console` is the place to run code that is short and easy to type, or that you're experimenting with.  It will allow you to write a single line of code, and after you hit `return`, `R` will execute the command.  This is great for "interactive programming", but it isn't so great for building up a complex workflow, or for following along with this workshop!
 
 You can write multiple lines of code in your `R` Script, then execute each one in any order (although keeping a logical sequence from top to bottom will help you keep track of what you're doing).  In an `R` script, everything is expected to be valid R code.
 
@@ -100,7 +102,7 @@ By typing `??<search term>` you will search **all** help files for the search te
 
 You will notice that there are two types of results in the help list for install.  The help pages should be familiar.  But what are "vignettes"?  Try clicking on one to find out.
 
-Vignettes are formatted, conversational walkthroughs that are increasingly common (and helpful!) for R packages.  Rather than explaining a single function they usually explain some aspect of a package, and how to use it.  And, even better for our purposes, they are written in R Markdown.  Click the "source" link next to the vignette name in order to see how the author wrote it in R Markdown.  This is a great way to learn new tricks.
+Vignettes are formatted, conversational walkthroughs that are increasingly common (and helpful!) in R packages.  Rather than explaining a single function they usually explain some aspect of a package, and how to use it.  And, even better for our purposes, they are written in R Markdown.  Click the "source" link next to the vignette name in order to see how the author wrote it in R Markdown.  This is a great way to learn new tricks.
 
 While you can find vignettes as we just did, a better way is to use the function `browseVignettes()`.  This opens a web browser window that lists **all** vignettes installed on your computer.  You can then use `cmd`/`ctrl + F` to search using terms in the web browser and quickly find package names, function names, or topics you are looking for.
 
@@ -117,7 +119,7 @@ Above, I mentioned "help files". How do we get help when we (inevitably) run int
 
 
 We may come back to this, but I want to emphasize that **looking up help is normal**. I do it all the time. Learning to ask questions in helpful ways, how to quickly parse the information you find, and how to slightly alter the answers to suit your particular situation are key skills.
-  
+
 ### Getting Help {-}
 If you get stuck and can't figure out what went wrong, we are here to help!  Because we have 2 instructors for this workshop, one of us is available to help at any time.
 

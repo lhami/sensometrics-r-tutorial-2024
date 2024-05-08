@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Importing and wrangling data | Publication-quality data visualizations using the R tidyverse</title>
+  <meta name="description" content="2 Importing and wrangling data | Publication-quality data visualizations using the R tidyverse" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Importing and wrangling data | Publication-quality data visualizations using the R tidyverse" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="lhami/sensometrics-tutorial-2024" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Importing and wrangling data | Publication-quality data visualizations using the R tidyverse" />
+  
+  
+  
+
+<meta name="author" content="Jacob Lahne" />
+<meta name="author" content="Leah Hamilton" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="a-crash-course-in-r-and-rstudio.html"/>
+<link rel="next" href="the-basics-of-plotting-with-ggplot2.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction and welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introductions"><i class="fa fa-check"></i>Introductions</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recommended-approach-for-livecoding"><i class="fa fa-check"></i>Recommended approach for livecoding</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dealing-with-errors"><i class="fa fa-check"></i>Dealing with errors</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#psa-not-knowing-is-normal"><i class="fa fa-check"></i>PSA: not-knowing is normal!</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#getting-help"><i class="fa fa-check"></i>Getting Help</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> A crash course in <code>R</code> and RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#r-vs-rstudio"><i class="fa fa-check"></i><b>1.1</b> <code>R</code> vs RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i><b>1.1.1</b> What is <code>R</code>?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#great-why-are-we-using-rstudio-then"><i class="fa fa-check"></i><b>1.1.2</b> Great, why are we using RStudio then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#the-parts-of-rstudio"><i class="fa fa-check"></i><b>1.2</b> The parts of RStudio</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#the-working-directory-and-why-you-should-care"><i class="fa fa-check"></i><b>1.2.1</b> The “working directory” and why you should care</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#extending-r-with-packages"><i class="fa fa-check"></i><b>1.3</b> Extending <code>R</code> with packages</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#loading-packages"><i class="fa fa-check"></i><b>1.3.1</b> Loading packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#making-r-do-stuff"><i class="fa fa-check"></i><b>1.4</b> Making <code>R</code> do stuff</a></li>
+<li class="chapter" data-level="1.5" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#livecoding-along"><i class="fa fa-check"></i><b>1.5</b> Livecoding along</a></li>
+<li class="chapter" data-level="1.6" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#summary-and-next-steps"><i class="fa fa-check"></i><b>1.6</b> Summary and next steps</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html"><i class="fa fa-check"></i><b>2</b> Importing and wrangling data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#motivation-exploring-berry-and-cider-cataliking-data"><i class="fa fa-check"></i><b>2.1</b> Motivation: exploring berry and cider CATA/liking data</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#berries"><i class="fa fa-check"></i><b>2.1.1</b> Berries</a></li>
+<li class="chapter" data-level="2.1.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#cider"><i class="fa fa-check"></i><b>2.1.2</b> Cider</a></li>
+<li class="chapter" data-level="2.1.3" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#publication-quality"><i class="fa fa-check"></i><b>2.1.3</b> “Publication quality”</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#getting-data-into-r"><i class="fa fa-check"></i><b>2.2</b> Getting data into <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#where-the-data-live"><i class="fa fa-check"></i><b>2.2.1</b> Where the data live</a></li>
+<li class="chapter" data-level="2.2.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#getting-different-kinds-of-files-into-r"><i class="fa fa-check"></i><b>2.2.2</b> Getting different kinds of files into <code>R</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#wrangling-selecting-filtering-reshaping-data"><i class="fa fa-check"></i><b>2.3</b> Wrangling (selecting, filtering, reshaping) data</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#the-pipe-for-multiple-steps-in-a-workflow"><i class="fa fa-check"></i><b>2.3.1</b> The “pipe” for multiple steps in a workflow: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="2.3.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#subsetting-your-data"><i class="fa fa-check"></i><b>2.3.2</b> Subsetting your data</a></li>
+<li class="chapter" data-level="2.3.3" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#reshaping-your-data"><i class="fa fa-check"></i><b>2.3.3</b> Reshaping your data</a></li>
+<li class="chapter" data-level="2.3.4" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#some-convenience-functions"><i class="fa fa-check"></i><b>2.3.4</b> Some convenience functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#saving-your-data"><i class="fa fa-check"></i><b>2.4</b> Saving your data</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#a-note-on-replicability"><i class="fa fa-check"></i><b>2.4.1</b> A note on replicability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#wrap-up"><i class="fa fa-check"></i><b>2.5</b> Wrap up</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html"><i class="fa fa-check"></i><b>3</b> The basics of plotting with <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#your-first-ggplot"><i class="fa fa-check"></i><b>3.1</b> Your first <code>ggplot()</code></a></li>
+<li class="chapter" data-level="3.2" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>3.2</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
+<li class="chapter" data-level="3.3" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>3.3</b> Adding layers with <code>geom_*()</code> functions</a></li>
+<li class="chapter" data-level="3.4" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>3.4</b> Arguments inside and outside of <code>aes()</code></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>3.4.1</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
+<li class="chapter" data-level="3.4.2" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>3.4.2</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
+<li class="chapter" data-level="3.4.3" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>3.4.3</b> Finally, <code>facet_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#some-further-reading"><i class="fa fa-check"></i><b>3.5</b> Some further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html"><i class="fa fa-check"></i><b>4</b> Using ggplot with Other Packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#data-for-the-rest-of-the-tutorial"><i class="fa fa-check"></i><b>4.1</b> Data for the rest of the tutorial</a></li>
+<li class="chapter" data-level="4.2" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#new-geom_s-and-stat_s"><i class="fa fa-check"></i><b>4.2</b> New <code>geom_*()s</code> and <code>stat_*()</code>s</a></li>
+<li class="chapter" data-level="4.3" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#new-theme_s-and-scale_s"><i class="fa fa-check"></i><b>4.3</b> New <code>theme_*()</code>s and <code>scale_*()</code>s</a></li>
+<li class="chapter" data-level="4.4" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#modifying-ggplots-made-by-other-packages"><i class="fa fa-check"></i><b>4.4</b> Modifying <code>ggplot()</code>s made by other packages</a></li>
+<li class="chapter" data-level="4.5" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#combining-plots"><i class="fa fa-check"></i><b>4.5</b> Combining Plots</a></li>
+<li class="chapter" data-level="4.6" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#finding-new-packages"><i class="fa fa-check"></i><b>4.6</b> Finding New Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html"><i class="fa fa-check"></i><b>5</b> Fine-Tuning Publication-Quality ggplots</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#exporting-and-saving-plots"><i class="fa fa-check"></i><b>5.1</b> Exporting and Saving Plots</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#what-format"><i class="fa fa-check"></i><b>5.1.1</b> What format?</a></li>
+<li class="chapter" data-level="5.1.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#exporting-images-with-ggsave"><i class="fa fa-check"></i><b>5.1.2</b> Exporting Images with <code>ggsave()</code></a></li>
+<li class="chapter" data-level="5.1.3" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#image-sizes-and-raster-resolutions"><i class="fa fa-check"></i><b>5.1.3</b> Image Sizes and Raster Resolutions</a></li>
+<li class="chapter" data-level="5.1.4" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#other-image-export-options"><i class="fa fa-check"></i><b>5.1.4</b> Other Image Export Options</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#making-text-look-okay"><i class="fa fa-check"></i><b>5.2</b> Making Text Look Okay</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#powerful-text-manipulation-with-stringr"><i class="fa fa-check"></i><b>5.2.1</b> Powerful Text Manipulation with <code>stringr</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#stringr-and-regular-expressions-a-small-tangent"><i class="fa fa-check"></i><b>5.2.2</b> <code>stringr</code> and Regular Expressions (A small tangent)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#removing-legends-and-plot-elements"><i class="fa fa-check"></i><b>5.3</b> Removing Legends and Plot Elements</a></li>
+<li class="chapter" data-level="5.4" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#ordered-categorical-variables"><i class="fa fa-check"></i><b>5.4</b> Ordered Categorical Variables</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#specifying-ordinal-variables-as-factors"><i class="fa fa-check"></i><b>5.4.1</b> Specifying Ordinal Variables as Factors</a></li>
+<li class="chapter" data-level="5.4.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#facets-with-different-category-orders"><i class="fa fa-check"></i><b>5.4.2</b> Facets with Different Category-Orders</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#putting-it-all-together"><i class="fa fa-check"></i><b>5.5</b> Putting it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>6</b> Wrap-up and further resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>6.1</b> Getting help</a></li>
+<li class="chapter" data-level="6.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>6.2</b> Learning more with Sensometrics Society</a></li>
+<li class="chapter" data-level="6.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>6.3</b> Further reading/resources</a></li>
+<li class="chapter" data-level="6.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>6.4</b> Questions/Comments</a></li>
+<li class="chapter" data-level="6.5" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#references"><i class="fa fa-check"></i><b>6.5</b> References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Publication-quality data visualizations using the R tidyverse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="importing-and-wrangling-data" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Importing and wrangling data<a href="importing-and-wrangling-data.html#importing-and-wrangling-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Now that everyone is on the same page for how we’re going to use <code>R</code>, we’re going to dive right into importing our data into <code>R</code>, exploring it, and–most importantly–visualizing it. In this part of the tutorial, we are going to focus on getting data into <code>R</code> and manipulating it.</p>
+<p>Personally, I prefer to see the reason for doing something, rather than being shown a bunch of building blocks and not seeing how they fit together. Therefore, we’re going to start off this section with a complete work flow for importing and visualizing some real results, and then work backward as we unpack how and why we’ve taken particular steps.</p>
+<div id="motivation-exploring-berry-and-cider-cataliking-data" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Motivation: exploring berry and cider CATA/liking data<a href="importing-and-wrangling-data.html#motivation-exploring-berry-and-cider-cataliking-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before we begin, we need to make sure we’ve loaded the packages we’re going to use.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="importing-and-wrangling-data.html#cb19-1" tabindex="-1"></a><span class="co"># This package is actually a set of utility packages we will use a lot</span></span>
+<span id="cb19-2"><a href="importing-and-wrangling-data.html#cb19-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p>The plan here is to present “full” workflows for data import, wrangling, and visualization below so as to give a skeleton to work through. This is going to look like a lot of code at once, but I don’t use anything in these workflows that we will not be covering (in some way!) today. Hopefully, by the end of today’s workshop you will be able both to understand and dissect complex code and use it to build your own analyses and visualizations.</p>
+<div id="berries" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Berries<a href="importing-and-wrangling-data.html#berries" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we are going to import and process data from a study on berries. These data come from a large, central-location study on berries, the methodological details of which are published in <span class="citation">Yeung et al. (2021)</span>. Very briefly, the data describe the attributes and liking scores reported by consumers for a variety of berries across multiple CLTs. A total of 969 participants (<code>Subject Code</code>) and 23 berries (<code>Sample Name</code>) were involved in these tests, with only one species of berry (blackberry, blueberry, raspberry, or strawberry) presented during each CLT. In the actual experimental design, subjects got multiple sample sets (so there are <em>not</em> 969 unique subjects), but here we will treat them as unique for ease of description.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="importing-and-wrangling-data.html#cb20-1" tabindex="-1"></a><span class="co"># Import the data</span></span>
+<span id="cb20-2"><a href="importing-and-wrangling-data.html#cb20-2" tabindex="-1"></a>raw_berry_data <span class="ot">&lt;-</span> </span>
+<span id="cb20-3"><a href="importing-and-wrangling-data.html#cb20-3" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/clt-berry-data.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="importing-and-wrangling-data.html#cb20-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span> <span class="sc">!</span><span class="fu">all</span>(<span class="fu">is.na</span>(.)))) </span>
+<span id="cb20-5"><a href="importing-and-wrangling-data.html#cb20-5" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="importing-and-wrangling-data.html#cb20-6" tabindex="-1"></a>cleaned_berry_data <span class="ot">&lt;-</span></span>
+<span id="cb20-7"><a href="importing-and-wrangling-data.html#cb20-7" tabindex="-1"></a>  raw_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="importing-and-wrangling-data.html#cb20-8" tabindex="-1"></a>  <span class="co"># Get the relevant columns</span></span>
+<span id="cb20-9"><a href="importing-and-wrangling-data.html#cb20-9" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>, </span>
+<span id="cb20-10"><a href="importing-and-wrangling-data.html#cb20-10" tabindex="-1"></a>         berry,</span>
+<span id="cb20-11"><a href="importing-and-wrangling-data.html#cb20-11" tabindex="-1"></a>         sample,</span>
+<span id="cb20-12"><a href="importing-and-wrangling-data.html#cb20-12" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>), </span>
+<span id="cb20-13"><a href="importing-and-wrangling-data.html#cb20-13" tabindex="-1"></a>         <span class="fu">contains</span>(<span class="st">&quot;overall&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-14"><a href="importing-and-wrangling-data.html#cb20-14" tabindex="-1"></a>  <span class="co"># Rescale the LAM and US scales to a 9-pt range</span></span>
+<span id="cb20-15"><a href="importing-and-wrangling-data.html#cb20-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lms_overall =</span> (lms_overall <span class="sc">+</span> <span class="dv">100</span>) <span class="sc">*</span> (<span class="dv">8</span> <span class="sc">/</span> <span class="dv">200</span>) <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb20-16"><a href="importing-and-wrangling-data.html#cb20-16" tabindex="-1"></a>         <span class="at">us_overall =</span> (us_overall <span class="sc">+</span> <span class="dv">0</span>) <span class="sc">*</span> (<span class="dv">8</span> <span class="sc">/</span> <span class="dv">15</span>) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-17"><a href="importing-and-wrangling-data.html#cb20-17" tabindex="-1"></a>  <span class="co"># Switch the 3 overall liking columns into a single column</span></span>
+<span id="cb20-18"><a href="importing-and-wrangling-data.html#cb20-18" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">contains</span>(<span class="st">&quot;overall&quot;</span>),</span>
+<span id="cb20-19"><a href="importing-and-wrangling-data.html#cb20-19" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;hedonic_scale&quot;</span>,</span>
+<span id="cb20-20"><a href="importing-and-wrangling-data.html#cb20-20" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;rating&quot;</span>,</span>
+<span id="cb20-21"><a href="importing-and-wrangling-data.html#cb20-21" tabindex="-1"></a>               <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-22"><a href="importing-and-wrangling-data.html#cb20-22" tabindex="-1"></a>  <span class="co"># Let&#39;s make all the CATA variables into a single column to make life easier</span></span>
+<span id="cb20-23"><a href="importing-and-wrangling-data.html#cb20-23" tabindex="-1"></a>  <span class="co"># (and get rid of those NAs)</span></span>
+<span id="cb20-24"><a href="importing-and-wrangling-data.html#cb20-24" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>),</span>
+<span id="cb20-25"><a href="importing-and-wrangling-data.html#cb20-25" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;cata_variable&quot;</span>,</span>
+<span id="cb20-26"><a href="importing-and-wrangling-data.html#cb20-26" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;checked&quot;</span>,</span>
+<span id="cb20-27"><a href="importing-and-wrangling-data.html#cb20-27" tabindex="-1"></a>               <span class="at">names_transform =</span> <span class="sc">~</span><span class="fu">str_remove</span>(., <span class="st">&quot;cata_&quot;</span>),</span>
+<span id="cb20-28"><a href="importing-and-wrangling-data.html#cb20-28" tabindex="-1"></a>               <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-29"><a href="importing-and-wrangling-data.html#cb20-29" tabindex="-1"></a></span>
+<span id="cb20-30"><a href="importing-and-wrangling-data.html#cb20-30" tabindex="-1"></a>berry_penalty_analysis_data <span class="ot">&lt;-</span> </span>
+<span id="cb20-31"><a href="importing-and-wrangling-data.html#cb20-31" tabindex="-1"></a>  cleaned_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-32"><a href="importing-and-wrangling-data.html#cb20-32" tabindex="-1"></a>  <span class="fu">group_by</span>(berry, cata_variable, checked) <span class="sc">%&gt;%</span></span>
+<span id="cb20-33"><a href="importing-and-wrangling-data.html#cb20-33" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">penalty_lift =</span> <span class="fu">mean</span>(rating),</span>
+<span id="cb20-34"><a href="importing-and-wrangling-data.html#cb20-34" tabindex="-1"></a>            <span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb20-35"><a href="importing-and-wrangling-data.html#cb20-35" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
+<span id="cb20-36"><a href="importing-and-wrangling-data.html#cb20-36" tabindex="-1"></a></span>
+<span id="cb20-37"><a href="importing-and-wrangling-data.html#cb20-37" tabindex="-1"></a><span class="co"># Make a plot of the overall penalty/lift for checked attributes</span></span>
+<span id="cb20-38"><a href="importing-and-wrangling-data.html#cb20-38" tabindex="-1"></a>p1_berry_penalty <span class="ot">&lt;-</span> </span>
+<span id="cb20-39"><a href="importing-and-wrangling-data.html#cb20-39" tabindex="-1"></a>  berry_penalty_analysis_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-40"><a href="importing-and-wrangling-data.html#cb20-40" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>count) <span class="sc">%&gt;%</span></span>
+<span id="cb20-41"><a href="importing-and-wrangling-data.html#cb20-41" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> checked,</span>
+<span id="cb20-42"><a href="importing-and-wrangling-data.html#cb20-42" tabindex="-1"></a>              <span class="at">values_from =</span> penalty_lift,</span>
+<span id="cb20-43"><a href="importing-and-wrangling-data.html#cb20-43" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;checked_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-44"><a href="importing-and-wrangling-data.html#cb20-44" tabindex="-1"></a>  <span class="fu">group_by</span>(berry, cata_variable) <span class="sc">%&gt;%</span></span>
+<span id="cb20-45"><a href="importing-and-wrangling-data.html#cb20-45" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">penalty_lift =</span> checked_1 <span class="sc">-</span> checked_0) <span class="sc">%&gt;%</span></span>
+<span id="cb20-46"><a href="importing-and-wrangling-data.html#cb20-46" tabindex="-1"></a>  <span class="co"># We can tidy up our CATA labels</span></span>
+<span id="cb20-47"><a href="importing-and-wrangling-data.html#cb20-47" tabindex="-1"></a>  <span class="fu">separate</span>(cata_variable, </span>
+<span id="cb20-48"><a href="importing-and-wrangling-data.html#cb20-48" tabindex="-1"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;mode&quot;</span>, <span class="st">&quot;variable&quot;</span>), </span>
+<span id="cb20-49"><a href="importing-and-wrangling-data.html#cb20-49" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-50"><a href="importing-and-wrangling-data.html#cb20-50" tabindex="-1"></a>  <span class="co"># Fix a typo</span></span>
+<span id="cb20-51"><a href="importing-and-wrangling-data.html#cb20-51" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mode =</span> <span class="fu">str_replace</span>(mode, <span class="st">&quot;appearane&quot;</span>, <span class="st">&quot;appearance&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-52"><a href="importing-and-wrangling-data.html#cb20-52" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mode =</span> <span class="fu">case_when</span>(mode <span class="sc">==</span> <span class="st">&quot;taste&quot;</span> <span class="sc">~</span> <span class="st">&quot;(T)&quot;</span>,</span>
+<span id="cb20-53"><a href="importing-and-wrangling-data.html#cb20-53" tabindex="-1"></a>                          mode <span class="sc">==</span> <span class="st">&quot;appearance&quot;</span> <span class="sc">~</span> <span class="st">&quot;(A)&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-54"><a href="importing-and-wrangling-data.html#cb20-54" tabindex="-1"></a>  <span class="fu">unite</span>(variable, mode, <span class="at">col =</span> <span class="st">&quot;cata_variable&quot;</span>, <span class="at">sep =</span> <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-55"><a href="importing-and-wrangling-data.html#cb20-55" tabindex="-1"></a>  <span class="co"># We are using a function from tidytext that makes faceting the final figure</span></span>
+<span id="cb20-56"><a href="importing-and-wrangling-data.html#cb20-56" tabindex="-1"></a>  <span class="co"># easier</span></span>
+<span id="cb20-57"><a href="importing-and-wrangling-data.html#cb20-57" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cata_variable =</span> tidytext<span class="sc">::</span><span class="fu">reorder_within</span>(<span class="at">x =</span> cata_variable,</span>
+<span id="cb20-58"><a href="importing-and-wrangling-data.html#cb20-58" tabindex="-1"></a>                                                  <span class="at">by =</span> penalty_lift,</span>
+<span id="cb20-59"><a href="importing-and-wrangling-data.html#cb20-59" tabindex="-1"></a>                                                  <span class="at">within =</span> berry)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-60"><a href="importing-and-wrangling-data.html#cb20-60" tabindex="-1"></a>  <span class="co">#And finally we plot!</span></span>
+<span id="cb20-61"><a href="importing-and-wrangling-data.html#cb20-61" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cata_variable, <span class="at">y =</span> penalty_lift)) <span class="sc">+</span></span>
+<span id="cb20-62"><a href="importing-and-wrangling-data.html#cb20-62" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">fill =</span> penalty_lift), <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb20-63"><a href="importing-and-wrangling-data.html#cb20-63" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>berry, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb20-64"><a href="importing-and-wrangling-data.html#cb20-64" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>() <span class="sc">+</span> </span>
+<span id="cb20-65"><a href="importing-and-wrangling-data.html#cb20-65" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb20-66"><a href="importing-and-wrangling-data.html#cb20-66" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb20-67"><a href="importing-and-wrangling-data.html#cb20-67" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;tan&quot;</span>, <span class="at">high =</span> <span class="st">&quot;darkgreen&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb20-68"><a href="importing-and-wrangling-data.html#cb20-68" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb20-69"><a href="importing-and-wrangling-data.html#cb20-69" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Penalty / Lift Analysis&quot;</span>,</span>
+<span id="cb20-70"><a href="importing-and-wrangling-data.html#cb20-70" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;displays the mean difference (within berries) for when a CATA variable is checked</span><span class="sc">\n</span><span class="st">or un-checked&quot;</span>)</span>
+<span id="cb20-71"><a href="importing-and-wrangling-data.html#cb20-71" tabindex="-1"></a></span>
+<span id="cb20-72"><a href="importing-and-wrangling-data.html#cb20-72" tabindex="-1"></a>p1_berry_penalty</span></code></pre></div>
+<p><img src="02-import-wrangle-export_files/figure-html/berry-full-penalty-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cider" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Cider<a href="importing-and-wrangling-data.html#cider" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now, let’s get our cider data. These data come from a small consumer study on 3 commercial “hard” (alcoholic) ciders, served in two conditions (chilled or unchilled) to 48 consumers, who used a pre-defined CATA lexicon, rated overall liking, and evaluated cider “dryness” on a 4-pt, structured line scale. The full details of the study are published in <span class="citation">Calvert et al. (2022)</span>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="importing-and-wrangling-data.html#cb21-1" tabindex="-1"></a>raw_cider_data <span class="ot">&lt;-</span> </span>
+<span id="cb21-2"><a href="importing-and-wrangling-data.html#cb21-2" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">&quot;data/CiderDryness_SensoryDATA.csv&quot;</span>)</span>
+<span id="cb21-3"><a href="importing-and-wrangling-data.html#cb21-3" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="importing-and-wrangling-data.html#cb21-4" tabindex="-1"></a>cider_penalty_data <span class="ot">&lt;-</span> </span>
+<span id="cb21-5"><a href="importing-and-wrangling-data.html#cb21-5" tabindex="-1"></a>  raw_cider_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="importing-and-wrangling-data.html#cb21-6" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(Fresh_Apples<span class="sc">:</span>Synthetic,</span>
+<span id="cb21-7"><a href="importing-and-wrangling-data.html#cb21-7" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;cata_variable&quot;</span>,</span>
+<span id="cb21-8"><a href="importing-and-wrangling-data.html#cb21-8" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;checked&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-9"><a href="importing-and-wrangling-data.html#cb21-9" tabindex="-1"></a>  <span class="fu">group_by</span>(cata_variable, checked) <span class="sc">%&gt;%</span></span>
+<span id="cb21-10"><a href="importing-and-wrangling-data.html#cb21-10" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">rating =</span> <span class="fu">mean</span>(Liking),</span>
+<span id="cb21-11"><a href="importing-and-wrangling-data.html#cb21-11" tabindex="-1"></a>            <span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb21-12"><a href="importing-and-wrangling-data.html#cb21-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> count <span class="sc">/</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-13"><a href="importing-and-wrangling-data.html#cb21-13" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb21-14"><a href="importing-and-wrangling-data.html#cb21-14" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="importing-and-wrangling-data.html#cb21-15" tabindex="-1"></a><span class="co"># Define the &quot;important&quot; penalty/lift zones</span></span>
+<span id="cb21-16"><a href="importing-and-wrangling-data.html#cb21-16" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="importing-and-wrangling-data.html#cb21-17" tabindex="-1"></a>zones <span class="ot">&lt;-</span> </span>
+<span id="cb21-18"><a href="importing-and-wrangling-data.html#cb21-18" tabindex="-1"></a>  <span class="fu">tribble</span>(<span class="sc">~</span>penalty_lift, <span class="sc">~</span>xmin, <span class="sc">~</span>xmax, <span class="sc">~</span>ymin, <span class="sc">~</span>ymax,</span>
+<span id="cb21-19"><a href="importing-and-wrangling-data.html#cb21-19" tabindex="-1"></a>          <span class="st">&quot;penalty&quot;</span>, <span class="fl">0.25</span>, <span class="cn">Inf</span>, <span class="sc">-</span><span class="cn">Inf</span>, <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb21-20"><a href="importing-and-wrangling-data.html#cb21-20" tabindex="-1"></a>          <span class="st">&quot;lift&quot;</span>, <span class="fl">0.25</span>, <span class="cn">Inf</span>, <span class="dv">1</span>, <span class="cn">Inf</span>)</span>
+<span id="cb21-21"><a href="importing-and-wrangling-data.html#cb21-21" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="importing-and-wrangling-data.html#cb21-22" tabindex="-1"></a><span class="co"># Let&#39;s make a plot where we take into account the frequency of checking as well</span></span>
+<span id="cb21-23"><a href="importing-and-wrangling-data.html#cb21-23" tabindex="-1"></a><span class="co"># as the penalty</span></span>
+<span id="cb21-24"><a href="importing-and-wrangling-data.html#cb21-24" tabindex="-1"></a>p2_cider_penalty <span class="ot">&lt;-</span> </span>
+<span id="cb21-25"><a href="importing-and-wrangling-data.html#cb21-25" tabindex="-1"></a>  cider_penalty_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-26"><a href="importing-and-wrangling-data.html#cb21-26" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>count, <span class="sc">-</span>proportion) <span class="sc">%&gt;%</span></span>
+<span id="cb21-27"><a href="importing-and-wrangling-data.html#cb21-27" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> checked,</span>
+<span id="cb21-28"><a href="importing-and-wrangling-data.html#cb21-28" tabindex="-1"></a>              <span class="at">values_from =</span> rating) <span class="sc">%&gt;%</span></span>
+<span id="cb21-29"><a href="importing-and-wrangling-data.html#cb21-29" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">penalty =</span> <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">0</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-30"><a href="importing-and-wrangling-data.html#cb21-30" tabindex="-1"></a>  <span class="fu">left_join</span>(cider_penalty_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-31"><a href="importing-and-wrangling-data.html#cb21-31" tabindex="-1"></a>              <span class="fu">filter</span>(checked <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-32"><a href="importing-and-wrangling-data.html#cb21-32" tabindex="-1"></a>              <span class="fu">select</span>(cata_variable, proportion)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-33"><a href="importing-and-wrangling-data.html#cb21-33" tabindex="-1"></a>  <span class="co"># And now we plot!</span></span>
+<span id="cb21-34"><a href="importing-and-wrangling-data.html#cb21-34" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> proportion, <span class="at">y =</span> penalty)) <span class="sc">+</span> </span>
+<span id="cb21-35"><a href="importing-and-wrangling-data.html#cb21-35" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb21-36"><a href="importing-and-wrangling-data.html#cb21-36" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> xmin, <span class="at">ymin =</span> ymin, </span>
+<span id="cb21-37"><a href="importing-and-wrangling-data.html#cb21-37" tabindex="-1"></a>                <span class="at">xmax =</span> xmax, <span class="at">ymax =</span> ymax,</span>
+<span id="cb21-38"><a href="importing-and-wrangling-data.html#cb21-38" tabindex="-1"></a>                <span class="at">fill =</span> penalty_lift, <span class="at">color =</span> penalty_lift),</span>
+<span id="cb21-39"><a href="importing-and-wrangling-data.html#cb21-39" tabindex="-1"></a>            <span class="at">data =</span> zones, </span>
+<span id="cb21-40"><a href="importing-and-wrangling-data.html#cb21-40" tabindex="-1"></a>            <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb21-41"><a href="importing-and-wrangling-data.html#cb21-41" tabindex="-1"></a>            <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb21-42"><a href="importing-and-wrangling-data.html#cb21-42" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb21-43"><a href="importing-and-wrangling-data.html#cb21-43" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> cata_variable), <span class="at">alpha =</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb21-44"><a href="importing-and-wrangling-data.html#cb21-44" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">&quot;penalty / lift zone:&quot;</span>, </span>
+<span id="cb21-45"><a href="importing-and-wrangling-data.html#cb21-45" tabindex="-1"></a>                    <span class="at">values =</span> <span class="fu">alpha</span>(<span class="fu">c</span>( <span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;tan&quot;</span>), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>)) <span class="sc">+</span> </span>
+<span id="cb21-46"><a href="importing-and-wrangling-data.html#cb21-46" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="cn">NULL</span>, <span class="at">values =</span> <span class="fu">c</span>( <span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;tan&quot;</span>), <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span> </span>
+<span id="cb21-47"><a href="importing-and-wrangling-data.html#cb21-47" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb21-48"><a href="importing-and-wrangling-data.html#cb21-48" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-49"><a href="importing-and-wrangling-data.html#cb21-49" tabindex="-1"></a>        <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb21-50"><a href="importing-and-wrangling-data.html#cb21-50" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb21-51"><a href="importing-and-wrangling-data.html#cb21-51" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Proportion of checks for CATA attribute&quot;</span>,</span>
+<span id="cb21-52"><a href="importing-and-wrangling-data.html#cb21-52" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Change in average liking when CATA</span><span class="sc">\n</span><span class="st">attribute is checked&quot;</span>,</span>
+<span id="cb21-53"><a href="importing-and-wrangling-data.html#cb21-53" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Penalty/Lift Analysis&quot;</span>,</span>
+<span id="cb21-54"><a href="importing-and-wrangling-data.html#cb21-54" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;in which average change is plotted against check frequency&quot;</span>)</span>
+<span id="cb21-55"><a href="importing-and-wrangling-data.html#cb21-55" tabindex="-1"></a></span>
+<span id="cb21-56"><a href="importing-and-wrangling-data.html#cb21-56" tabindex="-1"></a>p2_cider_penalty</span></code></pre></div>
+<p><img src="02-import-wrangle-export_files/figure-html/cider-full-penalty-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="publication-quality" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> “Publication quality”<a href="importing-and-wrangling-data.html#publication-quality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What do we mean by “publication quality” visualizations? Neither of us are theorists of visualization–for that, we would recommend that you look at the excellent work from <a href="https://clauswilke.com/dataviz/">Claus Wilke</a> and <a href="https://socviz.co/index.html#preface">Kieran Healey</a>. We will not be discussing (in any detail) ideas about which color palettes best communicate different types of data, what kinds of displays are most effective (box plots vs violin plots vs …), or whether pie charts are really so bad (mostly yes).</p>
+<p>Rather, we have noticed that most <code>R</code> packages for data analysis provide visualizations as part of their output, and many sensory scientists are using these <em>default</em> outputs in publications. This is annoying because often these visualizations are meant to be part of the data exploration/analysis process: they are not polished or they don’t display the data to its best advantage (whatever that is for the particular case). In this workshop, we want to help you develop the competency to alter or re-make these visualizations for yourself so that you can produce visualizations that are relevant to <em>your</em> application, that are attractive and easy to read.</p>
+<p>As an example, the <code>FactoMineR</code> package has excellent default visualizations for exploring and understanding the basic outputs of many common multivariate analyses used by sensory scientists. We can take a look at our cider CATA data visualized as a symmetric CA “biplot” without much effort:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="importing-and-wrangling-data.html#cb22-1" tabindex="-1"></a>ca_cider <span class="ot">&lt;-</span> </span>
+<span id="cb22-2"><a href="importing-and-wrangling-data.html#cb22-2" tabindex="-1"></a>  raw_cider_data <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="importing-and-wrangling-data.html#cb22-3" tabindex="-1"></a>  <span class="fu">select</span>(Sample_Name, Temperature, Fresh_Apples<span class="sc">:</span>Synthetic) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="importing-and-wrangling-data.html#cb22-4" tabindex="-1"></a>  <span class="fu">unite</span>(Sample_Name, Temperature, <span class="at">col =</span> <span class="st">&quot;sample&quot;</span>, <span class="at">sep =</span> <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="importing-and-wrangling-data.html#cb22-5" tabindex="-1"></a>  <span class="fu">group_by</span>(sample) <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="importing-and-wrangling-data.html#cb22-6" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">sum</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="importing-and-wrangling-data.html#cb22-7" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;sample&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-8"><a href="importing-and-wrangling-data.html#cb22-8" tabindex="-1"></a>  FactoMineR<span class="sc">::</span><span class="fu">CA</span>(<span class="at">graph =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-9"><a href="importing-and-wrangling-data.html#cb22-9" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="importing-and-wrangling-data.html#cb22-10" tabindex="-1"></a>p3_cider_factominer <span class="ot">&lt;-</span> <span class="fu">plot</span>(ca_cider)</span>
+<span id="cb22-11"><a href="importing-and-wrangling-data.html#cb22-11" tabindex="-1"></a>p3_cider_factominer</span></code></pre></div>
+<p><img src="02-import-wrangle-export_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>But there might be things about this we want to change! It would be very helpful to know, for example, that this is a <code>ggplot2</code> object that can be altered by a basic handful of standardized syntax. For example:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="importing-and-wrangling-data.html#cb23-1" tabindex="-1"></a>p3_cider_factominer <span class="sc">+</span></span>
+<span id="cb23-2"><a href="importing-and-wrangling-data.html#cb23-2" tabindex="-1"></a>  <span class="fu">theme_dark</span>() <span class="sc">+</span> </span>
+<span id="cb23-3"><a href="importing-and-wrangling-data.html#cb23-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">&quot;Now we can say some more things!&quot;</span>, </span>
+<span id="cb23-4"><a href="importing-and-wrangling-data.html#cb23-4" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;of 6 ciders tasted by 48 subjects&quot;</span>)</span></code></pre></div>
+<p><img src="02-import-wrangle-export_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Like I said, we’re not here to tell you <em>how</em> your plots should look…</p>
+<p>The motivating point, here, is to be able to make visualizations that accomplish what you want them to, rather than being at the mercy of packages that have certain defaults built in.</p>
+</div>
+</div>
+<div id="getting-data-into-r" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Getting data into <code>R</code><a href="importing-and-wrangling-data.html#getting-data-into-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before we’re able to analyze anything, we need to get data into <code>R</code>. In the workshop archive you downloaded, the <code>data/</code> directory has files called <code>clt-berry-data.csv</code> and <code>CiderDryness_SensoryDATA.csv</code>. These are the files that hold the raw data.</p>
+<div id="where-the-data-live" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Where the data live<a href="importing-and-wrangling-data.html#where-the-data-live" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To get these data into <code>R</code>, we need to briefly talk about <strong>working directories</strong> because this is how <code>R</code> “sees” your computer. It will look first in the working directory, and then you will have to tell it where the file is <em>relative</em> to that directory. If you have been following along and opened up the <code>.Rproj</code> file in the downloaded archive, your working directory should be the archive’s top level, which will mean that we only need to point <code>R</code> towards the <code>data/</code> folder and then the <code>clt-berry-data.csv</code> file. We can check the working directory with the <code>getwd()</code> function.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="importing-and-wrangling-data.html#cb24-1" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;C:/Users/lhamilton/Documents/sensometrics-r-tutorial-2024&quot;</code></pre>
+<p>Therefore, <strong>relative to the working directory</strong>, the file path to this data is <code>data/clt-berry-data.csv</code>. Please note that this is the UNIX convention for file paths: in Windows, the backslash <code>\</code> is used to separate directories. Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention (<code>/</code>) in this workshop.</p>
+</div>
+<div id="getting-different-kinds-of-files-into-r" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Getting different kinds of files into <code>R</code><a href="importing-and-wrangling-data.html#getting-different-kinds-of-files-into-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The first step is to notice this is a <code>.csv</code> file, which stands for <strong>c</strong>omma-<strong>s</strong>eparated <strong>v</strong>alue. This means our data, in raw format, looks something like this:</p>
+<pre><code># Comma-separated data (regarding Jake&#39;s cats)
+
+cat_acquisition_order,name,weight,age\n
+1,Nick,9,17\n
+2,Margot,7,16\n
+3,Little Guy,13,4\n</code></pre>
+<p>Each line represents a row of data, and each field is separated by a comma (<code>,</code>). We can read this kind of data into <code>R</code> by using the <code>read_csv()</code> function (this is a nicer version of the default <code>read.csv()</code> function, and we get access to it by loading <code>tidyverse</code> with <code>library(tidyverse)</code>).</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="importing-and-wrangling-data.html#cb27-1" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/clt-berry-data.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 7507 Columns: 92
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (7): Start Time (UTC), End Time (UTC), Sample Name, verbal_likes, verba...
+## dbl (83): Subject Code, Participant Name, Serving Position, Sample Identifie...
+## lgl  (2): Gender, Age
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 7,507 × 92
+##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
+##             &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;chr&gt;             
+##  1           1001               1001 NA     NA    6/13/2019 21:05   
+##  2           1001               1001 NA     NA    6/13/2019 20:55   
+##  3           1001               1001 NA     NA    6/13/2019 20:49   
+##  4           1001               1001 NA     NA    6/13/2019 20:45   
+##  5           1001               1001 NA     NA    6/13/2019 21:00   
+##  6           1001               1001 NA     NA    6/13/2019 21:10   
+##  7           1002               1002 NA     NA    6/13/2019 20:08   
+##  8           1002               1002 NA     NA    6/13/2019 19:57   
+##  9           1002               1002 NA     NA    6/13/2019 20:13   
+## 10           1002               1002 NA     NA    6/13/2019 20:03   
+## # ℹ 7,497 more rows
+## # ℹ 87 more variables: `End Time (UTC)` &lt;chr&gt;, `Serving Position` &lt;dbl&gt;,
+## #   `Sample Identifier` &lt;dbl&gt;, `Sample Name` &lt;chr&gt;, `9pt_appearance` &lt;dbl&gt;,
+## #   pre_expectation &lt;dbl&gt;, jar_color &lt;dbl&gt;, jar_gloss &lt;dbl&gt;, jar_size &lt;dbl&gt;,
+## #   cata_appearance_unevencolor &lt;dbl&gt;, cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="importing-and-wrangling-data.html#cb30-1" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/CiderDryness_SensoryDATA.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 288 Columns: 27
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (3): Sample_Name, Temperature, Panelist_Code
+## dbl (24): MerlynScale_Ranking, Fresh_Apples, Fermented, Herbal, Dry, Spice, ...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>## # A tibble: 288 × 27
+##    Sample_Name Temperature Panelist_Code MerlynScale_Ranking Fresh_Apples
+##    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;                       &lt;dbl&gt;        &lt;dbl&gt;
+##  1 1911 Est.   Chilled     001                           2.3            1
+##  2 Buskey      Chilled     001                           3.5            1
+##  3 Eden        Chilled     001                           2.8            0
+##  4 1911 Est.   RT          001                           4.2            0
+##  5 Buskey      RT          001                           2              0
+##  6 Eden        RT          001                           4              0
+##  7 1911 Est.   Chilled     002                           3              1
+##  8 Buskey      Chilled     002                           3.3            0
+##  9 Eden        Chilled     002                           3.5            1
+## 10 1911 Est.   RT          002                           4.5            0
+## # ℹ 278 more rows
+## # ℹ 22 more variables: Fermented &lt;dbl&gt;, Herbal &lt;dbl&gt;, Dry &lt;dbl&gt;, Spice &lt;dbl&gt;,
+## #   Fruity &lt;dbl&gt;, Smooth &lt;dbl&gt;, Alcohol &lt;dbl&gt;, Light &lt;dbl&gt;, Sweet &lt;dbl&gt;,
+## #   Woody &lt;dbl&gt;, Berries &lt;dbl&gt;, Sour &lt;dbl&gt;, Funky &lt;dbl&gt;, FullBodied &lt;dbl&gt;,
+## #   Metallic &lt;dbl&gt;, Floral &lt;dbl&gt;, Candy &lt;dbl&gt;, Bitter &lt;dbl&gt;, Vomit &lt;dbl&gt;,
+## #   Earthy &lt;dbl&gt;, Synthetic &lt;dbl&gt;, Liking &lt;dbl&gt;</code></pre>
+<p>Remember that we need to store objects in the Environment if we want to access and modify them. Therefore, we need to remember to store these somewhere.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="importing-and-wrangling-data.html#cb33-1" tabindex="-1"></a>raw_berry_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/clt-berry-data.csv&quot;</span>)</span>
+<span id="cb33-2"><a href="importing-and-wrangling-data.html#cb33-2" tabindex="-1"></a>raw_cider_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">&quot;data/CiderDryness_SensoryDATA.csv&quot;</span>)</span></code></pre></div>
+<p>As a note, in many countries the separator (delimiter) will be the semi-colon (<code>;</code>), since the comma is used as the decimal marker. To read files formatted this way, you can use the <code>read_csv2()</code> function. If you encounter tab-separated values files (<code>.tsv</code>) you can use the <code>read_tsv()</code> function. If you have more non-standard delimiters, you can use the <code>read_delim()</code> function, which will allow you to specify your own delimiter characters. Excel stores data by default in the <code>.xlsx</code> format, which can be read by installing and using the <code>readxl</code> package (or saving Excel data as <code>.csv</code>). You can also read many other formats of tabular data using the <code>rio</code> package (“read input/output”), which can be installed from CRAN (using, as you have learned, <code>install.packages("rio")</code>).</p>
+<p>The <code>read_csv()</code> function creates a type of object in <code>R</code> called a <code>tibble</code>, which is a special type of <code>data.frame</code>. These are rectangular “spreadsheet-like” objects like you would encounter in Excel or manipulate in JMP or SPSS.</p>
+<p>We can learn more about the objects we just created by either examining them in the <code>Environment</code> tab or, preferably, using the <code>glimpse()</code> function to get a look at what we have (note that <code>glimpse()</code> comes from <code>tidyverse</code>; if you don’t load it by running <code>library(tidyverse)</code> earlier in your session you will get an error).</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="importing-and-wrangling-data.html#cb34-1" tabindex="-1"></a><span class="fu">glimpse</span>(raw_berry_data)</span></code></pre></div>
+<pre><code>## Rows: 7,507
+## Columns: 92
+## $ `Subject Code`              &lt;dbl&gt; 1001, 1001, 1001, 1001, 1001, 1001, 1002, …
+## $ `Participant Name`          &lt;dbl&gt; 1001, 1001, 1001, 1001, 1001, 1001, 1002, …
+## $ Gender                      &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ Age                         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ `Start Time (UTC)`          &lt;chr&gt; &quot;6/13/2019 21:05&quot;, &quot;6/13/2019 20:55&quot;, &quot;6/1…
+## $ `End Time (UTC)`            &lt;chr&gt; &quot;6/13/2019 21:09&quot;, &quot;6/13/2019 20:59&quot;, &quot;6/1…
+## $ `Serving Position`          &lt;dbl&gt; 5, 3, 2, 1, 4, 6, 3, 1, 4, 2, 6, 5, 2, 4, …
+## $ `Sample Identifier`         &lt;dbl&gt; 1426, 3167, 4624, 5068, 7195, 9161, 1426, …
+## $ `Sample Name`               &lt;chr&gt; &quot;raspberry 6&quot;, &quot;raspberry 5&quot;, &quot;raspberry 2…
+## $ `9pt_appearance`            &lt;dbl&gt; 4, 8, 4, 7, 7, 7, 6, 8, 8, 7, 9, 8, 5, 5, …
+## $ pre_expectation             &lt;dbl&gt; 2, 4, 2, 4, 3, 4, 2, 3, 5, 3, 4, 5, 3, 3, …
+## $ jar_color                   &lt;dbl&gt; 2, 3, 2, 2, 4, 4, 2, 3, 3, 2, 3, 4, 3, 3, …
+## $ jar_gloss                   &lt;dbl&gt; 4, 3, 2, 3, 3, 3, 4, 3, 4, 4, 2, 4, 3, 3, …
+## $ jar_size                    &lt;dbl&gt; 2, 3, 3, 4, 3, 3, 4, 3, 5, 3, 3, 4, 3, 3, …
+## $ cata_appearance_unevencolor &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, …
+## $ cata_appearance_misshapen   &lt;dbl&gt; 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, …
+## $ cata_appearance_creased     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, …
+## $ cata_appearance_seedy       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ cata_appearance_bruised     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, …
+## $ cata_appearance_notfresh    &lt;dbl&gt; 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, …
+## $ cata_appearance_fresh       &lt;dbl&gt; 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, …
+## $ cata_appearance_goodshape   &lt;dbl&gt; 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, …
+## $ cata_appearance_goodquality &lt;dbl&gt; 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, …
+## $ cata_appearance_none        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ `9pt_overall`               &lt;dbl&gt; 4, 9, 3, 7, 4, 4, 4, 7, 7, 9, 7, 2, 8, 7, …
+## $ verbal_likes                &lt;chr&gt; &quot;Out of the two, there was one that had a …
+## $ verbal_dislikes             &lt;chr&gt; &quot;There were different flavors coming from …
+## $ `9pt_taste`                 &lt;dbl&gt; 4, 9, 3, 6, 3, 3, 4, 4, 6, 9, 6, 2, 8, 7, …
+## $ grid_sweetness              &lt;dbl&gt; 3, 6, 3, 6, 2, 3, 3, 2, 2, 6, 4, 1, 6, 4, …
+## $ grid_tartness               &lt;dbl&gt; 6, 5, 5, 3, 5, 6, 5, 5, 5, 2, 2, 7, 4, 5, …
+## $ grid_raspberryflavor        &lt;dbl&gt; 4, 7, 2, 6, 2, 3, 2, 6, 2, 7, 2, 2, 6, 5, …
+## $ jar_sweetness               &lt;dbl&gt; 2, 3, 2, 3, 2, 1, 1, 1, 1, 3, 2, 1, 3, 3, …
+## $ jar_tartness                &lt;dbl&gt; 4, 3, 3, 3, 4, 5, 4, 4, 4, 3, 4, 5, 3, 3, …
+## $ cata_taste_floral           &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, …
+## $ cata_taste_berry            &lt;dbl&gt; 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, …
+## $ cata_taste_green            &lt;dbl&gt; 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, …
+## $ cata_taste_grassy           &lt;dbl&gt; 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, …
+## $ cata_taste_fermented        &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ cata_taste_tropical         &lt;dbl&gt; 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, …
+## $ cata_taste_fruity           &lt;dbl&gt; 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, …
+## $ cata_taste_citrus           &lt;dbl&gt; 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, …
+## $ cata_taste_earthy           &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, …
+## $ cata_taste_candy            &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, …
+## $ cata_taste_none             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ `9pt_texture`               &lt;dbl&gt; 6, 8, 2, 8, 5, 6, 6, 9, 8, 7, 7, 7, 8, 7, …
+## $ grid_seediness              &lt;dbl&gt; 3, 5, 6, 3, 5, 5, 6, 4, 6, 5, 6, 5, 4, 4, …
+## $ grid_firmness               &lt;dbl&gt; 5, 5, 5, 2, 6, 5, 5, 6, 5, 3, 5, 5, 4, 5, …
+## $ grid_juiciness              &lt;dbl&gt; 2, 5, 2, 2, 2, 4, 2, 4, 2, 3, 3, 2, 6, 5, …
+## $ jar_firmness                &lt;dbl&gt; 3, 3, 4, 2, 4, 3, 3, 3, 3, 2, 3, 3, 3, 3, …
+## $ jar_juciness                &lt;dbl&gt; 2, 3, 1, 2, 2, 2, 1, 2, 1, 3, 2, 1, 3, 3, …
+## $ post_expectation            &lt;dbl&gt; 1, 5, 2, 4, 2, 2, 2, 2, 2, 5, 2, 1, 4, 3, …
+## $ price                       &lt;dbl&gt; 1.99, 4.99, 2.99, 4.99, 2.99, 3.99, 3.99, …
+## $ product_tier                &lt;dbl&gt; 1, 3, 2, 3, 1, 2, 2, 2, 1, 3, 2, 1, 2, 2, …
+## $ purchase_intent             &lt;dbl&gt; 1, 5, 2, 4, 2, 2, 3, 4, 2, 5, 3, 1, 5, 5, …
+## $ subject                     &lt;dbl&gt; 1031946, 1031946, 1031946, 1031946, 103194…
+## $ test_day                    &lt;chr&gt; &quot;Raspberry Day 1&quot;, &quot;Raspberry Day 1&quot;, &quot;Ras…
+## $ us_appearance               &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ us_overall                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ us_taste                    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ us_texture                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_appearance              &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_overall                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_taste                   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_texture                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearane_bruised      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearance_goodshapre  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearance_goodcolor   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ grid_blackberryflavor       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_cinnamon         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_lemon            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_clove            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_minty            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_grape            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ grid_crispness              &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ jar_crispness               &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ jar_juiciness               &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearane_creased      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ grid_blueberryflavor        &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_piney            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_peachy           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ `9pt_aroma`                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ grid_strawberryflavor       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_caramel          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_grapey           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_melon            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_cherry           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ grid_crunchiness            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ jar_crunch                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ us_aroma                    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_aroma                   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ berry                       &lt;chr&gt; &quot;raspberry&quot;, &quot;raspberry&quot;, &quot;raspberry&quot;, &quot;ra…
+## $ sample                      &lt;dbl&gt; 6, 5, 2, 3, 4, 1, 6, 5, 2, 3, 4, 1, 6, 5, …</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="importing-and-wrangling-data.html#cb36-1" tabindex="-1"></a><span class="fu">glimpse</span>(raw_cider_data)</span></code></pre></div>
+<pre><code>## Rows: 288
+## Columns: 27
+## $ Sample_Name         &lt;chr&gt; &quot;1911 Est.&quot;, &quot;Buskey&quot;, &quot;Eden&quot;, &quot;1911 Est.&quot;, &quot;Buske…
+## $ Temperature         &lt;chr&gt; &quot;Chilled&quot;, &quot;Chilled&quot;, &quot;Chilled&quot;, &quot;RT&quot;, &quot;RT&quot;, &quot;RT&quot;,…
+## $ Panelist_Code       &lt;chr&gt; &quot;001&quot;, &quot;001&quot;, &quot;001&quot;, &quot;001&quot;, &quot;001&quot;, &quot;001&quot;, &quot;002&quot;, &quot;…
+## $ MerlynScale_Ranking &lt;dbl&gt; 2.3, 3.5, 2.8, 4.2, 2.0, 4.0, 3.0, 3.3, 3.5, 4.5, …
+## $ Fresh_Apples        &lt;dbl&gt; 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0,…
+## $ Fermented           &lt;dbl&gt; 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0,…
+## $ Herbal              &lt;dbl&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,…
+## $ Dry                 &lt;dbl&gt; 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Spice               &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Fruity              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1,…
+## $ Smooth              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Alcohol             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Light               &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,…
+## $ Sweet               &lt;dbl&gt; 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0,…
+## $ Woody               &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Berries             &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Sour                &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,…
+## $ Funky               &lt;dbl&gt; 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,…
+## $ FullBodied          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,…
+## $ Metallic            &lt;dbl&gt; 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,…
+## $ Floral              &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0,…
+## $ Candy               &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,…
+## $ Bitter              &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Vomit               &lt;dbl&gt; 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Earthy              &lt;dbl&gt; 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Synthetic           &lt;dbl&gt; 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,…
+## $ Liking              &lt;dbl&gt; 6, 7, 4, 2, 7, 5, 8, 6, 7, 3, 4, 4, 7, 6, 5, 6, 4,…</code></pre>
+<p>This tells us how many rows we have, what the names of our columns (variables) are, what kind of column they are (numeric, character, logical, etc), and a preview of the first few entres in each column.</p>
+</div>
+</div>
+<div id="wrangling-selecting-filtering-reshaping-data" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Wrangling (selecting, filtering, reshaping) data<a href="importing-and-wrangling-data.html#wrangling-selecting-filtering-reshaping-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Our students often tell us that the hardest part of data analysis and visualization is getting data into the tool you want to use (here <code>R</code>) and into the right “shape” for the relevant analysis. We tend to agree: a common saying in data science is that about 90% of the effort in an analysis workflow is in getting data wrangled into the right format and shape, and 10% is actual analysis. In a point and click program like SPSS or XLSTAT we don’t think about this as much because the activity of reshaping the data–making it longer or wider as required, finding and cleaning missing values, selecting columns or rows, etc–is often temporally and programmatically separated from the “actual” analysis.</p>
+<p>In <code>R</code>, this can feel a bit different because we are using the same interface to manipulate our data and to analyze it. Sometimes we’ll want to jump back out to a spreadsheet program like Excel or even the command line (the “shell” like <code>bash</code> or <code>zsh</code>) to make some changes. But in general the tools for manipulating data in <code>R</code> are both more powerful and more easily used than doing these activities by hand, and you will make yourself a much more effective analyst by mastering these basic tools.</p>
+<p>Here, we are going to emphasize the set of tools from the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, which are extensively documented in Hadley Wickham and Garrett Grolemund’s book <a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a>. If you want to learn more, start there!</p>
+<div class="float">
+<img src="img/tidyverse-iconography.png" alt="The tidyverse is associated with this hexagonal iconography." />
+<div class="figcaption">The <code>tidyverse</code> is associated with this hexagonal iconography.</div>
+</div>
+<p>If you’re at all familiar with <code>R</code>, you will have learned about subsetting <code>R</code> objects like lists and data frames using operators like <code>[</code> or <code>[[</code> and logical comparisons like <code>x &lt; 10</code>. If you are used to code conventions, this is a great system! However, for people who are less familiar with coding, these are often difficult to parse and to remember. So in this workshop we’re going to assume you’ve been exposed to this information, and we’re not going to use or focus on it very much; instead, we’re going to look at the tools within the <code>tidyverse</code> that accomplish the same things in–we think!–a much easier to parse and remember fashion.</p>
+<div id="the-pipe-for-multiple-steps-in-a-workflow" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> The “pipe” for multiple steps in a workflow: <code>%&gt;%</code><a href="importing-and-wrangling-data.html#the-pipe-for-multiple-steps-in-a-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While I am not going to go over much of the base <code>R</code> syntax, I want to talk about one particular tool that is becoming standard in modern <code>R</code> coding: the <strong>pipe</strong>, which is written in <code>tidyverse</code> as <code>%&gt;%</code>. This garbage-looking set of symbols is actually your best friend, you just don’t know it yet. I use this tool constantly in my R programming.</p>
+<p>OK, enough background, what the heck <em>is</em> a pipe? The term “pipe” comes from what it does: like a pipe, <code>%&gt;%</code> lets whatever is on its left side flow through to the right hand side. It is easiest to read <code>%&gt;%</code> as “<strong>AND THEN</strong>”.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="importing-and-wrangling-data.html#cb38-1" tabindex="-1"></a>raw_berry_data <span class="sc">%&gt;%</span>                         <span class="co"># Start with the berry_data</span></span>
+<span id="cb38-2"><a href="importing-and-wrangling-data.html#cb38-2" tabindex="-1"></a>  <span class="fu">filter</span>(berry <span class="sc">==</span> <span class="st">&quot;blackberry&quot;</span>) <span class="sc">%&gt;%</span>        <span class="co"># AND THEN filter to blackberries</span></span>
+<span id="cb38-3"><a href="importing-and-wrangling-data.html#cb38-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Sample Name</span><span class="st">`</span>,                    <span class="co"># AND THEN select sample name, overall liking...</span></span>
+<span id="cb38-4"><a href="importing-and-wrangling-data.html#cb38-4" tabindex="-1"></a>         <span class="fu">contains</span>(<span class="st">&quot;_overall&quot;</span>), </span>
+<span id="cb38-5"><a href="importing-and-wrangling-data.html#cb38-5" tabindex="-1"></a>         <span class="fu">contains</span>(<span class="st">&quot;cata_&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 1,495 × 40
+##    `Sample Name` `9pt_overall` us_overall lms_overall cata_appearance_unevenco…¹
+##    &lt;chr&gt;                 &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;                      &lt;dbl&gt;
+##  1 Blackberry 4              2         NA          NA                          0
+##  2 Blackberry 2              5         NA          NA                          0
+##  3 Blackberry 1              8         NA          NA                          0
+##  4 Blackberry 3              6         NA          NA                          0
+##  5 Blackberry 5              8         NA          NA                          0
+##  6 Blackberry 4              6         NA          NA                          0
+##  7 Blackberry 2              1         NA          NA                          0
+##  8 Blackberry 1              8         NA          NA                          0
+##  9 Blackberry 3              8         NA          NA                          0
+## 10 Blackberry 5              8         NA          NA                          0
+## # ℹ 1,485 more rows
+## # ℹ abbreviated name: ¹​cata_appearance_unevencolor
+## # ℹ 35 more variables: cata_appearance_misshapen &lt;dbl&gt;,
+## #   cata_appearance_creased &lt;dbl&gt;, cata_appearance_seedy &lt;dbl&gt;,
+## #   cata_appearance_bruised &lt;dbl&gt;, cata_appearance_notfresh &lt;dbl&gt;,
+## #   cata_appearance_fresh &lt;dbl&gt;, cata_appearance_goodshape &lt;dbl&gt;,
+## #   cata_appearance_goodquality &lt;dbl&gt;, cata_appearance_none &lt;dbl&gt;, …</code></pre>
+<p>Typing <code>%&gt;%</code> is no fun. But, happily, RStudio builds in a shortcut for you: macOS is <code>cmd + shift + M</code>, Windows is <code>ctrl + shift + M</code>.</p>
+<p>Please note that since <code>R</code> 4.1, a <em>native</em> pipe has been implemented (you don’t need to load <code>tidyverse</code> for it to work), which is written as <code>|&gt;</code>. If you are new to using pipes, you can pretty safely use either one that you prefer, and you can configure the keyboard shortcuts above to use either the native or <code>tidyverse</code> pipe. The default depends on your version of Rstudio. If you want to learn details, <a href="https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/">this article is helpful</a>.</p>
+<p><strong>TL;DR</strong>: The pipe lets us quickly write functional workflows without saving a lot of intermediate steps. We’re going to use it a lot in the following examples, and I’ll call it out the first few times so that you can get the hang of it.</p>
+</div>
+<div id="subsetting-your-data" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Subsetting your data<a href="importing-and-wrangling-data.html#subsetting-your-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The first thing you’ll notice about our <code>raw_berry_data</code> in particular is that it is <em>full</em> of information we don’t need! A common situation in R is wanting to select some rows and some columns of our data–this is called “<strong>subsetting</strong>” our data. But this is less easy than it might be for the beginner in R. Happily, the <code>tidverse</code> methods are much easier to read (and modeled after syntax from <strong>SQL</strong>, which may be helpful for some users).</p>
+<div id="selecting-certain-columns-select" class="section level4 hasAnchor" number="2.3.2.1">
+<h4><span class="header-section-number">2.3.2.1</span> Selecting certain columns: <code>select()</code><a href="importing-and-wrangling-data.html#selecting-certain-columns-select" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The first thing we did in our code to wrangle our <a href="importing-and-wrangling-data.html#berries"><code>raw_berry_data</code></a> into something useful was to determine that a number of columns were not necessary. We really only want the subject ID, the sample ID columns, and the CATA and the liking data. The rest of the data is either metadata (test date, etc) or other kinds of data that are not relevant to our analysis. We want to get rid of these.</p>
+<p>The <code>tidyverse::select()</code> function (we write <code>[package]::[function]</code> to explicitly describe where a function comes from) lets us select columns in a rectangular data frame (like <code>.csv</code> and other spreadsheets) by name, position, or logical criteria. The subject ID is stored in a column called <code>Subject Code</code>, and the berry information is stored in two columns: <code>berry</code> and <code>sample</code>, indicating what kind of berry and what sample # it is.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="importing-and-wrangling-data.html#cb40-1" tabindex="-1"></a>raw_berry_data <span class="sc">%&gt;%</span>        <span class="co"># We start with our raw_berry_data frame</span></span>
+<span id="cb40-2"><a href="importing-and-wrangling-data.html#cb40-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>,  <span class="co"># AND THEN we select these 3 columns</span></span>
+<span id="cb40-3"><a href="importing-and-wrangling-data.html#cb40-3" tabindex="-1"></a>         berry,</span>
+<span id="cb40-4"><a href="importing-and-wrangling-data.html#cb40-4" tabindex="-1"></a>         sample) <span class="sc">%&gt;%</span>      <span class="co"># AND THEN we use glimpse() to get a quick summary</span></span>
+<span id="cb40-5"><a href="importing-and-wrangling-data.html#cb40-5" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<pre><code>## Rows: 7,507
+## Columns: 3
+## $ `Subject Code` &lt;dbl&gt; 1001, 1001, 1001, 1001, 1001, 1001, 1002, 1002, 1002, 1…
+## $ berry          &lt;chr&gt; &quot;raspberry&quot;, &quot;raspberry&quot;, &quot;raspberry&quot;, &quot;raspberry&quot;, &quot;ra…
+## $ sample         &lt;dbl&gt; 6, 5, 2, 3, 4, 1, 6, 5, 2, 3, 4, 1, 6, 5, 2, 3, 4, 1, 6…</code></pre>
+<p>Now we only have these 3 columns!</p>
+<p><strong>An aside:</strong> Note the way that <code>Subject Code</code> is written: as <code>`Subject Code`</code>. This is because <code>R</code> will see some characters, including (but not limited to) white space (<code></code>), leading numbers (starting with <code>1-9</code>), and special characters (like <code>,</code> or <code>:</code>), as indications that the variable name has ended. We can refer to these strange column names by using the <strong>back-tick</strong> operator <code>`</code> to escape the normal naming conventions. This happens often when, as we did here, we import data that wasn’t made in <code>R</code>, like many <code>.csv</code> files. It is a pain to type back-ticks, but the <code>tab</code>-completion behavior we set up makes this easier.</p>
+<p>To return to selection, we also want overall liking data and we want CATA variables. There are a lot of these, and typing them out individually in <code>select()</code> would be a pain. Luckily, there are a set of special functions for use within <code>select()</code> (and other <code>tidyverse</code> functions) that let us use logical operators to select ranges of columns/variables You can learn about them using the <code>?select</code> command to get the help file.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="importing-and-wrangling-data.html#cb42-1" tabindex="-1"></a>berry_columns <span class="ot">&lt;-</span> </span>
+<span id="cb42-2"><a href="importing-and-wrangling-data.html#cb42-2" tabindex="-1"></a>  raw_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="importing-and-wrangling-data.html#cb42-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Subject Code</span><span class="st">`</span>,</span>
+<span id="cb42-4"><a href="importing-and-wrangling-data.html#cb42-4" tabindex="-1"></a>         berry,</span>
+<span id="cb42-5"><a href="importing-and-wrangling-data.html#cb42-5" tabindex="-1"></a>         sample,</span>
+<span id="cb42-6"><a href="importing-and-wrangling-data.html#cb42-6" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">&quot;cata&quot;</span>),    <span class="co"># select columns whose names start with &quot;cata&quot;</span></span>
+<span id="cb42-7"><a href="importing-and-wrangling-data.html#cb42-7" tabindex="-1"></a>         <span class="fu">contains</span>(<span class="st">&quot;overall&quot;</span>))    <span class="co"># select columns whose names contain &quot;overall&quot;</span></span>
+<span id="cb42-8"><a href="importing-and-wrangling-data.html#cb42-8" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="importing-and-wrangling-data.html#cb42-9" tabindex="-1"></a>berry_columns <span class="sc">%&gt;%</span></span>
+<span id="cb42-10"><a href="importing-and-wrangling-data.html#cb42-10" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<pre><code>## Rows: 7,507
+## Columns: 42
+## $ `Subject Code`              &lt;dbl&gt; 1001, 1001, 1001, 1001, 1001, 1001, 1002, …
+## $ berry                       &lt;chr&gt; &quot;raspberry&quot;, &quot;raspberry&quot;, &quot;raspberry&quot;, &quot;ra…
+## $ sample                      &lt;dbl&gt; 6, 5, 2, 3, 4, 1, 6, 5, 2, 3, 4, 1, 6, 5, …
+## $ cata_appearance_unevencolor &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, …
+## $ cata_appearance_misshapen   &lt;dbl&gt; 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, …
+## $ cata_appearance_creased     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, …
+## $ cata_appearance_seedy       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ cata_appearance_bruised     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, …
+## $ cata_appearance_notfresh    &lt;dbl&gt; 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, …
+## $ cata_appearance_fresh       &lt;dbl&gt; 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, …
+## $ cata_appearance_goodshape   &lt;dbl&gt; 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, …
+## $ cata_appearance_goodquality &lt;dbl&gt; 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, …
+## $ cata_appearance_none        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ cata_taste_floral           &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, …
+## $ cata_taste_berry            &lt;dbl&gt; 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, …
+## $ cata_taste_green            &lt;dbl&gt; 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, …
+## $ cata_taste_grassy           &lt;dbl&gt; 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, …
+## $ cata_taste_fermented        &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ cata_taste_tropical         &lt;dbl&gt; 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, …
+## $ cata_taste_fruity           &lt;dbl&gt; 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, …
+## $ cata_taste_citrus           &lt;dbl&gt; 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, …
+## $ cata_taste_earthy           &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, …
+## $ cata_taste_candy            &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, …
+## $ cata_taste_none             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ cata_appearane_bruised      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearance_goodshapre  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearance_goodcolor   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_cinnamon         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_lemon            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_clove            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_minty            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_grape            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_appearane_creased      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_piney            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_peachy           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_caramel          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_grapey           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_melon            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ cata_taste_cherry           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ `9pt_overall`               &lt;dbl&gt; 4, 9, 3, 7, 4, 4, 4, 7, 7, 9, 7, 2, 8, 7, …
+## $ us_overall                  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ lms_overall                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+<p>Because I am intimately familiar with these data, I know that all of the CATA variables were stored in columns starting with <code>"cata"</code>, and that ratings for overall acceptability were stored in columns that had <code>"overall"</code> somewhere in their name.</p>
+<p>Unlike in our original workflow, we have created an intermediate data frame called <code>berry_columns</code> to save us from repeating steps. But, as above in the original workflow, there is no reason we need to do this.</p>
+<p>In our workflow above, note that our <a href="importing-and-wrangling-data.html#cider">cider data</a> came to us pretty clean; we are not using <code>select()</code> anywhere to discard columns.</p>
+</div>
+<div id="filtering-certain-rows-filter" class="section level4 hasAnchor" number="2.3.2.2">
+<h4><span class="header-section-number">2.3.2.2</span> Filtering certain rows: <code>filter()</code><a href="importing-and-wrangling-data.html#filtering-certain-rows-filter" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Frequently we only want to select some of our observations, which are typically stored in the rows in our rectangular data frames. <code>select()</code> won’t help us here, but its row-wise cousin, <code>filter()</code>, lets us filter down to only rows that meet some logical criteria. While you will notice that we do not use <code>filter()</code> on either the <a href="importing-and-wrangling-data.html#cider">cider</a> or the <a href="#berry">berry</a> data above–we want to retain all of our observations in this case–it is easy to imagine situations in which we might want to only inspect a subset of our data.</p>
+<p>For example, in the berry data, perhaps we want to separate out our observations on raspberries from all of our other data.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="importing-and-wrangling-data.html#cb44-1" tabindex="-1"></a>raw_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="importing-and-wrangling-data.html#cb44-2" tabindex="-1"></a>  <span class="fu">distinct</span>(berry)                   <span class="co"># distinct() gives all unique value combinations</span></span></code></pre></div>
+<pre><code>## # A tibble: 4 × 1
+##   berry     
+##   &lt;chr&gt;     
+## 1 raspberry 
+## 2 blackberry
+## 3 blueberry 
+## 4 strawberry</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="importing-and-wrangling-data.html#cb46-1" tabindex="-1"></a><span class="co"># of the variables it is provided</span></span>
+<span id="cb46-2"><a href="importing-and-wrangling-data.html#cb46-2" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="importing-and-wrangling-data.html#cb46-3" tabindex="-1"></a>raw_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb46-4"><a href="importing-and-wrangling-data.html#cb46-4" tabindex="-1"></a>  <span class="fu">filter</span>(berry <span class="sc">==</span> <span class="st">&quot;raspberry&quot;</span>) <span class="sc">%&gt;%</span>  <span class="co"># we filter to only rows where the berry variable</span></span>
+<span id="cb46-5"><a href="importing-and-wrangling-data.html#cb46-5" tabindex="-1"></a>  <span class="fu">distinct</span>(berry)                   <span class="co"># is equal to &quot;raspberry&quot;</span></span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   berry    
+##   &lt;chr&gt;    
+## 1 raspberry</code></pre>
+<p>We can use <code>filter()</code> to get rows according to more complex criteria than the basic comparison operators in <code>R</code> (e.g., <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, etc). I want to highlight two basic functions that are extremely useful here.</p>
+<p>First, the <code>%in%</code> operator will search for whatever is on the left-hand side within the vector provided right-hand side. This is especially useful when we don’t want to build a complicated Boolean search from those comparisons (using <code>&amp;</code>, <code>|</code>, etc). If we want to get both raspberries and blackberries, we can write:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="importing-and-wrangling-data.html#cb48-1" tabindex="-1"></a>raw_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="importing-and-wrangling-data.html#cb48-2" tabindex="-1"></a>  <span class="fu">filter</span>(berry <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;raspberry&quot;</span>, <span class="st">&quot;blackberry&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="importing-and-wrangling-data.html#cb48-3" tabindex="-1"></a>  <span class="fu">distinct</span>(berry)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 1
+##   berry     
+##   &lt;chr&gt;     
+## 1 raspberry 
+## 2 blackberry</code></pre>
+<p>Second, since frequently we are using <code>filter()</code> to get rows that meet some criteria stored in categorical variables, the <code>str_detect()</code> function from <code>stringr</code> (a package within the <code>tidyverse</code>) is extremely useful, along with its cousins <code>str_starts()</code> and <code>str_ends()</code>. Let’s say we want to get the second test day for each berry. We can accomplish this by searching for “Day 2” in the text of the <code>test_day</code> variable.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="importing-and-wrangling-data.html#cb50-1" tabindex="-1"></a>raw_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="importing-and-wrangling-data.html#cb50-2" tabindex="-1"></a>  <span class="fu">distinct</span>(test_day)</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 1
+##    test_day        
+##    &lt;chr&gt;           
+##  1 Raspberry Day 1 
+##  2 Raspberry Day 2 
+##  3 Raspberry Day 3 
+##  4 Blackberry Day 1
+##  5 Blackberry Day 2
+##  6 Blackberry Day 3
+##  7 Blueberry Day 1 
+##  8 Blueberry Day 2 
+##  9 Blueberry Day 3 
+## 10 Strawberry Day 1
+## 11 Strawberry Day 2
+## 12 Strawberry Day 3</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="importing-and-wrangling-data.html#cb52-1" tabindex="-1"></a>raw_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="importing-and-wrangling-data.html#cb52-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(test_day, <span class="st">&quot;Day 2&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb52-3"><a href="importing-and-wrangling-data.html#cb52-3" tabindex="-1"></a>  <span class="fu">distinct</span>(test_day)</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 1
+##   test_day        
+##   &lt;chr&gt;           
+## 1 Raspberry Day 2 
+## 2 Blackberry Day 2
+## 3 Blueberry Day 2 
+## 4 Strawberry Day 2</code></pre>
+<p>The combination of <code>filter()</code> and <code>select()</code> goes a long way to helping us wrangle our data into the right shape for our analyses.</p>
+</div>
+</div>
+<div id="reshaping-your-data" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Reshaping your data<a href="importing-and-wrangling-data.html#reshaping-your-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>At this point, we’ve gotten data into <code>R</code> and applied some tools to select and filter only relevant variables and observations. However, we often find that our raw data needs to be actively transformed for analysis. We might find that we need to do simple operations like calculate new quantities based on our raw measurements, convert units, or create new indicator variables. All of these operations require us to look at existing variables and create new variables <em>based on</em> those existing variables/columns.</p>
+<p>We also might notice that we are storing our data in a format that doesn’t work for us. You might be familiar with the idea of <a href="https://en.wikipedia.org/wiki/Pivot_table">pivot tables</a>, especially from Excel. We often find that our data is in “wide” format when we need it to be “long”, or vice-versa. While this seems different from creating new variables, pivoting operations also look at the structure of data (how cells are created at the intersection of rows and columns) to create new rows or new columns.</p>
+<div id="creating-new-columns-mutate" class="section level4 hasAnchor" number="2.3.3.1">
+<h4><span class="header-section-number">2.3.3.1</span> Creating new columns: <code>mutate()</code><a href="importing-and-wrangling-data.html#creating-new-columns-mutate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Let’s start with the simpler operation: creating new columns (variables) based on existing ones.</p>
+<p>We do this above in our workflow <code>mutate()</code>. Often, we want to create a new column temporarily, or to combine several existing columns. We can do this using the <code>mutate()</code> function. Let’s (for the moment) only consider the 9-pt hedonic scale, and create a variable that tells us whether the rating is higher than some cutoff (say 6/9, a common cutoff).</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="importing-and-wrangling-data.html#cb54-1" tabindex="-1"></a>berry_columns <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="importing-and-wrangling-data.html#cb54-2" tabindex="-1"></a>  <span class="fu">select</span>(berry, sample, <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>) <span class="sc">%&gt;%</span>  <span class="co"># we select these for easy printing</span></span>
+<span id="cb54-3"><a href="importing-and-wrangling-data.html#cb54-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">good =</span> <span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 4
+##    berry     sample `9pt_overall` good 
+##    &lt;chr&gt;      &lt;dbl&gt;         &lt;dbl&gt; &lt;lgl&gt;
+##  1 raspberry      6             4 FALSE
+##  2 raspberry      5             9 TRUE 
+##  3 raspberry      2             3 FALSE
+##  4 raspberry      3             7 TRUE 
+##  5 raspberry      4             4 FALSE
+##  6 raspberry      1             4 FALSE
+##  7 raspberry      6             4 FALSE
+##  8 raspberry      5             7 TRUE 
+##  9 raspberry      2             7 TRUE 
+## 10 raspberry      3             9 TRUE 
+## # ℹ 7,497 more rows</code></pre>
+<p>Note the syntax above: in <code>mutate()</code>, we put the name of the variable we want to create (or change) on the left hand side of an assignment <code>=</code> operator, and then on the right-hand side we describe (in <code>R</code> code) how to define the new variable.</p>
+<p>Frequently, we want to update existing variables. We can do this by providing an existing column name on the left-hand side.</p>
+<p>In our <a href="#berry">berry</a> workflow, we can observe that we have 3 (!) different columns measuring overall liking: <code>9pt_overall</code>, <code>lms_overall</code>, and <code>us_overall</code>. Part of the original experiment was to compare the performance of 3 different hedonic scales (the 9-pt hedonic scale, the Labeled Affective Magnitude scale (mislabeled here as LMS), and an unstructured line scale). We found that these scales didn’t make a huge difference, so now we’d like to combine our data to improve our overall power.</p>
+<p>But this is a problem: the 9-pt scale has a range of <span class="math inline">\([1,9]\)</span> LAM has a range of <span class="math inline">\([-100,100]\)</span>, and the unstructured line scale has a range of <span class="math inline">\([0,15]\)</span>. We need to rescale the data to a consistent metric.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="importing-and-wrangling-data.html#cb56-1" tabindex="-1"></a>berry_columns <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="importing-and-wrangling-data.html#cb56-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lms_overall =</span> (lms_overall <span class="sc">+</span> <span class="dv">100</span>) <span class="sc">*</span> (<span class="dv">8</span> <span class="sc">/</span> <span class="dv">200</span>) <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb56-3"><a href="importing-and-wrangling-data.html#cb56-3" tabindex="-1"></a>         <span class="at">us_overall =</span> (us_overall <span class="sc">+</span> <span class="dv">0</span>) <span class="sc">*</span> (<span class="dv">8</span> <span class="sc">/</span> <span class="dv">15</span>) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-4"><a href="importing-and-wrangling-data.html#cb56-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, lms_overall, us_overall) <span class="sc">%&gt;%</span></span>
+<span id="cb56-5"><a href="importing-and-wrangling-data.html#cb56-5" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##   9pt_overall     lms_overall     us_overall   
+##  Min.   :1.000   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:4.000   1st Qu.:4.64   1st Qu.:4.200  
+##  Median :6.000   Median :6.04   Median :5.800  
+##  Mean   :5.679   Mean   :5.81   Mean   :5.529  
+##  3rd Qu.:7.000   3rd Qu.:7.24   3rd Qu.:6.867  
+##  Max.   :9.000   Max.   :9.00   Max.   :9.000  
+##  NA&#39;s   :5062    NA&#39;s   :5005   NA&#39;s   :4947</code></pre>
+<p><code>mutate()</code> is a very easy way to edit your data mid-pipe. So we might want to do some calculations, create a temporary variable using <code>mutate()</code>, and then continue our pipe. <strong>Unless we use <code>&lt;-</code> to store our <code>mutate()</code>’d data, the results will be only temporary.</strong></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="importing-and-wrangling-data.html#cb58-1" tabindex="-1"></a><span class="co"># Our changes from mutate() were not saved</span></span>
+<span id="cb58-2"><a href="importing-and-wrangling-data.html#cb58-2" tabindex="-1"></a>berry_columns <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="importing-and-wrangling-data.html#cb58-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, lms_overall, us_overall) <span class="sc">%&gt;%</span></span>
+<span id="cb58-4"><a href="importing-and-wrangling-data.html#cb58-4" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##   9pt_overall     lms_overall        us_overall    
+##  Min.   :1.000   Min.   :-100.00   Min.   : 0.000  
+##  1st Qu.:4.000   1st Qu.:  -9.00   1st Qu.: 6.000  
+##  Median :6.000   Median :  26.00   Median : 9.000  
+##  Mean   :5.679   Mean   :  20.25   Mean   : 8.491  
+##  3rd Qu.:7.000   3rd Qu.:  56.00   3rd Qu.:11.000  
+##  Max.   :9.000   Max.   : 100.00   Max.   :15.000  
+##  NA&#39;s   :5062    NA&#39;s   :5005      NA&#39;s   :4947</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="importing-and-wrangling-data.html#cb60-1" tabindex="-1"></a>berry_columns <span class="ot">&lt;-</span> </span>
+<span id="cb60-2"><a href="importing-and-wrangling-data.html#cb60-2" tabindex="-1"></a>  berry_columns <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="importing-and-wrangling-data.html#cb60-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lms_overall =</span> (lms_overall <span class="sc">+</span> <span class="dv">100</span>) <span class="sc">*</span> (<span class="dv">8</span> <span class="sc">/</span> <span class="dv">200</span>) <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb60-4"><a href="importing-and-wrangling-data.html#cb60-4" tabindex="-1"></a>         <span class="at">us_overall =</span> (us_overall <span class="sc">+</span> <span class="dv">0</span>) <span class="sc">*</span> (<span class="dv">8</span> <span class="sc">/</span> <span class="dv">15</span>) <span class="sc">+</span> <span class="dv">1</span>) </span>
+<span id="cb60-5"><a href="importing-and-wrangling-data.html#cb60-5" tabindex="-1"></a></span>
+<span id="cb60-6"><a href="importing-and-wrangling-data.html#cb60-6" tabindex="-1"></a><span class="co"># And now they are</span></span>
+<span id="cb60-7"><a href="importing-and-wrangling-data.html#cb60-7" tabindex="-1"></a>berry_columns <span class="sc">%&gt;%</span> </span>
+<span id="cb60-8"><a href="importing-and-wrangling-data.html#cb60-8" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">9pt_overall</span><span class="st">`</span>, lms_overall, us_overall) <span class="sc">%&gt;%</span></span>
+<span id="cb60-9"><a href="importing-and-wrangling-data.html#cb60-9" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##   9pt_overall     lms_overall     us_overall   
+##  Min.   :1.000   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:4.000   1st Qu.:4.64   1st Qu.:4.200  
+##  Median :6.000   Median :6.04   Median :5.800  
+##  Mean   :5.679   Mean   :5.81   Mean   :5.529  
+##  3rd Qu.:7.000   3rd Qu.:7.24   3rd Qu.:6.867  
+##  Max.   :9.000   Max.   :9.00   Max.   :9.000  
+##  NA&#39;s   :5062    NA&#39;s   :5005   NA&#39;s   :4947</code></pre>
+<p>We have overwitten our original variables with rescaled versions of the LAM and unstructured scales. Now our values are commensurate.</p>
+<p><strong>NB:</strong> Sometimes we want to simultaneously <code>select()</code> and <code>mutate()</code> columns; the <code>transmute()</code> function is a simple wrapper for both of these operations combined and is quite useful for longer and more complex workflows. The <code>.keep</code> argument of <code>mutate()</code> can also be used to keep a subset of columns, rather than the whole tibble.</p>
+</div>
+<div id="pivoting-pivot_longerpivot_wider" class="section level4 hasAnchor" number="2.3.3.2">
+<h4><span class="header-section-number">2.3.3.2</span> Pivoting: <code>pivot_longer()</code>/<code>pivot_wider()</code><a href="importing-and-wrangling-data.html#pivoting-pivot_longerpivot_wider" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A key concept motivating the <code>tidyverse</code> is the idea of <a href="https://r4ds.hadley.nz/data-tidy#sec-tidy-data">“tidy” data</a>, which is typically also tied to the ability to move between <a href="https://datacarpentry.org/r-socialsci/instructor/04-tidyr.html#reshaping-with-pivot_wider-and-pivot_longer">“long” and “wide” data</a>. Typically, tidy data means data that is “long”, although I don’t know if I am convinced that it is an exact 1-to-1 map.</p>
+<p>Frequently, sensory data is recorded “wide”, with <em>experimental units</em> in rows and all of the <em>measured or observed variables</em> on those experimental units in the columns. Our cider data is a great example:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="importing-and-wrangling-data.html#cb62-1" tabindex="-1"></a>raw_cider_data</span></code></pre></div>
+<pre><code>## # A tibble: 288 × 27
+##    Sample_Name Temperature Panelist_Code MerlynScale_Ranking Fresh_Apples
+##    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;                       &lt;dbl&gt;        &lt;dbl&gt;
+##  1 1911 Est.   Chilled     001                           2.3            1
+##  2 Buskey      Chilled     001                           3.5            1
+##  3 Eden        Chilled     001                           2.8            0
+##  4 1911 Est.   RT          001                           4.2            0
+##  5 Buskey      RT          001                           2              0
+##  6 Eden        RT          001                           4              0
+##  7 1911 Est.   Chilled     002                           3              1
+##  8 Buskey      Chilled     002                           3.3            0
+##  9 Eden        Chilled     002                           3.5            1
+## 10 1911 Est.   RT          002                           4.5            0
+## # ℹ 278 more rows
+## # ℹ 22 more variables: Fermented &lt;dbl&gt;, Herbal &lt;dbl&gt;, Dry &lt;dbl&gt;, Spice &lt;dbl&gt;,
+## #   Fruity &lt;dbl&gt;, Smooth &lt;dbl&gt;, Alcohol &lt;dbl&gt;, Light &lt;dbl&gt;, Sweet &lt;dbl&gt;,
+## #   Woody &lt;dbl&gt;, Berries &lt;dbl&gt;, Sour &lt;dbl&gt;, Funky &lt;dbl&gt;, FullBodied &lt;dbl&gt;,
+## #   Metallic &lt;dbl&gt;, Floral &lt;dbl&gt;, Candy &lt;dbl&gt;, Bitter &lt;dbl&gt;, Vomit &lt;dbl&gt;,
+## #   Earthy &lt;dbl&gt;, Synthetic &lt;dbl&gt;, Liking &lt;dbl&gt;</code></pre>
+<p>We describe the experimental units in the first 3 columns: <code>Sample_Name</code>, <code>Temperature</code>, and <code>Panelist_Code</code> define a single serving/sample. The rest of the columns describe the measurements or observations we made on that single serving. According to <a href="https://r4ds.hadley.nz/data-tidy#sec-billboard">the principles of tidy data, the column names themselves define a sort of meta-variable</a>: what are we recording? We can make this data tidy (and long) by instead storing <em>that meta-variable</em> in one column and the actual measurement in another.</p>
+<p>The <code>pivot_*()</code> functions are the tools to accomplish this. They are remarkably simple and powerful tools for transforming data from wide to long (and vice-versa) as the <a href="importing-and-wrangling-data.html#cider">analysis demands</a>.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="importing-and-wrangling-data.html#cb64-1" tabindex="-1"></a>long_cider_data <span class="ot">&lt;-</span> </span>
+<span id="cb64-2"><a href="importing-and-wrangling-data.html#cb64-2" tabindex="-1"></a>  raw_cider_data <span class="sc">%&gt;%</span></span>
+<span id="cb64-3"><a href="importing-and-wrangling-data.html#cb64-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Fresh_Apples<span class="sc">:</span>Synthetic,</span>
+<span id="cb64-4"><a href="importing-and-wrangling-data.html#cb64-4" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;cata_variable&quot;</span>,</span>
+<span id="cb64-5"><a href="importing-and-wrangling-data.html#cb64-5" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;checked&quot;</span>)</span>
+<span id="cb64-6"><a href="importing-and-wrangling-data.html#cb64-6" tabindex="-1"></a></span>
+<span id="cb64-7"><a href="importing-and-wrangling-data.html#cb64-7" tabindex="-1"></a>long_cider_data</span></code></pre></div>
+<pre><code>## # A tibble: 6,336 × 7
+##    Sample_Name Temperature Panelist_Code MerlynScale_Ranking Liking
+##    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;                       &lt;dbl&gt;  &lt;dbl&gt;
+##  1 1911 Est.   Chilled     001                           2.3      6
+##  2 1911 Est.   Chilled     001                           2.3      6
+##  3 1911 Est.   Chilled     001                           2.3      6
+##  4 1911 Est.   Chilled     001                           2.3      6
+##  5 1911 Est.   Chilled     001                           2.3      6
+##  6 1911 Est.   Chilled     001                           2.3      6
+##  7 1911 Est.   Chilled     001                           2.3      6
+##  8 1911 Est.   Chilled     001                           2.3      6
+##  9 1911 Est.   Chilled     001                           2.3      6
+## 10 1911 Est.   Chilled     001                           2.3      6
+## # ℹ 6,326 more rows
+## # ℹ 2 more variables: cata_variable &lt;chr&gt;, checked &lt;dbl&gt;</code></pre>
+<p><code>pivot_longer()</code> takes wide data and makes it longer, moving the implicit variable stored in the column names into an explicit variable. It uses a <code>select()</code>-style interface for choosing columns to make longer, and you can specify the names of the new columns you’re creating (if you don’t, column names will be placed in a new <code>name</code> column and the cell values will be placed in a <code>value</code> column).</p>
+<p>I really like the Data Carpentry animation that shows what is happening in motion:</p>
+<center>
+<div class="float">
+<img src="https://datacarpentry.org/r-socialsci/fig/tidyr-pivot_wider_longer.gif" alt="Pivoting data to tidy it, from Data Carpentry." />
+<div class="figcaption">Pivoting data to tidy it, from <a href="https://datacarpentry.org/r-socialsci/instructor/04-tidyr.html#reshaping-with-pivot_wider-and-pivot_longer">Data Carpentry</a>.</div>
+</div>
+</center>
+<p>Here, we actually left <code>MerlynScale_Ranking</code> and <code>Liking</code> out of our <code>pivot_longer()</code> because they are going to be dependent variables for our penalty analysis.</p>
+<p>We also used a <code>pivot_longer()</code> in our <a href="importing-and-wrangling-data.html#berries">berry workflow</a>.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="importing-and-wrangling-data.html#cb66-1" tabindex="-1"></a>long_berry_data <span class="ot">&lt;-</span> </span>
+<span id="cb66-2"><a href="importing-and-wrangling-data.html#cb66-2" tabindex="-1"></a>  berry_columns <span class="sc">%&gt;%</span></span>
+<span id="cb66-3"><a href="importing-and-wrangling-data.html#cb66-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">contains</span>(<span class="st">&quot;overall&quot;</span>),</span>
+<span id="cb66-4"><a href="importing-and-wrangling-data.html#cb66-4" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;hedonic_scale&quot;</span>,</span>
+<span id="cb66-5"><a href="importing-and-wrangling-data.html#cb66-5" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;rating&quot;</span>,</span>
+<span id="cb66-6"><a href="importing-and-wrangling-data.html#cb66-6" tabindex="-1"></a>               <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb66-7"><a href="importing-and-wrangling-data.html#cb66-7" tabindex="-1"></a></span>
+<span id="cb66-8"><a href="importing-and-wrangling-data.html#cb66-8" tabindex="-1"></a>long_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb66-9"><a href="importing-and-wrangling-data.html#cb66-9" tabindex="-1"></a>  <span class="fu">select</span>(berry, sample, hedonic_scale, rating)</span></code></pre></div>
+<pre><code>## # A tibble: 7,507 × 4
+##    berry     sample hedonic_scale rating
+##    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;
+##  1 raspberry      6 9pt_overall        4
+##  2 raspberry      5 9pt_overall        9
+##  3 raspberry      2 9pt_overall        3
+##  4 raspberry      3 9pt_overall        7
+##  5 raspberry      4 9pt_overall        4
+##  6 raspberry      1 9pt_overall        4
+##  7 raspberry      6 9pt_overall        4
+##  8 raspberry      5 9pt_overall        7
+##  9 raspberry      2 9pt_overall        7
+## 10 raspberry      3 9pt_overall        9
+## # ℹ 7,497 more rows</code></pre>
+<p>We used the tool a little differently here, however: we wanted to pull all of our hedonic rating data into a single place, note the use of <code>contains()</code> in our <code>pivot_longer()</code> selection. Since each subject only used one hedonic scale in an occasion, our overall data table had blocks of <code>NA</code> values throughout it; we dropped the <code>NA</code> values when pivoting. Now we have longer data that gives us one column for an overall hedonic rating, and another (nominal) column that tells us which scale that value originally came from.</p>
+<p>Did you notice that we <a href="importing-and-wrangling-data.html#berries">actually pivoted longer <em>twice</em></a>? The goal of this particular workflow was to produce a penalty analysis, and to do that we are treating the CATA and the hedonic ratings as qualitatively different kinds of outcomes: essentially, CATA becomes the independent variable for this analysis, and hedonic liking becomes the observed outcome. Therefore, we couldn’t pivot all at once. Instead, we first gathered our (now commensurate) ratings using a first pivot, and then gathered our CATA variables using a second.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="importing-and-wrangling-data.html#cb68-1" tabindex="-1"></a>long_berry_data <span class="ot">&lt;-</span> </span>
+<span id="cb68-2"><a href="importing-and-wrangling-data.html#cb68-2" tabindex="-1"></a>  long_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb68-3"><a href="importing-and-wrangling-data.html#cb68-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">&quot;cata_&quot;</span>),</span>
+<span id="cb68-4"><a href="importing-and-wrangling-data.html#cb68-4" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;cata_variable&quot;</span>,</span>
+<span id="cb68-5"><a href="importing-and-wrangling-data.html#cb68-5" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;checked&quot;</span>,</span>
+<span id="cb68-6"><a href="importing-and-wrangling-data.html#cb68-6" tabindex="-1"></a>               <span class="at">names_prefix =</span> <span class="st">&quot;cata_&quot;</span>,</span>
+<span id="cb68-7"><a href="importing-and-wrangling-data.html#cb68-7" tabindex="-1"></a>               <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb68-8"><a href="importing-and-wrangling-data.html#cb68-8" tabindex="-1"></a></span>
+<span id="cb68-9"><a href="importing-and-wrangling-data.html#cb68-9" tabindex="-1"></a>long_berry_data</span></code></pre></div>
+<pre><code>## # A tibble: 159,741 × 7
+##    `Subject Code` berry     sample hedonic_scale rating cata_variable    checked
+##             &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;
+##  1           1001 raspberry      6 9pt_overall        4 appearance_unev…       0
+##  2           1001 raspberry      6 9pt_overall        4 appearance_miss…       1
+##  3           1001 raspberry      6 9pt_overall        4 appearance_crea…       0
+##  4           1001 raspberry      6 9pt_overall        4 appearance_seedy       0
+##  5           1001 raspberry      6 9pt_overall        4 appearance_brui…       0
+##  6           1001 raspberry      6 9pt_overall        4 appearance_notf…       1
+##  7           1001 raspberry      6 9pt_overall        4 appearance_fresh       0
+##  8           1001 raspberry      6 9pt_overall        4 appearance_good…       0
+##  9           1001 raspberry      6 9pt_overall        4 appearance_good…       0
+## 10           1001 raspberry      6 9pt_overall        4 appearance_none        0
+## # ℹ 159,731 more rows</code></pre>
+<p>Here, notice we once again drop <code>NA</code> values because some CATA variables only applied to some berries (e.g., raspberries had different CATA attributes than strawberries, natch). We also used a shortcut in <code>pivot_longer()</code> to remove the <code>"cata_"</code> prefix from each CATA variable name, purely to make them more readable.</p>
+<p>While we don’t use <code>pivot_wider()</code> in the flow above, it does the opposite of <code>pivot_longer()</code>: provided with a column of ID variables (like the CATA variables) and a column containing observations, it produces a wider, less tidy data frame. This is most frequently useful when getting data ready for some kind of multivariate analysis, like a regression or SVD. We can see the effects on our long cider data.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="importing-and-wrangling-data.html#cb70-1" tabindex="-1"></a>long_cider_data <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="importing-and-wrangling-data.html#cb70-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> cata_variable,</span>
+<span id="cb70-3"><a href="importing-and-wrangling-data.html#cb70-3" tabindex="-1"></a>              <span class="at">values_from =</span> checked)</span></code></pre></div>
+<pre><code>## # A tibble: 288 × 27
+##    Sample_Name Temperature Panelist_Code MerlynScale_Ranking Liking Fresh_Apples
+##    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;                       &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt;
+##  1 1911 Est.   Chilled     001                           2.3      6            1
+##  2 Buskey      Chilled     001                           3.5      7            1
+##  3 Eden        Chilled     001                           2.8      4            0
+##  4 1911 Est.   RT          001                           4.2      2            0
+##  5 Buskey      RT          001                           2        7            0
+##  6 Eden        RT          001                           4        5            0
+##  7 1911 Est.   Chilled     002                           3        8            1
+##  8 Buskey      Chilled     002                           3.3      6            0
+##  9 Eden        Chilled     002                           3.5      7            1
+## 10 1911 Est.   RT          002                           4.5      3            0
+## # ℹ 278 more rows
+## # ℹ 21 more variables: Fermented &lt;dbl&gt;, Herbal &lt;dbl&gt;, Dry &lt;dbl&gt;, Spice &lt;dbl&gt;,
+## #   Fruity &lt;dbl&gt;, Smooth &lt;dbl&gt;, Alcohol &lt;dbl&gt;, Light &lt;dbl&gt;, Sweet &lt;dbl&gt;,
+## #   Woody &lt;dbl&gt;, Berries &lt;dbl&gt;, Sour &lt;dbl&gt;, Funky &lt;dbl&gt;, FullBodied &lt;dbl&gt;,
+## #   Metallic &lt;dbl&gt;, Floral &lt;dbl&gt;, Candy &lt;dbl&gt;, Bitter &lt;dbl&gt;, Vomit &lt;dbl&gt;,
+## #   Earthy &lt;dbl&gt;, Synthetic &lt;dbl&gt;</code></pre>
+</div>
+<div id="split-apply-combine-group_bysummarize" class="section level4 hasAnchor" number="2.3.3.3">
+<h4><span class="header-section-number">2.3.3.3</span> Split-apply-combine: <code>group_by()</code>/<code>summarize()</code><a href="importing-and-wrangling-data.html#split-apply-combine-group_bysummarize" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Many basic data analyses can be described as <em>split-apply-combine</em>: <em>split</em> the data into groups, <em>apply</em> some analysis into groups, and then <em>combine</em> the results.</p>
+<p>For example, in our <code>raw_berry_data</code> we might want to split the data by each berry sample, calculate the average overall rating and standard deviation of the rating for each, and the generate a summary table telling us these results. Using the <code>filter()</code> and <code>select()</code> commands we’ve learned so far, you could probably cobble together this analysis without further tools.</p>
+<p>However, <code>tidyverse</code> provides two powerful tools to do this kind of analysis:</p>
+<pre><code>1.  The `group_by()` function takes a data table and groups it by **categorical** values of any column (generally don&#39;t try to use `group_by()` on a numeric variable)
+2.  The `summarize()` function is like `mutate()` for groups created with `group_by()`: 
+    1.  First, you specify 1 or more new columns you want to calculate for each group
+    2.  Second, the function produces 1 value for each group for each new column
+    </code></pre>
+<p>We actually use this approach exactly to get our penalty analysis results for both the berry and cider data sets. Before we embark on that, though, let’s quickly cobble together the exact example (means and SDs) to get an intuition for how a split-apply-combine approach works.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="importing-and-wrangling-data.html#cb73-1" tabindex="-1"></a>raw_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb73-2"><a href="importing-and-wrangling-data.html#cb73-2" tabindex="-1"></a>  </span>
+<span id="cb73-3"><a href="importing-and-wrangling-data.html#cb73-3" tabindex="-1"></a>  <span class="co"># here we are filtering and selecting just to get unstructured line scale</span></span>
+<span id="cb73-4"><a href="importing-and-wrangling-data.html#cb73-4" tabindex="-1"></a>  <span class="co"># ratings (simply because this is the raw data)</span></span>
+<span id="cb73-5"><a href="importing-and-wrangling-data.html#cb73-5" tabindex="-1"></a>  </span>
+<span id="cb73-6"><a href="importing-and-wrangling-data.html#cb73-6" tabindex="-1"></a>  <span class="fu">select</span>(berry, sample, us_overall) <span class="sc">%&gt;%</span></span>
+<span id="cb73-7"><a href="importing-and-wrangling-data.html#cb73-7" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> <span class="co"># convenience function to remove the NA rows</span></span>
+<span id="cb73-8"><a href="importing-and-wrangling-data.html#cb73-8" tabindex="-1"></a></span>
+<span id="cb73-9"><a href="importing-and-wrangling-data.html#cb73-9" tabindex="-1"></a>  <span class="co"># Now we can *split*: group by berry and by sample </span></span>
+<span id="cb73-10"><a href="importing-and-wrangling-data.html#cb73-10" tabindex="-1"></a>  </span>
+<span id="cb73-11"><a href="importing-and-wrangling-data.html#cb73-11" tabindex="-1"></a>  <span class="fu">group_by</span>(berry, sample) <span class="sc">%&gt;%</span></span>
+<span id="cb73-12"><a href="importing-and-wrangling-data.html#cb73-12" tabindex="-1"></a>  </span>
+<span id="cb73-13"><a href="importing-and-wrangling-data.html#cb73-13" tabindex="-1"></a>  <span class="co"># And now we *apply* a set of summary functions to each group (berry x sample</span></span>
+<span id="cb73-14"><a href="importing-and-wrangling-data.html#cb73-14" tabindex="-1"></a>  <span class="co"># #) and then *combine* the analyses to get a summary table</span></span>
+<span id="cb73-15"><a href="importing-and-wrangling-data.html#cb73-15" tabindex="-1"></a>  </span>
+<span id="cb73-16"><a href="importing-and-wrangling-data.html#cb73-16" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(us_overall),</span>
+<span id="cb73-17"><a href="importing-and-wrangling-data.html#cb73-17" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(us_overall),</span>
+<span id="cb73-18"><a href="importing-and-wrangling-data.html#cb73-18" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb73-19"><a href="importing-and-wrangling-data.html#cb73-19" tabindex="-1"></a>            <span class="at">se =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
+<span id="cb73-20"><a href="importing-and-wrangling-data.html#cb73-20" tabindex="-1"></a>            <span class="at">ll =</span> mean <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> se,</span>
+<span id="cb73-21"><a href="importing-and-wrangling-data.html#cb73-21" tabindex="-1"></a>            <span class="at">ul =</span> mean <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> se)</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;berry&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 23 × 8
+## # Groups:   berry [4]
+##    berry      sample  mean    sd     n    se    ll    ul
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 blackberry      1  7.60  4.09    98 0.413  6.78  8.43
+##  2 blackberry      2  6.5   3.91    98 0.395  5.71  7.29
+##  3 blackberry      3  8.48  3.93    98 0.397  7.69  9.27
+##  4 blackberry      4  8.86  3.91    98 0.395  8.07  9.65
+##  5 blackberry      5  8.26  4.11    98 0.415  7.43  9.08
+##  6 blueberry       1  9.47  3.25   103 0.321  8.82 10.1 
+##  7 blueberry       2  9.30  3.62   103 0.357  8.59 10.0 
+##  8 blueberry       3  9.01  3.79   103 0.374  8.26  9.76
+##  9 blueberry       4  8.67  3.67   103 0.361  7.95  9.39
+## 10 blueberry       5  9.23  3.91   103 0.386  8.46 10.0 
+## # ℹ 13 more rows</code></pre>
+<p>Notice that I can request multiple summary functions for each group; I can also use summaries I just defined (like <code>sd</code> or <code>n</code>) in further calculations. Here, we’ve easily calculated a basic Fisher’s LSD table for our means (letting <span class="math inline">\(t\approx2\)</span>).</p>
+<p>Now let’s look at what we <em>actually</em> did for our penalty analyses. For the cider data, we needed to calculate the change in mean score for when an attribute was checked or not (typical approach for CATA data).</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="importing-and-wrangling-data.html#cb76-1" tabindex="-1"></a>cider_penalty_data <span class="ot">&lt;-</span> </span>
+<span id="cb76-2"><a href="importing-and-wrangling-data.html#cb76-2" tabindex="-1"></a>  long_cider_data <span class="sc">%&gt;%</span></span>
+<span id="cb76-3"><a href="importing-and-wrangling-data.html#cb76-3" tabindex="-1"></a>  <span class="fu">group_by</span>(cata_variable, checked) <span class="sc">%&gt;%</span></span>
+<span id="cb76-4"><a href="importing-and-wrangling-data.html#cb76-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">rating =</span> <span class="fu">mean</span>(Liking),</span>
+<span id="cb76-5"><a href="importing-and-wrangling-data.html#cb76-5" tabindex="-1"></a>            <span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb76-6"><a href="importing-and-wrangling-data.html#cb76-6" tabindex="-1"></a>  </span>
+<span id="cb76-7"><a href="importing-and-wrangling-data.html#cb76-7" tabindex="-1"></a>  <span class="co"># You can also use mutate() within data that has been *split* by group_by();</span></span>
+<span id="cb76-8"><a href="importing-and-wrangling-data.html#cb76-8" tabindex="-1"></a>  <span class="co"># the difference between summarize() and mutate() is that summarize()</span></span>
+<span id="cb76-9"><a href="importing-and-wrangling-data.html#cb76-9" tabindex="-1"></a>  <span class="co"># collapses each group to a single row.</span></span>
+<span id="cb76-10"><a href="importing-and-wrangling-data.html#cb76-10" tabindex="-1"></a>  </span>
+<span id="cb76-11"><a href="importing-and-wrangling-data.html#cb76-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> count <span class="sc">/</span> <span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb76-12"><a href="importing-and-wrangling-data.html#cb76-12" tabindex="-1"></a></span>
+<span id="cb76-13"><a href="importing-and-wrangling-data.html#cb76-13" tabindex="-1"></a>  <span class="co"># We use ungroup() because leaving groups in a data frame can have unexpected</span></span>
+<span id="cb76-14"><a href="importing-and-wrangling-data.html#cb76-14" tabindex="-1"></a>  <span class="co"># results if we forget that we&#39;ve specified them.</span></span>
+<span id="cb76-15"><a href="importing-and-wrangling-data.html#cb76-15" tabindex="-1"></a>  </span>
+<span id="cb76-16"><a href="importing-and-wrangling-data.html#cb76-16" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;cata_variable&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="importing-and-wrangling-data.html#cb78-1" tabindex="-1"></a>cider_penalty_data</span></code></pre></div>
+<pre><code>## # A tibble: 44 × 5
+##    cata_variable checked rating count proportion
+##    &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt;
+##  1 Alcohol             0   5.56   178     0.618 
+##  2 Alcohol             1   4.91   110     0.382 
+##  3 Berries             0   5.18   264     0.917 
+##  4 Berries             1   6.71    24     0.0833
+##  5 Bitter              0   5.68   220     0.764 
+##  6 Bitter              1   4.10    68     0.236 
+##  7 Candy               0   5.25   271     0.941 
+##  8 Candy               1   6.24    17     0.0590
+##  9 Dry                 0   5.69   177     0.615 
+## 10 Dry                 1   4.69   111     0.385 
+## # ℹ 34 more rows</code></pre>
+<p>In this case, when we start with our <code>long_cider_data</code>, we have a column for each CATA attribute and another column for whether that attribute is checked. By treating these as variables to <code>group_by()</code> we can get the information we need for penalty analysis: the mean liking rating for each combination of these variables. We also calculated the <em>proportion</em> of times each combination was observed, since sometimes simple penalty analysis can obscure this information.</p>
+<p>For the berries, we did something similar (although we ignored the proportions) partly to illustrate alternative visualization possibilities, and partly because the larger experimental design made this analysis unwieldy.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="importing-and-wrangling-data.html#cb80-1" tabindex="-1"></a>berry_penalty_data <span class="ot">&lt;-</span> </span>
+<span id="cb80-2"><a href="importing-and-wrangling-data.html#cb80-2" tabindex="-1"></a>  long_berry_data <span class="sc">%&gt;%</span></span>
+<span id="cb80-3"><a href="importing-and-wrangling-data.html#cb80-3" tabindex="-1"></a>  <span class="fu">group_by</span>(berry, cata_variable, checked) <span class="sc">%&gt;%</span></span>
+<span id="cb80-4"><a href="importing-and-wrangling-data.html#cb80-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">penalty_lift =</span> <span class="fu">mean</span>(rating),</span>
+<span id="cb80-5"><a href="importing-and-wrangling-data.html#cb80-5" tabindex="-1"></a>            <span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb80-6"><a href="importing-and-wrangling-data.html#cb80-6" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;berry&#39;, &#39;cata_variable&#39;. You can override
+## using the `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="importing-and-wrangling-data.html#cb82-1" tabindex="-1"></a>berry_penalty_data</span></code></pre></div>
+<pre><code>## # A tibble: 170 × 5
+##    berry      cata_variable          checked penalty_lift count
+##    &lt;chr&gt;      &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt;
+##  1 blackberry appearance_fresh             0         4.70   518
+##  2 blackberry appearance_fresh             1         5.80   977
+##  3 blackberry appearance_goodcolor         0         4.63   458
+##  4 blackberry appearance_goodcolor         1         5.77  1037
+##  5 blackberry appearance_goodquality       0         4.69   636
+##  6 blackberry appearance_goodquality       1         5.96   859
+##  7 blackberry appearance_goodshapre        0         4.93   708
+##  8 blackberry appearance_goodshapre        1         5.86   787
+##  9 blackberry appearance_misshapen         0         5.63  1048
+## 10 blackberry appearance_misshapen         1         4.92   447
+## # ℹ 160 more rows</code></pre>
+</div>
+</div>
+<div id="some-convenience-functions" class="section level3 hasAnchor" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Some convenience functions<a href="importing-and-wrangling-data.html#some-convenience-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While we have only reviewed what I consider the “basic” functionality of <code>tidyverse</code> for data wrangling, hopefully this gives you a good idea of the powerful and pretty user-friendly tools provided to you through this package. I wanted to mention a few very basic tools that also make tasks typically painful in <code>R</code> easy.</p>
+<div id="renaming-columns" class="section level4 hasAnchor" number="2.3.4.1">
+<h4><span class="header-section-number">2.3.4.1</span> Renaming columns<a href="importing-and-wrangling-data.html#renaming-columns" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Renaming data frames in <code>R</code> is harder than you might think. With the tools we’ve just learned, you might realize that, for example, you could probably use some combination of <code>select()</code> and <code>mutate()</code>/<code>transmute()</code> to rename columns, but I make heavy use of the appropriately-named <code>rename()</code> function to easily change the name of variables:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="importing-and-wrangling-data.html#cb84-1" tabindex="-1"></a>berry_penalty_data <span class="sc">%&gt;%</span></span>
+<span id="cb84-2"><a href="importing-and-wrangling-data.html#cb84-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">penalty =</span> penalty_lift)</span></code></pre></div>
+<pre><code>## # A tibble: 170 × 5
+##    berry      cata_variable          checked penalty count
+##    &lt;chr&gt;      &lt;chr&gt;                    &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+##  1 blackberry appearance_fresh             0    4.70   518
+##  2 blackberry appearance_fresh             1    5.80   977
+##  3 blackberry appearance_goodcolor         0    4.63   458
+##  4 blackberry appearance_goodcolor         1    5.77  1037
+##  5 blackberry appearance_goodquality       0    4.69   636
+##  6 blackberry appearance_goodquality       1    5.96   859
+##  7 blackberry appearance_goodshapre        0    4.93   708
+##  8 blackberry appearance_goodshapre        1    5.86   787
+##  9 blackberry appearance_misshapen         0    5.63  1048
+## 10 blackberry appearance_misshapen         1    4.92   447
+## # ℹ 160 more rows</code></pre>
+<p>Notice above we do not quote column names. We can also <code>rename()</code> by column position, which is particularly useful when importing files:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="importing-and-wrangling-data.html#cb86-1" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;data/CiderDryness_SensoryDATA.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="importing-and-wrangling-data.html#cb86-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">sample =</span> <span class="dv">1</span>) <span class="co"># This is actually called &quot;Sample_Name&quot; in the .csv</span></span></code></pre></div>
+<pre><code>## # A tibble: 288 × 27
+##    sample   Temperature Panelist_Code MerlynScale_Ranking Fresh_Apples Fermented
+##    &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;                       &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;
+##  1 1911 Es… Chilled     001                           2.3            1         0
+##  2 Buskey   Chilled     001                           3.5            1         1
+##  3 Eden     Chilled     001                           2.8            0         0
+##  4 1911 Es… RT          001                           4.2            0         1
+##  5 Buskey   RT          001                           2              0         1
+##  6 Eden     RT          001                           4              0         1
+##  7 1911 Es… Chilled     002                           3              1         1
+##  8 Buskey   Chilled     002                           3.3            0         0
+##  9 Eden     Chilled     002                           3.5            1         0
+## 10 1911 Es… RT          002                           4.5            0         0
+## # ℹ 278 more rows
+## # ℹ 21 more variables: Herbal &lt;dbl&gt;, Dry &lt;dbl&gt;, Spice &lt;dbl&gt;, Fruity &lt;dbl&gt;,
+## #   Smooth &lt;dbl&gt;, Alcohol &lt;dbl&gt;, Light &lt;dbl&gt;, Sweet &lt;dbl&gt;, Woody &lt;dbl&gt;,
+## #   Berries &lt;dbl&gt;, Sour &lt;dbl&gt;, Funky &lt;dbl&gt;, FullBodied &lt;dbl&gt;, Metallic &lt;dbl&gt;,
+## #   Floral &lt;dbl&gt;, Candy &lt;dbl&gt;, Bitter &lt;dbl&gt;, Vomit &lt;dbl&gt;, Earthy &lt;dbl&gt;,
+## #   Synthetic &lt;dbl&gt;, Liking &lt;dbl&gt;</code></pre>
+</div>
+<div id="reorder-rows" class="section level4 hasAnchor" number="2.3.4.2">
+<h4><span class="header-section-number">2.3.4.2</span> Reorder rows<a href="importing-and-wrangling-data.html#reorder-rows" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We often want to reorder the rows in a data frame according to some criteria (usually data-based). Again, a pain in base <code>R</code>, this is made easy using the <code>arrange()</code> function in <code>tidyverse</code>.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="importing-and-wrangling-data.html#cb88-1" tabindex="-1"></a>berry_penalty_data <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="importing-and-wrangling-data.html#cb88-2" tabindex="-1"></a>  <span class="fu">arrange</span>(penalty_lift)</span></code></pre></div>
+<pre><code>## # A tibble: 170 × 5
+##    berry      cata_variable       checked penalty_lift count
+##    &lt;chr&gt;      &lt;chr&gt;                 &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt;
+##  1 blackberry taste_none                1         3.45   105
+##  2 blackberry appearance_notfresh       1         3.76   127
+##  3 raspberry  taste_none                1         3.85   103
+##  4 strawberry taste_none                1         4.04   121
+##  5 raspberry  taste_fermented           1         4.04   150
+##  6 strawberry taste_fermented           1         4.06   303
+##  7 blackberry taste_fermented           1         4.08   274
+##  8 blueberry  taste_none                1         4.08    94
+##  9 blackberry taste_berry               0         4.21   702
+## 10 blueberry  taste_fermented           1         4.27   147
+## # ℹ 160 more rows</code></pre>
+<p>We can use either the <code>-</code> (the subtraction operator) or the convenience function <code>desc()</code> to reverse columns in <code>arrange()</code>. We can also sort by multiple criteria, for example here we can sort by the observed CATA <code>0/1</code> descending (highest first), and then break ties by the rating, sorting ascending (lowest first).</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="importing-and-wrangling-data.html#cb90-1" tabindex="-1"></a>cider_penalty_data <span class="sc">%&gt;%</span></span>
+<span id="cb90-2"><a href="importing-and-wrangling-data.html#cb90-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>count, rating)</span></code></pre></div>
+<pre><code>## # A tibble: 44 × 5
+##    cata_variable checked rating count proportion
+##    &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt;
+##  1 Candy               0   5.25   271      0.941
+##  2 Vomit               0   5.44   271      0.941
+##  3 Berries             0   5.18   264      0.917
+##  4 Synthetic           0   5.56   258      0.896
+##  5 Metallic            0   5.47   257      0.892
+##  6 Earthy              0   5.42   254      0.882
+##  7 FullBodied          0   5.25   253      0.878
+##  8 Woody               0   5.37   248      0.861
+##  9 Funky               0   5.67   241      0.837
+## 10 Herbal              0   5.29   236      0.819
+## # ℹ 34 more rows</code></pre>
+<p>Finally, <code>arrange()</code> will respect groups, so we can sort our penalties within our berries to see what matters most:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="importing-and-wrangling-data.html#cb92-1" tabindex="-1"></a>berry_penalty_data <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="importing-and-wrangling-data.html#cb92-2" tabindex="-1"></a>  <span class="fu">group_by</span>(berry) <span class="sc">%&gt;%</span></span>
+<span id="cb92-3"><a href="importing-and-wrangling-data.html#cb92-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>penalty_lift) <span class="sc">%&gt;%</span></span>
+<span id="cb92-4"><a href="importing-and-wrangling-data.html#cb92-4" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 5
+## # Groups:   berry [4]
+##    berry      cata_variable          checked penalty_lift count
+##    &lt;chr&gt;      &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt;
+##  1 blackberry taste_fruity                 1         6.62   510
+##  2 blackberry taste_berry                  1         6.49   793
+##  3 blackberry taste_floral                 1         6.20   248
+##  4 blackberry appearance_goodquality       1         5.96   859
+##  5 blackberry appearance_goodshapre        1         5.86   787
+##  6 blueberry  taste_berry                  1         6.78  1079
+##  7 blueberry  taste_fruity                 1         6.77   761
+##  8 blueberry  taste_peachy                 1         6.36   286
+##  9 blueberry  appearance_goodquality       1         6.27  1191
+## 10 blueberry  appearance_fresh             1         6.25  1248
+## 11 raspberry  taste_candy                  1         6.94   323
+## 12 raspberry  taste_fruity                 1         6.85  1029
+## 13 raspberry  taste_tropical               1         6.78   417
+## 14 raspberry  taste_berry                  1         6.65  1353
+## 15 raspberry  appearance_goodquality       1         6.47  1069
+## 16 strawberry taste_fruity                 1         6.56   782
+## 17 strawberry taste_berry                  1         6.51   941
+## 18 strawberry taste_caramel                1         6.50    74
+## 19 strawberry appearance_goodquality       1         6.29   619
+## 20 strawberry taste_peachy                 1         6.28   157</code></pre>
+</div>
+<div id="subset-data" class="section level4 hasAnchor" number="2.3.4.3">
+<h4><span class="header-section-number">2.3.4.3</span> Subset data<a href="importing-and-wrangling-data.html#subset-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Note the <code>slice_head()</code> function above: this gives us the first 5 rows (of each group, because we used <code>group_by()</code>) in the data set. The family of <code>slice_*()</code> functions is very useful for subsetting data.</p>
+</div>
+</div>
+</div>
+<div id="saving-your-data" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Saving your data<a href="importing-and-wrangling-data.html#saving-your-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Often, you will have an ugly, raw data file. You want to clean up this data file: remove junk variables, rename columns, omit outliers, and have something that is actually workable. Sometimes, you create a new intermediate product (say, a penalty-analysis table) that you’d like to be able to share and work with elsewhere. Now, you know how to do all that in <code>R</code>, often with fewer clicks and less effort than in Excel or other WYSIWYG tool. But once you restart your <code>R</code> session, you will need to rerun this workflow, and you can’t access your data products in other software.</p>
+<p>To save this work, you can use <code>write.csv()</code> or <code>readr::write_csv()</code> and its relatives (e.g., functions like <code>write.file()</code>). These will create <strong>or overwrite</strong> a file in the directory location you specify.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="importing-and-wrangling-data.html#cb94-1" tabindex="-1"></a><span class="co"># We will keep in the tidyverse idiom with readr::write_csv()</span></span>
+<span id="cb94-2"><a href="importing-and-wrangling-data.html#cb94-2" tabindex="-1"></a><span class="fu">write_csv</span>(<span class="at">x =</span> berry_penalty_data,</span>
+<span id="cb94-3"><a href="importing-and-wrangling-data.html#cb94-3" tabindex="-1"></a>          <span class="at">file =</span> <span class="st">&quot;data/berry-penalty-data.csv&quot;</span>)</span></code></pre></div>
+<p>Sometimes, we want to be able to save <code>R</code> data for re-loading later. It’s good to do this explicitly, rather than relying on something like RStudio’s version of autosaving (which we’ve turned off for you at the beginning of this tutorial). You might want to do this instead of <code>write_csv()</code> because:</p>
+<ul>
+<li>You have non-tabular data (lists, tensors, ggplots, etc)</li>
+<li>You are saving the output of time-consuming workflows and want to be able to start again without re-running those workflows</li>
+<li>You want to bundle a lot of objects together into a single file for yourself or other <code>R</code> users</li>
+</ul>
+<p>If you want to save a single <code>R</code> object, the <code>write_rds()</code> function saves an object into a native <code>R</code> data format: <code>.rds</code>. This uses syntax similar to <code>write_csv()</code>:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="importing-and-wrangling-data.html#cb95-1" tabindex="-1"></a>berry_penalty_data <span class="sc">%&gt;%</span></span>
+<span id="cb95-2"><a href="importing-and-wrangling-data.html#cb95-2" tabindex="-1"></a>  <span class="fu">write_rds</span>(<span class="at">file =</span> <span class="st">&quot;data/berry-penalty-data.rds&quot;</span>)</span></code></pre></div>
+<p>Often, though, it can be helpful to save multiple <code>R</code> objects so that a workplace can be restored. In this case, the generic <code>save()</code> function will save a <em>list</em> of <code>R</code> objects provided as symbolic names into a file of format <code>.RData</code>, which can be restored with <code>load()</code>.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="importing-and-wrangling-data.html#cb96-1" tabindex="-1"></a><span class="fu">save</span>(long_berry_data,</span>
+<span id="cb96-2"><a href="importing-and-wrangling-data.html#cb96-2" tabindex="-1"></a>     long_cider_data,</span>
+<span id="cb96-3"><a href="importing-and-wrangling-data.html#cb96-3" tabindex="-1"></a>     <span class="at">file =</span> <span class="st">&quot;data/long-data-objects.RData&quot;</span>)</span>
+<span id="cb96-4"><a href="importing-and-wrangling-data.html#cb96-4" tabindex="-1"></a></span>
+<span id="cb96-5"><a href="importing-and-wrangling-data.html#cb96-5" tabindex="-1"></a><span class="fu">rm</span>(long_berry_data, long_cider_data)</span>
+<span id="cb96-6"><a href="importing-and-wrangling-data.html#cb96-6" tabindex="-1"></a></span>
+<span id="cb96-7"><a href="importing-and-wrangling-data.html#cb96-7" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&quot;data/long-data-objects.RData&quot;</span>)</span></code></pre></div>
+<p>This can be very helpful for sharing data.</p>
+<div id="a-note-on-replicability" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> A note on replicability<a href="importing-and-wrangling-data.html#a-note-on-replicability" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In order to make sure that your data are replicable, you should <em>always</em> keep your raw data and the script/code that transforms that data into your cleaned form. That way, when (<em>not</em> if) you discover a couple minor errors, you can go back and fix them, and you will not be stuck trying to remember how you overwrote this data in the first place.</p>
+<p>This will also protect you if, in the future, someone looks at your data and asks something like “but where did these means come from?”</p>
+</div>
+</div>
+<div id="wrap-up" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Wrap up<a href="importing-and-wrangling-data.html#wrap-up" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This is just a taste of the quality-of-life data wrangling tools available in tidyverse. To learn more, you can look into some of the resources we’ve linked here (in particular the <a href="https://r4ds.hadley.nz/">R for Data Science handbook</a>), some of our <a href="https://jlahne.github.io/eurosense-tutorial-2022/">previous</a> <a href="https://lhami.github.io/pangborn-r-tutorial-2023/">workshops</a> on the topic, to see how these tools can be applied to sensory data, or my recently created <a href="https://jlahne.github.io/r-opus-v2/">R Opus v2</a>, which applies these tools to a variety of common sensory analyses.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="a-crash-course-in-r-and-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-basics-of-plotting-with-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

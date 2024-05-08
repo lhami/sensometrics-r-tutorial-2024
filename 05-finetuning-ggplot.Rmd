@@ -7,31 +7,17 @@ output: html_document
 ```{r setup-5, include = FALSE, purl = FALSE}
 library(tidyverse)
 berry_data <- read_csv("data/clt-berry-data.csv")
-berry_penalty_data <- read_csv("data/berry-penalty-data.csv")
 raw_cider_data <- read_csv("data/CiderDryness_SensoryDATA.csv")
 load("data/svd-results.RData")
+load("data/cleaned-data.RData")
 load("data/long-data-objects.RData")
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
-
-berry_data %>%
-  pivot_longer(cols = matches("^(9pt|us|lms)_"),
-               names_to = c("Scale", "Attribute"), names_sep = "_",
-               values_to = "Liking",
-               values_drop_na = TRUE) %>%
-  select(where(~ !any(is.na(.x)))) %>%
-  mutate(Liking = ifelse(Scale == "lms",
-                         (Liking + 100) * 8/200 + 1,
-                         ifelse(Scale == "us",
-                                Liking * 8/15 + 1,
-                                Liking))) %>%
-  select(Subject = `Subject Code`, Sample = `Sample Name`, berry,
-         starts_with("cata_"), Attribute, Scale, Liking) -> berry_data_long
 ```
 
 The plots we've been making so far are fairly straightforward demonstrations. At the very end of Chapter 3, we briefly showed you the code and results for this plot:
 
 ```{r penalty analysis example, fig.width = 7}
-berry_penalty_data %>%
+berry_penalty_analysis_data %>%
   select(-count) %>%
   pivot_wider(names_from = checked,
               values_from = penalty_lift,
@@ -62,10 +48,10 @@ berry_penalty_data %>%
 goal_plot
 ```
 
-Which uses some tricks from the `stringr` and `tidytext` packages in order to give us easy-to-read labels. Using the existing column names and variable-codes in our original data, it would've looked more like this:
+Which uses some tricks from the `stringr` and `tidytext` packages in order to give us easy-to-read labels. Using the existing column names and variable-codes in our original data to make a first draft of a plot, it would've looked more like this:
 
 ```{r worse penalty analysis example, fig.width = 7}
-berry_penalty_data %>%
+berry_penalty_analysis_data %>%
   select(-count) %>%
   pivot_wider(names_from = checked,
               values_from = penalty_lift,
@@ -79,7 +65,9 @@ berry_penalty_data %>%
   scale_fill_gradient(low = "tan", high = "darkgreen")
 ```
 
-Which we're showing because we have seen similar plots published in journal articles, with the overlapping text, redundant axis labels, and all.
+Which we're showing because we have seen similar plots published in journal articles, with the overlapping text, redundant axis labels, and all. We can make this more readable by reordering the CATA attributes, shortening and reformatting the labels, and possibly by removing some extraneous elements like the `cata_variable` label on the Y axis. These are common steps that make a huge difference.
+
+And we'll get there, but first...
 
 ## Exporting and Saving Plots
 
@@ -87,7 +75,7 @@ It may seem like a weird time to be talking about saving plots, when we haven't 
 
 It's good practice to export your plot as an image (or pdf or knit-together document or however else you plan to export it) and re-export it periodically as you go through fine-tuning.
 
-This is also, probably, the most important part of this chapter. You will have to get every plot that you publish out of `R` somehow, after all! The rest of the advice in this chapter are tricks that we draw upon frequently, but you may find that you have different problems or priorities, or that some of these needs are situational.
+This is also, probably, the most important part of this chapter. You will have to get every plot that you publish out of `R` somehow, after all! After that, we'll cover some tricks that we draw upon frequently, but you may find that you have different problems or priorities, or that some of these needs are situational.
 
 But you will have to export plots for every project you want to share with the world.
 
@@ -97,15 +85,15 @@ You can, as we've already discussed, save a `ggplot` object in a `.rds` file. Bu
 
 There are two major ways to save the kind of spatial color data that comprise images such as graphs. You can store them as **vector graphics**, which can be rescaled because they're made up of lines and shapes (we'll be talking about `.pdf` and `.svg`) or as **raster (bitmap) graphics**, which store images as a grid of **pixels** which each have a single uniform color (we'll be talking about `.png` and `.jpeg`).
 
-`.pdf` vector images are best for **LaTeX**
-`.svg` vector images are more widely supported in word processors
+`.pdf` vector images are best for **LaTeX** and professional publishing
+`.svg` vector images are more widely supported in word processors and websites
 `.png` raster images are the most predictable to print, the best for web publishing, and can be used in pretty much every software ever made, *if* you know exactly the size you want. 
-`.jpeg` (along with `.tiff`) raster images are the raster formats preferred by *Food Quality and Preference* editors. They are worse for web publishing than `.png` but share its other advantages.
+`.jpeg` (along with `.tiff`) raster images are the raster format preferred by *Food Quality and Preference* editors. They are worse for web publishing than `.png` but share its other advantages.
 
-Note that `ggsave()` works like making a `.pdf` version of your working documents: you will not be able to read the plot images into R for editing anymore, no matter which format you save in.
+Note that `ggsave()` is like making a `.pdf` version of your working documents: you will not be able to read the plot images into `R` for editing anymore, no matter which format you save in.
 
 ### Exporting Images with `ggsave()`
-The easiest way to reproducibly save plots, so that all of your export options are in your code and you might be able to recreate it on a different computer, is with the function `ggplot2::ggsave()`, which works *similarly* to the `write_*()` functions and `save()`. You give it a file name to save to, relative to the current working directory, and 
+The easiest way to reproducibly save plots, so that all of your export options are in your code and you might be able to recreate it on a different computer, is with the function `ggplot2::ggsave()`, which works *similarly* to the `write_*()` functions and `save()`. You give it a file name to save to, relative to the current working directory, and then the variable where your plot is saved.
 
 `ggsave()` supports all of the above-named image formats, as well as `.eps`, `.ps`, `.tex` (pictex), and `.bmp`. If you're reading this right now, you're looking at a webpage created using `bookdown` and `knitr`. We can't actually directly embed `.pdf` images in this site, but let's look at a few other example formats using the same plots.
 
@@ -120,17 +108,30 @@ It will figure out from the file extension (the stuff after the `.` in the `file
 Now let's compare how each of these looks!
 
 ```{r viewing the plot inside R, fig.width = 7}
-goal_plot
+goal_plot # If you're following along, this will look different in your R session!
 ```
-```{r showing off plot types, echo = FALSE, purl = FALSE, out.width = 7}
+
+The `.svg` image made by `ggsave()`:
+
+```{r svg plot, echo = FALSE, purl = FALSE, out.width = "672px"}
 knitr::include_graphics('img/penalty-lift-svg.svg')
+```
+
+The `.png` image made by `ggsave()`:
+
+```{r png plot, echo = FALSE, purl = FALSE, out.width = "672px"}
 knitr::include_graphics('img/penalty-lift-png.png')
+```
+
+The `.jpeg` image made by `ggsave()`:
+
+```{r jpeg plot, echo = FALSE, purl = FALSE, out.width = "672px"}
 knitr::include_graphics('img/penalty-lift-jpeg.jpeg')
 ```
 
-The two raster formats look basically the same, and only slightly different from the `.svg`. You'll notice that these saved plots all look more similar to each other than they do to the initial plot we previewed inside R. The text in *all* of the plots has a bit more space around it using `ggsave()`, the bars are taller, and the plot aspect ratio is different.
+The two raster formats look basically the same, and only slightly different from the `.svg` and the version in the `.html` version of this tutorial. If you're following along in your own `R` session, however, you'll notice that these saved plots all look more similar to each other than they do to the initial plot you're previewing inside `R`. *All* of the plots have a bit more space around the text using `ggsave()`, taller bars, and a different aspect ratio.
 
-We can adjust these using the rest of the arguments to `ggsave()`, namely the `scale`, `width`, `height`, `units`, and, for rasters, `dpi`.
+We can adjust these using the rest of the arguments to `ggsave()`, namely the `scale`, `width`, `height`, `units`, and, for raster images, `dpi`.
 
 You might be surprised that vector images have height and width options, because we already said they don't have a fixed display size, but as you saw a few code chunks ago, `ggsave()` picked a default image size of 7x7 inches when we didn't specify. The height and width are mostly important for determining the relative sizing of elements like text and whitespace.
 
@@ -151,9 +152,21 @@ ggsave("img/penalty-lift-svg-14x8-rescale.svg", goal_plot,
        width = 14, height = 8, units = "in", scale = .5)
 ```
 
-```{r showing off vector plot scaling, echo = FALSE, purl = FALSE, out.width = 7}
+The 7x4" vector plot:
+
+```{r small vector plot, echo = FALSE, purl = FALSE, out.width = "672px"}
 knitr::include_graphics('img/penalty-lift-svg-7x4.svg')
+```
+
+The same plot saved at 14x8":
+
+```{r larger vector plot, echo = FALSE, purl = FALSE, out.width = "672px"}
 knitr::include_graphics('img/penalty-lift-svg-14x8.svg')
+```
+
+A 14.8" plot with `scale = 0.5`:
+
+```{r showing off vector plot rescaling, echo = FALSE, purl = FALSE, out.width = "672px"}
 knitr::include_graphics('img/penalty-lift-svg-14x8-rescale.svg')
 ```
 
@@ -162,9 +175,9 @@ All of these `.svg` images are *displayed* at 7x4" on your screen, but the plot 
 You should *avoid using `scale` for rasters*, as it will create plots that will not print at the size (`width` and `height`) and resolution (`dpi`) you specified.
 
 ### Image Sizes and Raster Resolutions
-All raster images are made up of grids of dots or pixels. Once you export a figure from R as a `.png`, `.jpeg`, or other raster format, *you cannot resize it*. It will look blurry or blocky if you try to make it bigger, and even slight changes to the **aspect ratio** (width/height), the text and other plot elements will be noticeably stretched out.
+All raster images are made up of grids of dots or pixels. Once you export a figure from `R` as a `.png`, `.jpeg`, or other raster format, *you cannot resize it*. It will look blurry or blocky if you try to make it bigger, and even slight changes to the **aspect ratio** ($width/height$), the text and other plot elements will be noticeably stretched out.
 
-You'll have fewer problems if you save an image that's way too big (i.e., has too many pixels) for what you need, so long as it's the right aspect ratio and all the plot elements have relative sizes that work at the scale you'll be printing. (See [this short primer on "Using R Plots in Documents" from the University of Wisconsin-Madison](https://sscc.wisc.edu/sscc/pubs/using-r-plots/saving-plots.html#file-dimensions) for examples.)
+You'll have fewer problems if you save an image that's way too big (i.e., has too many pixels) for what you need, so long as it's the right aspect ratio and all the plot elements have relative sizes that work at the scale you'll be printing. (See [this short primer on "Using `R` Plots in Documents" from the University of Wisconsin-Madison](https://sscc.wisc.edu/sscc/pubs/using-r-plots/saving-plots.html#file-dimensions) for examples.)
 
 So, how big is a pixel? How many pixels are in an inch? It depends! (On the pixel density for screens and the resolution for printing, see [the discussion on this page](https://graphicdesign.stackexchange.com/questions/6080/what-is-the-difference-between-dpi-dots-per-inch-and-ppi-pixels-per-inch) for details.)
 
@@ -173,11 +186,11 @@ So, how big is a pixel? How many pixels are in an inch? It depends! (On the pixe
 - Older Apple software has a default of 72 ppi
 - `ggsave()` uses a default of 300 dpi
 - Poster printers will usually print at 300 dots per inch (dpi). They may ask for a minimum resolution of anywhere between 120-300 dpi, although 300 dpi will usually be a safe bet. Use your specific printer's recommendations.
-- Elsevier journals like *Food Quality and Preference* [suggest at least 300 dpi for all images and at least 500 dpi for "combination art", which includes all R plots with colored or shaded areas](https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-sizing).
+- Elsevier journals like *Food Quality and Preference* [suggest at least 300 dpi for all images and at least 500 dpi for "combination art", which includes all `R` plots with colored or shaded areas](https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-sizing).
 
-This is important because, if you have a 600x600-pixel raster image, and you try to print it any bigger than 2 inches x 2 inches on a 300 dpi printer, then you have *missing image data* and the printed version will look blurry. 
+This is important because, if you have a 600x600-pixel raster image, and you try to print it any bigger than 2 inches x 2 inches on a 300 dpi printer, then you have *missing image data* and the printed version will look blurry.
 
-Whenever something, like a design software or an R function to save a plot, gives you the chance to enter an image size in inches or centimeters, *you should figure out what dpi or ppi it's using*. It may be easier to figure out the final pixel size you want and export something that size or bigger. (For more details, see [this (slightly outdated) guide on "Preparing Images for PowerPoint, the Web, and Publication" from the University of Michigan](https://apps.lib.umich.edu/files/services/exploratory/pdfs/preparingimages.pdf).)
+Whenever something, like a design software or an `R` function to save a plot, gives you the chance to enter an image size in inches or centimeters, *you should figure out what dpi or ppi it's using*. It may be easier to figure out the final pixel size you want and export something that size or bigger. (For more details, see [this guide on "Preparing Images for PowerPoint, the Web, and Publication" from the University of Michigan](https://apps.lib.umich.edu/files/services/exploratory/pdfs/preparingimages.pdf). It's slightly outdated, so ignore the specific dpi/ppi numbers.)
 
 You can see the possible image widths and corresponding pixel sizes for Elsevier journals [here](https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-sizing). For PowerPoint presentations, assume you're filling a 13.3x7.5" space at 150 dpi. For printed posters, you'll find the final poster size on the competition guidelines and the final resolution from your printer. 12"x12" for a single figure at 300 dpi is a good place to start.
 
@@ -196,30 +209,42 @@ ggsave("img/penalty-lift-png-500dpi.png", goal_plot,
        width = 7, height = 4, units = "in", dpi = 500)
 ```
 
-```{r showing off vector plot scaling, echo = FALSE, purl = FALSE, out.width = 7}
+7x4" at 50 dpi:
+
+```{r raster plot at 50 dpi, echo = FALSE, purl = FALSE, out.width = "672px"}
 knitr::include_graphics('img/penalty-lift-png-50dpi.png')
+```
+
+7x4" at 300 dpi (the `ggsave()` default):
+
+```{r raster plot at 300 dpi, echo = FALSE, purl = FALSE, out.width = "672px"}
 knitr::include_graphics('img/penalty-lift-png-300dpi.png')
+```
+
+7x4" at 500 dpi:
+
+```{r raster plot at 500 dpi, echo = FALSE, purl = FALSE, out.width = "672px"}
 knitr::include_graphics('img/penalty-lift-png-500dpi.png')
 ```
 
-You can see that all of the 7x4" raster plots look basically the same, except the first one is a little blurry when it's sized up to match the other two. This is the problem we're trying to avoid.
+You can see that all of the 7x4" raster plots look basically the same, except the first one is a little blurry when it's sized up to match the other two on your probably ~100 dpi monitor. This is the problem we're trying to avoid.
 
-Unlike `scale`, the `dpi` argument does not resize any of the (it doesn't change the size of a "point" from 1/72"). But let's say we need a 300 dpi copy of this image printed at 14x8". We already know that the 14x8" output has text that's too small to read from afar.
+Unlike `scale`, the `dpi` argument does not resize any of the text or geoms (it doesn't change the size of a "point" from 1/72"). But let's say we need a 300 dpi copy of this image printed at 14x8". We already know that the 14x8" output has text that's too small to read from afar.
 
-In cases like these, it may be easier to output a size with the right *aspect ratio* that looks good and is legible, then figure out what `dpi` you'll need to print it. If we need a 14x8" plot at 300 dpi, that's `14 * 300 = 4200` pixels wide by `8 x 300 = 2400`. We can fake this with our 7x4" plot at 600 dpi, since `4200 / 7 = 600` and `2400 / 4 = 600`.
+In cases like these, it may be easier to output a size with the right *aspect ratio* that looks good and is legible, then figure out what `dpi` you'll need to print it. If we need a 14x8" plot at 300 dpi, that's $14 \times 300 = 4200$ pixels wide by $8 \times 300 = 2400$ tall. We can fake this with our 7x4" plot at 600 dpi, since $4200 / 7 = 600$ and $2400 / 4 = 600$.
 
 ### Other Image Export Options
 
-This is not a `knitr` or `bookdown` tutorial, because we had to choose our topics, but we used the `bookdown` package to make the [online webpage version of this tutorial](https://lhami.github.io/sensometrics-r-tutorial-2024/). It comes with its own advantages and challenges, but it does significantly streamline the image-generation process for any project where the only file you need is one LaTeX or `.pdf` output with all of the text and all of the figures. If that sounds appealing to you, turn your attention to ["bookdown: Authoring Books and Technical Documents with R Markdown" by Yihui Xie](https://bookdown.org/yihui/bookdown/).
+This is not a `knitr` or `bookdown` tutorial, because we had to choose our topics, but we used the `bookdown` package to make the [online webpage version of this tutorial](https://lhami.github.io/sensometrics-r-tutorial-2024/). It comes with its own advantages and challenges, but it does significantly streamline the image-generation process for any project where the only file you need is one LaTeX file, `.html` page, or `.pdf` output with all of the text and all of the figures. If that sounds appealing to you, turn your attention to ["bookdown: Authoring Books and Technical Documents with `R` Markdown" by Yihui Xie](https://bookdown.org/yihui/bookdown/).
 
 ## Making Text Look Okay
 
-A good R variable or column name doesn't have any spaces or punctuation other than underscores (`_`) and dots (`.`), to avoid all those pesky backticks (`\``) in our code.
+A good `R` variable or column name doesn't have any spaces or punctuation other than underscores (`_`) and dots (`.`), to avoid all those pesky backticks (`\``) in our code.
 
 This is very different from what a good label in a plot looks like. You'll often want to make some sort of mass changes to column names or text variables before plotting, in order to address this. In our previous example, we used `separate()` to split one messy column with variable names into two, adjusted each one, and then used `unite()` to combine them again:
 
 ```{r separate and unite}
-berry_penalty_data %>%
+berry_penalty_analysis_data %>%
   select(-count) %>%
   pivot_wider(names_from = checked,
               values_from = penalty_lift,
@@ -239,7 +264,7 @@ berry_penalty_data %>%
 The `stringr` package is a part of the `tidyverse`, so you have it already loaded whenever you run `library(tidyverse)`. It has a lot of useful functions for working with text (called "**str**ings" in many programming languages), mostly of the form `str_*()`. One thing you can do is change labels to uppercase, lowercase, or "title case" (first letter of each word capitalized), as appropriate:
 
 ```{r capitalizing with stringr}
-berry_penalty_data %>%
+berry_penalty_analysis_data %>%
   select(berry) %>%
   mutate(Upper = str_to_upper(berry),
          Title = str_to_title(berry)) # Capitalizes the first letter of each word
@@ -250,7 +275,7 @@ It also has its own version of `unite()` called `str_c()`, although it works on 
 On the other hand, if you don't need to do the intermediate step of changing the `separate()`d parts, `str_replace()` and `str_replace_all()` are very useful for dealing with underscores or periods. You give it `string`, the text vector you want to modify (inside `mutate()`, a column name); then `pattern`, the character(s) you want to replace; then `replacement`, what you want to replace them with.
 
 ```{r replacing underscores with str_replace}
-berry_penalty_data %>%
+berry_penalty_analysis_data %>%
   select(-count) %>%
   pivot_wider(names_from = checked,
               values_from = penalty_lift,
@@ -268,7 +293,7 @@ str_replace_all("long_text_with_many_underscores", "_", " ")
 You can add multiple sets of `pattern`s and `replace`ments to `str_replace_all()` using a named list: `c("pattern1" = "replace1", "pattern2" = "replace2"`. This is useful to, for instance, fix multiple typos like "goodshapre". Unlike the `case_when()` example we showed before, you can fix typos that occur anywhere in the text, even if they're only parts of a word.
 
 ```{r fixing typos with str_replace}
-berry_penalty_data %>%
+berry_penalty_analysis_data %>%
   select(-count) %>%
   pivot_wider(names_from = checked,
               values_from = penalty_lift,
@@ -287,7 +312,7 @@ c("nocolor", "none", "cornonthecob", "anode") %>%
   str_replace_all("no", " NO ")
 
 #Or it can be useful for fixing lots of similar problems all at once
-berry_penalty_data %>%
+berry_penalty_analysis_data %>%
   select(-count) %>%
   pivot_wider(names_from = checked,
               values_from = penalty_lift,
@@ -299,7 +324,7 @@ berry_penalty_data %>%
                                            "_" = " ")))
 ```
 
-### `stringr` and Regular Expressions
+### `stringr` and Regular Expressions (A small tangent)
 
 So far, we've been replacing letters and underscores, which is what we have in our example data. You can also use `str_replace()` for periods (`.`), although you may be surprised when you first try:
 
@@ -322,7 +347,7 @@ str_extract_all("Regular Expressions (regex) are one tool in Natural Language Pr
 You can try changing the searched `string` in the above code to see if it recognizes your email or how many numbers you can get it to recognize. Usually, though, your plot labels aren't in full sentences in your data frame. Simpler regular expressions can still save you a lot of work:
 
 ```{r cleaning up a character variable with str_replace and regex}
-berry_penalty_data %>%
+berry_penalty_analysis_data %>%
   select(-count) %>%
   pivot_wider(names_from = checked,
               values_from = penalty_lift,
@@ -337,7 +362,7 @@ You do not *have* to learn regular expressions to clean up messy text, but being
 
 If you want to learn more, we'd recommend starting with [the `stringr` package's own vignette on regular expressions](https://stringr.tidyverse.org/articles/regular-expressions.html), which you can view with `vignette("regular-expressions", "stringr")`. If you want more practice, you can then follow along with the [RegexOne](https://regexone.com/) tutorial or [RegexTutorials](http://regextutorials.com/index.html).
 
-Any "perl-flavored" regex tutorial or resource will work, with the exception that *you will have to double the number of backslashes (`\`)* to use them in R.
+Any "perl-flavored" regex tutorial or resource will work, with the exception that *you will have to double the number of backslashes (`\`)* to use them in `R`.
 
 ## Removing Legends and Plot Elements
 
@@ -348,7 +373,7 @@ You've already seen us use `+ theme(panel.grid = element_blank())` to get rid of
 - `axis.ticks`, `axis.ticks.x`, or `axis.ticks.y` if you want to remove the little tick marks along a given axis (useful for bar plots)
 
 ```{r removing the legend and the axis ticks}
-berry_data_long %>%
+berry_long_liking %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
   ggbeeswarm::geom_quasirandom() +
   facet_wrap(~ Attribute) +
@@ -492,7 +517,7 @@ long_cider_data %>%
 Now, at long last, we're ready to walk line-by-line through the example penalty analysis figure that we've just been copy-pasting so far in the workshop.
 
 ```{r final walkthrough of penalty analysis, fig.width = 7}
-berry_penalty_data %>%
+berry_penalty_analysis_data %>%
   select(-count) %>%
   pivot_wider(names_from = checked,
               values_from = penalty_lift,

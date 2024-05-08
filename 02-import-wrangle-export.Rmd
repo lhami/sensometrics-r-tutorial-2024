@@ -6,13 +6,12 @@ output: html_document
 
 ```{r setup-2, echo=FALSE, include=FALSE}
 library(tidyverse)
-library(ca)
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```
 
 Now that everyone is on the same page for how we're going to use `R`, we're going to dive right into importing our data into `R`, exploring it, and--most importantly--visualizing it.  In this part of the tutorial, we are going to focus on getting data into `R` and manipulating it.  
 
-Personally, I prefer to see the reason for doing something, rather than being shown a bunch of buildig blocks and not seeing how they fit together.  Therefore, we're going to start off this section with a complete work flow for importing and visualizing some real results, and then work backward as we unpack how and why we've taken particular steps.
+Personally, I prefer to see the reason for doing something, rather than being shown a bunch of building blocks and not seeing how they fit together.  Therefore, we're going to start off this section with a complete work flow for importing and visualizing some real results, and then work backward as we unpack how and why we've taken particular steps.
 
 ## Motivation: exploring berry and cider CATA/liking data
 
@@ -21,8 +20,6 @@ Before we begin, we need to make sure we've loaded the packages we're going to u
 ```{r libraries-2}
 # This package is actually a set of utility packages we will use a lot
 library(tidyverse)
-# ca is Michael Greenacre's Correspondence Analysis library
-library(ca)
 ```
 
 The plan here is to present "full" workflows for data import, wrangling, and visualization below so as to give a skeleton to work through.  This is going to look like a lot of code at once, but I don't use anything in these workflows that we will not be covering (in some way!) today.  Hopefully, by the end of today's workshop you will be able both to understand and dissect complex code and use it to build your own analyses and visualizations.
@@ -226,7 +223,7 @@ To get these data into `R`, we need to briefly talk about **working directories*
 getwd()
 ```
 
-Therefore, **relative to the working directory**, the file path to this data is `data/clt-berry-data.csv`.  Please note that this is the UNIX convention for file paths: in Windows, the backslash `\` is used to separate directories.  Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention in this workshop.
+Therefore, **relative to the working directory**, the file path to this data is `data/clt-berry-data.csv`.  Please note that this is the UNIX convention for file paths: in Windows, the backslash `\` is used to separate directories.  Happily, RStudio will translate between the two conventions, so you can just follow along with the macOS/UNIX convention (`/`) in this workshop.
 
 ### Getting different kinds of files into `R`
 
@@ -248,7 +245,7 @@ read_csv(file = "data/clt-berry-data.csv")
 read_csv(file = "data/CiderDryness_SensoryDATA.csv")
 ```
 
-Remember that we need to store objects in the Environment if we want to access and modify them.  Therfore, we need to remember to store these somewhere.
+Remember that we need to store objects in the Environment if we want to access and modify them.  Therefore, we need to remember to store these somewhere.
 
 ```{r store-the-data, message=FALSE}
 raw_berry_data <- read_csv(file = "data/clt-berry-data.csv")
@@ -284,7 +281,7 @@ If you're at all familiar with `R`, you will have learned about subsetting `R` o
 
 While I am not going to go over much of the base `R` syntax, I want to talk about one particular tool that is becoming standard in modern `R` coding: the **pipe**, which is written in `tidyverse` as `%>%`.  This garbage-looking set of symbols is actually your best friend, you just don't know it yet.  I use this tool constantly in my R programming.
 
-OK, enough background, what the heck _is_ a pipe?  The term "pipe" comes from what it does: like a pipe, `%>%` let's whatever is on it's left side flow through to the right hand side.  It is easiest to read `%>%` as "**AND THEN**". 
+OK, enough background, what the heck _is_ a pipe?  The term "pipe" comes from what it does: like a pipe, `%>%` lets whatever is on its left side flow through to the right hand side.  It is easiest to read `%>%` as "**AND THEN**". 
 
 ```{r the mighty pipe!}
 raw_berry_data %>%                         # Start with the berry_data
@@ -296,7 +293,7 @@ raw_berry_data %>%                         # Start with the berry_data
 
 Typing `%>%` is no fun.  But, happily, RStudio builds in a shortcut for you: macOS is `cmd + shift + M`, Windows is `ctrl + shift + M`.
 
-Please note that since `R` 4.1, a *native* pipe has been implemented (you don't need to load `tidyverse` for it to work), which is written as `|>`.  If you are new to using pipes, you can pretty safely use either one that you prefer, and I think that the keyboard shortcuts above may use the native pipe instead of the `tidyverse` one by default.  If you want to learn details, [this article is helpful](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/).
+Please note that since `R` 4.1, a *native* pipe has been implemented (you don't need to load `tidyverse` for it to work), which is written as `|>`.  If you are new to using pipes, you can pretty safely use either one that you prefer, and you can configure the keyboard shortcuts above to use either the native or `tidyverse` pipe. The default depends on your version of Rstudio.  If you want to learn details, [this article is helpful](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/).
 
 **TL;DR**: The pipe lets us quickly write functional workflows without saving a lot of intermediate steps.  We're going to use it a lot in the following examples, and I'll call it out the first few times so that you can get the hang of it.
 
@@ -319,7 +316,7 @@ raw_berry_data %>%        # We start with our raw_berry_data frame
 ```
 Now we only have these 3 columns!  
 
-**An aside:** Note the way that `Subject Code` is written: as `` `Subject Code` ``.  This is because `R` technically doesn't allow some characters in object names, including (but not limited to) white space (` `), leading numbers (starting with `1-9`), and special characters (like `,` or `:`).  We can break this rule by using the **back-tick** operator `` ` `` to escape the normal naming conventions.  This will also happen when, as we did here, we import data from a format, like `.csv`, where these are not rules.  It is a pain to type back-ticks, but the `tab`-completion behavior we set up makes this easier. 
+**An aside:** Note the way that `Subject Code` is written: as `` `Subject Code` ``.  This is because `R` will see some characters, including (but not limited to) white space (` `), leading numbers (starting with `1-9`), and special characters (like `,` or `:`), as indications that the variable name has ended.  We can refer to these strange column names by using the **back-tick** operator `` ` `` to escape the normal naming conventions.  This happens often when, as we did here, we import data that wasn't made in `R`, like many `.csv` files.  It is a pain to type back-ticks, but the `tab`-completion behavior we set up makes this easier.
 
 To return to selection, we also want overall liking data and we want CATA variables.  There are a lot of these, and typing them out individually in `select()` would be a pain.  Luckily, there are a set of special functions for use within `select()` (and other `tidyverse` functions) that let us use logical operators to select ranges of columns/variables  You can learn about them using the `?select` command to get the help file.
 
@@ -336,7 +333,7 @@ berry_columns %>%
   glimpse()
 ```
 
-Because I am intimately familiar with these data, I know that all of the CATA variables were stored in columns starting with `"cata"`, and that ratings for overall acceptability were stored in columns that had `"overall"` somewhere in their name.  
+Because I am intimately familiar with these data, I know that all of the CATA variables were stored in columns starting with `"cata"`, and that ratings for overall acceptability were stored in columns that had `"overall"` somewhere in their name.
 
 Unlike in our original workflow, we have created an intermediate data frame called `berry_columns` to save us from repeating steps.  But, as above in the original workflow, there is no reason we need to do this.
 
@@ -368,14 +365,14 @@ raw_berry_data %>%
   distinct(berry)
 ```
 
-Second, since frequently we are using `filter()` to get rows that meet some criteria stored in categorical variables, the `str_*()` functions from `tidyverse` (technically from `stringr` within the `tidyverse`) are extremely useful.  Let's say we want to get the second test day for each berry.  We can accomplish this by searching *in* in the text of the `test_day` variable.
+Second, since frequently we are using `filter()` to get rows that meet some criteria stored in categorical variables, the `str_detect()` function from `stringr` (a package within the `tidyverse`) is extremely useful, along with its cousins `str_starts()` and `str_ends()`.  Let's say we want to get the second test day for each berry.  We can accomplish this by searching for "Day 2" in the text of the `test_day` variable.
 
 ```{r}
 raw_berry_data %>%
   distinct(test_day)
 
 raw_berry_data %>%
-  filter(str_detect(test_day, "Day 1")) %>%
+  filter(str_detect(test_day, "Day 2")) %>%
   distinct(test_day)
 ```
 
@@ -383,9 +380,9 @@ The combination of `filter()` and `select()` goes a long way to helping us wrang
 
 ### Reshaping your data
 
-At this point, we've gotten data into `R` and applied some tools to select and filter only relevant variables and ovservations.  However, we often find that our raw data needs to be actively transformed for analysis.  We might find that we need to do simple operations like calculate new quantities based on our raw measurements, convert units, or create new indicator variables.  All of these operations require us to look at existing variables and create new variables *based on* those existing variables/columns.
+At this point, we've gotten data into `R` and applied some tools to select and filter only relevant variables and observations.  However, we often find that our raw data needs to be actively transformed for analysis.  We might find that we need to do simple operations like calculate new quantities based on our raw measurements, convert units, or create new indicator variables.  All of these operations require us to look at existing variables and create new variables *based on* those existing variables/columns.
 
-We also might notice that we are storing our data in a format that doesn't work for us.  You might be familiar with the idea of [pivot tables](https://en.wikipedia.org/wiki/Pivot_table), especially from Excel.  We often find that our data is in "wide" format when we need it to be "long", or vice-versa.  While this seems different from creating new variables, pivoting operations also look at the structure of data (how cells are creatd at the intersection of rows and columns) to create new rows or new columns.    
+We also might notice that we are storing our data in a format that doesn't work for us.  You might be familiar with the idea of [pivot tables](https://en.wikipedia.org/wiki/Pivot_table), especially from Excel.  We often find that our data is in "wide" format when we need it to be "long", or vice-versa.  While this seems different from creating new variables, pivoting operations also look at the structure of data (how cells are created at the intersection of rows and columns) to create new rows or new columns.    
 
 #### Creating new columns: `mutate()`
 
@@ -415,6 +412,7 @@ berry_columns %>%
   summary()
 
 ```
+
 `mutate()` is a very easy way to edit your data mid-pipe.  So we might want to do some calculations, create a temporary variable using `mutate()`, and then continue our pipe.  **Unless we use `<-` to store our `mutate()`'d data, the results will be only temporary.**
 
 ```{r}
@@ -436,13 +434,13 @@ berry_columns %>%
 
 We have overwitten our original variables with rescaled versions of the LAM and unstructured scales.  Now our values are commensurate.
 
-**NB:** Sometimes we want to simultaneously `select()` and `mutate()` columns; the `transmute()` function is a simple wrapper for both of these operations combined and is quite useful for longer and more complex workflows.
+**NB:** Sometimes we want to simultaneously `select()` and `mutate()` columns; the `transmute()` function is a simple wrapper for both of these operations combined and is quite useful for longer and more complex workflows. The `.keep` argument of `mutate()` can also be used to keep a subset of columns, rather than the whole tibble.
 
 #### Pivoting: `pivot_longer()`/`pivot_wider()`
 
 A key concept motivating the `tidyverse` is the idea of ["tidy" data](https://r4ds.hadley.nz/data-tidy#sec-tidy-data), which is typically also tied to the ability to move between ["long" and "wide" data](https://datacarpentry.org/r-socialsci/instructor/04-tidyr.html#reshaping-with-pivot_wider-and-pivot_longer).  Typically, tidy data means data that is "long", although I don't know if I am convinced that it is an exact 1-to-1 map.
 
-Frequently, in sensory data we have "wide" data, where we are recording *experimental units* in rows and all of the *measured or observed variables* on those experimental units in the columns.  Our cider data is a great example:
+Frequently, sensory data is recorded "wide", with *experimental units* in rows and all of the *measured or observed variables* on those experimental units in the columns.  Our cider data is a great example:
 
 ```{r}
 raw_cider_data
@@ -496,7 +494,7 @@ long_berry_data <-
   pivot_longer(starts_with("cata_"),
                names_to = "cata_variable",
                values_to = "checked",
-               names_transform = ~str_remove(., "cata_"),
+               names_prefix = "cata_",
                values_drop_na = TRUE)
 
 long_berry_data
@@ -504,7 +502,7 @@ long_berry_data
 
 Here, notice we once again drop `NA` values because some CATA variables only applied to some berries (e.g., raspberries had different CATA attributes than strawberries, natch).  We also used a shortcut in `pivot_longer()` to remove the `"cata_"` prefix from each CATA variable name, purely to make them more readable.  
 
-While we don't use `pivot_wider()` in the flow above, it does the opposite of `pivot_longer()`: provided with a column of ID variables (like the CATA variables) and a column containing observations, it produces a wider, less tidy data frame.  We can see the effects on our long cider data.
+While we don't use `pivot_wider()` in the flow above, it does the opposite of `pivot_longer()`: provided with a column of ID variables (like the CATA variables) and a column containing observations, it produces a wider, less tidy data frame.  This is most frequently useful when getting data ready for some kind of multivariate analysis, like a regression or SVD.  We can see the effects on our long cider data.
 
 ```{r}
 long_cider_data %>%
@@ -582,7 +580,6 @@ For the berries, we did something similar (although we ignored the proportions) 
 
 ```{r}
 berry_penalty_data <- 
-  cider_berry_data <- 
   long_berry_data %>%
   group_by(berry, cata_variable, checked) %>%
   summarize(penalty_lift = mean(rating),
@@ -625,7 +622,7 @@ We can use either the `-` (the subtraction operator) or the convenience function
 
 ```{r}
 cider_penalty_data %>%
-  arrange(-count, -rating)
+  arrange(-count, rating)
 ```
 
 Finally, `arrange()` will respect groups, so we can sort our penalties within our berries to see what matters most:
@@ -643,9 +640,9 @@ Note the `slice_head()` function above: this gives us the first 5 rows (of each 
 
 ## Saving your data
 
-Often, you will have an ugly, raw data file.  You want to clean up this data file: remove junk variables, rename columns, omit outliers, and have something that is actually workable.  Sometimes, you create a new intermediate product (say, a penalty-analysis table) that you'd like to be able to share and work with elsewehere.  Now, you know how to do all that in `R`, often with fewer clicks and less effort than in Excel or other WYSIWYG tool.  But once you restart your `R` session, you will need to rerun this workflow, and you can't access your data products in other software.
+Often, you will have an ugly, raw data file.  You want to clean up this data file: remove junk variables, rename columns, omit outliers, and have something that is actually workable.  Sometimes, you create a new intermediate product (say, a penalty-analysis table) that you'd like to be able to share and work with elsewhere.  Now, you know how to do all that in `R`, often with fewer clicks and less effort than in Excel or other WYSIWYG tool.  But once you restart your `R` session, you will need to rerun this workflow, and you can't access your data products in other software.
 
-To save this work, you can use `write.csv()` or `readr::write_csv()` and it's relatives (e.g., functions like `write.file()`).  These will create **or overwrite** a file in the directory location you specify.
+To save this work, you can use `write.csv()` or `readr::write_csv()` and its relatives (e.g., functions like `write.file()`).  These will create **or overwrite** a file in the directory location you specify.
 
 ```{r demonstrating write_csv}
 # We will keep in the tidyverse idiom with readr::write_csv()
@@ -682,7 +679,7 @@ This can be very helpful for sharing data.
 
 ### A note on replicability
 
-In order to make sure that your data are replicable, you should *always* keep your raw data and the script/code that transforms that data into your cleaned form.  That way, when (*not* if) you discover a couple minor errors, you can go back and fix it, and you will not be stuck trying to remember how you overwrote this data in the first place.
+In order to make sure that your data are replicable, you should *always* keep your raw data and the script/code that transforms that data into your cleaned form.  That way, when (*not* if) you discover a couple minor errors, you can go back and fix them, and you will not be stuck trying to remember how you overwrote this data in the first place.
 
 This will also protect you if, in the future, someone looks at your data and asks something like "but where did these means come from?"
 

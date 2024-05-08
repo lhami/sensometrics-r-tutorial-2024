@@ -1,0 +1,56 @@
+# Wrap-up and further resources
+
+
+
+Let's look back at what we were aiming to do today:
+
+> In this tutorial, we will introduce the audience to ggplot2 and the rest of the tidyverse R packages with the aim of developing sufficient basic skills to visualize multivariate sensory and consumer data. We will provide a learning dataset for the analysis—a set of free response comments and overall liking scores from a central location test on berries. We will teach participants how to import, manipulate, and plot data using user-friendly, “tidy” R programming. All resources used in the tutorial are open-source and will remain available to attendees, including an R script covering the full workflow.
+> 
+> At the end of the tutorial, attendees will be able to prepare raw sensory data for common multivariate visual representations in R.
+
+We have managed to touch on all of these topics, but of course we have taken the most cursory look at each.  I hope what we've gone over today has inspired you, sure, but I mostly hope it has shown you **how much you can do with just a little knowledge**.  My journey in terms of learning data science with `R` has been all about building my coding ability incrementally.  My code looks more like this than anything else, but I am able to get so much done:
+
+<center>
+
+![What does good code even look like? (via [XKCD](https://xkcd.com/844/))](img/xkcd_844_good_code.png)
+
+</center>
+
+By developing your ability to code (in `R` or Python, or whatever works for you--Julia?) you will open up a whole set of analyses that you would otherwise be unable to access.
+
+## Getting help
+
+1.  Look up the help file for whatever you're doing. Do this by using the syntax `?<search item>` (for example `?c` gets help on the vector command) as a shortcut on the console.
+2.  Search the help files for a term you think is related. Can't remember the command for making a sequence of integers? Go to the "Help" pane in RStudio and search in the search box for "sequence". See if some of the top results get you what you need.
+3.  The internet. Seriously. I am not kidding even a little bit. R has one of the most active and (surprisingly) helpful user communities I've ever encountered. Try going to google and searching for "How do I make a sequence of numbers in R?" You will find quite a bit of useful help. I find the following sites particularly helpful
+    1.  [Stack Overflow](https://stackoverflow.com/questions/tagged/r)
+    2.  [Cross Validated/Stack Exchange](https://stats.stackexchange.com/questions/tagged/r)
+    3.  Seriously, [Google will get you most of the way to helpful answers](https://is.gd/80V5zF) for many basic R questions.
+
+I want to emphasize that **looking up help is normal**. I do it all the time. Learning to ask questions in helpful ways, how to quickly parse the information you find, and how to slightly alter the answers to suit your particular situation are key skills.
+
+## Learning more with Sensometrics Society
+
+
+## Further reading/resources
+
+1.  General `R` programming
+    1.  [Data Carpentry's *R for Social Scientists*](https://datacarpentry.org/r-socialsci/) (and, really the courses from [The Carpentries](https://carpentries.org/) in general)
+    2.  [Wickham & Grolemund's *R for Data Science*](https://r4ds.had.co.nz/)
+    3.  [The stat545 course website](https://stat545.com/)
+    4.  My own (somewhat opinionated and eccentric) course from VT: [FST 5984](https://jlahne.github.io/food-data-science-2022/)
+2.  Data Visualization Best Practices
+    1.  [Healy's *Data Visualization*](https://socviz.co/)
+    2.  ["Caveats" from the website Data to Viz](https://www.data-to-viz.com/caveats.html), including topics such as why radar plots & pie charts are controversial and what to use instead.
+3. `ggplot2`-specific
+    1.  [Winston Chang's *R Graphics Cookbook*](https://r-graphics.org/), basically a collection of short tips and sample plots
+    2.  [R Graph Gallery's posts](https://r-graph-gallery.com/index.html) breaking down the code to make real, complex, polished ggplots
+    3.  [ggplot2's registered extension gallery](https://exts.ggplot2.tidyverse.org/)
+
+We will also be presenting...
+  
+## Questions/Comments
+
+If you get stuck, feel free to find us during the conference, or email us at **jlahne at vt dot edu** and **lhamilton at vsu dot edu**.  I'd love to learn about what you're working on! 
+
+## References

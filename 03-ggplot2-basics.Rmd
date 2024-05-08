@@ -8,55 +8,9 @@ output: html_document
 library(tidyverse)
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 
-# Import the data
-raw_berry_data <- 
-  read_csv(file = "data/clt-berry-data.csv") %>%
-  select(where(~ !all(is.na(.)))) 
-
-cleaned_berry_data <-
-  raw_berry_data %>%
-  # Get the relevant columns
-  select(`Subject Code`, 
-         berry,
-         sample,
-         starts_with("cata_"), 
-         contains("overall")) %>%
-  # Rescale the LAM and US scales to a 9-pt range
-  mutate(lms_overall = (lms_overall + 100) * (8 / 200) + 1,
-         us_overall = (us_overall + 0) * (8 / 15) + 1) %>%
-  # Switch the 3 overall liking columns into a single column
-  pivot_longer(contains("overall"),
-               names_to = "hedonic_scale",
-               values_to = "rating",
-               values_drop_na = TRUE) %>%
-  # Let's make all the CATA variables into a single column to make life easier
-  # (and get rid of those NAs)
-  pivot_longer(starts_with("cata_"),
-               names_to = "cata_variable",
-               values_to = "checked",
-               names_transform = ~str_remove(., "cata_"),
-               values_drop_na = TRUE)
-
-berry_penalty_analysis_data <- 
-  cleaned_berry_data %>%
-  group_by(berry, cata_variable, checked) %>%
-  summarize(penalty_lift = mean(rating),
-            count = n()) %>%
-  ungroup() 
-
 raw_cider_data <- 
   read_csv("data/CiderDryness_SensoryDATA.csv")
-
-cider_penalty_data <- 
-  raw_cider_data %>%
-  pivot_longer(Fresh_Apples:Synthetic,
-               names_to = "cata_variable",
-               values_to = "checked") %>%
-  group_by(cata_variable, checked) %>%
-  summarize(rating = mean(Liking),
-            count = n()) %>%
-  mutate(proportion = count / sum(count)) %>%
-  ungroup()
+load("data/cleaned-data.RData")
 ```
 
 Base `R` includes extremely powerful utilities for data visualization, but most modern applications make use of the `tidyverse` package `ggplot2`.
@@ -290,7 +244,7 @@ Now we are prepared to walk through the entire workflow
 # First we wrangle our data using the tools we've learned to get penalties/lifts
 # for each attributes
 berry_penalty_analysis_data <- 
-  cleaned_berry_data %>%
+  berry_long_cata %>%
   group_by(berry, cata_variable, checked) %>%
   summarize(penalty_lift = mean(rating),
             count = n()) %>%

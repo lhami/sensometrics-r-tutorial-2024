@@ -6,50 +6,6 @@ output: html_document
 
 
 
-
-```r
-#May replace some of this with read_rds() calls later
-raw_cider_data %>%
-  select(Sample_Name, Temperature, Fresh_Apples:Synthetic) %>%
-  unite(Sample_Name, Temperature, col = "sample", sep = " ") %>%
-  group_by(sample) %>%
-  summarize(across(where(is.numeric), ~sum(.))) %>%
-  column_to_rownames("sample") -> cider_contingency
-
-cider_contingency %>%
-  FactoMineR::CA(graph = FALSE) -> ca_cider
-
-berry_data %>%
-  pivot_longer(cols = matches("^(9pt|us|lms)_"),
-               names_to = c("Scale", "Attribute"), names_sep = "_",
-               values_to = "Liking",
-               values_drop_na = TRUE) %>%
-  select(where(~ !any(is.na(.x)))) %>%
-  mutate(Liking = ifelse(Scale == "lms",
-                         (Liking + 100) * 8/200 + 1,
-                         ifelse(Scale == "us",
-                                Liking * 8/15 + 1,
-                                Liking))) %>%
-  select(Subject = `Subject Code`, Sample = `Sample Name`, berry,
-         starts_with("cata_"), Attribute, Scale, Liking) -> berry_data_long
-
-berry_data_long %>%
-  pivot_wider(names_from = Attribute, names_prefix = "liking_", values_from = Liking) %>%
-  group_by(Sample) %>%
-  summarize(across(starts_with("cata_"),
-                   sum),
-            across(starts_with("liking_"),
-                   mean)) %>%
-  select(where(~ !any(is.na(.x)))) %>%
-  column_to_rownames("Sample") -> berry_mfa_summary
-
-berry_mfa_summary %>%
-  MFA(group = c(sum(str_detect(colnames(berry_mfa_summary), "^cata_")),
-                sum(str_detect(colnames(berry_mfa_summary), "^liking_"))),
-      type = c("f","s"), graph = FALSE,
-      name.group = c("CATA","Liking")) -> berry_mfa_res
-```
-
 As you might have noticed, we had you download more packages than just `ggplot2` for this tutorial. `ggplot2` is a framework and will help you make many standard plots, but it can't do everything. Or, sometimes, you may not want to use it to do everything yourself.
 
 Packages meant to work with `ggplot2` to more easily make specific kinds of visualizations are also called ggplot **extensions**. The four most common kinds of ggplot extensions are:
@@ -59,7 +15,31 @@ Packages meant to work with `ggplot2` to more easily make specific kinds of visu
 3. Packages that make `ggplot` objects, so you never write `ggplot()` yourself
 4. Packages that combine multiple plots in various ways
 
-You can view many of these extensions [on the tidyverse website](https://exts.ggplot2.tidyverse.org/gallery/) (where you'll also see many examples that fall into multiple of these categories or don't fit into the categories here at all). 
+You can view many of these extensions [on the tidyverse website](https://exts.ggplot2.tidyverse.org/gallery/) (where you'll also see many examples that fall into multiple of these categories or don't fit into the categories here at all).
+
+## Data for the rest of the tutorial
+
+In order to dive into the actual visualization parts of a data analysis workflow, we're going to skip over most of the intensive data wrangling from here on out. In addition to the existing `raw_berry_data` and `raw_cider_data` we've read in previously with `read_csv()`, let's use `load("data/cleaned-data.RData")` to pull in 6 tibbles of data at various intermediate stages.
+
+If you're curious, we've included all of the code we used to wrangle these tibbles in the script `datawrangling.R`, but for now, let's just load them in and use the `FactoMineR` package to get some product coordinates.
+
+
+```r
+load("data/cleaned-data.RData")
+
+cider_contingency %>%
+  FactoMineR::CA(graph = FALSE) -> ca_cider
+
+berry_mfa_summary %>%
+  FactoMineR::MFA(group = c(sum(str_detect(colnames(berry_mfa_summary), "^cata_")),
+                            sum(str_detect(colnames(berry_mfa_summary), "^liking_"))),
+                  type = c("f","s"), graph = FALSE,
+                  name.group = c("CATA","Liking")) -> berry_mfa_res
+
+save(ca_cider,
+     berry_mfa_res,
+     file = "data/svd-results.RData")
+```
 
 ## New `geom_*()s` and `stat_*()`s
 If you want to label each individual point in the plotting area using text, rather than some symbol or color that indicates the legend off to the side, you can do this using the base `ggplot2` functions `geom_text()` and `geom_label()`:
@@ -86,12 +66,13 @@ ca_cider_termplot +
 ```
 
 <img src="04-ggplot2-extensions_files/figure-html/using geom_label with 22 sensory attributes-1.png" width="672" style="display: block; margin: auto;" />
+
 But, as you can see, the text starts to overlap itself quickly even with only a small handful of attributes. The extension I personally use most often, to make crowded plots like this more readable, is the package `ggrepel`, which adds new `geom_text_repel()` and `geom_label_repel()`.
 
 
 ```r
 ca_cider_termplot +
-  geom_label_repel()
+  ggrepel::geom_label_repel()
 ```
 
 <img src="04-ggplot2-extensions_files/figure-html/using geom_label_repel with 22 sensory attributes-1.png" width="672" style="display: block; margin: auto;" />
@@ -103,7 +84,7 @@ Even with a set seed, changing the plot size or adding `geom_*()`s to the plot w
 
 ```r
 ca_cider_termplot +
-  geom_label_repel(seed = 12345)
+  ggrepel::geom_label_repel(seed = 12345)
 ```
 
 <img src="04-ggplot2-extensions_files/figure-html/geom_text_repel with a set seed will look the same every time-1.png" width="672" style="display: block; margin: auto;" />
@@ -119,13 +100,7 @@ raw_cider_data %>%
   left_join(ca_cider$row$coord %>%
               as_tibble(rownames = "Product")) %>%
   rename_with(~ str_replace_all(.x, " ", ".")) -> ca_cider_productcoord
-```
 
-```
-## Joining with `by = join_by(Product)`
-```
-
-```r
 #This is NOT a statistically sound preference model, this is just for demonstration
 ca_cider_prefmod <- lm(Liking ~ Dim.1 * Dim.2, data = ca_cider_productcoord)
 expand.grid(Dim.1 = seq(min(ca_cider$col$coord[, "Dim 1"]) - 0.1,
@@ -142,7 +117,7 @@ ca_cider_termplot +
                   data = ca_cider_prefinterp) + 
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(expand = c(0, 0)) +
-  geom_text_repel(size = 6, color = "white", bg.color = "grey7")
+  ggrepel::geom_text_repel(size = 6, color = "white", bg.color = "grey7")
 ```
 
 <img src="04-ggplot2-extensions_files/figure-html/geom_text_repel text borders-1.png" width="672" style="display: block; margin: auto;" />
@@ -153,9 +128,8 @@ They limit the jitter to a single direction and ensure that no points are overla
 
 
 ```r
-library(ggbeeswarm)
 #The jitter plot is actually not very helpful with this many points
-berry_data_long %>%
+berry_long_liking %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
   geom_jitter() +
   facet_wrap(~ Attribute) +
@@ -168,9 +142,9 @@ berry_data_long %>%
 #geom_beeswarm() will also have the same problem, but geom_quasirandom()
 #visualizes the density at each "bin" without us having to specify bins.
 #So these are easy to compare
-berry_data_long %>%
+berry_long_liking %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
-  geom_quasirandom() +
+  ggbeeswarm::geom_quasirandom() +
   facet_wrap(~ Attribute) +
   theme_bw()
 ```
@@ -186,22 +160,9 @@ berry_mfa_res$quanti.var$coord %>%
   ggplot() +
   geom_segment(aes(x = 0, y = 0, xend = Dim.1, yend = Dim.2), arrow = arrow()) +
   ggforce::geom_circle(aes(x0 = 0, y0 = 0, r = 1), color = "blue") +
-  geom_text_repel(aes(x = Dim.1, y = Dim.2, label = Modality)) +
+  ggrepel::geom_text_repel(aes(x = Dim.1, y = Dim.2, label = Modality)) +
   theme_bw() +
   theme(aspect.ratio = 1)
-```
-
-```
-## Warning in ggforce::geom_circle(aes(x0 = 0, y0 = 0, r = 1), color = "blue"): All aesthetics have length 1, but the data has 4 rows.
-## ℹ Did you mean to use `annotate()`?
-```
-
-```
-## Warning: Using the `size` aesthetic in this geom was deprecated in ggplot2 3.4.0.
-## ℹ Please use `linewidth` in the `default_aes` field and elsewhere instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.
 ```
 
 <img src="04-ggplot2-extensions_files/figure-html/adding a unit circle with ggforce-1.png" width="672" style="display: block; margin: auto;" />
@@ -213,9 +174,9 @@ So there's nothing these prettying-up packages will do that you can't do yoursel
 
 
 ```r
-berry_data_long %>%
+berry_long_liking %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
-  geom_quasirandom() +
+  ggbeeswarm::geom_quasirandom() +
   facet_wrap(~ Attribute) +
   cowplot::theme_minimal_hgrid()
 ```
@@ -250,7 +211,7 @@ cider_contingency %>%
 
 <img src="04-ggplot2-extensions_files/figure-html/FactoMineR makes ggplots-1.png" width="672" style="display: block; margin: auto;" />
 
-You can see that the last code chunk only output one plot right away, but we can confirm our suspicions with the base R `class()` function.
+You can see that the last code chunk only output one plot right away, but we can confirm our suspicions with the base `R` `class()` function.
 
 
 ```r
@@ -326,7 +287,7 @@ ca_cider_biplot_facto
 
 <img src="04-ggplot2-extensions_files/figure-html/you can see saved ggplots by calling the variable-1.png" width="672" style="display: block; margin: auto;" />
 
-*And* we can still change up many of the elements by adding additional elements, although you're likely to get some weird warning messages *and* some silent errors.
+*And* we can still change up many of the elements by adding additional elements, although you're likely to get some weird warning messages *and* some silent errors. (The `ggrepel` error message is actually just because there are too many `geom_text_repel()` labels close-together in a small plots, because expanding `xlim()` crowds everything in the center of the plot.)
 
 
 ```r
@@ -340,11 +301,6 @@ ca_cider_biplot_facto +
 ```
 ## Scale for x is already present.
 ## Adding another scale for x, which will replace the existing scale.
-```
-
-```
-## Warning: ggrepel: 2 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
 ```
 
 <img src="04-ggplot2-extensions_files/figure-html/you can change many things about FactoMineR plots with ggplot semantics-1.png" width="672" style="display: block; margin: auto;" />
@@ -423,11 +379,6 @@ library(patchwork)
 plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all")
 ```
 
-```
-## Warning: ggrepel: 13 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
-```
-
 <img src="04-ggplot2-extensions_files/figure-html/combining plots with patchwork-1.png" width="672" style="display: block; margin: auto;" />
 
 And the `/` operator will arrange two plots vertically:
@@ -435,11 +386,6 @@ And the `/` operator will arrange two plots vertically:
 
 ```r
 plot(berry_mfa_res, choix = "var") / plot(berry_mfa_res, partial = "all")
-```
-
-```
-## Warning: ggrepel: 13 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
 ```
 
 <img src="04-ggplot2-extensions_files/figure-html/arranging plots vertically with patchwork-1.png" width="672" style="display: block; margin: auto;" />
@@ -452,11 +398,6 @@ plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all") +
   plot_layout(guides = "collect") &
   theme(plot.title = element_blank(),
         legend.position = "bottom")
-```
-
-```
-## Warning: ggrepel: 8 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
 ```
 
 <img src="04-ggplot2-extensions_files/figure-html/collecting legends at the bottom of a patchwork ensemble-1.png" width="672" style="display: block; margin: auto;" />
@@ -474,19 +415,9 @@ plot(berry_mfa_res, partial = "all") +
         legend.position = "bottom")
 ```
 
-```
-## Warning: ggrepel: 8 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
-```
-
-```
-## Warning: ggrepel: 2 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
-```
-
 <img src="04-ggplot2-extensions_files/figure-html/more complex patchwork layout-1.png" width="672" style="display: block; margin: auto;" />
 
-If you want to put images anywhere on a visualization, you're struggling to make a complex arrangement with `patchwork`, or you have an R `list` structure containing multiple plots (say, the result of a `for` loop, `*apply()`, or `nest()` call), then `cowplot` is another option:
+If you want to put images anywhere on a visualization, you're struggling to make a complex arrangement with `patchwork`, or you have an `R` `list` structure containing multiple plots (say, the result of a `for` loop, `*apply()`, or `nest()` call), then `cowplot` is another option:
 
 
 ```r
@@ -519,22 +450,12 @@ plot(berry_mfa_res, choix = "var") + plot(berry_mfa_res, partial = "all") +
         legend.position = "bottom")
 ```
 
-```
-## Warning: ggrepel: 8 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
-```
-
 <img src="04-ggplot2-extensions_files/figure-html/labeling plots-1.png" width="672" style="display: block; margin: auto;" />
 
 ```r
 cowplot::plot_grid(plot(berry_mfa_res, choix = "var"),
                    plot(berry_mfa_res, partial = "all"),
                    labels = "AUTO")
-```
-
-```
-## Warning: ggrepel: 13 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
 ```
 
 <img src="04-ggplot2-extensions_files/figure-html/labeling plots-2.png" width="672" style="display: block; margin: auto;" />
@@ -544,7 +465,7 @@ cowplot::plot_grid(plot(berry_mfa_res, choix = "var"),
 #You'd have to move the legends *before* using plot_grid()
 ```
 
-If you need to move or realign the labels so they're not overlapping anything, you can use <> in `patchwork` and <> in `cowplot`:
+If you need to move or realign the labels so they're not overlapping anything, in `patchwork` you can add `theme(plot.tag.position = c(X, Y))` to individual plots with `+` or to the whole grouping of plots with `&`. The `cowplot::plot_grid()` function has arguments `labels_x` and `labels_y`, which let you adjust the distance from the bottom left hand corner of the figure.
 
 
 ```r
@@ -556,11 +477,6 @@ plot(berry_mfa_res, choix = "var") + theme(plot.tag.position = c(0.2, 0.95)) +
         legend.position = "bottom")
 ```
 
-```
-## Warning: ggrepel: 8 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
-```
-
 <img src="04-ggplot2-extensions_files/figure-html/moving plot labels-1.png" width="672" style="display: block; margin: auto;" />
 
 ```r
@@ -570,14 +486,9 @@ cowplot::plot_grid(plot(berry_mfa_res, choix = "var"),
                    label_y = 0.8)
 ```
 
-```
-## Warning: ggrepel: 13 unlabeled data points (too many overlaps). Consider
-## increasing max.overlaps
-```
-
 <img src="04-ggplot2-extensions_files/figure-html/moving plot labels-2.png" width="672" style="display: block; margin: auto;" />
 
-You can also use any image editing, publishing, or graphics software to manually combine, arrange, and label plots, but if you need to make changes to a plot later then doing your layout *in R* will mean you just have to run the lightly-updated code again to re-export a fully formatted multi-part figure, even if the plot dimensions change.
+You can also use any image editing, publishing, or graphics software to manually combine, arrange, and label plots, but if you need to make changes to a plot later then doing your layout *in `R`* will mean you just have to run the lightly-updated code again to re-export a fully formatted multi-part figure, even if the plot dimensions change.
 
 ## Finding New Packages
 
@@ -587,11 +498,11 @@ If you're trying to figure out how to create a type of plot you've never made be
 
 1. Ask yourself what variables are represented by the x and y axes, the shapes, the line types, or the colors. Think about whether you can build the plot from smaller components. Is it a grid of scatterplots with colored contour regions? How much of the plot is just points, lines, or rectangles with fancy formatting? You can do **a lot** with just `ggplot2`!
 2. See if any of the packages in [the list of registered ggplot extensions](https://exts.ggplot2.tidyverse.org/gallery/) have a plot similar to yours. These packages tend to have very thorough and visual documentation.
-3. If it's a sensory-specific plot, [check out the R Opus v2](https://jlahne.github.io/r-opus-v2/index.html). Almost all of the plots only use `ggplot2`, `patchwork`, and `ggrepel`.
-4. Use a web search with the kind of plot you want to make and the keyword "ggplot2" to find tutorials or discussions with example code. Results from [Stack Overflow](https://stackoverflow.com/questions/tagged/ggplot2), [Data to Viz](https://www.data-to-viz.com/), or [R Graph Gallery](https://r-graph-gallery.com/index.html) are all likely to have good explanations and useful examples, while anything with "(# examples)" in the article name is likely to be very basic material with good SEO.
+3. If it's a sensory-specific plot, [check out the `R` Opus v2](https://jlahne.github.io/r-opus-v2/index.html). Almost all of the plots only use `ggplot2`, `patchwork`, and `ggrepel`.
+4. Use a web search with the kind of plot you want to make and the keyword "ggplot2" to find tutorials or discussions with example code. Results from [Stack Overflow](https://stackoverflow.com/questions/tagged/ggplot2), [Data to Viz](https://www.data-to-viz.com/), or [`R` Graph Gallery](https://r-graph-gallery.com/index.html) are all likely to have good explanations and useful examples, while anything with "(# examples)" in the article name is likely to be very basic material with good SEO.
 
 Keep in mind that keywords primarily used in sensory science, say "preference map" or "penalty analysis", are unlikely to yield examples in `ggplot2` with extensive results. In my own process of troubleshooting and double-checking for this workshop, I've found some helpful examples by searching "add density contours to 2d scatterplot ggplot" or "ordered bar plot positive and negative ggplot".
 
-Package documentation might come up while you're looking, but the examples are often very abstract and simple, and they're often structured around names of functions rather than concepts, so it's often faster to see some examples of real plots that other people (who aren't writing an entire R package) wanted to make and then looking up the functions they used to do so.
+Package documentation might come up while you're looking, but the examples are often very abstract and simple, and they're often structured around names of functions rather than concepts, so it's often faster to see some examples of real plots that other people (who aren't writing an entire `R` package) wanted to make and then looking up the functions they used to do so.
 
 Now, with the rest of the time we have left, I'm going to try and show off how I do some of the most common cleaning-up when it's time to actually present or publish.

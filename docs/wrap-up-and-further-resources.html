@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Wrap-up and further resources | Publication-quality data visualizations using the R tidyverse</title>
+  <meta name="description" content="6 Wrap-up and further resources | Publication-quality data visualizations using the R tidyverse" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Wrap-up and further resources | Publication-quality data visualizations using the R tidyverse" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="lhami/sensometrics-tutorial-2024" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Wrap-up and further resources | Publication-quality data visualizations using the R tidyverse" />
+  
+  
+  
+
+<meta name="author" content="Jacob Lahne" />
+<meta name="author" content="Leah Hamilton" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="fine-tuning-publication-quality-ggplots.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction and welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introductions"><i class="fa fa-check"></i>Introductions</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recommended-approach-for-livecoding"><i class="fa fa-check"></i>Recommended approach for livecoding</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dealing-with-errors"><i class="fa fa-check"></i>Dealing with errors</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#psa-not-knowing-is-normal"><i class="fa fa-check"></i>PSA: not-knowing is normal!</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#getting-help"><i class="fa fa-check"></i>Getting Help</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> A crash course in <code>R</code> and RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#r-vs-rstudio"><i class="fa fa-check"></i><b>1.1</b> <code>R</code> vs RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i><b>1.1.1</b> What is <code>R</code>?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#great-why-are-we-using-rstudio-then"><i class="fa fa-check"></i><b>1.1.2</b> Great, why are we using RStudio then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#the-parts-of-rstudio"><i class="fa fa-check"></i><b>1.2</b> The parts of RStudio</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#the-working-directory-and-why-you-should-care"><i class="fa fa-check"></i><b>1.2.1</b> The “working directory” and why you should care</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#extending-r-with-packages"><i class="fa fa-check"></i><b>1.3</b> Extending <code>R</code> with packages</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#loading-packages"><i class="fa fa-check"></i><b>1.3.1</b> Loading packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#making-r-do-stuff"><i class="fa fa-check"></i><b>1.4</b> Making <code>R</code> do stuff</a></li>
+<li class="chapter" data-level="1.5" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#livecoding-along"><i class="fa fa-check"></i><b>1.5</b> Livecoding along</a></li>
+<li class="chapter" data-level="1.6" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#summary-and-next-steps"><i class="fa fa-check"></i><b>1.6</b> Summary and next steps</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html"><i class="fa fa-check"></i><b>2</b> Importing and wrangling data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#motivation-exploring-berry-and-cider-cataliking-data"><i class="fa fa-check"></i><b>2.1</b> Motivation: exploring berry and cider CATA/liking data</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#berries"><i class="fa fa-check"></i><b>2.1.1</b> Berries</a></li>
+<li class="chapter" data-level="2.1.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#cider"><i class="fa fa-check"></i><b>2.1.2</b> Cider</a></li>
+<li class="chapter" data-level="2.1.3" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#publication-quality"><i class="fa fa-check"></i><b>2.1.3</b> “Publication quality”</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#getting-data-into-r"><i class="fa fa-check"></i><b>2.2</b> Getting data into <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#where-the-data-live"><i class="fa fa-check"></i><b>2.2.1</b> Where the data live</a></li>
+<li class="chapter" data-level="2.2.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#getting-different-kinds-of-files-into-r"><i class="fa fa-check"></i><b>2.2.2</b> Getting different kinds of files into <code>R</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#wrangling-selecting-filtering-reshaping-data"><i class="fa fa-check"></i><b>2.3</b> Wrangling (selecting, filtering, reshaping) data</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#the-pipe-for-multiple-steps-in-a-workflow"><i class="fa fa-check"></i><b>2.3.1</b> The “pipe” for multiple steps in a workflow: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="2.3.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#subsetting-your-data"><i class="fa fa-check"></i><b>2.3.2</b> Subsetting your data</a></li>
+<li class="chapter" data-level="2.3.3" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#reshaping-your-data"><i class="fa fa-check"></i><b>2.3.3</b> Reshaping your data</a></li>
+<li class="chapter" data-level="2.3.4" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#some-convenience-functions"><i class="fa fa-check"></i><b>2.3.4</b> Some convenience functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#saving-your-data"><i class="fa fa-check"></i><b>2.4</b> Saving your data</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#a-note-on-replicability"><i class="fa fa-check"></i><b>2.4.1</b> A note on replicability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#wrap-up"><i class="fa fa-check"></i><b>2.5</b> Wrap up</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html"><i class="fa fa-check"></i><b>3</b> The basics of plotting with <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#your-first-ggplot"><i class="fa fa-check"></i><b>3.1</b> Your first <code>ggplot()</code></a></li>
+<li class="chapter" data-level="3.2" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>3.2</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
+<li class="chapter" data-level="3.3" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>3.3</b> Adding layers with <code>geom_*()</code> functions</a></li>
+<li class="chapter" data-level="3.4" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>3.4</b> Arguments inside and outside of <code>aes()</code></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>3.4.1</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
+<li class="chapter" data-level="3.4.2" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>3.4.2</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
+<li class="chapter" data-level="3.4.3" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>3.4.3</b> Finally, <code>facet_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#some-further-reading"><i class="fa fa-check"></i><b>3.5</b> Some further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html"><i class="fa fa-check"></i><b>4</b> Using ggplot with Other Packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#data-for-the-rest-of-the-tutorial"><i class="fa fa-check"></i><b>4.1</b> Data for the rest of the tutorial</a></li>
+<li class="chapter" data-level="4.2" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#new-geom_s-and-stat_s"><i class="fa fa-check"></i><b>4.2</b> New <code>geom_*()s</code> and <code>stat_*()</code>s</a></li>
+<li class="chapter" data-level="4.3" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#new-theme_s-and-scale_s"><i class="fa fa-check"></i><b>4.3</b> New <code>theme_*()</code>s and <code>scale_*()</code>s</a></li>
+<li class="chapter" data-level="4.4" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#modifying-ggplots-made-by-other-packages"><i class="fa fa-check"></i><b>4.4</b> Modifying <code>ggplot()</code>s made by other packages</a></li>
+<li class="chapter" data-level="4.5" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#combining-plots"><i class="fa fa-check"></i><b>4.5</b> Combining Plots</a></li>
+<li class="chapter" data-level="4.6" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#finding-new-packages"><i class="fa fa-check"></i><b>4.6</b> Finding New Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html"><i class="fa fa-check"></i><b>5</b> Fine-Tuning Publication-Quality ggplots</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#exporting-and-saving-plots"><i class="fa fa-check"></i><b>5.1</b> Exporting and Saving Plots</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#what-format"><i class="fa fa-check"></i><b>5.1.1</b> What format?</a></li>
+<li class="chapter" data-level="5.1.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#exporting-images-with-ggsave"><i class="fa fa-check"></i><b>5.1.2</b> Exporting Images with <code>ggsave()</code></a></li>
+<li class="chapter" data-level="5.1.3" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#image-sizes-and-raster-resolutions"><i class="fa fa-check"></i><b>5.1.3</b> Image Sizes and Raster Resolutions</a></li>
+<li class="chapter" data-level="5.1.4" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#other-image-export-options"><i class="fa fa-check"></i><b>5.1.4</b> Other Image Export Options</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#making-text-look-okay"><i class="fa fa-check"></i><b>5.2</b> Making Text Look Okay</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#powerful-text-manipulation-with-stringr"><i class="fa fa-check"></i><b>5.2.1</b> Powerful Text Manipulation with <code>stringr</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#stringr-and-regular-expressions-a-small-tangent"><i class="fa fa-check"></i><b>5.2.2</b> <code>stringr</code> and Regular Expressions (A small tangent)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#removing-legends-and-plot-elements"><i class="fa fa-check"></i><b>5.3</b> Removing Legends and Plot Elements</a></li>
+<li class="chapter" data-level="5.4" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#ordered-categorical-variables"><i class="fa fa-check"></i><b>5.4</b> Ordered Categorical Variables</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#specifying-ordinal-variables-as-factors"><i class="fa fa-check"></i><b>5.4.1</b> Specifying Ordinal Variables as Factors</a></li>
+<li class="chapter" data-level="5.4.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#facets-with-different-category-orders"><i class="fa fa-check"></i><b>5.4.2</b> Facets with Different Category-Orders</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#putting-it-all-together"><i class="fa fa-check"></i><b>5.5</b> Putting it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>6</b> Wrap-up and further resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>6.1</b> Getting help</a></li>
+<li class="chapter" data-level="6.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society"><i class="fa fa-check"></i><b>6.2</b> Learning more with Sensometrics Society</a></li>
+<li class="chapter" data-level="6.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>6.3</b> Further reading/resources</a></li>
+<li class="chapter" data-level="6.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>6.4</b> Questions/Comments</a></li>
+<li class="chapter" data-level="6.5" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#references"><i class="fa fa-check"></i><b>6.5</b> References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Publication-quality data visualizations using the R tidyverse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="wrap-up-and-further-resources" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Wrap-up and further resources<a href="wrap-up-and-further-resources.html#wrap-up-and-further-resources" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Let’s look back at what we were aiming to do today:</p>
+<blockquote>
+<p>In this tutorial, we will introduce the audience to ggplot2 and the rest of the tidyverse R packages with the aim of developing sufficient basic skills to visualize multivariate sensory and consumer data. We will provide a learning dataset for the analysis—a set of free response comments and overall liking scores from a central location test on berries. We will teach participants how to import, manipulate, and plot data using user-friendly, “tidy” R programming. All resources used in the tutorial are open-source and will remain available to attendees, including an R script covering the full workflow.</p>
+<p>At the end of the tutorial, attendees will be able to prepare raw sensory data for common multivariate visual representations in R.</p>
+</blockquote>
+<p>We have managed to touch on all of these topics, but of course we have taken the most cursory look at each. I hope what we’ve gone over today has inspired you, sure, but I mostly hope it has shown you <strong>how much you can do with just a little knowledge</strong>. My journey in terms of learning data science with <code>R</code> has been all about building my coding ability incrementally. My code looks more like this than anything else, but I am able to get so much done:</p>
+<center>
+<div class="float">
+<img src="img/xkcd_844_good_code.png" alt="What does good code even look like? (via XKCD)" />
+<div class="figcaption">What does good code even look like? (via <a href="https://xkcd.com/844/">XKCD</a>)</div>
+</div>
+</center>
+<p>By developing your ability to code (in <code>R</code> or Python, or whatever works for you–Julia?) you will open up a whole set of analyses that you would otherwise be unable to access.</p>
+<div id="getting-help-1" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Getting help<a href="wrap-up-and-further-resources.html#getting-help-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Look up the help file for whatever you’re doing. Do this by using the syntax <code>?&lt;search item&gt;</code> (for example <code>?c</code> gets help on the vector command) as a shortcut on the console.</li>
+<li>Search the help files for a term you think is related. Can’t remember the command for making a sequence of integers? Go to the “Help” pane in RStudio and search in the search box for “sequence”. See if some of the top results get you what you need.</li>
+<li>The internet. Seriously. I am not kidding even a little bit. R has one of the most active and (surprisingly) helpful user communities I’ve ever encountered. Try going to google and searching for “How do I make a sequence of numbers in R?” You will find quite a bit of useful help. I find the following sites particularly helpful
+<ol style="list-style-type: decimal">
+<li><a href="https://stackoverflow.com/questions/tagged/r">Stack Overflow</a></li>
+<li><a href="https://stats.stackexchange.com/questions/tagged/r">Cross Validated/Stack Exchange</a></li>
+<li>Seriously, <a href="https://is.gd/80V5zF">Google will get you most of the way to helpful answers</a> for many basic R questions.</li>
+</ol></li>
+</ol>
+<p>I want to emphasize that <strong>looking up help is normal</strong>. I do it all the time. Learning to ask questions in helpful ways, how to quickly parse the information you find, and how to slightly alter the answers to suit your particular situation are key skills.</p>
+</div>
+<div id="learning-more-with-sensometrics-society" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Learning more with Sensometrics Society<a href="wrap-up-and-further-resources.html#learning-more-with-sensometrics-society" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="further-readingresources" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Further reading/resources<a href="wrap-up-and-further-resources.html#further-readingresources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>General <code>R</code> programming
+<ol style="list-style-type: decimal">
+<li><a href="https://datacarpentry.org/r-socialsci/">Data Carpentry’s <em>R for Social Scientists</em></a> (and, really the courses from <a href="https://carpentries.org/">The Carpentries</a> in general)</li>
+<li><a href="https://r4ds.had.co.nz/">Wickham &amp; Grolemund’s <em>R for Data Science</em></a></li>
+<li><a href="https://stat545.com/">The stat545 course website</a></li>
+<li>My own (somewhat opinionated and eccentric) course from VT: <a href="https://jlahne.github.io/food-data-science-2022/">FST 5984</a></li>
+</ol></li>
+<li>Data Visualization Best Practices
+<ol style="list-style-type: decimal">
+<li><a href="https://socviz.co/">Healy’s <em>Data Visualization</em></a></li>
+<li><a href="https://www.data-to-viz.com/caveats.html">“Caveats” from the website Data to Viz</a>, including topics such as why radar plots &amp; pie charts are controversial and what to use instead.</li>
+</ol></li>
+<li><code>ggplot2</code>-specific
+<ol style="list-style-type: decimal">
+<li><a href="https://r-graphics.org/">Winston Chang’s <em>R Graphics Cookbook</em></a>, basically a collection of short tips and sample plots</li>
+<li><a href="https://r-graph-gallery.com/index.html">R Graph Gallery’s posts</a> breaking down the code to make real, complex, polished ggplots</li>
+<li><a href="https://exts.ggplot2.tidyverse.org/">ggplot2’s registered extension gallery</a></li>
+</ol></li>
+</ol>
+<p>We will also be presenting…</p>
+</div>
+<div id="questionscomments" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Questions/Comments<a href="wrap-up-and-further-resources.html#questionscomments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you get stuck, feel free to find us during the conference, or email us at <strong>jlahne at vt dot edu</strong> and <strong>lhamilton at vsu dot edu</strong>. I’d love to learn about what you’re working on!</p>
+</div>
+<div id="references" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> References<a href="wrap-up-and-further-resources.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Calvert, Martha D., Elizabeth Cole, Amanda C. Stewart, Clinton L. Neill, and Jacob Lahne. 2022. <span>“Can <span>Cider Chemistry Predict Sensory Dryness</span>? <span>Benchmarking</span> the <span>Merlyn Dryness Scale</span>.”</span> <em>Journal of the American Society of Brewing Chemists</em>, October, 1–6. <a href="https://doi.org/10.1080/03610470.2022.2121562">https://doi.org/10.1080/03610470.2022.2121562</a>.
+</div>
+<div class="csl-entry">
+Yeung, Henry F., Kumpol Homwongpanich, Elizabeth Michniuk, Dominic Rovai, Massimo Migliore, Amy Lammert, and Jacob Lahne. 2021. <span>“A Tale of 3 Scales: <span>How</span> Do the 9-Pt, <span>Labeled Affective Magnitude</span>, and Unstructured <span>Visual Analog</span> Scales Differentiate Real Product Sets of Fresh Berries?”</span> <em>Food Quality and Preference</em> 88 (March): 104109. <a href="https://doi.org/10.1016/j.foodqual.2020.104109">https://doi.org/10.1016/j.foodqual.2020.104109</a>.
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fine-tuning-publication-quality-ggplots.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

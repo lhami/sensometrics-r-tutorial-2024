@@ -6,52 +6,9 @@ output: html_document
 
 ```{r setup-4, include = FALSE, purl = FALSE, echo = FALSE}
 library(tidyverse)
-berry_data <- read_csv("data/clt-berry-data.csv")
+raw_berry_data <- read_csv("data/clt-berry-data.csv")
 raw_cider_data <- read_csv("data/CiderDryness_SensoryDATA.csv")
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
-```
-
-```{r data preprocessing}
-#May replace some of this with read_rds() calls later
-raw_cider_data %>%
-  select(Sample_Name, Temperature, Fresh_Apples:Synthetic) %>%
-  unite(Sample_Name, Temperature, col = "sample", sep = " ") %>%
-  group_by(sample) %>%
-  summarize(across(where(is.numeric), ~sum(.))) %>%
-  column_to_rownames("sample") -> cider_contingency
-
-cider_contingency %>%
-  FactoMineR::CA(graph = FALSE) -> ca_cider
-
-berry_data %>%
-  pivot_longer(cols = matches("^(9pt|us|lms)_"),
-               names_to = c("Scale", "Attribute"), names_sep = "_",
-               values_to = "Liking",
-               values_drop_na = TRUE) %>%
-  select(where(~ !any(is.na(.x)))) %>%
-  mutate(Liking = ifelse(Scale == "lms",
-                         (Liking + 100) * 8/200 + 1,
-                         ifelse(Scale == "us",
-                                Liking * 8/15 + 1,
-                                Liking))) %>%
-  select(Subject = `Subject Code`, Sample = `Sample Name`, berry,
-         starts_with("cata_"), Attribute, Scale, Liking) -> berry_data_long
-
-berry_data_long %>%
-  pivot_wider(names_from = Attribute, names_prefix = "liking_", values_from = Liking) %>%
-  group_by(Sample) %>%
-  summarize(across(starts_with("cata_"),
-                   sum),
-            across(starts_with("liking_"),
-                   mean)) %>%
-  select(where(~ !any(is.na(.x)))) %>%
-  column_to_rownames("Sample") -> berry_mfa_summary
-
-berry_mfa_summary %>%
-  FactoMineR::MFA(group = c(sum(str_detect(colnames(berry_mfa_summary), "^cata_")),
-                            sum(str_detect(colnames(berry_mfa_summary), "^liking_"))),
-                  type = c("f","s"), graph = FALSE,
-                  name.group = c("CATA","Liking")) -> berry_mfa_res
 ```
 
 As you might have noticed, we had you download more packages than just `ggplot2` for this tutorial. `ggplot2` is a framework and will help you make many standard plots, but it can't do everything. Or, sometimes, you may not want to use it to do everything yourself.
@@ -63,7 +20,30 @@ Packages meant to work with `ggplot2` to more easily make specific kinds of visu
 3. Packages that make `ggplot` objects, so you never write `ggplot()` yourself
 4. Packages that combine multiple plots in various ways
 
-You can view many of these extensions [on the tidyverse website](https://exts.ggplot2.tidyverse.org/gallery/) (where you'll also see many examples that fall into multiple of these categories or don't fit into the categories here at all). 
+You can view many of these extensions [on the tidyverse website](https://exts.ggplot2.tidyverse.org/gallery/) (where you'll also see many examples that fall into multiple of these categories or don't fit into the categories here at all).
+
+## Data for the rest of the tutorial
+
+In order to dive into the actual visualization parts of a data analysis workflow, we're going to skip over most of the intensive data wrangling from here on out. In addition to the existing `raw_berry_data` and `raw_cider_data` we've read in previously with `read_csv()`, let's use `load("data/cleaned-data.RData")` to pull in 6 tibbles of data at various intermediate stages.
+
+If you're curious, we've included all of the code we used to wrangle these tibbles in the script `datawrangling.R`, but for now, let's just load them in and use the `FactoMineR` package to get some product coordinates.
+
+```{r multivariate analyses using FactoMineR}
+load("data/cleaned-data.RData")
+
+cider_contingency %>%
+  FactoMineR::CA(graph = FALSE) -> ca_cider
+
+berry_mfa_summary %>%
+  FactoMineR::MFA(group = c(sum(str_detect(colnames(berry_mfa_summary), "^cata_")),
+                            sum(str_detect(colnames(berry_mfa_summary), "^liking_"))),
+                  type = c("f","s"), graph = FALSE,
+                  name.group = c("CATA","Liking")) -> berry_mfa_res
+
+save(ca_cider,
+     berry_mfa_res,
+     file = "data/svd-results.RData")
+```
 
 ## New `geom_*()s` and `stat_*()`s
 If you want to label each individual point in the plotting area using text, rather than some symbol or color that indicates the legend off to the side, you can do this using the base `ggplot2` functions `geom_text()` and `geom_label()`:
@@ -84,6 +64,7 @@ ca_cider_termplot +
 ca_cider_termplot +
   geom_label()
 ```
+
 But, as you can see, the text starts to overlap itself quickly even with only a small handful of attributes. The extension I personally use most often, to make crowded plots like this more readable, is the package `ggrepel`, which adds new `geom_text_repel()` and `geom_label_repel()`.
 
 ```{r using geom_label_repel with 22 sensory attributes}
@@ -136,7 +117,7 @@ They limit the jitter to a single direction and ensure that no points are overla
 
 ```{r using ggbeeswarm to compare ordinal distributions}
 #The jitter plot is actually not very helpful with this many points
-berry_data_long %>%
+berry_long_liking %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
   geom_jitter() +
   facet_wrap(~ Attribute) +
@@ -145,7 +126,7 @@ berry_data_long %>%
 #geom_beeswarm() will also have the same problem, but geom_quasirandom()
 #visualizes the density at each "bin" without us having to specify bins.
 #So these are easy to compare
-berry_data_long %>%
+berry_long_liking %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
   ggbeeswarm::geom_quasirandom() +
   facet_wrap(~ Attribute) +
@@ -171,7 +152,7 @@ Most of the additional `geom_*()`s in `ggplot2` extensions involve some sort of 
 So there's nothing these prettying-up packages will do that you can't do yourself, but there are a huge number of `ggplot2` extensions that include some version of a no-gridline minimal theme for convenience. Such as:
 
 ```{r the minimal themes in cowplot}
-berry_data_long %>%
+berry_long_liking %>%
   ggplot(aes(x = Scale, y = Liking, color = Scale)) +
   ggbeeswarm::geom_quasirandom() +
   facet_wrap(~ Attribute) +
@@ -203,7 +184,7 @@ cider_contingency %>%
   ca::plot.ca() -> ca_cider_biplot_green
 ```
 
-You can see that the last code chunk only output one plot right away, but we can confirm our suspicions with the base R `class()` function.
+You can see that the last code chunk only output one plot right away, but we can confirm our suspicions with the base `R` `class()` function.
 
 ```{r using class to find ggplots}
 class(ca_cider_termplot) # Made with ggplot() ourselves
@@ -316,7 +297,7 @@ plot(berry_mfa_res, partial = "all") +
         legend.position = "bottom")
 ```
 
-If you want to put images anywhere on a visualization, you're struggling to make a complex arrangement with `patchwork`, or you have an R `list` structure containing multiple plots (say, the result of a `for` loop, `*apply()`, or `nest()` call), then `cowplot` is another option:
+If you want to put images anywhere on a visualization, you're struggling to make a complex arrangement with `patchwork`, or you have an `R` `list` structure containing multiple plots (say, the result of a `for` loop, `*apply()`, or `nest()` call), then `cowplot` is another option:
 
 ```{r plotting a list, fig.width = 7, warning = FALSE}
 berry_mfa_res$separate.analyses %>%
@@ -365,7 +346,7 @@ cowplot::plot_grid(plot(berry_mfa_res, choix = "var"),
                    label_y = 0.8)
 ```
 
-You can also use any image editing, publishing, or graphics software to manually combine, arrange, and label plots, but if you need to make changes to a plot later then doing your layout *in R* will mean you just have to run the lightly-updated code again to re-export a fully formatted multi-part figure, even if the plot dimensions change.
+You can also use any image editing, publishing, or graphics software to manually combine, arrange, and label plots, but if you need to make changes to a plot later then doing your layout *in `R`* will mean you just have to run the lightly-updated code again to re-export a fully formatted multi-part figure, even if the plot dimensions change.
 
 ## Finding New Packages
 
@@ -375,17 +356,11 @@ If you're trying to figure out how to create a type of plot you've never made be
 
 1. Ask yourself what variables are represented by the x and y axes, the shapes, the line types, or the colors. Think about whether you can build the plot from smaller components. Is it a grid of scatterplots with colored contour regions? How much of the plot is just points, lines, or rectangles with fancy formatting? You can do **a lot** with just `ggplot2`!
 2. See if any of the packages in [the list of registered ggplot extensions](https://exts.ggplot2.tidyverse.org/gallery/) have a plot similar to yours. These packages tend to have very thorough and visual documentation.
-3. If it's a sensory-specific plot, [check out the R Opus v2](https://jlahne.github.io/r-opus-v2/index.html). Almost all of the plots only use `ggplot2`, `patchwork`, and `ggrepel`.
-4. Use a web search with the kind of plot you want to make and the keyword "ggplot2" to find tutorials or discussions with example code. Results from [Stack Overflow](https://stackoverflow.com/questions/tagged/ggplot2), [Data to Viz](https://www.data-to-viz.com/), or [R Graph Gallery](https://r-graph-gallery.com/index.html) are all likely to have good explanations and useful examples, while anything with "(# examples)" in the article name is likely to be very basic material with good SEO.
+3. If it's a sensory-specific plot, [check out the `R` Opus v2](https://jlahne.github.io/r-opus-v2/index.html). Almost all of the plots only use `ggplot2`, `patchwork`, and `ggrepel`.
+4. Use a web search with the kind of plot you want to make and the keyword "ggplot2" to find tutorials or discussions with example code. Results from [Stack Overflow](https://stackoverflow.com/questions/tagged/ggplot2), [Data to Viz](https://www.data-to-viz.com/), or [`R` Graph Gallery](https://r-graph-gallery.com/index.html) are all likely to have good explanations and useful examples, while anything with "(# examples)" in the article name is likely to be very basic material with good SEO.
 
 Keep in mind that keywords primarily used in sensory science, say "preference map" or "penalty analysis", are unlikely to yield examples in `ggplot2` with extensive results. In my own process of troubleshooting and double-checking for this workshop, I've found some helpful examples by searching "add density contours to 2d scatterplot ggplot" or "ordered bar plot positive and negative ggplot".
 
-Package documentation might come up while you're looking, but the examples are often very abstract and simple, and they're often structured around names of functions rather than concepts, so it's often faster to see some examples of real plots that other people (who aren't writing an entire R package) wanted to make and then looking up the functions they used to do so.
+Package documentation might come up while you're looking, but the examples are often very abstract and simple, and they're often structured around names of functions rather than concepts, so it's often faster to see some examples of real plots that other people (who aren't writing an entire `R` package) wanted to make and then looking up the functions they used to do so.
 
 Now, with the rest of the time we have left, I'm going to try and show off how I do some of the most common cleaning-up when it's time to actually present or publish.
-
-```{r saving the analysis results for later}
-save(ca_cider,
-     berry_mfa_res,
-     file = "data/svd-results.RData")
-```
