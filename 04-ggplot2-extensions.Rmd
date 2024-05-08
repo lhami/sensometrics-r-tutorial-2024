@@ -383,3 +383,9 @@ Keep in mind that keywords primarily used in sensory science, say "preference ma
 Package documentation might come up while you're looking, but the examples are often very abstract and simple, and they're often structured around names of functions rather than concepts, so it's often faster to see some examples of real plots that other people (who aren't writing an entire R package) wanted to make and then looking up the functions they used to do so.
 
 Now, with the rest of the time we have left, I'm going to try and show off how I do some of the most common cleaning-up when it's time to actually present or publish.
+
+```{r saving the analysis results for later}
+save(ca_cider,
+     berry_mfa_res,
+     file = "data/svd-results.RData")
+```

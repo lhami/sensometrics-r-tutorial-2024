@@ -2,7 +2,6 @@
 
 ```{r setup, include = FALSE, purl = FALSE}
 library(tidyverse)
-berry_data <- read_csv("data/clt-berry-data.csv")
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```
 
