@@ -32,9 +32,6 @@ By developing your ability to code (in `R` or Python, or whatever works for you-
 
 I want to emphasize that **looking up help is normal**. I do it all the time. Learning to ask questions in helpful ways, how to quickly parse the information you find, and how to slightly alter the answers to suit your particular situation are key skills.
 
-## Learning more with Sensometrics Society
-
-
 ## Further reading/resources
 
 1.  General `R` programming

@@ -99,10 +99,6 @@ raw_cider_data %>%
   geom_smooth()
 ```
 
-```
-## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
-```
-
 <img src="03-ggplot2-basics_files/figure-html/switching geom switches the way the data map-1.png" width="672" style="display: block; margin: auto;" />
 Here we fit a smoothed line to our data using the default methods in `geom_smooth()` (which in this case heuristically defaults to a spline model with LOESS smoothing, but could be linear, GAM, etc).
 
@@ -114,10 +110,6 @@ raw_cider_data %>%
   ggplot(mapping = aes(x = MerlynScale_Ranking, y = Liking)) + 
   geom_jitter() + # add some random noise to show overlapping points
   geom_smooth()
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="03-ggplot2-basics_files/figure-html/geoms are layers in a plot-1.png" width="672" style="display: block; margin: auto;" />
@@ -266,8 +258,9 @@ random_colors <- print(colors()[sample(x = 1:length(colors()), size = 10)])
 ```
 
 ```
-##  [1] "hotpink"      "cadetblue4"   "peachpuff3"   "gray52"       "orangered2"  
-##  [6] "lightyellow1" "seashell"     "gray8"        "goldenrod4"   "blue1"
+##  [1] "gray95"         "gray33"         "blueviolet"     "peachpuff2"    
+##  [5] "grey99"         "green"          "grey74"         "grey44"        
+##  [9] "chocolate4"     "paleturquoise2"
 ```
 
 ```r
@@ -279,7 +272,7 @@ p +
 
 ### Finally, `facet_*()`
 
-The last powerful tool I want to show off is the ability of `ggplot2` to make what[ Edward Tufte called "small multiples"](https://socviz.co/groupfacettx.html#facet-to-make-small-multiples): breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.
+The last powerful tool I want to show off is the ability of `ggplot2` to make what [Edward Tufte called "small multiples"](https://socviz.co/groupfacettx.html#facet-to-make-small-multiples): breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.
 
 So far we've seen how to visualize the overall liking of ciders in our small data set by the Merlyn Scale Ranking, and how to assign color, transparency, and fill to other attributes.  We can use such an approach to get a quick picture of the CATA selections for each cider in a clear, easy to see visualization:
 
@@ -296,11 +289,6 @@ raw_cider_data %>%
   facet_wrap(~name, ncol = 6) + 
   labs(x = NULL, y = NULL, fill = NULL) + 
   theme(legend.position = "top")
-```
-
-```
-## `summarise()` has grouped output by 'Sample_Name', 'Temperature'. You can
-## override using the `.groups` argument.
 ```
 
 <img src="03-ggplot2-basics_files/figure-html/cider-facets-1.png" width="672" style="display: block; margin: auto;" />
@@ -321,14 +309,7 @@ berry_penalty_analysis_data <-
   summarize(penalty_lift = mean(rating),
             count = n()) %>%
   ungroup() 
-```
 
-```
-## `summarise()` has grouped output by 'berry', 'cata_variable'. You can override
-## using the `.groups` argument.
-```
-
-```r
 p1_berry_penalty <- 
   
   # We start by widening our data just a bit, and use a function to give some
@@ -386,14 +367,10 @@ p1_berry_penalty <-
   labs(x = NULL, y = NULL,
        title = "Penalty / Lift Analysis",
        subtitle = "displays the mean difference (within berries) for when a CATA variable is checked\nor un-checked")
-```
 
-```
-## `summarise()` has grouped output by 'berry'. You can override using the
-## `.groups` argument.
-```
+# Let's save it so we can come back to it later:
+save(p1_berry_penalty, file = "data/goal-plot.RData")
 
-```r
 p1_berry_penalty
 ```
 
@@ -403,7 +380,7 @@ We can see that the 2 most important attributes for driving liking are the same 
 
 ## Some further reading
 
-This has been a lightning tour of `ggplot2` as preparatory material for our core material on text analysis; it barely scratches the surface.  If you're interested in learning more, I recommend taking a look at the following sources:
+This has been a lightning tour of `ggplot2` as preparatory material; it barely scratches the surface.  We're going to dig into some further tools that you can use for common sensory visualizations, but we've learned all of these tricks from the following resources (as well as a lot of work on Stack Overflow/Exchange):
 
 1.  Kieran Healy's "[Data Visualization: a Practical Introduction](https://socviz.co/index.html#preface)".
 2.  The plotting section of [R for Data Science](https://r4ds.had.co.nz/data-visualisation.html).

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Appendix | Publication-quality data visualizations using the R tidyverse</title>
+  <meta name="description" content="Appendix | Publication-quality data visualizations using the R tidyverse" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Appendix | Publication-quality data visualizations using the R tidyverse" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="lhami/sensometrics-tutorial-2024" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Appendix | Publication-quality data visualizations using the R tidyverse" />
+  
+  
+  
+
+<meta name="author" content="Jacob Lahne" />
+<meta name="author" content="Leah Hamilton" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="wrap-up-and-further-resources.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction and welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introductions"><i class="fa fa-check"></i>Introductions</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#leah-hamilton-phd"><i class="fa fa-check"></i>Leah Hamilton, PhD</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#jacob-lahne-phd"><i class="fa fa-check"></i>Jacob Lahne, PhD</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#todays-agenda"><i class="fa fa-check"></i>Today’s agenda</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-were-going-to-run"><i class="fa fa-check"></i>How we’re going to run</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recommended-approach-for-livecoding"><i class="fa fa-check"></i>Recommended approach for livecoding</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dealing-with-errors"><i class="fa fa-check"></i>Dealing with errors</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#psa-not-knowing-is-normal"><i class="fa fa-check"></i>PSA: not-knowing is normal!</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#getting-help"><i class="fa fa-check"></i>Getting Help</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> A crash course in <code>R</code> and RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#r-vs-rstudio"><i class="fa fa-check"></i><b>1.1</b> <code>R</code> vs RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i><b>1.1.1</b> What is <code>R</code>?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#great-why-are-we-using-rstudio-then"><i class="fa fa-check"></i><b>1.1.2</b> Great, why are we using RStudio then?</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#the-parts-of-rstudio"><i class="fa fa-check"></i><b>1.2</b> The parts of RStudio</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#the-working-directory-and-why-you-should-care"><i class="fa fa-check"></i><b>1.2.1</b> The “working directory” and why you should care</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#extending-r-with-packages"><i class="fa fa-check"></i><b>1.3</b> Extending <code>R</code> with packages</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#loading-packages"><i class="fa fa-check"></i><b>1.3.1</b> Loading packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#making-r-do-stuff"><i class="fa fa-check"></i><b>1.4</b> Making <code>R</code> do stuff</a></li>
+<li class="chapter" data-level="1.5" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#livecoding-along"><i class="fa fa-check"></i><b>1.5</b> Livecoding along</a></li>
+<li class="chapter" data-level="1.6" data-path="a-crash-course-in-r-and-rstudio.html"><a href="a-crash-course-in-r-and-rstudio.html#summary-and-next-steps"><i class="fa fa-check"></i><b>1.6</b> Summary and next steps</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html"><i class="fa fa-check"></i><b>2</b> Importing and wrangling data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#motivation-exploring-berry-and-cider-cataliking-data"><i class="fa fa-check"></i><b>2.1</b> Motivation: exploring berry and cider CATA/liking data</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#berries"><i class="fa fa-check"></i><b>2.1.1</b> Berries</a></li>
+<li class="chapter" data-level="2.1.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#cider"><i class="fa fa-check"></i><b>2.1.2</b> Cider</a></li>
+<li class="chapter" data-level="2.1.3" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#publication-quality"><i class="fa fa-check"></i><b>2.1.3</b> “Publication quality”</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#getting-data-into-r"><i class="fa fa-check"></i><b>2.2</b> Getting data into <code>R</code></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#where-the-data-live"><i class="fa fa-check"></i><b>2.2.1</b> Where the data live</a></li>
+<li class="chapter" data-level="2.2.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#getting-different-kinds-of-files-into-r"><i class="fa fa-check"></i><b>2.2.2</b> Getting different kinds of files into <code>R</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#wrangling-selecting-filtering-reshaping-data"><i class="fa fa-check"></i><b>2.3</b> Wrangling (selecting, filtering, reshaping) data</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#the-pipe-for-multiple-steps-in-a-workflow"><i class="fa fa-check"></i><b>2.3.1</b> The “pipe” for multiple steps in a workflow: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="2.3.2" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#subsetting-your-data"><i class="fa fa-check"></i><b>2.3.2</b> Subsetting your data</a></li>
+<li class="chapter" data-level="2.3.3" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#reshaping-your-data"><i class="fa fa-check"></i><b>2.3.3</b> Reshaping your data</a></li>
+<li class="chapter" data-level="2.3.4" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#some-convenience-functions"><i class="fa fa-check"></i><b>2.3.4</b> Some convenience functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#saving-your-data"><i class="fa fa-check"></i><b>2.4</b> Saving your data</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#a-note-on-replicability"><i class="fa fa-check"></i><b>2.4.1</b> A note on replicability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="importing-and-wrangling-data.html"><a href="importing-and-wrangling-data.html#wrap-up"><i class="fa fa-check"></i><b>2.5</b> Wrap up</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html"><i class="fa fa-check"></i><b>3</b> The basics of plotting with <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#your-first-ggplot"><i class="fa fa-check"></i><b>3.1</b> Your first <code>ggplot()</code></a></li>
+<li class="chapter" data-level="3.2" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#the-aes-function-and-mapping-argument"><i class="fa fa-check"></i><b>3.2</b> The <code>aes()</code> function and <code>mapping =</code> argument</a></li>
+<li class="chapter" data-level="3.3" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#adding-layers-with-geom_-functions"><i class="fa fa-check"></i><b>3.3</b> Adding layers with <code>geom_*()</code> functions</a></li>
+<li class="chapter" data-level="3.4" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#arguments-inside-and-outside-of-aes"><i class="fa fa-check"></i><b>3.4</b> Arguments inside and outside of <code>aes()</code></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#using-theme_-to-change-visual-options-quickly"><i class="fa fa-check"></i><b>3.4.1</b> Using <code>theme_*()</code> to change visual options quickly</a></li>
+<li class="chapter" data-level="3.4.2" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#changing-aesthetic-elements-with-scale_-functions"><i class="fa fa-check"></i><b>3.4.2</b> Changing aesthetic elements with <code>scale_*()</code> functions</a></li>
+<li class="chapter" data-level="3.4.3" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#finally-facet_"><i class="fa fa-check"></i><b>3.4.3</b> Finally, <code>facet_*()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="the-basics-of-plotting-with-ggplot2.html"><a href="the-basics-of-plotting-with-ggplot2.html#some-further-reading"><i class="fa fa-check"></i><b>3.5</b> Some further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html"><i class="fa fa-check"></i><b>4</b> Using ggplot with Other Packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#data-for-the-rest-of-the-tutorial"><i class="fa fa-check"></i><b>4.1</b> Data for the rest of the tutorial</a></li>
+<li class="chapter" data-level="4.2" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#new-geom_s-and-stat_s"><i class="fa fa-check"></i><b>4.2</b> New <code>geom_*()s</code> and <code>stat_*()</code>s</a></li>
+<li class="chapter" data-level="4.3" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#new-theme_s-and-scale_s"><i class="fa fa-check"></i><b>4.3</b> New <code>theme_*()</code>s and <code>scale_*()</code>s</a></li>
+<li class="chapter" data-level="4.4" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#modifying-ggplots-made-by-other-packages"><i class="fa fa-check"></i><b>4.4</b> Modifying <code>ggplot()</code>s made by other packages</a></li>
+<li class="chapter" data-level="4.5" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#combining-plots"><i class="fa fa-check"></i><b>4.5</b> Combining Plots</a></li>
+<li class="chapter" data-level="4.6" data-path="using-ggplot-with-other-packages.html"><a href="using-ggplot-with-other-packages.html#finding-new-packages"><i class="fa fa-check"></i><b>4.6</b> Finding New Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html"><i class="fa fa-check"></i><b>5</b> Fine-Tuning Publication-Quality ggplots</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#exporting-and-saving-plots"><i class="fa fa-check"></i><b>5.1</b> Exporting and Saving Plots</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#what-format"><i class="fa fa-check"></i><b>5.1.1</b> What format?</a></li>
+<li class="chapter" data-level="5.1.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#ggsave"><i class="fa fa-check"></i><b>5.1.2</b> Exporting Images with <code>ggsave()</code></a></li>
+<li class="chapter" data-level="5.1.3" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#other-image-export-options"><i class="fa fa-check"></i><b>5.1.3</b> Other Image Export Options</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#making-text-look-okay"><i class="fa fa-check"></i><b>5.2</b> Making Text Look Okay</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#powerful-text-manipulation-with-stringr"><i class="fa fa-check"></i><b>5.2.1</b> Powerful Text Manipulation with <code>stringr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#removing-legends-and-plot-elements"><i class="fa fa-check"></i><b>5.3</b> Removing Legends and Plot Elements</a></li>
+<li class="chapter" data-level="5.4" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#ordered-categorical-variables"><i class="fa fa-check"></i><b>5.4</b> Ordered Categorical Variables</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#specifying-ordinal-variables-as-factors"><i class="fa fa-check"></i><b>5.4.1</b> Specifying Ordinal Variables as Factors</a></li>
+<li class="chapter" data-level="5.4.2" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#facets-with-different-category-orders"><i class="fa fa-check"></i><b>5.4.2</b> Facets with Different Category-Orders</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="fine-tuning-publication-quality-ggplots.html"><a href="fine-tuning-publication-quality-ggplots.html#putting-it-all-together"><i class="fa fa-check"></i><b>5.5</b> Putting it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html"><i class="fa fa-check"></i><b>6</b> Wrap-up and further resources</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#getting-help-1"><i class="fa fa-check"></i><b>6.1</b> Getting help</a></li>
+<li class="chapter" data-level="6.2" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#further-readingresources"><i class="fa fa-check"></i><b>6.2</b> Further reading/resources</a></li>
+<li class="chapter" data-level="6.3" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#questionscomments"><i class="fa fa-check"></i><b>6.3</b> Questions/Comments</a></li>
+<li class="chapter" data-level="6.4" data-path="wrap-up-and-further-resources.html"><a href="wrap-up-and-further-resources.html#references"><i class="fa fa-check"></i><b>6.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#ggresolution"><i class="fa fa-check"></i>Image Sizes and Raster Resolutions</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#simpler-sizing-vector-images"><i class="fa fa-check"></i>Simpler Sizing: Vector Images</a></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#raster-image-resolutions"><i class="fa fa-check"></i>Raster Image Resolutions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html#regex"><i class="fa fa-check"></i>Regular Expressions</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Publication-quality data visualizations using the R tidyverse</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appendix" class="section level1 unnumbered hasAnchor">
+<h1>Appendix<a href="appendix.html#appendix" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="ggresolution" class="section level2 unnumbered hasAnchor">
+<h2>Image Sizes and Raster Resolutions<a href="appendix.html#ggresolution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="simpler-sizing-vector-images" class="section level3 unnumbered hasAnchor">
+<h3>Simpler Sizing: Vector Images<a href="appendix.html#simpler-sizing-vector-images" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You might be surprised that vector images have height and width options, because we said they don’t have a fixed display size, but as you saw in <a href="fine-tuning-publication-quality-ggplots.html#ggsave">Chapter 5</a>, <code>ggsave()</code> picked a default image size of 7x7 inches when we didn’t specify. The height and width are mostly important for determining the relative sizing of elements like text and whitespace.</p>
+<p><code>ggplot2</code> actually saves the sizes of certain plot elements, namely <em>text</em> and most <code>geom_*()</code>s, in inches or millimeters. When it has to construct an actual version of the plot at a given size, it tries to keep all of the 12-pt text 1/6” tall (1 inch = 72 points). This 12-point font will take up a very small amount of a 4-foot-tall image, but a sixth of a 1” image.</p>
+<p>The fact that you can then print the <code>.svg</code> at any size you want is out of <code>ggplot2</code>’s hands. It will try to make the fonts and elements the right size for the size you’re <em>telling it</em> you will print.</p>
+<p>This means that the <code>scale</code> argument of <code>ggsave()</code>, for vectors, can just change the output size as long as you keep the same aspect ratio. It doesn’t change the number of points per inch, and it doesn’t change the point-size of any fonts or other elements in the plot. It’s easier to just print a different size figure.</p>
+<p>If you try to use this same trick for raster images, your picture <strong>will not be <span class="math inline">\(width \times dpi\)</span> pixels wide</strong>. This has flummoxed many a researcher trying to export very large, crisp figures for a poster.</p>
+</div>
+<div id="raster-image-resolutions" class="section level3 unnumbered hasAnchor">
+<h3>Raster Image Resolutions<a href="appendix.html#raster-image-resolutions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>All raster images are made up of grids of dots or pixels. Once you export a figure from <code>R</code> as a <code>.png</code>, <code>.jpeg</code>, or other raster format, <em>you cannot resize it</em>. It will look blurry or blocky if you try to make it bigger, and even slight changes to the <strong>aspect ratio</strong> (<span class="math inline">\(width/height\)</span>), the text and other plot elements will be noticeably stretched out.</p>
+<p>You’ll have fewer problems if you save an image that’s way too big (i.e., has too many pixels) for what you need, so long as it’s the right aspect ratio and all the plot elements have relative sizes that work at the scale you’ll be printing. (See <a href="https://sscc.wisc.edu/sscc/pubs/using-r-plots/saving-plots.html#file-dimensions">this short primer on “Using <code>R</code> Plots in Documents” from the University of Wisconsin-Madison</a> for examples.)</p>
+<p>So, how big is a pixel? How many pixels are in an inch? It depends! (On the pixel density for screens and the resolution for printing, see <a href="https://graphicdesign.stackexchange.com/questions/6080/what-is-the-difference-between-dpi-dots-per-inch-and-ppi-pixels-per-inch">the discussion on this page</a> for details.)</p>
+<ul>
+<li>Most modern computer monitors have something like 90-120 pixels per inch (ppi)</li>
+<li>Microsoft Powerpoint uses an internal resolution of 96 ppi as a default, <a href="https://www.brightcarbon.com/blog/powerpoint-picture-size-and-resolution/">although images will print at more than 96 dpi if they’re sized appropriately</a>.</li>
+<li>Older Apple software has a default of 72 ppi</li>
+<li><code>ggsave()</code> uses a default of 300 dpi</li>
+<li>Poster printers will usually print at 300 dots per inch (dpi). They may ask for a minimum resolution of anywhere between 120-300 dpi, although 300 dpi will usually be a safe bet. Use your specific printer’s recommendations.</li>
+<li>Elsevier journals like <em>Food Quality and Preference</em> <a href="https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-sizing">suggest at least 300 dpi for all images and at least 500 dpi for “combination art”, which includes all <code>R</code> plots with colored or shaded areas</a>.</li>
+</ul>
+<p>This is important because, if you have a 600x600-pixel raster image, and you try to print it any bigger than 2 inches x 2 inches on a 300 dpi printer, then you have <em>missing image data</em> and the printed version will look blurry.</p>
+<p>Whenever something, like a design software or an <code>R</code> function to save a plot, gives you the chance to enter an image size in inches or centimeters, <em>you should figure out what dpi or ppi it’s using</em>. It may be easier to figure out the final pixel size you want and export something that size or bigger. (For more details, see <a href="https://apps.lib.umich.edu/files/services/exploratory/pdfs/preparingimages.pdf">this guide on “Preparing Images for PowerPoint, the Web, and Publication” from the University of Michigan</a>. It’s slightly outdated, so ignore the specific dpi/ppi numbers.)</p>
+<p>You can see the possible image widths and corresponding pixel sizes for Elsevier journals <a href="https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-sizing">here</a>. For PowerPoint presentations, assume you’re filling a 13.3x7.5” space at 150 dpi. For printed posters, you’ll find the final poster size on the competition guidelines and the final resolution from your printer. 12”x12” for a single figure at 300 dpi is a good place to start.</p>
+<p>You <em>will</em> almost certainly have to re-export your figures several times in order to get the sizing and aspect ratios right.</p>
+<p>Let’s save a the same plots as a raster image (<code>.png</code>) with a few different <code>dpi</code> values.</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="appendix.html#cb179-1" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;img/penalty-lift-png-50dpi.png&quot;</span>, p1_berry_penalty,</span>
+<span id="cb179-2"><a href="appendix.html#cb179-2" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">units =</span> <span class="st">&quot;in&quot;</span>, <span class="at">dpi =</span> <span class="dv">50</span>)</span>
+<span id="cb179-3"><a href="appendix.html#cb179-3" tabindex="-1"></a></span>
+<span id="cb179-4"><a href="appendix.html#cb179-4" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;img/penalty-lift-png-300dpi.png&quot;</span>, p1_berry_penalty,</span>
+<span id="cb179-5"><a href="appendix.html#cb179-5" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">units =</span> <span class="st">&quot;in&quot;</span>) <span class="co">#default dpi = 300</span></span>
+<span id="cb179-6"><a href="appendix.html#cb179-6" tabindex="-1"></a></span>
+<span id="cb179-7"><a href="appendix.html#cb179-7" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;img/penalty-lift-png-500dpi.png&quot;</span>, p1_berry_penalty,</span>
+<span id="cb179-8"><a href="appendix.html#cb179-8" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">units =</span> <span class="st">&quot;in&quot;</span>, <span class="at">dpi =</span> <span class="dv">500</span>)</span></code></pre></div>
+<p>7x4” at 50 dpi:</p>
+<p><img src="img/penalty-lift-png-50dpi.png" width="672px" style="display: block; margin: auto;" /></p>
+<p>7x4” at 300 dpi (the <code>ggsave()</code> default):</p>
+<p><img src="img/penalty-lift-png-300dpi.png" width="672px" style="display: block; margin: auto;" /></p>
+<p>7x4” at 500 dpi:</p>
+<p><img src="img/penalty-lift-png-500dpi.png" width="672px" style="display: block; margin: auto;" /></p>
+<p>You can see that all of the 7x4” raster plots look basically the same, except the first one is a little blurry when it’s sized up to match the other two on your probably ~100 dpi monitor. This is the problem we’re trying to avoid.</p>
+<p>Unlike <code>scale</code>, the <code>dpi</code> argument does not resize any of the text or geoms (it doesn’t change the size of a “point” from 1/72”). But let’s say we need a 300 dpi copy of this image printed at 14x8”. We already know that the 14x8” output has text that’s too small to read from afar.</p>
+<p>In cases like these, it may be easier to output a size with the right <em>aspect ratio</em> that looks good and is legible, then figure out what <code>dpi</code> you’ll need to print it. If we need a 14x8” plot at 300 dpi, that’s <span class="math inline">\(14 \times 300 = 4200\)</span> pixels wide by <span class="math inline">\(8 \times 300 = 2400\)</span> tall. We can fake this with our 7x4” plot at 600 dpi, since <span class="math inline">\(4200 / 7 = 600\)</span> and <span class="math inline">\(2400 / 4 = 600\)</span>.</p>
+</div>
+</div>
+<div id="regex" class="section level2 unnumbered hasAnchor">
+<h2>Regular Expressions<a href="appendix.html#regex" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A regular expression, or regex, is a way of compactly writing a <code>pattern</code> that will let you match similarly-structured pieces of text. You may use regex because you want the list of matches itself, because you want to do something to pieces of text with a certain pattern somewhere in them, or because you want to replace all matches with something else. Regex were originally designed in the 1980s, and are also a central part of the design of the <code>stringr</code> package (although <code>stringr</code> still has a lot of useful tools without them).</p>
+<p>If you wanted to match all words ending in “ly”, you could use <code>\\b\\w+ly\\b</code>, which looks for a word boundary (<code>\\b</code>), followed by at least one (<code>+</code>) “word character” (<code>\\w</code>, mostly letters), followed by the letters “ly”, followed by another word boundary. You can use a similar regex to find all integers (<code>\\b\\d+\\b</code>) or expand it to find integers <em>and</em> numbers with a decimal (<code>\\b\\d+(\\.\\d+)?\\b</code>).</p>
+<p>Mostly, Regex are very powerful and very difficult to read. We’ll provide a few semi-realistic examples in action to show off just how powerful they can be, and just how messy they look:</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="appendix.html#cb180-1" tabindex="-1"></a><span class="fu">str_extract</span>(<span class="st">&quot;If you want to get in touch with me you can do so at lhamilton@vsu.edu.&quot;</span>,</span>
+<span id="cb180-2"><a href="appendix.html#cb180-2" tabindex="-1"></a>            <span class="st">&quot;</span><span class="sc">\\</span><span class="st">w*@</span><span class="sc">\\</span><span class="st">w+</span><span class="sc">\\</span><span class="st">.(edu|gov|com|org|biz|net|fr|co</span><span class="sc">\\</span><span class="st">.uk)</span><span class="sc">\\</span><span class="st">b&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;lhamilton@vsu.edu&quot;</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="appendix.html#cb182-1" tabindex="-1"></a><span class="fu">str_extract_all</span>(<span class="st">&quot;Our 300th measurement was 10.31 cm, our 301st clocked in at 3.213in&quot;</span>,</span>
+<span id="cb182-2"><a href="appendix.html#cb182-2" tabindex="-1"></a>            <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">d+ ?(cm|in|m)&quot;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;10.31 cm&quot; &quot;3.213in&quot;</code></pre>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="appendix.html#cb184-1" tabindex="-1"></a><span class="fu">str_extract_all</span>(<span class="st">&quot;Regular Expressions (regex) are one tool in Natural Language Processing (NLP)&quot;</span>,</span>
+<span id="cb184-2"><a href="appendix.html#cb184-2" tabindex="-1"></a>            <span class="st">&quot;(?&lt;=</span><span class="sc">\\</span><span class="st">()[^)]*(?=</span><span class="sc">\\</span><span class="st">))&quot;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;regex&quot; &quot;NLP&quot;</code></pre>
+<p>You can try changing the searched <code>string</code> in the above code to see if it recognizes your email or how many numbers you can get it to recognize. Usually, though, your plot labels aren’t in full sentences in your data frame. Simpler regular expressions can still save you a lot of work. Without regular expressions, our main penalty analysis example has to <code>separate()</code> the CATA variable names into two parts, use a <code>case_when()</code> to individually match the modalities to a cleaned-up “(A)” or “(T)”, and then finally <code>unite()</code> them back into one column:</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="appendix.html#cb186-1" tabindex="-1"></a>berry_penalty_analysis_data <span class="sc">%&gt;%</span></span>
+<span id="cb186-2"><a href="appendix.html#cb186-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>count) <span class="sc">%&gt;%</span></span>
+<span id="cb186-3"><a href="appendix.html#cb186-3" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> checked,</span>
+<span id="cb186-4"><a href="appendix.html#cb186-4" tabindex="-1"></a>              <span class="at">values_from =</span> penalty_lift,</span>
+<span id="cb186-5"><a href="appendix.html#cb186-5" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;checked_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb186-6"><a href="appendix.html#cb186-6" tabindex="-1"></a>  <span class="fu">separate</span>(cata_variable, </span>
+<span id="cb186-7"><a href="appendix.html#cb186-7" tabindex="-1"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;mode&quot;</span>, <span class="st">&quot;variable&quot;</span>), </span>
+<span id="cb186-8"><a href="appendix.html#cb186-8" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb186-9"><a href="appendix.html#cb186-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mode =</span> <span class="fu">case_when</span>(mode <span class="sc">==</span> <span class="st">&quot;taste&quot;</span> <span class="sc">~</span> <span class="st">&quot;(T)&quot;</span>,</span>
+<span id="cb186-10"><a href="appendix.html#cb186-10" tabindex="-1"></a>                          mode <span class="sc">==</span> <span class="st">&quot;appearance&quot;</span> <span class="sc">~</span> <span class="st">&quot;(A)&quot;</span>,</span>
+<span id="cb186-11"><a href="appendix.html#cb186-11" tabindex="-1"></a>                          mode <span class="sc">==</span> <span class="st">&quot;appearane&quot;</span> <span class="sc">~</span> <span class="st">&quot;(A)&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb186-12"><a href="appendix.html#cb186-12" tabindex="-1"></a>  <span class="fu">unite</span>(variable, mode, <span class="at">col =</span> <span class="st">&quot;cata_variable&quot;</span>, <span class="at">sep =</span> <span class="st">&quot; &quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 85 × 4
+##    berry      cata_variable   checked_0 checked_1
+##    &lt;chr&gt;      &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;
+##  1 blackberry fresh (A)            4.70      5.80
+##  2 blackberry goodcolor (A)        4.63      5.77
+##  3 blackberry goodquality (A)      4.69      5.96
+##  4 blackberry goodshapre (A)       4.93      5.86
+##  5 blackberry misshapen (A)        5.63      4.92
+##  6 blackberry none (A)             5.42      4.78
+##  7 blackberry notfresh (A)         5.57      3.76
+##  8 blackberry unevencolor (A)      5.53      4.53
+##  9 blackberry bruised (A)          5.53      4.67
+## 10 blackberry berry (T)            4.21      6.49
+## # ℹ 75 more rows</code></pre>
+<p>With regular expressions, you can combine all of this in one step:</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="appendix.html#cb188-1" tabindex="-1"></a>berry_penalty_analysis_data <span class="sc">%&gt;%</span></span>
+<span id="cb188-2"><a href="appendix.html#cb188-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>count) <span class="sc">%&gt;%</span></span>
+<span id="cb188-3"><a href="appendix.html#cb188-3" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> checked,</span>
+<span id="cb188-4"><a href="appendix.html#cb188-4" tabindex="-1"></a>              <span class="at">values_from =</span> penalty_lift,</span>
+<span id="cb188-5"><a href="appendix.html#cb188-5" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;checked_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb188-6"><a href="appendix.html#cb188-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cata_variable =</span> <span class="fu">str_replace</span>(cata_variable,</span>
+<span id="cb188-7"><a href="appendix.html#cb188-7" tabindex="-1"></a>                                     <span class="st">&quot;^(.).*_(.*)&quot;</span>,</span>
+<span id="cb188-8"><a href="appendix.html#cb188-8" tabindex="-1"></a>                                     <span class="st">&quot;</span><span class="sc">\\</span><span class="st">2 (</span><span class="sc">\\</span><span class="st">1)&quot;</span>),</span>
+<span id="cb188-9"><a href="appendix.html#cb188-9" tabindex="-1"></a>         <span class="at">cata_variable =</span> <span class="fu">str_to_title</span>(cata_variable))</span></code></pre></div>
+<pre><code>## # A tibble: 85 × 4
+##    berry      cata_variable   checked_0 checked_1
+##    &lt;chr&gt;      &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;
+##  1 blackberry Fresh (A)            4.70      5.80
+##  2 blackberry Goodcolor (A)        4.63      5.77
+##  3 blackberry Goodquality (A)      4.69      5.96
+##  4 blackberry Goodshapre (A)       4.93      5.86
+##  5 blackberry Misshapen (A)        5.63      4.92
+##  6 blackberry None (A)             5.42      4.78
+##  7 blackberry Notfresh (A)         5.57      3.76
+##  8 blackberry Unevencolor (A)      5.53      4.53
+##  9 blackberry Bruised (A)          5.53      4.67
+## 10 blackberry Berry (T)            4.21      6.49
+## # ℹ 75 more rows</code></pre>
+<p>And you can even go farther by combining multiple replacements (for typos, for adding in spaces, etc) in one call to <code>str_replace_all()</code>.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="appendix.html#cb190-1" tabindex="-1"></a>berry_penalty_analysis_data <span class="sc">%&gt;%</span></span>
+<span id="cb190-2"><a href="appendix.html#cb190-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>count) <span class="sc">%&gt;%</span></span>
+<span id="cb190-3"><a href="appendix.html#cb190-3" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> checked,</span>
+<span id="cb190-4"><a href="appendix.html#cb190-4" tabindex="-1"></a>              <span class="at">values_from =</span> penalty_lift,</span>
+<span id="cb190-5"><a href="appendix.html#cb190-5" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;checked_&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb190-6"><a href="appendix.html#cb190-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cata_variable =</span> <span class="fu">str_replace_all</span>(cata_variable,</span>
+<span id="cb190-7"><a href="appendix.html#cb190-7" tabindex="-1"></a>                                         <span class="fu">c</span>(<span class="st">&quot;^(.).*_(.*)&quot;</span> <span class="ot">=</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">2 (</span><span class="sc">\\</span><span class="st">1)&quot;</span>,</span>
+<span id="cb190-8"><a href="appendix.html#cb190-8" tabindex="-1"></a>                                           <span class="st">&quot;good&quot;</span> <span class="ot">=</span> <span class="st">&quot;good &quot;</span>,</span>
+<span id="cb190-9"><a href="appendix.html#cb190-9" tabindex="-1"></a>                                           <span class="st">&quot;not&quot;</span> <span class="ot">=</span> <span class="st">&quot;not &quot;</span>,</span>
+<span id="cb190-10"><a href="appendix.html#cb190-10" tabindex="-1"></a>                                           <span class="st">&quot;shapre&quot;</span> <span class="ot">=</span> <span class="st">&quot;shape&quot;</span>,</span>
+<span id="cb190-11"><a href="appendix.html#cb190-11" tabindex="-1"></a>                                           <span class="st">&quot;uneven&quot;</span> <span class="ot">=</span> <span class="st">&quot;uneven &quot;</span>)),</span>
+<span id="cb190-12"><a href="appendix.html#cb190-12" tabindex="-1"></a>         <span class="at">cata_variable =</span> <span class="fu">str_to_title</span>(cata_variable))</span></code></pre></div>
+<pre><code>## # A tibble: 85 × 4
+##    berry      cata_variable    checked_0 checked_1
+##    &lt;chr&gt;      &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;
+##  1 blackberry Fresh (A)             4.70      5.80
+##  2 blackberry Good Color (A)        4.63      5.77
+##  3 blackberry Good Quality (A)      4.69      5.96
+##  4 blackberry Good Shape (A)        4.93      5.86
+##  5 blackberry Misshapen (A)         5.63      4.92
+##  6 blackberry None (A)              5.42      4.78
+##  7 blackberry Not Fresh (A)         5.57      3.76
+##  8 blackberry Uneven Color (A)      5.53      4.53
+##  9 blackberry Bruised (A)           5.53      4.67
+## 10 blackberry Berry (T)             4.21      6.49
+## # ℹ 75 more rows</code></pre>
+<p>You do not <em>have</em> to learn regular expressions to clean up messy text, but being comfortable with them will (eventually) make you faster. You should at least learn the characters (<code>\</code>, <code>.</code>, <code>[</code>, <code>]</code>, <code>{</code>, <code>}</code>, <code>(</code>, <code>)</code>, <code>&lt;</code>, <code>&gt;</code>, <code>*</code>, <code>+</code>, <code>-</code>, <code>=</code>, <code>!</code>, <code>?</code>, <code>^</code>, <code>$</code>, and <code>|</code>) that will need to be <strong>escaped</strong> with two backslashes if you need to replace them. It will help you troubleshoot any weird results you get from the <code>str_*()</code> functions.</p>
+<p>If you want to learn more, we’d recommend starting with <a href="https://stringr.tidyverse.org/articles/regular-expressions.html">the <code>stringr</code> package’s own vignette on regular expressions</a>, which you can view with <code>vignette("regular-expressions", "stringr")</code>. If you want more practice, you can then follow along with the <a href="https://regexone.com/">RegexOne</a> tutorial or <a href="http://regextutorials.com/index.html">RegexTutorials</a>.</p>
+<p>Any “perl-flavored” regex tutorial or resource will work, with the exception that <em>you will have to double the number of backslashes (<code>\</code>)</em> to use them in <code>R</code>.</p>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Calvert, Martha D., Elizabeth Cole, Amanda C. Stewart, Clinton L. Neill, and Jacob Lahne. 2022. <span>“Can <span>Cider Chemistry Predict Sensory Dryness</span>? <span>Benchmarking</span> the <span>Merlyn Dryness Scale</span>.”</span> <em>Journal of the American Society of Brewing Chemists</em>, October, 1–6. <a href="https://doi.org/10.1080/03610470.2022.2121562">https://doi.org/10.1080/03610470.2022.2121562</a>.
+</div>
+<div class="csl-entry">
+Yeung, Henry F., Kumpol Homwongpanich, Elizabeth Michniuk, Dominic Rovai, Massimo Migliore, Amy Lammert, and Jacob Lahne. 2021. <span>“A Tale of 3 Scales: <span>How</span> Do the 9-Pt, <span>Labeled Affective Magnitude</span>, and Unstructured <span>Visual Analog</span> Scales Differentiate Real Product Sets of Fresh Berries?”</span> <em>Food Quality and Preference</em> 88 (March): 104109. <a href="https://doi.org/10.1016/j.foodqual.2020.104109">https://doi.org/10.1016/j.foodqual.2020.104109</a>.
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="wrap-up-and-further-resources.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -253,18 +253,6 @@ read_csv(file = "data/clt-berry-data.csv")
 ```
 
 ```
-## Rows: 7507 Columns: 92
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## chr  (7): Start Time (UTC), End Time (UTC), Sample Name, verbal_likes, verba...
-## dbl (83): Subject Code, Participant Name, Serving Position, Sample Identifie...
-## lgl  (2): Gender, Age
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```
 ## # A tibble: 7,507 × 92
 ##    `Subject Code` `Participant Name` Gender Age   `Start Time (UTC)`
 ##             <dbl>              <dbl> <lgl>  <lgl> <chr>             
@@ -289,17 +277,6 @@ read_csv(file = "data/clt-berry-data.csv")
 
 ```r
 read_csv(file = "data/CiderDryness_SensoryDATA.csv")
-```
-
-```
-## Rows: 288 Columns: 27
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: ","
-## chr  (3): Sample_Name, Temperature, Panelist_Code
-## dbl (24): MerlynScale_Ranking, Fresh_Apples, Fermented, Herbal, Dry, Spice, ...
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```
@@ -492,7 +469,7 @@ If you're at all familiar with `R`, you will have learned about subsetting `R` o
 
 ### The "pipe" for multiple steps in a workflow: `%>%`
 
-While I am not going to go over much of the base `R` syntax, I want to talk about one particular tool that is becoming standard in modern `R` coding: the **pipe**, which is written in `tidyverse` as `%>%`.  This garbage-looking set of symbols is actually your best friend, you just don't know it yet.  I use this tool constantly in my R programming.
+While I am not going to go over much of the base `R` syntax, I want to talk about one particular tool that is becoming standard in modern `R` coding: the **pipe**, which is written in `tidyverse` as `%>%`.  This garbage-looking set of symbols is actually your best friend, you just don't know it yet.  I use this tool constantly in my `R` programming.
 
 OK, enough background, what the heck _is_ a pipe?  The term "pipe" comes from what it does: like a pipe, `%>%` lets whatever is on its left side flow through to the right hand side.  It is easiest to read `%>%` as "**AND THEN**". 
 
@@ -536,7 +513,7 @@ Please note that since `R` 4.1, a *native* pipe has been implemented (you don't 
 
 ### Subsetting your data
 
-The first thing you'll notice about our `raw_berry_data` in particular is that it is *full* of information we don't need! A common situation in R is wanting to select some rows and some columns of our data--this is called "**subsetting**" our data.  But this is less easy than it might be for the beginner in R.  Happily, the `tidverse` methods are much easier to read (and modeled after syntax from **SQL**, which may be helpful for some users). 
+The first thing you'll notice about our `raw_berry_data` in particular is that it is *full* of information we don't need! A common situation in `R` is wanting to select some rows and some columns of our data--this is called "**subsetting**" our data.  But this is less easy than it might be for the beginner in R.  Happily, the `tidverse` methods are much easier to read (and modeled after syntax from **SQL**, which may be helpful for some users). 
 
 #### Selecting certain columns: `select()`
 
@@ -1028,10 +1005,10 @@ For example, in our `raw_berry_data` we might want to split the data by each ber
 
 However, `tidyverse` provides two powerful tools to do this kind of analysis:
 
-    1.  The `group_by()` function takes a data table and groups it by **categorical** values of any column (generally don't try to use `group_by()` on a numeric variable)
-    2.  The `summarize()` function is like `mutate()` for groups created with `group_by()`: 
-        1.  First, you specify 1 or more new columns you want to calculate for each group
-        2.  Second, the function produces 1 value for each group for each new column
+1.  The `group_by()` function takes a data table and groups it by **categorical** values of any column (generally don't try to use `group_by()` on a numeric variable)
+2.  The `summarize()` function is like `mutate()` for groups created with `group_by()`: 
+  1.  First, you specify 1 or more new columns you want to calculate for each group
+  2.  Second, the function produces 1 value for each group for each new column
         
 We actually use this approach exactly to get our penalty analysis results for both the berry and cider data sets.  Before we embark on that, though, let's quickly cobble together the exact example (means and SDs) to get an intuition for how a split-apply-combine approach works.
 
@@ -1058,11 +1035,6 @@ raw_berry_data %>%
             se = sd / sqrt(n),
             ll = mean - 2 * se,
             ul = mean + 2 * se)
-```
-
-```
-## `summarise()` has grouped output by 'berry'. You can override using the
-## `.groups` argument.
 ```
 
 ```
@@ -1105,14 +1077,7 @@ cider_penalty_data <-
   # results if we forget that we've specified them.
   
   ungroup()
-```
 
-```
-## `summarise()` has grouped output by 'cata_variable'. You can override using the
-## `.groups` argument.
-```
-
-```r
 cider_penalty_data
 ```
 
@@ -1145,14 +1110,7 @@ berry_penalty_data <-
   summarize(penalty_lift = mean(rating),
             count = n()) %>%
   ungroup() 
-```
 
-```
-## `summarise()` has grouped output by 'berry', 'cata_variable'. You can override
-## using the `.groups` argument.
-```
-
-```r
 berry_penalty_data
 ```
 

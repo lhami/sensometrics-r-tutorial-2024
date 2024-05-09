@@ -4,7 +4,7 @@ output: html_document
 
 # Importing and wrangling data
 
-```{r setup-2, echo=FALSE, include=FALSE}
+```{r setup-2, echo=FALSE, purl = FALSE, include=FALSE}
 library(tidyverse)
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE)
 ```
@@ -174,7 +174,7 @@ Rather, we have noticed that most `R` packages for data analysis provide visuali
 
 As an example, the `FactoMineR` package has excellent default visualizations for exploring and understanding the basic outputs of many common multivariate analyses used by sensory scientists. We can take a look at our cider CATA data visualized as a symmetric CA "biplot" without much effort:
 
-```{r}
+```{r CA biplot made by FactoMineR}
 ca_cider <- 
   raw_cider_data %>%
   select(Sample_Name, Temperature, Fresh_Apples:Synthetic) %>%
@@ -190,7 +190,7 @@ p3_cider_factominer
 
 But there might be things about this we want to change!  It would be very helpful to know, for example, that this is a `ggplot2` object that can be altered by a basic handful of standardized syntax.  For example:
 
-```{r}
+```{r editing the FactoMineR plot}
 p3_cider_factominer +
   theme_dark() + 
   labs(caption = "Now we can say some more things!", 
@@ -307,7 +307,7 @@ The first thing we did in our code to wrangle our [`raw_berry_data`](#berries) i
 
 The `tidyverse::select()` function (we write `[package]::[function]` to explicitly describe where a function comes from) lets us select columns in a rectangular data frame (like `.csv` and other spreadsheets) by name, position, or logical criteria.  The subject ID is stored in a column called `Subject Code`, and the berry information is stored in two columns: `berry` and `sample`, indicating what kind of berry and what sample # it is.
 
-```{r}
+```{r selecting a set of columns}
 raw_berry_data %>%        # We start with our raw_berry_data frame
   select(`Subject Code`,  # AND THEN we select these 3 columns
          berry,
@@ -320,7 +320,7 @@ Now we only have these 3 columns!
 
 To return to selection, we also want overall liking data and we want CATA variables.  There are a lot of these, and typing them out individually in `select()` would be a pain.  Luckily, there are a set of special functions for use within `select()` (and other `tidyverse` functions) that let us use logical operators to select ranges of columns/variables  You can learn about them using the `?select` command to get the help file.
 
-```{r}
+```{r select helpers}
 berry_columns <- 
   raw_berry_data %>%
   select(`Subject Code`,
@@ -345,7 +345,7 @@ Frequently we only want to select some of our observations, which are typically 
 
 For example, in the berry data, perhaps we want to separate out our observations on raspberries from all of our other data.  
 
-```{r}
+```{r filtering down to rows matching a criteria}
 raw_berry_data %>%
   distinct(berry)                   # distinct() gives all unique value combinations
 # of the variables it is provided
@@ -359,7 +359,7 @@ We can use `filter()` to get rows according to more complex criteria than the ba
 
 First, the `%in%` operator will search for whatever is on the left-hand side within the vector provided right-hand side.  This is especially useful when we don't want to build a complicated Boolean search from those comparisons (using `&`, `|`, etc).  If we want to get both raspberries and blackberries, we can write:
 
-```{r}
+```{r filtering rows that are one of a set of options}
 raw_berry_data %>%
   filter(berry %in% c("raspberry", "blackberry")) %>%
   distinct(berry)
@@ -367,7 +367,7 @@ raw_berry_data %>%
 
 Second, since frequently we are using `filter()` to get rows that meet some criteria stored in categorical variables, the `str_detect()` function from `stringr` (a package within the `tidyverse`) is extremely useful, along with its cousins `str_starts()` and `str_ends()`.  Let's say we want to get the second test day for each berry.  We can accomplish this by searching for "Day 2" in the text of the `test_day` variable.
 
-```{r}
+```{r stringr functions as filter helpers}
 raw_berry_data %>%
   distinct(test_day)
 
@@ -390,7 +390,7 @@ Let's start with the simpler operation: creating new columns (variables) based o
 
 We do this above in our workflow `mutate()`.  Often, we want to create a new column temporarily, or to combine several existing columns.  We can do this using the `mutate()` function.  Let's (for the moment) only consider the 9-pt hedonic scale, and create a variable that tells us whether the rating is higher than some cutoff (say 6/9, a common cutoff).
 
-```{r}
+```{r creating new columns with mutate}
 berry_columns %>%
   select(berry, sample, `9pt_overall`) %>%  # we select these for easy printing
   mutate(good = `9pt_overall` > 6)
@@ -404,7 +404,7 @@ In our [berry](#berry) workflow, we can observe that we have 3 (!) different col
 
 But this is a problem: the 9-pt scale has a range of $[1,9]$ LAM has a range of $[-100,100]$, and the unstructured line scale has a range of $[0,15]$.  We need to rescale the data to a consistent metric.
 
-```{r}
+```{r rescaling the liking scores using mutate}
 berry_columns %>%
   mutate(lms_overall = (lms_overall + 100) * (8 / 200) + 1,
          us_overall = (us_overall + 0) * (8 / 15) + 1) %>%
@@ -415,7 +415,7 @@ berry_columns %>%
 
 `mutate()` is a very easy way to edit your data mid-pipe.  So we might want to do some calculations, create a temporary variable using `mutate()`, and then continue our pipe.  **Unless we use `<-` to store our `mutate()`'d data, the results will be only temporary.**
 
-```{r}
+```{r saving the results of mutate to the same name}
 # Our changes from mutate() were not saved
 berry_columns %>% 
   select(`9pt_overall`, lms_overall, us_overall) %>%
@@ -442,7 +442,7 @@ A key concept motivating the `tidyverse` is the idea of ["tidy" data](https://r4
 
 Frequently, sensory data is recorded "wide", with *experimental units* in rows and all of the *measured or observed variables* on those experimental units in the columns.  Our cider data is a great example:
 
-```{r}
+```{r previewing our raw cider data}
 raw_cider_data
 ```
 
@@ -450,7 +450,7 @@ We describe the experimental units in the first 3 columns: `Sample_Name`, `Tempe
 
 The `pivot_*()` functions are the tools to accomplish this.  They are remarkably simple and powerful tools for transforming data from wide to long (and vice-versa) as the [analysis demands](#cider).
 
-```{r}
+```{r pivoting the cider data to a longer format}
 long_cider_data <- 
   raw_cider_data %>%
   pivot_longer(cols = Fresh_Apples:Synthetic,
@@ -472,7 +472,7 @@ Here, we actually left `MerlynScale_Ranking` and `Liking` out of our `pivot_long
 
 We also used a `pivot_longer()` in our [berry workflow](#berries).
 
-```{r}
+```{r pivoting the berry data to a longer format}
 long_berry_data <- 
   berry_columns %>%
   pivot_longer(cols = contains("overall"),
@@ -488,7 +488,7 @@ We used the tool a little differently here, however: we wanted to pull all of ou
 
 Did you notice that we [actually pivoted longer *twice*](#berries)?  The goal of this particular workflow was to produce a penalty analysis, and to do that we are treating the CATA and the hedonic ratings as qualitatively different kinds of outcomes: essentially, CATA becomes the independent variable for this analysis, and hedonic liking becomes the observed outcome.  Therefore, we couldn't pivot all at once.  Instead, we first gathered our (now commensurate) ratings using a first pivot, and then gathered our CATA variables using a second.
 
-```{r}
+```{r pivoting the berry data to a yet longer format}
 long_berry_data <- 
   long_berry_data %>%
   pivot_longer(starts_with("cata_"),
@@ -504,7 +504,7 @@ Here, notice we once again drop `NA` values because some CATA variables only app
 
 While we don't use `pivot_wider()` in the flow above, it does the opposite of `pivot_longer()`: provided with a column of ID variables (like the CATA variables) and a column containing observations, it produces a wider, less tidy data frame.  This is most frequently useful when getting data ready for some kind of multivariate analysis, like a regression or SVD.  We can see the effects on our long cider data.
 
-```{r}
+```{r pivoting the long cider data wider again}
 long_cider_data %>%
   pivot_wider(names_from = cata_variable,
               values_from = checked)
@@ -553,7 +553,7 @@ Notice that I can request multiple summary functions for each group; I can also 
 
 Now let's look at what we *actually* did for our penalty analyses.  For the cider data, we needed to calculate the change in mean score for when an attribute was checked or not (typical approach for CATA data).
 
-```{r}
+```{r penalty analysis summary statistics for cider data}
 cider_penalty_data <- 
   long_cider_data %>%
   group_by(cata_variable, checked) %>%
@@ -578,7 +578,7 @@ In this case, when we start with our `long_cider_data`, we have a column for eac
 
 For the berries, we did something similar (although we ignored the proportions) partly to illustrate alternative visualization possibilities, and partly because the larger experimental design made this analysis unwieldy.
 
-```{r}
+```{r penalty analysis summary statistics for berry data}
 berry_penalty_data <- 
   long_berry_data %>%
   group_by(berry, cata_variable, checked) %>%
@@ -597,14 +597,14 @@ While we have only reviewed what I consider the "basic" functionality of `tidyve
 
 Renaming data frames in `R` is harder than you might think.  With the tools we've just learned, you might realize that, for example, you could probably use some combination of `select()` and `mutate()`/`transmute()` to rename columns, but I make heavy use of the appropriately-named `rename()` function to easily change the name of variables:
 
-```{r}
+```{r renaming columns}
 berry_penalty_data %>%
   rename(penalty = penalty_lift)
 ```
 
 Notice above we do not quote column names.  We can also `rename()` by column position, which is particularly useful when importing files:
 
-```{r, message = FALSE}
+```{r renaming columns by position, message = FALSE}
 read_csv("data/CiderDryness_SensoryDATA.csv") %>%
   rename(sample = 1) # This is actually called "Sample_Name" in the .csv
 ```
@@ -613,21 +613,21 @@ read_csv("data/CiderDryness_SensoryDATA.csv") %>%
 
 We often want to reorder the rows in a data frame according to some criteria (usually data-based).  Again, a pain in base `R`, this is made easy using the `arrange()` function in `tidyverse`.
 
-```{r}
+```{r rearranging rows}
 berry_penalty_data %>%
   arrange(penalty_lift)
 ```
 
 We can use either the `-` (the subtraction operator) or the convenience function `desc()` to reverse columns in `arrange()`.  We can also sort by multiple criteria, for example here we can sort by the observed CATA `0/1` descending (highest first), and then break ties by the rating, sorting ascending (lowest first).
 
-```{r}
+```{r rearranging rows descending with ties broken}
 cider_penalty_data %>%
   arrange(-count, rating)
 ```
 
 Finally, `arrange()` will respect groups, so we can sort our penalties within our berries to see what matters most:
 
-```{r}
+```{r rearranging within groups}
 berry_penalty_data %>%
   group_by(berry) %>%
   arrange(-penalty_lift) %>%
@@ -665,7 +665,7 @@ berry_penalty_data %>%
 
 Often, though, it can be helpful to save multiple `R` objects so that a workplace can be restored.  In this case, the generic `save()` function will save a *list* of `R` objects provided as symbolic names into a file of format `.RData`, which can be restored with `load()`.  
 
-```{r}
+```{r saving multiple data objects together}
 save(long_berry_data,
      long_cider_data,
      file = "data/long-data-objects.RData")

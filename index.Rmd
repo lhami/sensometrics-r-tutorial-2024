@@ -14,11 +14,18 @@ bibliography: sensometrics-2024.bib
 
 # Introduction and welcome {-}
 
-```{r setup, include = FALSE}
+```{r setup, include = FALSE, purl = FALSE}
 library(tidyverse)
 library(ca)
 library(ggrepel)
-berry_data <- read_csv("data/clt-berry-data.csv")
+library(patchwork)
+library(FactoMineR)
+library(ggforce)
+library(cowplot)
+library(wesanderson)
+library(tidytext)
+raw_berry_data <- read_csv("data/clt-berry-data.csv")
+raw_cider_data <- read_csv("data/CiderDryness_SensoryDATA.csv")
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```
 

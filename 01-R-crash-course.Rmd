@@ -4,7 +4,7 @@ output: html_document
 
 # A crash course in `R` and RStudio
 
-```{r setup-1, include=FALSE, echo=FALSE}
+```{r setup-1, include=FALSE, echo=FALSE, purl = FALSE}
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
 ```
 
@@ -90,13 +90,13 @@ The easiest (but not best) way to do this is to use the `Files` pane.  If you hi
 
 A better way to do this is to use the R commands `getwd()` and `setwd()`.
 
-```{r}
+```{r finding where R is looking for files}
 getwd() # will print the current working directory
 ```
 
 And we can manually change the working directory by using 
 
-```{r, eval=FALSE}
+```{r setting the working directory, eval=FALSE}
 setwd("Enter/Your/Desired/Directory/Here")
 ```
 
@@ -110,7 +110,7 @@ One of the key advantages of `R` is that its open-source nature means that you c
 
 We install new packages using the `install.packages()` command.  As part of the pre-work for the tutorial, you will have run the following commmands:
 
-```{r, eval=FALSE}
+```{r installing new packages, eval=FALSE}
 # Install the tidyverse packages
 install.packages("tidyverse")
 # Install the ca package
@@ -123,20 +123,20 @@ While these commands will download packages and install them in a directory on y
 
 To actually use a package, you need to load it using the `library(<name of package>)` command.  So, for example, to load the `tidyverse` package we will use the command
 
-```{r}
+```{r loading the tidyverse package}
 library(tidyverse)
 ```
 
 You need to use multiple `library()` commands to load multiple packages, e.g.,
 
-```{r}
+```{r loading multiple packages}
 library(tidyverse)
 library(ca)
 ```
 
 If you want to know what packages you have loaded, you can run the `sessionInfo()` function, which will tell you a bunch of stuff, including the "attached" packages:
 
-```{r}
+```{r seeing what packages are loaded}
 sessionInfo()
 ```
 
@@ -148,14 +148,14 @@ Typically, we think it's a good idea to put all of your `library()` function cal
 
 We can make `R` act as a basic calculator:
 
-```{r}
+```{r R can be a calculator}
 2 + 3
 4 / 124
 ```
 
 Mostly, we will be using `R` for writing complex, functional programs, in which we **assign variables** and use those variables in **functions**:
 
-```{r}
+```{r saving values to variables}
 x <- "dog"
 ifelse(x == "cat", "Definitely feline!", "You've got something else there!")
 ```

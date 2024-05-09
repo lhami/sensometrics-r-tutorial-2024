@@ -1,6 +1,6 @@
 # Tutorial for Sensometrics 2024: “Publication-quality data visualizations using the R tidyverse”
 
-This repository contains code and markdown files for the tutorial presented at Sensometrics 2024.  If you like, you can download the materials by using the "..." menu at the top right of the repository menu.  You can also see the rendered version of this material by going to the :point_right: [**workshop bookdown page**](https://lhami.github.io/pangborn-r-tutorial-2023/) :point_left:.
+This repository contains code and markdown files for the tutorial presented at Sensometrics 2024.  If you like, you can download the materials by using the "..." menu at the top right of the repository menu.  You can also see the rendered version of this material by going to the :point_right: [**workshop bookdown page**](https://lhami.github.io/sensometrics-r-tutorial-2024/) :point_left:.
 
 # DO THIS FIRST
 
@@ -12,7 +12,7 @@ Please go [to the tutorial website](https://lhamilton.shinyapps.io/sensometrics2
 
 If you have followed the instructions from the tutorial above, you should have all the material you need for the workshop, and your version of `R` and RStudio should be set up properly. 
 
-If you want to see code from the workshop, see [the bookdown website](https://lhami.github.io/pangborn-r-tutorial-2023/) for all of the R code broken into individual steps alongside expected output and instructions, or [download and extract](https://lhami.github.io/pangborn-r-tutorial-2023/) the [code/pangborn-2023-code-download.zip file]() for just the lines of R code in a more compact format. Once you've extracted the files, open up RStudio or a basic Notepad program (something that makes `.txt` files) and from the File > Open menu, open the extracted `pangborn-all-code.R` file. If you double-click it from your file viewer, it will run all of the code directly in the console without giving you a chance to read anything.
+If you want to see code from the workshop, see [the bookdown website](https://lhami.github.io/sensometrics-r-tutorial-2024/) for all of the R code broken into individual steps alongside expected output and instructions, or [download and extract](https://lhami.github.io/sensometrics-r-tutorial-2024/) the [code/sensometrics-2024-code-download.zip file]() for just the lines of R code in a more compact format. Once you've extracted the files, open up RStudio or a basic Notepad program (something that makes `.txt` files) and from the File > Open menu, open the extracted `pangborn-all-code.R` file. If you double-click it from your file viewer, it will run all of the code directly in the console without giving you a chance to read anything.
 
 If you want detailed, written instructions, you can consult the instructions for our [tutorial last year at Pangborn 2023](https://github.com/lhami/pangborn-r-tutorial-2023), which gave detailed set up instructions for `R`, RStudio, and a very similar set of tutorials.
 

@@ -10,35 +10,7 @@ The plots we've been making so far are fairly straightforward demonstrations. At
 
 
 ```r
-berry_penalty_analysis_data %>%
-  select(-count) %>%
-  pivot_wider(names_from = checked,
-              values_from = penalty_lift,
-              names_prefix = "checked_") %>%
-  separate(cata_variable, 
-           into = c("mode", "variable"), 
-           sep = "_") %>%
-  mutate(penalty_lift = checked_1 - checked_0,
-         mode = case_when(mode == "taste" ~ "(T)",
-                          mode == "appearance" ~ "(A)",
-                          mode == "appearane" ~ "(A)")) %>%
-  unite(variable, mode, col = "cata_variable", sep = " ") %>%
-  mutate(cata_variable = tidytext::reorder_within(x = cata_variable,
-                                                  by = penalty_lift,
-                                                  within = berry)) %>%
-  ggplot(mapping = aes(x = cata_variable, y = penalty_lift)) +
-  geom_col(aes(fill = penalty_lift), color = "white", show.legend = FALSE) + 
-  facet_wrap(~berry, scales = "free", nrow = 1) + 
-  tidytext::scale_x_reordered() + 
-  coord_flip() + 
-  theme_classic() + 
-  scale_fill_gradient(low = "tan", high = "darkgreen") + 
-  labs(x = NULL, y = NULL,
-       title = "Penalty / Lift Analysis",
-       subtitle = "displays the mean difference (within berries) for when a CATA variable is checked\nor un-checked") ->
-  goal_plot
-
-goal_plot
+p1_berry_penalty
 ```
 
 <img src="05-finetuning-ggplot_files/figure-html/penalty analysis example-1.png" width="672" style="display: block; margin: auto;" />
@@ -81,52 +53,38 @@ But you will have to export plots for every project you want to share with the w
 
 You can, as we've already discussed, save a `ggplot` object in a `.rds` file. But that won't let you put it into your powerpoint, or manuscript, or take it to the printer. You need an image file. The exact *type* of image will depend on the other software you're using for your report, presentation, paper, book, etc.
 
-There are two major ways to save the kind of spatial color data that comprise images such as graphs. You can store them as **vector graphics**, which can be rescaled because they're made up of lines and shapes (we'll be talking about `.pdf` and `.svg`) or as **raster (bitmap) graphics**, which store images as a grid of **pixels** which each have a single uniform color (we'll be talking about `.png` and `.jpeg`).
+There are two major ways to save the kind of spatial color data that comprise images such as graphs. You can store them as **vector graphics**, which can be rescaled because they're made up of lines and shapes (most commonly, `.pdf` and `.svg`) or as **raster (bitmap) graphics**, which store images as a grid of **pixels** which each have a single uniform color (most commonly, `.png` and `.jpeg`).
 
-`.pdf` vector images are best for **LaTeX** and professional publishing
-`.svg` vector images are more widely supported in word processors and websites
-`.png` raster images are the most predictable to print, the best for web publishing, and can be used in pretty much every software ever made, *if* you know exactly the size you want. 
-`.jpeg` (along with `.tiff`) raster images are the raster format preferred by *Food Quality and Preference* editors. They are worse for web publishing than `.png` but share its other advantages.
+-  `.pdf` vector images are best for **LaTeX** and professional publishing
+-  `.svg` vector images are more widely supported in word processors and websites
+-  `.png` raster images are the most predictable to print, the best for web publishing, and can be used in pretty much every software ever made, *if* you know exactly the size you want. 
+-  `.jpeg` (along with `.tiff`) raster images are the raster format preferred by *Food Quality and Preference* editors. They are worse for web publishing than `.png` but share its other advantages.
 
 Note that `ggsave()` is like making a `.pdf` version of your working documents: you will not be able to read the plot images into `R` for editing anymore, no matter which format you save in.
 
-### Exporting Images with `ggsave()`
+### Exporting Images with `ggsave()` {#ggsave}
 The easiest way to reproducibly save plots, so that all of your export options are in your code and you might be able to recreate it on a different computer, is with the function `ggplot2::ggsave()`, which works *similarly* to the `write_*()` functions and `save()`. You give it a file name to save to, relative to the current working directory, and then the variable where your plot is saved.
 
-`ggsave()` supports all of the above-named image formats, as well as `.eps`, `.ps`, `.tex` (pictex), and `.bmp`. If you're reading this right now, you're looking at a webpage created using `bookdown` and `knitr`. We can't actually directly embed `.pdf` images in this site, but let's look at a few other example formats using the same plots.
+
+```r
+ggsave("img/penalty-lift-png.png", p1_berry_penalty)
+```
+
+`ggsave()` supports all of the above-named image formats, as well as `.eps`, `.ps`, `.tex` (pictex), and `.bmp`. It will figure out from the file extension (the stuff after the `.` in the `filename` argument) what image type it's saving as, but you can also specify it explicitly with the `device` argument.
+
+If you're reading this right now, you're looking at a webpage created using `bookdown` and `knitr`. We can't actually directly embed `.pdf` images in this site, but let's look at a few other example formats using the same plots.
 
 
 ```r
-ggsave("img/penalty-lift-svg.svg", goal_plot)
+ggsave("img/penalty-lift-svg.svg", p1_berry_penalty)
+ggsave("img/penalty-lift-jpeg.jpeg", p1_berry_penalty)
 ```
 
-```
-## Saving 7 x 5 in image
-```
-
-```r
-ggsave("img/penalty-lift-png.png", goal_plot)
-```
-
-```
-## Saving 7 x 5 in image
-```
-
-```r
-ggsave("img/penalty-lift-jpeg.jpeg", goal_plot)
-```
-
-```
-## Saving 7 x 5 in image
-```
-
-It will figure out from the file extension (the stuff after the `.` in the `filename` argument) what image type it's saving as, but you can also specify it explicitly with the `device` argument.
-
-Now let's compare how each of these looks!
+Now let's compare how each of these looks! First, inside R:
 
 
 ```r
-goal_plot # If you're following along, this will look different in your R session!
+p1_berry_penalty # If you're following along, this will look different in your R session!
 ```
 
 <img src="05-finetuning-ggplot_files/figure-html/viewing the plot inside R-1.png" width="672" style="display: block; margin: auto;" />
@@ -143,27 +101,21 @@ The `.jpeg` image made by `ggsave()`:
 
 <img src="img/penalty-lift-jpeg.jpeg" width="672px" style="display: block; margin: auto;" />
 
-The two raster formats look basically the same, and only slightly different from the `.svg` and the version in the `.html` version of this tutorial. If you're following along in your own `R` session, however, you'll notice that these saved plots all look more similar to each other than they do to the initial plot you're previewing inside `R`. *All* of the plots have a bit more space around the text using `ggsave()`, taller bars, and a different aspect ratio.
+The two raster formats look basically the same, and only slightly different from the `.svg` and the version in the `.html` version of this tutorial. If you're following along in your own `R` session, however, you'll notice that these saved plots all look more similar to each other than they do to the initial plot you're previewing inside `R`. *All* of the plots have a bit more space around the text using `ggsave()`, taller bars, and a different aspect ratio ($width/height$).
 
-We can adjust these using the rest of the arguments to `ggsave()`, namely the `scale`, `width`, `height`, `units`, and, for raster images, `dpi`.
+We can adjust these using the rest of the arguments to `ggsave()`. The `width`, `height`, and `units` primarily control the image size (for raster images) and aspect ratio (for all images), but they also affect the relative size of plot elements. Larger plots will have axis labels, text, and `geom_*()`s that take up less of the overall plotting area, and vice-versa for smaller images.
 
-You might be surprised that vector images have height and width options, because we already said they don't have a fixed display size, but as you saw a few code chunks ago, `ggsave()` picked a default image size of 7x7 inches when we didn't specify. The height and width are mostly important for determining the relative sizing of elements like text and whitespace.
-
-`ggplot2` actually saves the sizes of certain plot elements, namely *text* and most `geom_*()`s, in inches or millimeters. When it has to construct an actual version of the plot at a given size, it tries to keep all of the 12-pt text 1/6" tall (1 inch = 72 points). This 12-point font will take up a very small amount of a 4-foot-tall image, but a sixth of a 1" image.
-
-The fact that you can then print the `.svg` at any size you want is out of `ggplot2`'s hands. It will try to make the fonts and elements the right size for the size you're *telling it* you will print.
-
-If you get to this stage and realize that all of the fixed-size elements (e.g., text) are too big or too small, you can use `ggsave()`'s `scale` argument. `scale` < 1 makes all the fixed-size elements *smaller* relative to the plot size and `scale` > 1 makes all the elements *bigger* relative to the plot size. `scale` < 1 will generally also give you a *larger plot area* and *more space between your geoms*.
+If you get to this stage with a **vector image** and realize that all of the fixed-size elements (e.g., text) are too big or too small, you can use `ggsave()`'s `scale` argument. `scale` < 1 makes all the fixed-size elements *smaller* relative to the plot size and `scale` > 1 makes all the elements *bigger* relative to the plot size. `scale` < 1 will generally also give you a *larger plot area* and *more space between your geoms*.
 
 
 ```r
-ggsave("img/penalty-lift-svg-7x4.svg", goal_plot,
+ggsave("img/penalty-lift-svg-7x4.svg", p1_berry_penalty,
        width = 7, height = 4, units = "in")
 
-ggsave("img/penalty-lift-svg-14x8.svg", goal_plot,
+ggsave("img/penalty-lift-svg-14x8.svg", p1_berry_penalty,
        width = 14, height = 8, units = "in")
 
-ggsave("img/penalty-lift-svg-14x8-rescale.svg", goal_plot,
+ggsave("img/penalty-lift-svg-14x8-rescale.svg", p1_berry_penalty,
        width = 14, height = 8, units = "in", scale = .5)
 ```
 
@@ -181,61 +133,7 @@ A 14.8" plot with `scale = 0.5`:
 
 All of these `.svg` images are *displayed* at 7x4" on your screen, but the plot we made with `width = 14, height = 8` has smaller text and larger plotting areas unless we correct this with `scale`. `penalty-lift-svg-7x4.svg` and `penalty-lift-svg-14x8-rescale.svg` are actually identical files.
 
-You should *avoid using `scale` for rasters*, as it will create plots that will not print at the size (`width` and `height`) and resolution (`dpi`) you specified.
-
-### Image Sizes and Raster Resolutions
-All raster images are made up of grids of dots or pixels. Once you export a figure from `R` as a `.png`, `.jpeg`, or other raster format, *you cannot resize it*. It will look blurry or blocky if you try to make it bigger, and even slight changes to the **aspect ratio** ($width/height$), the text and other plot elements will be noticeably stretched out.
-
-You'll have fewer problems if you save an image that's way too big (i.e., has too many pixels) for what you need, so long as it's the right aspect ratio and all the plot elements have relative sizes that work at the scale you'll be printing. (See [this short primer on "Using `R` Plots in Documents" from the University of Wisconsin-Madison](https://sscc.wisc.edu/sscc/pubs/using-r-plots/saving-plots.html#file-dimensions) for examples.)
-
-So, how big is a pixel? How many pixels are in an inch? It depends! (On the pixel density for screens and the resolution for printing, see [the discussion on this page](https://graphicdesign.stackexchange.com/questions/6080/what-is-the-difference-between-dpi-dots-per-inch-and-ppi-pixels-per-inch) for details.)
-
-- Most modern computer monitors have something like 90-120 pixels per inch (ppi)
-- Microsoft Powerpoint uses an internal resolution of 96 ppi as a default, [although images will print at more than 96 dpi if they're sized appropriately](https://www.brightcarbon.com/blog/powerpoint-picture-size-and-resolution/).
-- Older Apple software has a default of 72 ppi
-- `ggsave()` uses a default of 300 dpi
-- Poster printers will usually print at 300 dots per inch (dpi). They may ask for a minimum resolution of anywhere between 120-300 dpi, although 300 dpi will usually be a safe bet. Use your specific printer's recommendations.
-- Elsevier journals like *Food Quality and Preference* [suggest at least 300 dpi for all images and at least 500 dpi for "combination art", which includes all `R` plots with colored or shaded areas](https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-sizing).
-
-This is important because, if you have a 600x600-pixel raster image, and you try to print it any bigger than 2 inches x 2 inches on a 300 dpi printer, then you have *missing image data* and the printed version will look blurry.
-
-Whenever something, like a design software or an `R` function to save a plot, gives you the chance to enter an image size in inches or centimeters, *you should figure out what dpi or ppi it's using*. It may be easier to figure out the final pixel size you want and export something that size or bigger. (For more details, see [this guide on "Preparing Images for PowerPoint, the Web, and Publication" from the University of Michigan](https://apps.lib.umich.edu/files/services/exploratory/pdfs/preparingimages.pdf). It's slightly outdated, so ignore the specific dpi/ppi numbers.)
-
-You can see the possible image widths and corresponding pixel sizes for Elsevier journals [here](https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-sizing). For PowerPoint presentations, assume you're filling a 13.3x7.5" space at 150 dpi. For printed posters, you'll find the final poster size on the competition guidelines and the final resolution from your printer. 12"x12" for a single figure at 300 dpi is a good place to start.
-
-You *will* almost certainly have to re-export your figures several times in order to get the sizing and aspect ratios right.
-
-Let's save a the same plots as a raster image (`.png`) with a few different `dpi` values.
-
-
-```r
-ggsave("img/penalty-lift-png-50dpi.png", goal_plot,
-       width = 7, height = 4, units = "in", dpi = 50)
-
-ggsave("img/penalty-lift-png-300dpi.png", goal_plot,
-       width = 7, height = 4, units = "in") #default dpi = 300
-
-ggsave("img/penalty-lift-png-500dpi.png", goal_plot,
-       width = 7, height = 4, units = "in", dpi = 500)
-```
-
-7x4" at 50 dpi:
-
-<img src="img/penalty-lift-png-50dpi.png" width="672px" style="display: block; margin: auto;" />
-
-7x4" at 300 dpi (the `ggsave()` default):
-
-<img src="img/penalty-lift-png-300dpi.png" width="672px" style="display: block; margin: auto;" />
-
-7x4" at 500 dpi:
-
-<img src="img/penalty-lift-png-500dpi.png" width="672px" style="display: block; margin: auto;" />
-
-You can see that all of the 7x4" raster plots look basically the same, except the first one is a little blurry when it's sized up to match the other two on your probably ~100 dpi monitor. This is the problem we're trying to avoid.
-
-Unlike `scale`, the `dpi` argument does not resize any of the text or geoms (it doesn't change the size of a "point" from 1/72"). But let's say we need a 300 dpi copy of this image printed at 14x8". We already know that the 14x8" output has text that's too small to read from afar.
-
-In cases like these, it may be easier to output a size with the right *aspect ratio* that looks good and is legible, then figure out what `dpi` you'll need to print it. If we need a 14x8" plot at 300 dpi, that's $14 \times 300 = 4200$ pixels wide by $8 \times 300 = 2400$ tall. We can fake this with our 7x4" plot at 600 dpi, since $4200 / 7 = 600$ and $2400 / 4 = 600$.
+You should *avoid using `scale` for rasters*, as it will create plots that will not print at the size (`width` and `height`) and resolution (`dpi`) you specified. If you find yourself wanting to change the `scale` of a raster image, you should refer to the reference we've put together on `dpi` in the [Appendix](#ggresolution).
 
 ### Other Image Export Options
 
@@ -245,45 +143,11 @@ This is not a `knitr` or `bookdown` tutorial, because we had to choose our topic
 
 A good `R` variable or column name doesn't have any spaces or punctuation other than underscores (`_`) and dots (`.`), to avoid all those pesky backticks (`\``) in our code.
 
-This is very different from what a good label in a plot looks like. You'll often want to make some sort of mass changes to column names or text variables before plotting, in order to address this. In our previous example, we used `separate()` to split one messy column with variable names into two, adjusted each one, and then used `unite()` to combine them again:
-
-
-```r
-berry_penalty_analysis_data %>%
-  select(-count) %>%
-  pivot_wider(names_from = checked,
-              values_from = penalty_lift,
-              names_prefix = "checked_") %>%
-  separate(cata_variable, 
-           into = c("mode", "variable"), 
-           sep = "_") %>%
-  mutate(penalty_lift = checked_1 - checked_0,
-         mode = case_when(mode == "taste" ~ "(T)",
-                          mode == "appearance" ~ "(A)",
-                          mode == "appearane" ~ "(A)")) %>%
-  unite(variable, mode, col = "cata_variable", sep = " ")
-```
-
-```
-## # A tibble: 85 × 5
-##    berry      cata_variable   checked_0 checked_1 penalty_lift
-##    <chr>      <chr>               <dbl>     <dbl>        <dbl>
-##  1 blackberry fresh (A)            4.70      5.80        1.10 
-##  2 blackberry goodcolor (A)        4.63      5.77        1.14 
-##  3 blackberry goodquality (A)      4.69      5.96        1.26 
-##  4 blackberry goodshapre (A)       4.93      5.86        0.923
-##  5 blackberry misshapen (A)        5.63      4.92       -0.708
-##  6 blackberry none (A)             5.42      4.78       -0.641
-##  7 blackberry notfresh (A)         5.57      3.76       -1.81 
-##  8 blackberry unevencolor (A)      5.53      4.53       -0.998
-##  9 blackberry bruised (A)          5.53      4.67       -0.861
-## 10 blackberry berry (T)            4.21      6.49        2.27 
-## # ℹ 75 more rows
-```
+This is very different from what a good label in a plot looks like. You'll often want to make some sort of mass changes to column names or text variables before plotting, in order to address this.
 
 ### Powerful Text Manipulation with `stringr`
 
-The `stringr` package is a part of the `tidyverse`, so you have it already loaded whenever you run `library(tidyverse)`. It has a lot of useful functions for working with text (called "**str**ings" in many programming languages), mostly of the form `str_*()`. One thing you can do is change labels to uppercase, lowercase, or "title case" (first letter of each word capitalized), as appropriate:
+The `stringr` package is a part of the `tidyverse`, so you have it already loaded whenever you run `library(tidyverse)`. It has a lot of useful functions for working with text (called "**str**ings" in many programming languages), mostly of the form `str_*()`. One thing you can do is change labels to uppercase, lowercase, "sentence case", or "title case" (first letter of each word capitalized), as appropriate:
 
 
 ```r
@@ -310,9 +174,7 @@ berry_penalty_analysis_data %>%
 ## # ℹ 160 more rows
 ```
 
-It also has its own version of `unite()` called `str_c()`, although it works on vectors (e.g., inside `mutate()`) rather than on whole tables like a `dplyr` verb.
-
-On the other hand, if you don't need to do the intermediate step of changing the `separate()`d parts, `str_replace()` and `str_replace_all()` are very useful for dealing with underscores or periods. You give it `string`, the text vector you want to modify (inside `mutate()`, a column name); then `pattern`, the character(s) you want to replace; then `replacement`, what you want to replace them with.
+`str_replace()` and `str_replace_all()` are very useful for dealing with underscores or periods. You give it `string`, the text vector you want to modify (inside `mutate()`, a column name); then `pattern`, the character(s) you want to replace; then `replacement`, what you want to replace them with.
 
 
 ```r
@@ -436,8 +298,6 @@ berry_penalty_analysis_data %>%
 ## # ℹ 75 more rows
 ```
 
-### `stringr` and Regular Expressions (A small tangent)
-
 So far, we've been replacing letters and underscores, which is what we have in our example data. You can also use `str_replace()` for periods (`.`), although you may be surprised when you first try:
 
 
@@ -457,75 +317,9 @@ str_replace_all("long.text.with.many.periods", "\\.", " ") # Replaces only dots
 ## [1] "long text with many periods"
 ```
 
-We have to **escape** the period (with an escaped backslash, actually, but for now just know that the two backslashes `\\` are the `stringr` escape sequence), because the `str_*` functions with a `pattern` can use **Regular Expressions** (or regex). Regex are extremely powerful tools for finding patterns in text, similar to the intuitive ways a human might recognize something like an email address, a measurement, or a parenthetical.
+We have to **escape** the period (with an escaped backslash, technically, but for now just know that you must put two backslashes `\\` before special characters when using `stringr`). Because the `str_*` functions with a `pattern` can use **Regular Expressions** (or regex), the characters (`\`, `.`, `[`, `]`, `{`, `}`, `(`, `)`, `<`, `>`, `*`, `+`, `-`, `=`, `!`, `?`, `^`, `$`, and `|`) need to be **escaped** with two backslashes if you need to replace them.
 
-
-```r
-str_extract("If you want to get in touch with me you can do so at lhamilton@vsu.edu.",
-            "\\w*@\\w+\\.(edu|gov|com|org|biz|net|fr|co\\.uk)\\b")
-```
-
-```
-## [1] "lhamilton@vsu.edu"
-```
-
-```r
-str_extract_all("Our 300th measurement was 10.31 cm, our 301st clocked in at 3.213in",
-            "\\d+\\.\\d+ ?(cm|in|m)")
-```
-
-```
-## [[1]]
-## [1] "10.31 cm" "3.213in"
-```
-
-```r
-str_extract_all("Regular Expressions (regex) are one tool in Natural Language Processing (NLP)",
-            "(?<=\\()[^)]*(?=\\))")
-```
-
-```
-## [[1]]
-## [1] "regex" "NLP"
-```
-
-You can try changing the searched `string` in the above code to see if it recognizes your email or how many numbers you can get it to recognize. Usually, though, your plot labels aren't in full sentences in your data frame. Simpler regular expressions can still save you a lot of work:
-
-
-```r
-berry_penalty_analysis_data %>%
-  select(-count) %>%
-  pivot_wider(names_from = checked,
-              values_from = penalty_lift,
-              names_prefix = "checked_") %>%
-  mutate(cata_variable = str_replace(cata_variable,
-                                     "^(.).*_(.*)",
-                                     "\\2 (\\1)"),
-         cata_variable = str_to_title(cata_variable))
-```
-
-```
-## # A tibble: 85 × 4
-##    berry      cata_variable   checked_0 checked_1
-##    <chr>      <chr>               <dbl>     <dbl>
-##  1 blackberry Fresh (A)            4.70      5.80
-##  2 blackberry Goodcolor (A)        4.63      5.77
-##  3 blackberry Goodquality (A)      4.69      5.96
-##  4 blackberry Goodshapre (A)       4.93      5.86
-##  5 blackberry Misshapen (A)        5.63      4.92
-##  6 blackberry None (A)             5.42      4.78
-##  7 blackberry Notfresh (A)         5.57      3.76
-##  8 blackberry Unevencolor (A)      5.53      4.53
-##  9 blackberry Bruised (A)          5.53      4.67
-## 10 blackberry Berry (T)            4.21      6.49
-## # ℹ 75 more rows
-```
-
-You do not *have* to learn regular expressions to clean up messy text, but being comfortable with them will (eventually) make you faster. You should at least learn the characters (`\`, `.`, `[`, `]`, `{`, `}`, `(`, `)`, `<`, `>`, `*`, `+`, `-`, `=`, `!`, `?`, `^`, `$`, and `|`) that will need to be **escaped** with two backslashes if you need to replace them. It will help you troubleshoot any weird results you get from the `str_*()` functions.
-
-If you want to learn more, we'd recommend starting with [the `stringr` package's own vignette on regular expressions](https://stringr.tidyverse.org/articles/regular-expressions.html), which you can view with `vignette("regular-expressions", "stringr")`. If you want more practice, you can then follow along with the [RegexOne](https://regexone.com/) tutorial or [RegexTutorials](http://regextutorials.com/index.html).
-
-Any "perl-flavored" regex tutorial or resource will work, with the exception that *you will have to double the number of backslashes (`\`)* to use them in `R`.
+Regex are extremely powerful tools for finding patterns in text, similar to the intuitive ways a human might recognize something like an email address, a measurement, or a parenthetical. We will not be talking about regex today, but if you want to see some examples and resources for learning how to use them, we've provided a short overview and links to some resources in the [Appendix](#regex).
 
 ## Removing Legends and Plot Elements
 

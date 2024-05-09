@@ -4,7 +4,7 @@ output: html_document
   
 # The basics of plotting with `ggplot2`
   
-```{r setup-3, echo=FALSE, include=FALSE}
+```{r setup-3, echo=FALSE, purl = FALSE, include=FALSE}
 library(tidyverse)
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE)
 
@@ -161,7 +161,7 @@ Most of the use of `theme()` involves functions names as `element_*()`.  When we
 
 Finally, we can set default themes for a particular script using the `theme_set()` function.  We can also use this to set custom defaults:
 
-```{r}
+```{r setting the default theme then making a ggplot}
 theme_set(
   theme_bw() + 
     theme(panel.grid.minor = element_blank())
@@ -307,6 +307,9 @@ p1_berry_penalty <-
   labs(x = NULL, y = NULL,
        title = "Penalty / Lift Analysis",
        subtitle = "displays the mean difference (within berries) for when a CATA variable is checked\nor un-checked")
+
+# Let's save it so we can come back to it later:
+save(p1_berry_penalty, file = "data/goal-plot.RData")
 
 p1_berry_penalty
 ```

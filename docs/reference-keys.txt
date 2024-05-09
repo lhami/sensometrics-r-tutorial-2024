@@ -52,12 +52,10 @@ finding-new-packages
 fine-tuning-publication-quality-ggplots
 exporting-and-saving-plots
 what-format
-exporting-images-with-ggsave
-image-sizes-and-raster-resolutions
+ggsave
 other-image-export-options
 making-text-look-okay
 powerful-text-manipulation-with-stringr
-stringr-and-regular-expressions-a-small-tangent
 removing-legends-and-plot-elements
 ordered-categorical-variables
 specifying-ordinal-variables-as-factors
@@ -65,7 +63,6 @@ facets-with-different-category-orders
 putting-it-all-together
 wrap-up-and-further-resources
 getting-help-1
-learning-more-with-sensometrics-society
 further-readingresources
 questionscomments
 references
