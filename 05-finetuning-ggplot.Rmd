@@ -11,7 +11,7 @@ raw_cider_data <- read_csv("data/CiderDryness_SensoryDATA.csv")
 load("data/svd-results.RData")
 load("data/cleaned-data.RData")
 load("data/long-data-objects.RData")
-knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE)
 ```
 
 The plots we've been making so far are fairly straightforward demonstrations. At the very end of Chapter 3, we briefly showed you the code and results for this plot:
@@ -85,10 +85,10 @@ You can, as we've already discussed, save a `ggplot` object in a `.rds` file. Bu
 
 There are two major ways to save the kind of spatial color data that comprise images such as graphs. You can store them as **vector graphics**, which can be rescaled because they're made up of lines and shapes (we'll be talking about `.pdf` and `.svg`) or as **raster (bitmap) graphics**, which store images as a grid of **pixels** which each have a single uniform color (we'll be talking about `.png` and `.jpeg`).
 
-`.pdf` vector images are best for **LaTeX** and professional publishing
-`.svg` vector images are more widely supported in word processors and websites
-`.png` raster images are the most predictable to print, the best for web publishing, and can be used in pretty much every software ever made, *if* you know exactly the size you want. 
-`.jpeg` (along with `.tiff`) raster images are the raster format preferred by *Food Quality and Preference* editors. They are worse for web publishing than `.png` but share its other advantages.
+-  `.pdf` vector images are best for **LaTeX** and professional publishing
+-  `.svg` vector images are more widely supported in word processors and websites
+-  `.png` raster images are the most predictable to print, the best for web publishing, and can be used in pretty much every software ever made, *if* you know exactly the size you want. 
+-  `.jpeg` (along with `.tiff`) raster images are the raster format preferred by *Food Quality and Preference* editors. They are worse for web publishing than `.png` but share its other advantages.
 
 Note that `ggsave()` is like making a `.pdf` version of your working documents: you will not be able to read the plot images into `R` for editing anymore, no matter which format you save in.
 
