@@ -6,7 +6,7 @@ output: html_document
 
 ```{r setup-2, echo=FALSE, include=FALSE}
 library(tidyverse)
-knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE)
 ```
 
 Now that everyone is on the same page for how we're going to use `R`, we're going to dive right into importing our data into `R`, exploring it, and--most importantly--visualizing it.  In this part of the tutorial, we are going to focus on getting data into `R` and manipulating it.  
@@ -279,7 +279,7 @@ If you're at all familiar with `R`, you will have learned about subsetting `R` o
 
 ### The "pipe" for multiple steps in a workflow: `%>%`
 
-While I am not going to go over much of the base `R` syntax, I want to talk about one particular tool that is becoming standard in modern `R` coding: the **pipe**, which is written in `tidyverse` as `%>%`.  This garbage-looking set of symbols is actually your best friend, you just don't know it yet.  I use this tool constantly in my R programming.
+While I am not going to go over much of the base `R` syntax, I want to talk about one particular tool that is becoming standard in modern `R` coding: the **pipe**, which is written in `tidyverse` as `%>%`.  This garbage-looking set of symbols is actually your best friend, you just don't know it yet.  I use this tool constantly in my `R` programming.
 
 OK, enough background, what the heck _is_ a pipe?  The term "pipe" comes from what it does: like a pipe, `%>%` lets whatever is on its left side flow through to the right hand side.  It is easiest to read `%>%` as "**AND THEN**". 
 
@@ -299,7 +299,7 @@ Please note that since `R` 4.1, a *native* pipe has been implemented (you don't 
 
 ### Subsetting your data
 
-The first thing you'll notice about our `raw_berry_data` in particular is that it is *full* of information we don't need! A common situation in R is wanting to select some rows and some columns of our data--this is called "**subsetting**" our data.  But this is less easy than it might be for the beginner in R.  Happily, the `tidverse` methods are much easier to read (and modeled after syntax from **SQL**, which may be helpful for some users). 
+The first thing you'll notice about our `raw_berry_data` in particular is that it is *full* of information we don't need! A common situation in `R` is wanting to select some rows and some columns of our data--this is called "**subsetting**" our data.  But this is less easy than it might be for the beginner in R.  Happily, the `tidverse` methods are much easier to read (and modeled after syntax from **SQL**, which may be helpful for some users). 
 
 #### Selecting certain columns: `select()`
 
@@ -518,10 +518,10 @@ For example, in our `raw_berry_data` we might want to split the data by each ber
 
 However, `tidyverse` provides two powerful tools to do this kind of analysis:
 
-    1.  The `group_by()` function takes a data table and groups it by **categorical** values of any column (generally don't try to use `group_by()` on a numeric variable)
-    2.  The `summarize()` function is like `mutate()` for groups created with `group_by()`: 
-        1.  First, you specify 1 or more new columns you want to calculate for each group
-        2.  Second, the function produces 1 value for each group for each new column
+1.  The `group_by()` function takes a data table and groups it by **categorical** values of any column (generally don't try to use `group_by()` on a numeric variable)
+2.  The `summarize()` function is like `mutate()` for groups created with `group_by()`: 
+  1.  First, you specify 1 or more new columns you want to calculate for each group
+  2.  Second, the function produces 1 value for each group for each new column
         
 We actually use this approach exactly to get our penalty analysis results for both the berry and cider data sets.  Before we embark on that, though, let's quickly cobble together the exact example (means and SDs) to get an intuition for how a split-apply-combine approach works.
 
