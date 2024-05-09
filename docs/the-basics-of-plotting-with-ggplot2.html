@@ -427,7 +427,7 @@ Here we fit a smoothed line to our data using the default methods in <code>geom_
 <span id="cb100-6"><a href="the-basics-of-plotting-with-ggplot2.html#cb100-6" tabindex="-1"></a>raw_cider_data <span class="sc">%&gt;%</span></span>
 <span id="cb100-7"><a href="the-basics-of-plotting-with-ggplot2.html#cb100-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> MerlynScale_Ranking, <span class="at">y =</span> Liking)) <span class="sc">+</span> </span>
 <span id="cb100-8"><a href="the-basics-of-plotting-with-ggplot2.html#cb100-8" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()</span></code></pre></div>
-<p><img src="03-ggplot2-basics_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03-ggplot2-basics_files/figure-html/setting%20the%20default%20theme%20then%20making%20a%20ggplot-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>All plots from here on will <em>default</em> to the <code>theme_bw()</code> theme, with the “minor” grid lines removed for a cleaner grid look.</p>
 </div>
 <div id="changing-aesthetic-elements-with-scale_-functions" class="section level3 hasAnchor" number="3.4.2">
@@ -452,9 +452,9 @@ Here we fit a smoothed line to our data using the default methods in <code>geom_
 <p>As we saw above, you can also build your own scales using the <code>scale_*_manual()</code> functions, in which you give a vector of the same length as your mapped aesthetic variable in order to set up the visual assignment. That sounds jargon-y, so here is an example:</p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="the-basics-of-plotting-with-ggplot2.html#cb103-1" tabindex="-1"></a><span class="co"># We&#39;ll pick 14 random colors from the colors R knows about</span></span>
 <span id="cb103-2"><a href="the-basics-of-plotting-with-ggplot2.html#cb103-2" tabindex="-1"></a>random_colors <span class="ot">&lt;-</span> <span class="fu">print</span>(<span class="fu">colors</span>()[<span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">colors</span>()), <span class="at">size =</span> <span class="dv">10</span>)])</span></code></pre></div>
-<pre><code>##  [1] &quot;gray95&quot;         &quot;gray33&quot;         &quot;blueviolet&quot;     &quot;peachpuff2&quot;    
-##  [5] &quot;grey99&quot;         &quot;green&quot;          &quot;grey74&quot;         &quot;grey44&quot;        
-##  [9] &quot;chocolate4&quot;     &quot;paleturquoise2&quot;</code></pre>
+<pre><code>##  [1] &quot;gray0&quot;         &quot;palevioletred&quot; &quot;yellow2&quot;       &quot;mediumpurple4&quot;
+##  [5] &quot;orange4&quot;       &quot;seagreen4&quot;     &quot;dodgerblue&quot;    &quot;grey90&quot;       
+##  [9] &quot;lightseagreen&quot; &quot;mediumorchid1&quot;</code></pre>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="the-basics-of-plotting-with-ggplot2.html#cb105-1" tabindex="-1"></a>p <span class="sc">+</span> </span>
 <span id="cb105-2"><a href="the-basics-of-plotting-with-ggplot2.html#cb105-2" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> random_colors)</span></code></pre></div>
 <p><img src="03-ggplot2-basics_files/figure-html/another%20example%20of%20posthoc%20plot%20modification-1.png" width="672" style="display: block; margin: auto;" /></p>

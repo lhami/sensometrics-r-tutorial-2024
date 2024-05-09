@@ -209,7 +209,7 @@ raw_cider_data %>%
   geom_jitter()
 ```
 
-<img src="03-ggplot2-basics_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" />
+<img src="03-ggplot2-basics_files/figure-html/setting the default theme then making a ggplot-1.png" width="672" style="display: block; margin: auto;" />
 
 All plots from here on will *default* to the `theme_bw()` theme, with the "minor" grid lines removed for a cleaner grid look.
 
@@ -258,9 +258,9 @@ random_colors <- print(colors()[sample(x = 1:length(colors()), size = 10)])
 ```
 
 ```
-##  [1] "gray95"         "gray33"         "blueviolet"     "peachpuff2"    
-##  [5] "grey99"         "green"          "grey74"         "grey44"        
-##  [9] "chocolate4"     "paleturquoise2"
+##  [1] "gray0"         "palevioletred" "yellow2"       "mediumpurple4"
+##  [5] "orange4"       "seagreen4"     "dodgerblue"    "grey90"       
+##  [9] "lightseagreen" "mediumorchid1"
 ```
 
 ```r

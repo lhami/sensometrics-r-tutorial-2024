@@ -420,7 +420,7 @@ long_cider_manual_factors %>%
   facet_grid(vars(Temperature), vars(Sample_Name))
 ```
 
-<img src="05-finetuning-ggplot_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-finetuning-ggplot_files/figure-html/manually making ordered factors-1.png" width="672" style="display: block; margin: auto;" />
 
 Note that the attribute you list *first* when you're specifying the `levels` will become 1, then 2, then 3. With `coord_flip()`, that puts it at the bottom of the plot.
 
@@ -475,7 +475,7 @@ long_cider_frequency_factors %>%
   facet_grid(vars(Temperature), vars(Sample_Name))
 ```
 
-<img src="05-finetuning-ggplot_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-finetuning-ggplot_files/figure-html/using another variable to order a factor-1.png" width="672" style="display: block; margin: auto;" />
 
 ### Facets with Different Category-Orders
 
@@ -507,7 +507,7 @@ long_cider_data %>%
              scales = "free")
 ```
 
-<img src="05-finetuning-ggplot_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+<img src="05-finetuning-ggplot_files/figure-html/tidytext reordering within facets-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Putting it all together
 

@@ -193,7 +193,7 @@ p3_cider_factominer <- plot(ca_cider)
 p3_cider_factominer
 ```
 
-<img src="02-import-wrangle-export_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" />
+<img src="02-import-wrangle-export_files/figure-html/CA biplot made by FactoMineR-1.png" width="672" style="display: block; margin: auto;" />
 
 But there might be things about this we want to change!  It would be very helpful to know, for example, that this is a `ggplot2` object that can be altered by a basic handful of standardized syntax.  For example:
 
@@ -205,7 +205,7 @@ p3_cider_factominer +
        subtitle = "of 6 ciders tasted by 48 subjects")
 ```
 
-<img src="02-import-wrangle-export_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" />
+<img src="02-import-wrangle-export_files/figure-html/editing the FactoMineR plot-1.png" width="672" style="display: block; margin: auto;" />
 
 Like I said, we're not here to tell you *how* your plots should look...
 

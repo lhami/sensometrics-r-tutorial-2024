@@ -460,13 +460,13 @@ div.csl-indent {
 <span id="cb22-9"><a href="importing-and-wrangling-data.html#cb22-9" tabindex="-1"></a></span>
 <span id="cb22-10"><a href="importing-and-wrangling-data.html#cb22-10" tabindex="-1"></a>p3_cider_factominer <span class="ot">&lt;-</span> <span class="fu">plot</span>(ca_cider)</span>
 <span id="cb22-11"><a href="importing-and-wrangling-data.html#cb22-11" tabindex="-1"></a>p3_cider_factominer</span></code></pre></div>
-<p><img src="02-import-wrangle-export_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="02-import-wrangle-export_files/figure-html/CA%20biplot%20made%20by%20FactoMineR-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>But there might be things about this we want to change! It would be very helpful to know, for example, that this is a <code>ggplot2</code> object that can be altered by a basic handful of standardized syntax. For example:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="importing-and-wrangling-data.html#cb23-1" tabindex="-1"></a>p3_cider_factominer <span class="sc">+</span></span>
 <span id="cb23-2"><a href="importing-and-wrangling-data.html#cb23-2" tabindex="-1"></a>  <span class="fu">theme_dark</span>() <span class="sc">+</span> </span>
 <span id="cb23-3"><a href="importing-and-wrangling-data.html#cb23-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">&quot;Now we can say some more things!&quot;</span>, </span>
 <span id="cb23-4"><a href="importing-and-wrangling-data.html#cb23-4" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;of 6 ciders tasted by 48 subjects&quot;</span>)</span></code></pre></div>
-<p><img src="02-import-wrangle-export_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="02-import-wrangle-export_files/figure-html/editing%20the%20FactoMineR%20plot-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Like I said, we’re not here to tell you <em>how</em> your plots should look…</p>
 <p>The motivating point, here, is to be able to make visualizations that accomplish what you want them to, rather than being at the mercy of packages that have certain defaults built in.</p>
 </div>
