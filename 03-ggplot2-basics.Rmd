@@ -6,7 +6,7 @@ output: html_document
   
 ```{r setup-3, echo=FALSE, include=FALSE}
 library(tidyverse)
-knitr::opts_chunk$set(fig.align = "center", warning = FALSE)
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE)
 
 raw_cider_data <- 
   read_csv("data/CiderDryness_SensoryDATA.csv")
@@ -216,7 +216,7 @@ p +
 
 ### Finally, `facet_*()`
 
-The last powerful tool I want to show off is the ability of `ggplot2` to make what[ Edward Tufte called "small multiples"](https://socviz.co/groupfacettx.html#facet-to-make-small-multiples): breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.
+The last powerful tool I want to show off is the ability of `ggplot2` to make what [Edward Tufte called "small multiples"](https://socviz.co/groupfacettx.html#facet-to-make-small-multiples): breaking out the data into multiple, identical plots by some categorical classifier in order to show trends more effectively.
 
 So far we've seen how to visualize the overall liking of ciders in our small data set by the Merlyn Scale Ranking, and how to assign color, transparency, and fill to other attributes.  We can use such an approach to get a quick picture of the CATA selections for each cider in a clear, easy to see visualization:
 
@@ -315,7 +315,7 @@ We can see that the 2 most important attributes for driving liking are the same 
 
 ## Some further reading
 
-This has been a lightning tour of `ggplot2` as preparatory material for our core material on text analysis; it barely scratches the surface.  If you're interested in learning more, I recommend taking a look at the following sources:
+This has been a lightning tour of `ggplot2` as preparatory material; it barely scratches the surface.  We're going to dig into some further tools that you can use for common sensory visualizations, but we've learned all of these tricks from the following resources (as well as a lot of work on Stack Overflow/Exchange):
 
 1.  Kieran Healy's "[Data Visualization: a Practical Introduction](https://socviz.co/index.html#preface)".
 2.  The plotting section of [R for Data Science](https://r4ds.had.co.nz/data-visualisation.html).
