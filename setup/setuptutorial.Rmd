@@ -37,8 +37,6 @@ In order to be prepared to participate for the in-person tutorial on publication
 
 You may need help or pre-approval from your IT department if you will be using a work laptop. You should install all of these pieces of software and run the test code **before you travel** to minimize the setup necessary at the start of the tutorial.
 
-If you would prefer to see all of the setup instructions at once, you can go to [the github repo for this tutorial](https://github.com/lhami/sensometrics-r-tutorial-2024?tab=readme-ov-file#setup-for-this-tutorial-do-this-before-you-travel).
-
 If you get stuck or need any help, email us at **jlahne at vt dot edu** and **lhamilton at vsu dot edu**.
 
 ## Installing R
@@ -169,7 +167,9 @@ question("What does `geom_text_repel()` repel text *away from*?",
 ## Downloading example code
 To help you follow along during the tutorial, we have made an `R` Project for you with code to complete everything we intend to do, as well as all of the data and a troubleshooting script called `environmenttest.R`.
 
-Download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/sensometrics-tutorial-2024) now.
+Download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/sensometrics-r-tutorial-2024/blob/main/code/sensometrics-2024-code-download.zip) now.
+
+![Click the download arrow on the righthand side of the linked page](images/downloading-from-github.png)
 
 Close all open sessions of `R` and RStudio. **Unzip the archive**. If you're not sure how to do this, see [the guide for Windows and MacOS here](https://www.hostinger.com/tutorials/how-to-unzip-files).
 
