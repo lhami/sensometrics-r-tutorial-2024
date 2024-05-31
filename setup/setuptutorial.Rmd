@@ -169,12 +169,12 @@ To help you follow along during the tutorial, we have made an `R` Project for yo
 
 Download the pre-made archive of code and data from the [workshop github repo](https://github.com/lhami/sensometrics-r-tutorial-2024/blob/main/code/sensometrics-2024-code-download.zip) now.
 
-![Click the download arrow on the righthand side of the linked page](images/downloading-from-github.png)
+![Click the download arrow on the righthand side of the linked page](images/downloading-from-github.png){width=100%}
 
 Close all open sessions of `R` and RStudio. **Unzip the archive**. If you're not sure how to do this, see [the guide for Windows and MacOS here](https://www.hostinger.com/tutorials/how-to-unzip-files).
 
 Open the unzipped folder in the file explorer. It should have an `.Rproj` file and two folders named `code` and `data`. If you see a pink "Extract" button at the top of the file explorer, **you still need to unzip the archive**.
-![The windows file explorer preview for a zipped archive, which you must unzip before you can open the `.Rproj` file as expected.](images/zipped-archive-file-explorer.png)
+![The windows file explorer preview for a zipped archive, which you must unzip before you can open the `.Rproj` file as expected.](images/zipped-archive-file-explorer.png){width=100%}
 
 ### Opening the R Project
 Double-click on `sensometrics-r-tutorial-2024.Rproj` to open the project in RStudio, which will also set your working directory to this folder.

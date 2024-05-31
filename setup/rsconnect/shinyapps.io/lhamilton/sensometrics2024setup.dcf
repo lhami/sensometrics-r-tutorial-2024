@@ -5,6 +5,6 @@ account: lhamilton
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11670152
-bundleId: 8598217
+bundleId: 8685039
 url: https://lhamilton.shinyapps.io/sensometrics2024setup/
 version: 1
